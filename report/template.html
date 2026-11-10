@@ -205,12 +205,7 @@ footer { margin-top: 3.5rem; padding-top: 1rem; border-top: 1px solid var(--rule
     <li>Replace self-reported stuck points with step-justification probes, and spend the length budget where the weakest reader fails.</li>
   </ol>
   <h3>Take the work with you</h3>
-  <p class="note">The GitHub repository could not be created from this session. The archive below holds the code, prompts, every rewrite's source and all result data; the response cache lets the scripts replay every model call without spending tokens.</p>
-  <div class="downloads">
-    <button id="save-zip" hidden>Save code and results (.zip, 3.6 MB)</button>
-    <button id="save-cache" hidden>Save response cache (.zip, 5.8 MB)</button>
-  </div>
-  <p class="note" id="dl-note">Saving files is available when this page is opened in Claude.</p>
+  <p class="note">The GitHub repository could not be created from this session, so the repository was handed over as files in the conversation: a git bundle with the code, prompts, every rewrite's LaTeX source and PDF, and all result data, plus an archive of cached model responses that lets the scripts replay every call without spending tokens. Each PDF above can also be saved from its pane when this page is open in Claude.</p>
 </section>
 
 <footer class="col">Manuscripts from <a href="https://github.com/openai/math">openai/math</a> (Apache-2.0). Rewrites are modified versions of those works and have not been checked by a mathematician.</footer>
@@ -292,7 +287,6 @@ init();
   let dl = null;
   try { dl = window.claude && window.claude.use ? await window.claude.use("downloads") : null; } catch (e) { dl = null; }
   if (!dl) return;
-  $("dl-note").hidden = true;
   const save = async (btn, url, filename) => {
     const label = btn.textContent;
     btn.disabled = true; btn.textContent = "Preparing…";
@@ -309,7 +303,5 @@ init();
     const btn = $("save-" + pane); btn.hidden = false;
     btn.addEventListener("click", () => { const s = $("paper").value, v = $("ver-" + pane).value; save(btn, pdfUrl(s, v), `${s}-${v}.pdf`); });
   }
-  $("save-zip").hidden = false; $("save-zip").addEventListener("click", () => save($("save-zip"), "legible-proofs-code-results.zip", "legible-proofs-code-results.zip"));
-  $("save-cache").hidden = false; $("save-cache").addEventListener("click", () => save($("save-cache"), "cache.zip", "legible-proofs-cache.zip"));
 })();
 </script>
