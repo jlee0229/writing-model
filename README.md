@@ -81,7 +81,7 @@ compact    one-shot with a hard length cap (± the readers' reports)
 | Planted errors, through the pipeline | The corrupted original goes through the one-shot pipeline blind (1 error per paper). We record whether the rewrite preserved, flagged, repaired or dropped the error. | same |
 | Pairwise | Two writeups, both orders, four criteria plus an overall choice. | Haiku 5.5, Sonnet 5.5, Opus 5.5 |
 
-The paper is the unit of analysis. Full tables: [`results/SUMMARY.md`](results/SUMMARY.md); raw rows in `results/*.jsonl`; every model response is cached under `cache/` (kept out of git; shipped as `cache.zip` next to the repo archive).
+The paper is the unit of analysis. Full tables: [`results/SUMMARY.md`](results/SUMMARY.md); raw rows in `results/*.jsonl`; every model response is cached under `cache/` (kept out of git; `cache.zip` at the repo root holds it, so `unzip cache.zip` lets the scripts replay every call).
 
 ## Results in more detail
 
@@ -142,7 +142,7 @@ What looks open: a rewriter for AI-written research proofs evaluated on reader b
 
 ## Reproduce
 
-Requires Python 3.11+, a LaTeX toolchain with `latexmk`, and the Claude Code CLI (`claude`) logged in. All model calls go through `legible/llm.py`, which shells out to `claude -p` and caches every response, so re-running replays the recorded responses.
+Requires Python 3.11+, a LaTeX toolchain with `latexmk`, and the Claude Code CLI (`claude`) logged in. All model calls go through `legible/llm.py`, which shells out to `claude -p` and caches every response. Run `unzip cache.zip` first and re-running replays the recorded responses instead of spending tokens.
 
 ```bash
 python scripts/vendor_papers.py /path/to/clone/of/openai-math

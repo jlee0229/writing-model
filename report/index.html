@@ -225,7 +225,7 @@ footer { margin-top: 3.5rem; padding-top: 1rem; border-top: 1px solid var(--rule
     <li>Replace self-reported stuck points with step-justification probes, and spend the length budget where the weakest reader fails.</li>
   </ol>
   <h3>Take the work with you</h3>
-  <p class="note">The GitHub repository could not be created from this session, so the repository was handed over as files in the conversation: a git bundle with the code, prompts, every rewrite's LaTeX source and PDF, and all result data, plus an archive of cached model responses that lets the scripts replay every call without spending tokens. Each PDF above can also be saved from its pane when this page is open in Claude.</p>
+  <p class="note">Code, prompts, every rewrite's LaTeX source and PDF, and all result data are in <a href="https://github.com/jlee0229/writing-model">github.com/jlee0229/writing-model</a>. Its <code>cache.zip</code> holds every recorded model response, so the scripts can replay each call without spending tokens. Each PDF above can also be saved from its pane when this page is open in Claude.</p>
 </section>
 
 <footer class="col">Manuscripts from <a href="https://github.com/openai/math">openai/math</a> (Apache-2.0). Rewrites are modified versions of those works and have not been checked by a mathematician.</footer>
@@ -267,7 +267,7 @@ async function show(pane) {
     }
     box.scrollTop = 0;
   } catch (err) {
-    if (mine === tokens[pane]) box.innerHTML = '<p class="status">This PDF could not be shown here. The LaTeX source and PDF are in the saved archive under papers/' + slug + '/.</p>';
+    if (mine === tokens[pane]) box.innerHTML = '<p class="status">This PDF could not be shown here. The LaTeX source and PDF are in the repository under papers/' + slug + '/.</p>';
   }
 }
 
