@@ -1,0 +1,6 @@
+[
+ {
+  "find": "choose $\\alpha\\in\\C$ with $\\alpha^r=-c$ and put",
+  "replace": "choose $\\alpha\\in\\C$ with $\\alpha^r=c$ and put"
+ }
+]

@@ -1,0 +1,10 @@
+[
+ {
+  "find": "Choose a maximum matching $\\mathcal M$ with the fewest (E1) edges.",
+  "replace": "Choose a maximum matching $\\mathcal M$ with the most (E1) edges."
+ },
+ {
+  "find": "which uses the choice of $\\mathcal M$ with\nfewest (E1) edges.",
+  "replace": "which uses the choice of $\\mathcal M$ with\nmost (E1) edges."
+ }
+]

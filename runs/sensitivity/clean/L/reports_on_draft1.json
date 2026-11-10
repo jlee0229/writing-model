@@ -1,0 +1,184 @@
+[
+ {
+  "main_result": "For every real C>0 there is a nonconstant total Boolean function f with bs(f) > C·s(f)^2. Quantitatively, for every d≥1 and every M≥9^{d+1}, the construction gives a nonconstant f with f(0)=0, s(f) ≤ 2(d+2)M^{d+1} and bs(f,0) ≥ M^2(2M^2+1)^d, so bs(f)/s(f)^2 ≥ 2^d/(4(d+2)^2). Composing a seed with d=9 with itself yields, for some fixed α>2 (depending on M), functions F_ν with bs(F_ν,0) ≥ s(F_ν)^α and bs(F_ν,0) → ∞.",
+  "proof_strategy": "A recursive OR/AND-of-clauses predicate is built on a tournament of k=2M^2+1 rows with edge labels chosen by a union-bound lemma. Block sensitivity at 0 is lower-bounded by one disjoint block per row per level, giving a factor k per level. Sensitivity is controlled by two profiles S (single-predicate flips) and J (joint flips of two nested predicates), with recurrences proved by classifying which clause conditions a flip can repair, using nesting, the labelling lemma (|T|≤15) and the tournament (|G|≤3). The recurrences are normalised by M^{ℓ+b} and solved by comparison sequences, using M≥9^{d+1} to keep the normalised profile ≤2L. The final OR of M copies gives the ratio, and disjoint composition with g(0)=0 iterates the seed. I checked each recurrence direction, the normalisation algebra, the comparison-sequence sums, and the composition lemma; I found no algebraic error.",
+  "hardest_part": "The charging in Proposition (recurrences) Steps C–E: why the exceptional clause in G is charged to S'_1 in D3 but to J'_1 in E2, and why every non-exceptional clause's failed gate forces both P_{ℓ-1,Q-q} and P_{ℓ-1,Q} to 1 before the flip. I reconstructed these using nesting (N0)/(N1) and the definitions of κ and G, and they check out, but this is the place where a single wrong index direction would break the bound, so it deserves an independent pass.",
+  "issues": [
+   {
+    "where": "Theorem 2.1 (thm:main), second display",
+    "quote": "More precisely, for every integer \\(d\\ge1\\) the construction below gives",
+    "kind": "ambiguous_statement",
+    "severity": 2,
+    "what_i_needed": "The displayed bound bs/s^2 ≥ 2^d/(4(d+2)^2) only holds for M ≥ 9^{d+1}; the theorem statement should say so, since M is not otherwise quantified in it."
+   },
+   {
+    "where": "Section 1.2 Notation table",
+    "quote": "predicate indices at the current (parent) level",
+    "kind": "undefined_notation",
+    "severity": 2,
+    "what_i_needed": "In Lemma structure and Proposition, q<q' index predicates of the current level ℓ (q∈[H_ℓ]), not the parent level; the table's '(parent)' label contradicts the usage and the table says each symbol has one meaning."
+   },
+   {
+    "where": "Lemma quantitative-profiles, Step 5, bound on U_ℓ",
+    "quote": "The bracket is positive (it is at least \\(3\\ell-\\ell\\), because",
+    "kind": "unjustified_step",
+    "severity": 1,
+    "what_i_needed": "A one-line proof that 3^ℓ−1 ≥ 2ℓ for ℓ≥1 (induction), and an explicit note that positivity of the bracket is what licenses replacing ε by 2/3^{d+1} in the next display."
+   },
+   {
+    "where": "Section 1.2 'Why sensitivity is small', third bullet",
+    "quote": "Charging \\(S_{\\ell-1,1}\\) to all three clauses would give growth \\(3M\\) per level and destroy the gain.",
+    "kind": "unjustified_step",
+    "severity": 1,
+    "what_i_needed": "An explicit accounting showing that charging S_{ℓ-1,1} to three clauses yields a factor 3M per level, and why that exceeds the allowed 2 growth; as written it is a heuristic assertion."
+   },
+   {
+    "where": "Lemma base, Step 1",
+    "quote": "The centre \\(z_j\\) does not depend on \\(e\\)",
+    "kind": "ambiguous_statement",
+    "severity": 1,
+    "what_i_needed": "The argument shows a centre at distance exactly R+1 from x is unique (two such centres would be within 2d+2<2L), which is what is needed. The sentence should say that the same centre serves every successful e, since it is phrased as a claim about z_j and a generic j."
+   },
+   {
+    "where": "Section 6 (Verification checklist), opening paragraph",
+    "quote": "Every step above was checked while writing and no step is marked as unverified.",
+    "kind": "ambiguous_statement",
+    "severity": 1,
+    "what_i_needed": "A process claim that cannot be verified from the manuscript; the \\unverified macro is defined but unused. A referee needs either a machine-checked artefact or a reduced claim (e.g. which steps were checked by hand)."
+   },
+   {
+    "where": "Section 1.2 'Context', Huang/Tal/Wellens paragraph",
+    "quote": "gives \\(\\bs(f)\\le s(f)^4\\) for every total Boolean function",
+    "kind": "unjustified_step",
+    "severity": 1,
+    "what_i_needed": "The chain Huang degree bound + Tal's comparison giving bs ≤ s^4 is not reconstructed in the text. It is disclaimed as unused, so it does not affect the proof, but I could not verify it."
+   }
+  ]
+ },
+ {
+  "main_result": "For every real C>0 there is a nonconstant total Boolean function f with bs(f) > C·s(f)^2. The construction gives, for each d≥1 and M≥9^{d+1}, an f with f(0)=0, s(f) ≤ 2(d+2)M^{d+1}, bs(f,0) ≥ M^2(2M^2+1)^d, and hence bs(f)/s(f)^2 ≥ 2^d/(4(d+2)^2). The Corollary composes a seed (d=9) with itself to get nonconstant F_ν with bs(F_ν,0) ≥ s(F_ν)^α for a fixed α>2 and bs(F_ν,0)→∞.",
+  "proof_strategy": "A recursive OR/AND-style predicate construction: at each level, a predicate is an OR over k=2M^2+1 rows of clauses, where a clause requires all r target children to satisfy the strongest child predicate and one gate child per out-neighbour (selected by an edge label) to reject a weaker child predicate. Nesting of predicate indices and a tournament with out-degree M^2 let the authors bound, by case analysis on which single condition a flip repairs, the 0→1 and 1→0 sensitivity profiles S and the joint sensitivity profiles J via recurrences (Proposition on recurrences). A labelling avoiding a forbidden configuration (union bound) limits the number of candidate clauses, and a normalised induction (comparison sequences) shows S_{ℓ,b} ≤ 2LM^{ℓ+b}. Block sensitivity at zero is obtained from disjoint blocks that multiply by k per level, and an OR of M copies balances sensitivity; composition then iterates the seed. I checked each recurrence, the normalisation arithmetic, the induction in Lemma quantitative-profiles, the labelling union bound, and the composition lemma by hand and found them consistent.",
+  "hardest_part": "The joint-sensitivity bookkeeping in Proposition (recurrences), Steps C3, D2, D3 and E2: which failed gate is 'exceptional', why its initial value of P_{ℓ-1,Q} is or is not available, and which nesting direction (N0 vs N1) is used at each point. I traced each use and it held, but it depends on several sign-sensitive index comparisons spread across the text, and I would not trust a quick read to catch an error there.",
+  "issues": [
+   {
+    "where": "Theorem 1 (thm:main), second display",
+    "quote": "More precisely, for every integer \\(d\\ge1\\) the construction below gives",
+    "kind": "ambiguous_statement",
+    "severity": 2,
+    "what_i_needed": "The statement never quantifies M. The ratio bound is only proved for M ≥ 9^{d+1} (Section 3 and Step 5), but the theorem as written reads as if the bound holds for the construction with any M. State 'for every M ≥ 9^{d+1}' in the theorem itself."
+   },
+   {
+    "where": "Proposition (recurrences), Step B",
+    "quote": "We use only \\(P_{\\ell,q}(x^e)=0\\): every clause, in particular clause \\(i\\), is",
+    "kind": "ambiguous_statement",
+    "severity": 1,
+    "what_i_needed": "The bound is on the set where both predicates flip 1→0, but the argument only uses P_{ℓ,q}(x^e)=0, so it bounds a superset. One sentence saying this is an upper bound by a superset (and why that suffices) would remove a moment of doubt about why the second predicate is ignored."
+   },
+   {
+    "where": "Proposition (recurrences), Step E0",
+    "quote": "Choose a clause \\(W\\) satisfied at \\(x^e\\) at index \\(q'\\); it exists because",
+    "kind": "ambiguous_statement",
+    "severity": 1,
+    "what_i_needed": "The witness W depends on e, so Φ'(W) is defined per W and the union over W is taken afterwards. The text says this in passing ('it may depend on e'); an explicit remark that the union bound over W∈T∪G is taken after all e are fixed would make the covering argument self-contained."
+   },
+   {
+    "where": "Lemma (quantitative-profiles), Step 5, bound on U_ℓ",
+    "quote": "The bracket is positive (it is at least \\(3\\ell-\\ell\\), because",
+    "kind": "unjustified_step",
+    "severity": 1,
+    "what_i_needed": "Positivity of the bracket is needed to multiply the inequality ε ≤ 2/3^{d+1} by it. The stated reason is cut off in the quote; the full sentence gives 3^ℓ−1 ≥ 2ℓ for ℓ≥1 (checked by hand, true) but the reader must supply the check."
+   },
+   {
+    "where": "Introduction, 'What the proofs deliver concretely'",
+    "quote": "this is why the Corollary uses the seed \\(d=9\\).",
+    "kind": "ambiguous_statement",
+    "severity": 1,
+    "what_i_needed": "The seed condition actually used in the Corollary is B/A^2 = (k/M^2)^9/484 ≥ 128/121 > 1, which depends on k/M^2 ≥ 2 and not only on the d-dependent factor 2^d/(4(d+2)^2). The sentence should say that d=9 is the smallest d for which the crude factor 2^d/(4(d+2)^2) exceeds 1, and that M^2k^d/M^{2d+2} is what is compared."
+   },
+   {
+    "where": "Section 'Verification checklist', opening paragraph",
+    "quote": "Every step above was checked while writing and no step is marked as",
+    "kind": "ambiguous_statement",
+    "severity": 1,
+    "what_i_needed": "The document defines an \\unverified macro but never uses it, and the claim that every step was checked is a self-assessment. I could not verify this from the text; it is not a mathematical gap but it should not be taken as evidence."
+   },
+   {
+    "where": "Section 1.2, 'Relation to spectral sensitivity'",
+    "quote": "Nothing from \\cite{Meiburg2026} is used as a logical input.",
+    "kind": "ambiguous_statement",
+    "severity": 1,
+    "what_i_needed": "The text mixes provenance statements ('According to the source', footnote credits) with mathematics. I could confirm that no later step depends on the cited paper, but I could not check the cited spectral claims themselves; the reader needs a clear statement of which sentences in this subsection are used in proofs (the text says none)."
+   },
+   {
+    "where": "Proposition (recurrences), Step D, end of D2",
+    "quote": "(Such a flip destroys a target of the clause of row \\(j\\). This is irrelevant: we only bound the",
+    "kind": "lost_thread",
+    "severity": 1,
+    "what_i_needed": "The parenthetical is correct (only the number of coordinates after which clause i holds is bounded), but it is placed mid-argument and a reader can briefly think the target loss must be accounted for. A forward reference to why it is irrelevant would help."
+   }
+  ]
+ },
+ {
+  "main_result": "For every real C>0 there exist n and a nonconstant total Boolean f on {0,1}^n with bs(f) > C·s(f)^2. The explicit bound is bs(f)/s(f)^2 >= 2^d/(4(d+2)^2) for each d>=1, obtained from an OR of M disjoint copies of a depth-d recursive predicate, with M >= 9^{d+1} (labels from a union-bound lemma). Corollary: for some fixed alpha>2 there are nonconstant total F_nu with bs(F_nu,0) >= s(F_nu)^alpha and bs(F_nu,0) -> infinity, obtained by iterating a seed f with bs(f,0) >= B > A^2 >= s(f)^2 under disjoint composition.",
+  "proof_strategy": "The construction is a recursive OR-of-clauses predicate over a tournament on k=2M^2+1 rows, with edge labels chosen so that no 16 rows form a bad labelled clique (Lemma labelling, union bound). Block sensitivity at 0 is built level by level: each row gives a disjoint sensitive block, multiplying the count by k per level (Lemma blocks). Sensitivity is bounded by induction on the predicate levels via recurrences for single-flip profiles S and two-predicate joint profiles J (Proposition recurrences), using nesting of predicates, a bound |T|<=15 from the labelling, and |G|<=3 from the tournament to charge repairs. The recurrences are normalised by M^{l+b} and solved by comparison sequences, using M>=9^{d+1} (Lemma quantitative profiles). The OR of copies is balanced and yields bs(f,0)/s(f)^2 >= (k/M^2)^d/(4L^2), and disjoint composition (Lemma composition) iterates the seed. I checked the local inequalities and the algebra of each step and found no false step; the global claim itself I could not independently cross-check against the literature.",
+  "hardest_part": "The joint-sensitivity charging in Proposition recurrences (Steps C3, D2, D3, E2): which clauses are non-exceptional, when nesting forces a second predicate to 1 or 0 on the same child, and why the S'_1 term disappears from J_{l,0}. I traced each direction of nesting (N0/N1) and the child identities, and they are consistent, but the argument is intricate and spread over several steps. I did not brute-force any instance, so the combinatorial claims rest on my hand verification. The overall claimed superquadratic separation is also a strong result I could not validate beyond the local checks.",
+  "issues": [
+   {
+    "where": "Theorem~\\ref{thm:main} (second display)",
+    "quote": "More precisely, for every integer \\(d\\ge1\\) the construction below gives",
+    "kind": "ambiguous_statement",
+    "severity": 2,
+    "what_i_needed": "The construction depends on M, and the proof needs M >= 9^{d+1}, but the theorem never states which M is used or that M must be chosen this large. The quantifiers over M (and whether M is free or chosen) should be stated explicitly in the theorem."
+   },
+   {
+    "where": "Section 1.1 'What the proofs deliver concretely'",
+    "quote": "we construct an explicit \\(f\\) (up to the choice of a labelling whose existence is shown",
+    "kind": "ambiguous_statement",
+    "severity": 1,
+    "what_i_needed": "The labelling of Lemma labelling is obtained by a probabilistic existence argument, so f is not explicit in the usual sense. The text should say the function is determined by a fixed but non-constructively chosen labelling."
+   },
+   {
+    "where": "Section 4.2 (Lemma quantitative-profiles), Plan paragraph",
+    "quote": "The hypothesis \\(M\\ge9^{d+1}\\) enters only through the bound \\(\\epsilon\\le2/3^{d+1}\\) of Step~3, which is used only at the end of",
+    "kind": "ambiguous_statement",
+    "severity": 1,
+    "what_i_needed": "Step 3 also uses M>=81 (so sqrt M >= 9 and t <= 2 sqrt M) and sqrt M >= 3^{d+1} inherited from M >= 9^{d+1}. The plan understates where the hypothesis is used. Harmless for the result but the claim as written is not accurate."
+   },
+   {
+    "where": "Section 4.2 (Lemma quantitative-profiles), Step 5, bound on U_l",
+    "quote": "The bracket is positive (it is at least \\(3\\ell-\\ell\\), because",
+    "kind": "unjustified_step",
+    "severity": 1,
+    "what_i_needed": "The nonnegativity of the bracket is needed to multiply the inequality epsilon <= 2/3^{d+1} by it, but the text justifies it only through 3^l - 1 >= 2l, which is asserted without a line of proof (it follows by induction or from 3^l >= 1+2l). The step is valid but should be justified."
+   },
+   {
+    "where": "Section 1.2 'Relation to spectral sensitivity' (context, not used in proofs)",
+    "quote": "since \\(\\lambda(f)\\le s(f)\\), a lower bound on",
+    "kind": "unjustified_step",
+    "severity": 1,
+    "what_i_needed": "The inequality lambda(f) <= s(f) is asserted without proof or reference to the operator norm bound. The section is labelled as not used in the proofs, so this is low impact, but I could not verify the claim from the text."
+   },
+   {
+    "where": "Proposition recurrences, Step D2",
+    "quote": "By \\eqref{eq:G-before} both predicates were \\(1\\)",
+    "kind": "lost_thread",
+    "severity": 1,
+    "what_i_needed": "The argument that both predicates are 1 before the flip relies on G-before for non-exceptional clauses, which in turn relies on C3(i)-(iii). The chain of references is correct, but a reader must reconstruct it across several pages; an explicit line recalling that the failed gate for i->j is the only failed condition would make the count checkable at a glance."
+   },
+   {
+    "where": "Section 2.2 'Why sensitivity is small' (at-a-glance)",
+    "quote": "Charging \\(S_{\\ell-1,1}\\) to all three clauses would give growth",
+    "kind": "ambiguous_statement",
+    "severity": 1,
+    "what_i_needed": "This is a heuristic motivation for the joint-sensitivity device, not a claim used in the proof. It is stated as a fact about 'growth 3M per level' without a computation. It should be marked as heuristic or dropped."
+   },
+   {
+    "where": "Proof of Lemma base (Step 1)",
+    "quote": "So all successful coordinates \\(e\\) lie among the same",
+    "kind": "ambiguous_statement",
+    "severity": 1,
+    "what_i_needed": "The bound S_{0,0} <= L needs both that the relevant centre is unique among centres at distance R+1 and that the flip lies in the disagreement set of that centre. The text argues uniqueness via 2R+2 < 2L, which is correct, but the conclusion 'lie among the same R+1 coordinates' is not stated as a bound on the count; one line making S_{0,0} <= R+1 <= L explicit would help."
+   }
+  ]
+ }
+]

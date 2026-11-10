@@ -1,0 +1,12 @@
+{
+ "statements": [],
+ "introduced": [],
+ "source_doubts": [],
+ "unverified_marks": [
+  {
+   "where": "Boxed note immediately after the proof of Corollary 1.2 (two-union corollary), referring to Steps 2 and 4 of that proof",
+   "concern": "The rewrite says Steps 2 and 4 quote Li (Cor. 3.1), Park (Thm. 3.4) and the companion expectation-threshold theorem (Thm. 1.1) as the source uses them, that the source states neither their hypotheses nor the origin of sigma = p/2, and that they were not checked against the cited papers. This is an accurate scope disclaimer, but it identifies no defect. The source justifies both steps by explicit citation, which is ordinary practice. Everything checkable internally is correct: E_2(D) is a nonempty proper increasing family when nonempty, capping coefficients at 1 preserves coverage without raising cost, and (p/2)/(25*512^4) = p/(50*512^4). The usage is also consistent with the source's own description of those results (Park's integral cover of E_2 under mu_p(D) > 1/2, constant-factor rounding). The cited 2026 preprints could not be consulted in this audit either, so the black-box dependence remains, but there is no specific reason to doubt the step. The corollary is not used in the proof of Theorem 1.1.",
+   "warranted": false
+  }
+ ]
+}

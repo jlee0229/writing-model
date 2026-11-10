@@ -1,0 +1,10 @@
+[
+ {
+  "find": "at position $i$ and zeros elsewhere, and $w$",
+  "replace": "at position $j$ and zeros elsewhere, and $w$"
+ },
+ {
+  "find": "entry $\\bar p$ at position $j$ and zeros elsewhere. Then",
+  "replace": "entry $\\bar p$ at position $i$ and zeros elsewhere. Then"
+ }
+]

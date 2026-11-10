@@ -1,0 +1,19 @@
+{
+ "statements": [],
+ "introduced": [],
+ "source_doubts": [
+  {
+   "where": "Corollary 1.2 (two unions) in the SOURCE; Corollary 5.1 / Section 5.2, proof steps (3) and (5), in the REWRITE",
+   "quote": "By Li's result \\cite[Corollary~3.1]{Li26} in Park's fractional-cover formulation \\cite[Theorem~3.4]{Park26}, this family has a fractional cover of cost at most $1/2$ at $r=p/2$. ... The companion expectation-threshold theorem~\\cite[Theorem~1.1]{OpenAIThreshold26} then gives an integral cover of cost at most $1/2$ at $r/(25\\cdot512^4)$.",
+   "problem": "This is a dependency caveat, not a detected error. The corollary's proof is carried entirely by two external results quoted by number only: the fractional cover at density p/2 under mu_p(D) > 1/2, and constant-factor rounding with constant 25*512^4 from an unrefereed companion preprint. Neither the hypotheses of those theorems nor the constants can be checked from the manuscript. The internal steps are correct: E_2(D) is nonempty, proper and increasing; capping coefficients at 1 preserves coverage and does not increase cost; and (p/2)/(25*512^4) = p/(50*512^4). The corollary is not used in the proof of Theorem 1.1, Lemma 2.1 or Proposition 3.1, all of which I checked step by step in the source and found sound.",
+   "already_marked_unverified": true
+  }
+ ],
+ "unverified_marks": [
+  {
+   "where": "Section 5.2, box immediately after the proof of Corollary 5.1 (two-union corollary)",
+   "concern": "Steps (3) and (5) rest on the external inputs (I1) (Li Cor. 3.1 / Park Thm. 3.4: fractional cover of E_2(D) at density p/2) and (I2) (companion preprint Thm. 1.1: rounding to an integral cover at density sigma/(25*512^4)). The source cites these by number without stating them, so the rewriter could not check their hypotheses, the density p/2, or the constant.",
+   "warranted": true
+  }
+ ]
+}

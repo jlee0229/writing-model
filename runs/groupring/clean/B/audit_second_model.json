@@ -1,0 +1,19 @@
+{
+ "statements": [],
+ "introduced": [],
+ "source_doubts": [
+  {
+   "where": "Theorem 1.2 (thm:input), the external input from the characteristic-two companion",
+   "quote": "There exist a finite field $K_2$ of characteristic two, a finitely generated group $H_2$, and finite sums $a_2,b_2\\in K_2[H_2]$ with $a_2b_2=1$ and $b_2a_2\\ne1$.",
+   "problem": "This is quoted without proof, and the source and rewrite provide nothing to check it against. It asserts a counterexample to Kaplansky's direct finiteness conjecture for group algebras over a finite field. Elek–Szabó proved direct finiteness for sofic groups, so the claim would also give the first non-sofic group. Both are open problems, which makes this an extraordinary claim, and the whole main theorem depends on it.",
+   "already_marked_unverified": true
+  }
+ ],
+ "unverified_marks": [
+  {
+   "where": "Immediately after Theorem 1.2 (thm:input) in Section 1.3",
+   "concern": "The external existence input (failure of direct finiteness for K_2[H_2] in characteristic two) is not proved and would settle open problems: Kaplansky's direct finiteness conjecture and, through Elek–Szabó, the existence of non-sofic groups. Everything after it is conditional on it.",
+   "warranted": true
+  }
+ ]
+}

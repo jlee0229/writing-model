@@ -1,0 +1,233 @@
+{
+ "slug": "sensitivity",
+ "questions": [
+  {
+   "id": 1,
+   "type": "gist",
+   "question": "State precisely the quantitative form of the main separation theorem: for which parameter, with which conclusion about bs(f) and s(f), and how it implies that no universal constant C gives bs(f) ≤ C s(f)^2.",
+   "answer": "For every integer depth d ≥ 1 (taking M ≥ 9^{d+1}), there is a nonconstant total Boolean function f with bs(f)/s(f)^2 ≥ 2^d/(4(d+2)^2). This lower bound tends to infinity with d, so for any C > 0 one first picks d with 2^d/(4(d+2)^2) > C, then M and the labels, which gives bs(f) > C s(f)^2.",
+   "must_include": [
+    "for every d≥1 a nonconstant total f with bs(f)/s(f)^2 ≥ 2^d/(4(d+2)^2)",
+    "this bound → ∞ as d → ∞, so choosing d large beats any C"
+   ],
+   "key_confirmed": true,
+   "closed_book_novice": 0.0,
+   "closed_book_weak": 0.0,
+   "closed_book_mid": 0.0,
+   "usable": true
+  },
+  {
+   "id": 2,
+   "type": "gist",
+   "question": "Why does the argument need to track how often a single bit flips two distinct nested predicates of a child at once, in addition to ordinary sensitivity? Which kind of candidate clause makes this necessary?",
+   "answer": "At a rejecting input, some candidate clauses fail only one gate, and that gate lies in a row whose strongest child predicates all accept. Repairing such a gate means turning the weaker gate predicate off, and by nesting this also turns off the strongest predicate on the same child. So each such repair is a joint change of two distinct predicates, counted by J'_1 instead of S'_1. J starts at zero and stays small relative to S, so these clauses add almost nothing, while ordinary sensitivity grows only by about a factor M per level.",
+   "must_include": [
+    "clauses failing exactly one gate in a row whose targets (strongest predicates) all accept",
+    "repairing that gate forces both the weaker and the strongest child predicate to change (via nesting), so it is bounded by joint sensitivity J'_1 rather than S'_1",
+    "joint sensitivity starts at 0 and stays small, so this keeps sensitivity growth to about a factor M per level"
+   ],
+   "key_confirmed": true,
+   "closed_book_novice": 0.0,
+   "closed_book_weak": 0.0,
+   "closed_book_mid": 0.0,
+   "usable": true
+  },
+  {
+   "id": 3,
+   "type": "gist",
+   "question": "Outline the overall structure of the argument from the base predicates to the final function with superquadratic separation, naming the main quantitative facts at each stage.",
+   "answer": "The base predicates are indicators of Hamming-ball unions, which have small sensitivity and zero joint sensitivity. The recursion over a labelled tournament gives Mk^ℓ disjoint blocks that are sensitive at zero, and four coupled recurrences bound S and J. With M ≥ 9^{d+1}, these recurrences normalize to S_{ℓ,b} ≤ 2L M^{ℓ+b}. An OR of M copies of P_{d,1} balances the two sides, so s ≤ 2L M^{d+1} and bs(f,0) ≥ M^2 k^d, which gives the ratio bound. Composing a fixed seed with itself then gives a fixed exponent α > 2.",
+   "must_include": [
+    "base Hamming-ball predicates with zero joint sensitivity, and the zero-input block family of size Mk^ℓ",
+    "coupled recurrences for S and J normalized to S_{ℓ,b} ≤ 2L M^{ℓ+b} (M large)",
+    "OR of M copies to balance, giving the ratio bound; then iterated composition of a seed for α>2"
+   ],
+   "key_confirmed": true,
+   "closed_book_novice": 0.0,
+   "closed_book_weak": 0.0,
+   "closed_book_mid": 0.0,
+   "usable": true
+  },
+  {
+   "id": 4,
+   "type": "step",
+   "question": "At a rejecting input of P_{ℓ,q}, consider the clauses that fail exactly one target and no gate. Why does an edge i→j between two such clauses force the edge label a(i,j) to equal the position of row j's failed target, and what does this give?",
+   "answer": "Clause i passes all its gates, so the gate child (j,a(i,j)) has P_{ℓ-1,Q-q} = 0. By nesting, P_{ℓ-1,Q} is also 0 there, so that child is a failed target of clause j. Clause j fails only one target, at position m_j, so a(i,j) = m_j. Having t such clauses would contradict the labelling property, so there are fewer than t, and they contribute at most tS'_0.",
+   "must_include": [
+    "clause i's gate passes so P_{Q-q}=0 at (j,a(i,j)), and nesting gives P_Q=0, i.e. a failed target of j",
+    "uniqueness of j's failed target gives a(i,j)=m_j; t such clauses would contradict the labelling lemma, so fewer than t"
+   ],
+   "key_confirmed": true,
+   "closed_book_novice": 0.0,
+   "closed_book_weak": 0.0,
+   "closed_book_mid": 0.0,
+   "usable": true
+  },
+  {
+   "id": 5,
+   "type": "step",
+   "question": "At a rejecting input, why can at most three clauses fail exactly one gate and no target?",
+   "answer": "Every such clause has all of its targets true. So for an edge i→j between two of them, the gate child of i in row j has P_{ℓ-1,Q} = 1, and by nesting P_{ℓ-1,Q-q} = 1, so that gate of i fails. Each clause has only one failed gate, so every outdegree in the induced tournament is at most 1. The tournament on m vertices has m(m-1)/2 edges, so m(m-1)/2 ≤ m, which gives m ≤ 3.",
+   "must_include": [
+    "an edge i→j inside the set is a failed gate of i, since row j's strongest predicates are 1 and nesting makes the gate predicate 1",
+    "so each induced outdegree is ≤1; a tournament has m(m-1)/2 edges, so m(m-1)/2 ≤ m and m≤3"
+   ],
+   "key_confirmed": true,
+   "closed_book_novice": 0.0,
+   "closed_book_weak": 0.0,
+   "closed_book_mid": 0.0,
+   "usable": true
+  },
+  {
+   "id": 6,
+   "type": "step",
+   "question": "For a gate-failing candidate clause i whose failed gate lies in the row of another such clause, why are the flips that repair it counted by J'_1 instead of S'_1? Why is it harmless that the flip breaks a target of the other row's clause?",
+   "answer": "The failed gate child initially has P_{ℓ-1,Q-q} = 1 and also P_{ℓ-1,Q} = 1, because it is a true target of row j. Repairing the gate makes P_{ℓ-1,Q-q} = 0, and by nesting P_{ℓ-1,Q} = 0 as well. These are distinct indices because q ≥ 1, so this is a joint 1→0 change counted by J'_1. Breaking row j's target does not matter, because the witness that accepts after the flip is clause i, whose own targets and other gates are untouched.",
+   "must_include": [
+    "initially both P_{Q-q}=1 and P_Q=1 on that child; making P_{Q-q}=0 forces P_Q=0 by nesting",
+    "Q-q≠Q since q≥1, so it is a joint 1→0 change of two distinct predicates (J'_1)",
+    "the accepting witness is clause i, which only touches the one child, so breaking row j's target does not matter"
+   ],
+   "key_confirmed": true,
+   "closed_book_novice": 0.0,
+   "closed_book_weak": 0.0,
+   "closed_book_mid": 0.0,
+   "usable": true
+  },
+  {
+   "id": 7,
+   "type": "step",
+   "question": "In bounding the bits that turn two parent predicates (indices q<q') from 0 to 1 at once, the clause failing one gate with no outgoing edge inside the gate-failing set costs only J'_1, not S'_1. Why, even though the child at its failed gate need not have its strongest predicate equal to 1?",
+   "answer": "Set g = Q-q and g' = Q-q', so g' < g. Initially the failed gate has P_{ℓ-1,g} = 1, and by nesting P_{ℓ-1,g'} = 1. For the clause to hold at q' afterwards, P_{ℓ-1,g'} must become 0, and nesting then forces P_{ℓ-1,g} = 0. So the two distinct thresholds both drop from 1 to 0, which is a J'_1 event. The second parent index supplies the second threshold in place of the target predicate.",
+   "must_include": [
+    "initial P_g=1 implies P_{g'}=1 (g'<g); satisfying the clause at q' afterward needs P_{g'}=0, forcing P_g=0",
+    "so two distinct child predicates (g and g', from the two parent indices) both change, i.e. J'_1, with no target value needed"
+   ],
+   "key_confirmed": true,
+   "closed_book_novice": 0.0,
+   "closed_book_weak": 0.0,
+   "closed_book_mid": 0.0,
+   "usable": true
+  },
+  {
+   "id": 8,
+   "type": "step",
+   "question": "When two parent predicates P_{ℓ,q} and P_{ℓ,q'} (q<q') are both 1 and a flip makes both 0 without breaking a target of a fixed clause satisfied at q', why is that flip counted by J'_0 at some gate?",
+   "answer": "The clause holds at q', so each gate child has P_{ℓ-1,g'} = 0, and nesting gives P_{ℓ-1,g} = 0, where g = Q-q > g' = Q-q'. The flip must also make the clause fail at q, and with targets intact this means some gate has P_{ℓ-1,g} = 1 afterwards. Nesting then gives P_{ℓ-1,g'} = 1, so two distinct child predicates rise from 0 to 1 together. Each of the M^2 gates therefore contributes at most J'_0 such flips.",
+   "must_include": [
+    "the clause holds at q', so gates have P_{g'}=0 and by nesting P_g=0",
+    "the parent at q must also become 0, so a gate fails at q (P_g=1), which forces P_{g'}=1: a joint 0→1 change, ≤J'_0 per gate (M^2 gates)"
+   ],
+   "key_confirmed": true,
+   "closed_book_novice": 0.0,
+   "closed_book_weak": 0.0,
+   "closed_book_mid": 0.0,
+   "usable": true
+  },
+  {
+   "id": 9,
+   "type": "step",
+   "question": "For the base Hamming-ball predicates, why can a rejecting input of a radius-R predicate have at most R+1 ≤ L sensitive bits, and why does no bit change two of these predicates simultaneously?",
+   "answer": "A successful flip needs some centre at distance exactly R+1 ≤ d+1. Two centres within distance d+1 would be at most 2d+2 apart, but distinct centres are 2L = 2d+4 apart, so there is a unique such centre. Every successful flip moves towards it, which leaves at most R+1 choices. Because D changes by at most 1 under a single flip, the predicate cannot cross two distinct integer radii at once.",
+   "must_include": [
+    "at most one centre within distance d+1, since centres are 2d+4 apart > 2d+2; successful flips move toward it, giving ≤R+1 choices",
+    "|D(x)-D(y)|≤1 for adjacent inputs, so two distinct integer radii cannot both be crossed"
+   ],
+   "key_confirmed": true,
+   "closed_book_novice": 0.0,
+   "closed_book_weak": 0.0,
+   "closed_book_mid": 0.0,
+   "usable": true
+  },
+  {
+   "id": 10,
+   "type": "step",
+   "question": "After normalizing S_{ℓ,b} by M^{ℓ+b}, which terms of the four recurrences are the dominant (order-one) contributions, and which are small? Why must they be normalized by different powers of M on the two sides?",
+   "answer": "On the 1-side, M^2 S'_0 is about M^2·M^{ℓ-1} = M^{ℓ+1}, while rS'_1 is about rM^ℓ, which is smaller by a factor r/M. On the 0-side, S'_1 is about M^ℓ, while tS'_0 is smaller by a factor t/M. The 3J'_1 term is bounded by 3v_{ℓ-1}, which is small because v is small. So S_1 picks up a factor of about M^2 from the zero side and S_0 inherits S_1 with no extra factor, which is why the two sides are offset by one power of M.",
+   "must_include": [
+    "M^2 S'_0 (one side) and S'_1 (zero side) are the order-one terms",
+    "rS'_1, tS'_0 are smaller by factors r/M, t/M (≤ε) and the J terms enter through small v"
+   ],
+   "key_confirmed": true,
+   "closed_book_novice": 0.0,
+   "closed_book_weak": 0.0,
+   "closed_book_mid": 0.0,
+   "usable": true
+  },
+  {
+   "id": 11,
+   "type": "step",
+   "question": "Why must M be exponentially large in the depth (M ≥ 9^{d+1}) instead of merely a large constant?",
+   "answer": "In the normalized joint recurrence v_ℓ ≤ εu_{ℓ-1} + 3v_{ℓ-1}, the factor 3 comes from the at most three gate-failing clauses, so v can grow like ε·L·3^ℓ. To keep U_ℓ ≤ 2L up to depth d, ε·3^d has to stay below about 1. Since ε ≤ 2/√M, this needs √M ≥ 3^{d+1}, i.e. M ≥ 9^{d+1}.",
+   "must_include": [
+    "the joint profile's normalized recurrence has coefficient 3 (from 3J'_1), so v_ℓ ~ ε L 3^ℓ",
+    "need ε·3^d small, and ε ≤ 2/√M, giving √M ≥ 3^{d+1}"
+   ],
+   "key_confirmed": true,
+   "closed_book_novice": 0.0,
+   "closed_book_weak": 0.0,
+   "closed_book_mid": 0.0,
+   "usable": true
+  },
+  {
+   "id": 12,
+   "type": "transfer",
+   "question": "Suppose the gate conditions tested the strongest child predicate P_{ℓ-1,Q} (so the gate is P_{ℓ-1,Q}=0) instead of the weaker P_{ℓ-1,Q-q}. Where does the sensitivity argument break, and what is the effect on the final ratio?",
+   "answer": "A gate-failing clause whose failed gate lies in a row with all targets true can then be repaired by a single change of P_{ℓ-1,Q} from 1 to 0. That costs S'_1 rather than J'_1, so the zero-side bound becomes about tS'_0 + 3S'_1. Normalized sensitivity then grows by a factor of about 3 per level, so s gains a factor 3^d and s^2 gains 9^d. This swamps the 2^d gain in block sensitivity, and the ratio tends to 0.",
+   "must_include": [
+    "the repair of such a gate becomes a single-predicate change, bounded by S'_1 not J'_1, so S_{ℓ,0} ≲ tS'_0+3S'_1",
+    "normalized sensitivity grows by ~3 per level, so s^2 gains ~9^d versus the 2^d block gain, and the separation fails"
+   ],
+   "key_confirmed": true,
+   "closed_book_novice": 0.0,
+   "closed_book_weak": 0.0,
+   "closed_book_mid": 0.0,
+   "usable": true
+  },
+  {
+   "id": 13,
+   "type": "transfer",
+   "question": "In the final step, suppose f were the OR of only one copy of P_{d,1} (instead of M copies), or alternatively the OR of M^2 copies. Using the profile bounds S_{d,b} ≤ 2L M^{d+b}, what lower bound on bs(f)/s(f)^2 does each choice give? Does either still yield a separation given M ≥ 9^{d+1}?",
+   "answer": "With one copy, s ≤ 2LM^{d+1} still, but bs(f,0) ≥ Mk^d, so the ratio is about 2^d/(4L^2 M). With M^2 copies, s ≤ M^2·2LM^d = 2LM^{d+2} and bs ≥ M^3k^d, so the ratio is again about 2^d/(4L^2 M). In both cases a factor M is lost, and since M ≥ 9^{d+1} the ratio goes to 0. Only M copies balance the two sides.",
+   "must_include": [
+    "either choice loses a factor M: ratio ≈ 2^d/(4L^2 M)",
+    "since M ≥ 9^{d+1} ≫ 2^d, neither gives a separation; M copies exactly balance M·S_{d,0} with S_{d,1}"
+   ],
+   "key_confirmed": true,
+   "closed_book_novice": 0.0,
+   "closed_book_weak": 0.0,
+   "closed_book_mid": 0.0,
+   "usable": true
+  },
+  {
+   "id": 14,
+   "type": "transfer",
+   "question": "At a rejecting input, suppose exactly three clauses fail one gate and no target. Which tournament on these three vertices must they induce, and how many of them are the exceptional vertex with no outgoing edge inside the set?",
+   "answer": "Each induced outdegree is at most 1, and three vertices span 3 edges, so every vertex must have outdegree exactly 1. The induced tournament is therefore the directed 3-cycle; the transitive triangle is impossible because its source has outdegree 2. There is no exceptional vertex, and all three clauses fall under the J'_1 bound.",
+   "must_include": [
+    "the induced tournament must be a cyclic triangle (each outdegree exactly 1; transitive one excluded since its source has outdegree 2)",
+    "no vertex has outdegree zero, so there is no exceptional clause"
+   ],
+   "key_confirmed": true,
+   "closed_book_novice": 0.0,
+   "closed_book_weak": 0.0,
+   "closed_book_mid": 0.0,
+   "usable": true
+  },
+  {
+   "id": 15,
+   "type": "transfer",
+   "question": "In the random-labelling existence argument (with k ≤ 3M^2 rows and labels in [r], r ≥ √M), suppose the forbidden configuration size t were replaced by a general constant. What is the smallest t for which the union bound has a negative exponent of M?",
+   "answer": "The union bound is about k^t r^t r^{-t(t-1)/2} ≤ 3^t M^{2t - (t(t-1)/2 - t)/2}. The exponent of M is t(11-t)/4, which is negative exactly when t > 11. So the smallest such value is t = 12.",
+   "must_include": [
+    "bound k^t r^{t - C(t,2)} with k≤3M^2, r≥√M gives M-exponent 2t − (C(t,2)−t)/2 = t(11−t)/4",
+    "negative iff t>11, so smallest t = 12"
+   ],
+   "key_confirmed": true,
+   "closed_book_novice": 0.0,
+   "closed_book_weak": 0.0,
+   "closed_book_mid": 0.0,
+   "usable": true
+  }
+ ]
+}

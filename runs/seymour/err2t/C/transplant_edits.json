@@ -1,0 +1,6 @@
+[
+ {
+  "find": "fewest edges between $\\mathcal R$ and $\\mathcal C$",
+  "replace": "most edges between $\\mathcal R$ and $\\mathcal C$"
+ }
+]

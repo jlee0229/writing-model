@@ -1,0 +1,18 @@
+[
+ {
+  "find": "plus \\(\\sigma\\|w\\|\\)",
+  "replace": "plus \\(\\sigma\\)"
+ },
+ {
+  "find": "\\([\\alpha(y),\\beta(y)+\\|w\\|]\\)",
+  "replace": "\\([\\alpha(y),\\beta(y)+1]\\)"
+ },
+ {
+  "find": "\\bigl(\\beta(y)-\\alpha(y)+\\|w\\|\\bigr)dy",
+  "replace": "\\bigl(\\beta(y)-\\alpha(y)+1\\bigr)dy"
+ },
+ {
+  "find": "=|Q|+\\|w\\|\\vol_{d-1}(\\proj_{w^\\perp}Q)",
+  "replace": "=|Q|+\\vol_{d-1}(\\proj_{w^\\perp}Q)"
+ }
+]

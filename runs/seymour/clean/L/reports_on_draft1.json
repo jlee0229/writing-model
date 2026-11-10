@@ -1,0 +1,184 @@
+[
+ {
+  "main_result": "Every nonempty finite oriented graph D has a vertex v with |N_1^+(v)| <= |N_2^+(v)|, where N_1^+(v) is the out-neighbourhood and N_2^+(v) is the set of vertices at directed distance exactly two (Seymour's second neighbourhood conjecture). Corollaries give weighted forms (for every vertex weighting some v satisfies a weighted inequality; some weighting makes every vertex satisfy it; an arc-weighted version), and consequences for oriented graphs without directed triangles (a vertex with deg^+(v) <= |Non(v)|, n-1 >= 2deg^+(v)+deg^-(v), and a directed-triangle result under minimum in- and out-degree n/3).",
+  "proof_strategy": "Proof by contradiction. (1) Lemma subset-deficit: in a minimal counterexample D (fewest vertices, then arcs), every nonempty proper S satisfies |F^2(S)\\F(S)| < |F(S)\\S|. This is shown by deleting arcs from S to E\\T for a set T, using minimality to find a vertex v that loses an out-neighbour, and bounding the change in g(T) = |F(T)\\(I∪T)| by an increment strictly less than |Y|; telescoping over T_0 ⊂ T_1 ⊂ ... ⊂ E gives g(E) < |E|. (2) Lemma blowup: replacing each vertex by a transitive tournament of size m > n transfers the strict subset inequality to a graph G with |U| + |F_G^2(U)| < 2|F_G(U)| for all proper nonempty U; the case S = V(D) is handled separately using positive indegree. (3) Proposition no-concavity: for such G, take a compatible pair (P,Q) of arc-image families maximizing |P|+|Q|+d; the strict inequalities on columns and rows give larger complementary families R, C that are not compatible; a pruning lemma (proved via König's theorem and a generic-rank argument producing a real assignment satisfying three rank conditions) deletes at most |H|+q members, which yields a strictly larger objective, a contradiction. (4) Weighted and cycle corollaries are derived from the theorem via a blow-up/duality (Farkas) argument and short counting. I checked steps (1)-(3) line by line and found no gap; the points below are gaps in justification rather than errors.",
+  "hardest_part": "The pruning lemma (Lemma pruning, Parts 3-9): the chain from a maximum matching of the auxiliary bipartite graph to a single real assignment satisfying rank L = l, rank N = t, dim ker A >= k relies on shared variables a_{pi}, b_{sj} appearing in several matrices, and on the non-vanishing of a product of block minors in R[a,b]. I verified each block-determinant argument and the kernel restriction (Lemma kernel-support applied to W^{p,i}), but these are long and the genericity step is the easiest place for a subtle dependence to hide. The global claim (resolving a long-open conjecture) also needs independent verification beyond a local reading.",
+  "issues": [
+   {
+    "where": "Remark rem:arc-check (direct check of (iii)), final paragraph of the counting argument",
+    "quote": "for fixed $s$ there are at most $\\beta_v^w(s)$ such $c$",
+    "kind": "unjustified_step",
+    "severity": 2,
+    "what_i_needed": "Explicit justification: the admissible c for fixed s form the union over u of integer intervals (w(vs), w(us)], all sharing left endpoint w(vs); so their count is at most max_u (w(us)-w(vs))^+ = beta_v^w(s). This one-line argument is only implicit in the text."
+   },
+   {
+    "where": "Section Lemma pruning, Reading the statement / Overview of Half 2 (item 3)",
+    "quote": "the number of certain points left uncovered",
+    "kind": "ambiguous_statement",
+    "severity": 1,
+    "what_i_needed": "A precise definition in the overview of q: the points of Z covered by no member of R' union C' (after pruning). The phrase 'certain points' is not defined before use there."
+   },
+   {
+    "where": "Proof of Lemma pruning, Part 6 (G3)",
+    "quote": "it has maximum rank among all real matrices supported on",
+    "kind": "unjustified_step",
+    "severity": 1,
+    "what_i_needed": "The sentence 'Since W^{p,i} is supported on Theta^{p,i}' is only justified by combining the nonzero minor pi_{p,i} != 0 at the fixed assignment with the upper bound from support; the text should state that rank W^{p,i} >= kappa follows from the nonzero minor and rank W^{p,i} <= kappa from support."
+   },
+   {
+    "where": "Proof of Lemma pruning, Part 6 introduction",
+    "quote": "everything needed is proved here",
+    "kind": "ambiguous_statement",
+    "severity": 1,
+    "what_i_needed": "The sentence attributes the rank/matching correspondence to Edmonds and then says everything needed is proved; it should state which direction is proved in the text and whether the citation is used at all, since the proof only uses the non-vanishing of block minors."
+   },
+   {
+    "where": "Corollary weighted-forms, proof of (iii)",
+    "quote": "The cited result is",
+    "kind": "lost_thread",
+    "severity": 1,
+    "what_i_needed": "The proof of (iii) first relies on a citation of Seacrest's equivalence and only afterwards refers to Remark rem:arc-check as an independent check. The text should state clearly that the self-contained Remark is the proof used, so that the reader does not need the external equivalence."
+   },
+   {
+    "where": "Corollary weighted-forms, proof of (ii), Step 2",
+    "quote": "If it has none, Farkas' lemma gives",
+    "kind": "unjustified_step",
+    "severity": 1,
+    "what_i_needed": "The alternative theorem is stated as a consequence of Farkas' lemma in the 'M_0 x = c' form; the explicit matrix M_0 = [Pi, -I; 1^T, 0], c = (0,...,0,1), and the sign conventions for the dual vector (y, tau) should be written so that the derivation of xi = -y >= 0 with Pi^T xi <= tau 1 < 0 can be checked directly."
+   }
+  ]
+ },
+ {
+  "main_result": "Every nonempty finite oriented graph D has a vertex v with |N_1^+(v)| <= |N_2^+(v)|, where N_2^+(v) is the set of vertices at directed distance exactly two (Seymour's second neighbourhood conjecture). The manuscript also claims weighted forms (weighted vertex and arc versions, and a normalized vertex weighting) and two directed-cycle consequences (non-neighbour bound, a 3-cycle minimum-degree result, and n >= 3*rho+1 for regular digraphs of girth 4).",
+  "proof_strategy": "Proof by contradiction. A minimal counterexample D (fewest vertices, then fewest arcs) is shown to be strongly connected with positive indegrees, and for every nonempty proper S it satisfies |F^2(S)\\F(S)| < |F(S)\\S| (Lemma subset-deficit, via an arc-deletion argument that gives an increment inequality summed along a chain of sets). A lexicographic blow-up by transitive tournaments turns this into a strict inequality |U| + |F^2(U)| < 2|F(U)| for all proper nonempty U (Lemma blow-up). Proposition no-concavity rules out any such graph by an extremal argument on pairs of compatible families of ordered pairs, using a pruning lemma whose proof bounds a maximum matching of an auxiliary bipartite graph via generic rank (Edmonds-type) arguments and Konig's theorem. The weighted and cycle corollaries are derived from the theorem by specialization, a Farkas alternative with reversal, and direct counting. I checked each displayed inequality in the subset-deficit, blow-up, pruning and no-concavity arguments and found no algebraic or logical error, but I did not verify it by computer and I cannot independently confirm that the overall argument is correct for a problem of this kind.",
+  "hardest_part": "The pruning lemma (Parts 3 to 9): the choice of one real assignment that makes the three rank conditions hold simultaneously, the kernel-restriction Claim 8 that feeds dim ker A >= k, and the matching-to-cover bookkeeping. I traced each step and found it consistent, but the genericity argument mixes shared variables across several matrices and I would not trust my check of it without a machine verification. The increment bookkeeping (5e)-(5h) in the subset-deficit lemma was the second hardest; I checked the set identities by hand.",
+  "issues": [
+   {
+    "where": "Lemma (pruning), proof, Part 3, Claim 3",
+    "quote": "it is a path $\\pi$ of odd length whose first and last edges are in $\\cM'$",
+    "kind": "unjustified_step",
+    "severity": 2,
+    "what_i_needed": "Why a component of the symmetric difference with more M' edges than M_R edges must be a path with exactly one extra M' edge, and why its two end vertices are unmatched by M_R (the endpoint's only M' edge is on the path and any M_R edge at it would have to coincide with it). This is standard but is not written out."
+   },
+   {
+    "where": "Remark (rem:arc-check), direct check of (iii)",
+    "quote": "for fixed $s$ there are at most $\\beta_v^w(s)$ such $c$",
+    "kind": "unjustified_step",
+    "severity": 2,
+    "what_i_needed": "The step from (s,c) not in N_1^+((v,a)) to c > w(vs) (including the case vs not an arc, where w(vs)=0), and then that the admissible c lie in (w(vs), max_u w(us)], whose size is at most max(0, max_u w(us)-w(vs)) = beta. The preceding sentence is compressed."
+   },
+   {
+    "where": "Lemma (blow-up), proof, Step 3 and Step 5",
+    "quote": "S^{*}=F(S)\\cup F^2(S)",
+    "kind": "undefined_notation",
+    "severity": 1,
+    "what_i_needed": "The lemma statement does not say what F is. Step 3 uses the base-graph image F = F_D, which is only fixed by the Section 2 preamble. A one-line statement that F = F_D here would remove the ambiguity."
+   },
+   {
+    "where": "Corollary (weighted), proof of (iii)/(i), and Remark rem:arc-check, real-weight limit",
+    "quote": "Real weights follow by approximating $w$ by rational weightings",
+    "kind": "unjustified_step",
+    "severity": 1,
+    "what_i_needed": "A precise limit argument: pick rational w_k -> w, get v_k with the inequality for w_k, pass to a vertex v repeated infinitely often, and use that beta_v^w(s) is a max of affine functions of w, so both sides are continuous. The text gives only the outline."
+   },
+   {
+    "where": "Lemma (subset-deficit) statement and Step 5; Section 2.4 cross-reference",
+    "quote": "This is the specialization noted immediately after Seacrest's Proposition~2.",
+    "kind": "ambiguous_statement",
+    "severity": 1,
+    "what_i_needed": "Which specialization is meant, since no such specialization appears in the text before this sentence. The sentence refers to a note that is not present in the manuscript."
+   },
+   {
+    "where": "Claim 8 (kernel restriction), part (8a)",
+    "quote": "(When $(p,s')\\notin H$ there is no such coordinate",
+    "kind": "ambiguous_statement",
+    "severity": 1,
+    "what_i_needed": "The parenthetical is vacuous: if some j' has s' -> j' then (p,s') is in H by the conflict with (p,j'). A short remark that the case (p,s') not in H only occurs when the sum is empty would make this clearer."
+   },
+   {
+    "where": "Overview (Proof at a glance), Half 1, Lemma blow-up bullet",
+    "quote": "A deficit of at least $1$ in $D$ becomes a deficit of at least $m$ in the new graph $G$",
+    "kind": "ambiguous_statement",
+    "severity": 1,
+    "what_i_needed": "The overview does not mention the separate case S = V(D) (Step 8 of the blow-up proof), where the subset-deficit hypothesis is not used and the bound comes from positive indegrees. The overview summary should say so."
+   }
+  ]
+ },
+ {
+  "main_result": "Claims that every nonempty finite oriented graph has a vertex v with |N_1^+(v)| <= |N_2^+(v)|, where N_2^+(v) excludes v and N_1^+(v). This is Seymour's second neighborhood conjecture, which I believe is open as of my knowledge. The manuscript also gives weighted forms (arc-weighted, vertex-weighted with a probability weighting, and a matrix/Farkas form) and directed-triangle-free degree and order corollaries. I checked each step I could and found no false step. I cannot certify from reading alone that the whole argument resolves the open conjecture.",
+  "proof_strategy": "Minimal counterexample D (fewest vertices, then fewest arcs). Lemma subset-deficit: for every nonempty proper S, |F^2(S)\\F(S)| < |F(S)\\S|. The proof deletes arcs from S into E\\T to get a smaller non-counterexample, takes a witness v that must lose an out-neighbour, and bounds the change in g by a telescoping increment argument. Lemma blowup: lexicographic product with a transitive tournament turns that integer deficit into a strict inequality |U|+|F^2(U)|<2|F(U)| for all proper nonempty U (the case S=V(D) is handled separately using positive indegree). Proposition no-concavity: take a compatible pair (P,Q) of pair-families maximizing |P|+|Q|+uncovered, take complements of the second images to get a larger but possibly conflicting pair (R,C), and prune it with a König-plus-generic-rank pruning lemma (|deleted| <= |H| + uncovered after pruning). The pruned pair then has a larger objective, a contradiction. The weighted corollaries follow from the main theorem via a reversal and Farkas alternative, plus a direct check of the arc-weighted form.",
+  "hardest_part": "The pruning lemma (Parts 3-10 of its proof). It needs the generic-rank argument with the matrices L, N, B, A, the choice of one real assignment avoiding all polynomial zeros, the kernel restriction via Lemma kernel-support, and the chain |H| >= k + ell + t - |Z|. I checked each of these step by step and they hold as written, but the argument is long and combines several block-by-block genericity arguments, so I would trust my check least here. The extremal argument in Proposition no-concavity depends on this lemma, so it is the piece I would most want an expert to recheck.",
+  "issues": [
+   {
+    "where": "Lemma blowup, Step 5 (second image bound), last bullet",
+    "quote": "So both arcs are internal, $w=v\\in S\\setminus S^{*}$, and the label of $y$ lies in $f^2(U_v)$.",
+    "kind": "unjustified_step",
+    "severity": 1,
+    "what_i_needed": "Why the label of y lies in f(f(U_v)): the intermediate label c of z must lie in f(U_v), which holds because z is in F_G(U) via an internal arc from x in U. This one sentence should be written out."
+   },
+   {
+    "where": "Lemma pruning, proof Part 3 (Claim 3), case 'Otherwise' (second bullet)",
+    "quote": "whose original--original edges are $\\cM_0\\setminus\\{e\\}$, that is, $k-1$ of them.",
+    "kind": "unjustified_step",
+    "severity": 1,
+    "what_i_needed": "A line saying that the path pi has only R-to-Z_R edges, so exchanging along it adds no original-original edge. That is what gives exactly k-1 original-original edges. I verified this, but the text leaves it implicit."
+   },
+   {
+    "where": "Lemma pruning, proof Part 6(b), definition of Z_R inside the proof",
+    "quote": "Let $Z_{\\cR}\\subseteq Z$ be the set of points $z$ with",
+    "kind": "undefined_notation",
+    "severity": 1,
+    "what_i_needed": "Z_{\\cR} (points whose right copy is matched by M_R) and Z_R (the right copy of Z) differ only by the calligraphic R. Using distinct symbols would avoid misreading, as in Part 6(c)."
+   },
+   {
+    "where": "Lemma pruning, statement, paragraph before the statement of Lemma pruning",
+    "quote": "and $q$ is the number of certain points left uncovered \\emph{after} pruning.",
+    "kind": "ambiguous_statement",
+    "severity": 1,
+    "what_i_needed": "'certain points' is vague. The precise definition (points of Z covered by no surviving member) appears only in the lemma statement and should be used here."
+   },
+   {
+    "where": "Corollary weighted forms, proof of (i) from (iii)",
+    "quote": "This is the specialization noted immediately after Seacrest's Proposition~2.",
+    "kind": "ambiguous_statement",
+    "severity": 1,
+    "what_i_needed": "The specialization is not stated in the manuscript, so this sentence cannot be checked from the text. The direct computation of beta_v^w(s) given just before it is correct and is all that is needed."
+   },
+   {
+    "where": "Remark (Direct check of (iii)), real-weight limit step",
+    "quote": "some vertex $v$ works for infinitely many of them, and for fixed $v$ both sides are continuous in $w$",
+    "kind": "unjustified_step",
+    "severity": 1,
+    "what_i_needed": "A line stating that the inequality for each rational w_k passes to the limit because both sides are continuous, with w_k -> w. Pigeonhole over vertices then gives one v. I checked this and it is correct, but it is compressed."
+   },
+   {
+    "where": "Verification checklist (preamble of the rewrite) and Introduction",
+    "quote": "No step of this rewrite is marked as unverified.",
+    "kind": "ambiguous_statement",
+    "severity": 2,
+    "what_i_needed": "This is a self-assessment, not a verification. For an open problem the reader cannot rely on it. I need either an external check of the pruning lemma and extremal argument, or a clear statement of which parts are cited versus proved here."
+   },
+   {
+    "where": "Section 'Proof at a glance', Half 2 item (a)",
+    "quote": "this is the only place in Half~2 where orientedness is used.",
+    "kind": "ambiguous_statement",
+    "severity": 1,
+    "what_i_needed": "The orientedness used in Step 1 of Proposition no-concavity (compatibility of (Delta,Delta)) is correct. The claim that it is the only use in Half 2 is consistent with my reading, but it should say that Lemma pruning uses no orientation, which is stated only in the checklist."
+   },
+   {
+    "where": "Lemma pruning, proof Part 4 (Claim 4 and the definition of L, N, B, A)",
+    "quote": "For $x\\not\\to y$ set $a_{xy}=b_{xy}=0$.",
+    "kind": "unjustified_step",
+    "severity": 1,
+    "what_i_needed": "Why NL = AB still holds entrywise when conflicts are absent but a_{pi} or b_{sj} vanish, and why the sum in (NL) runs only over Z. I rechecked this; it holds, but the explanation is brief."
+   },
+   {
+    "where": "Lemma subset-deficit, Step 5 (5a)-(5b), choice of witness v",
+    "quote": "by the choice of $D$ it is not a counterexample.",
+    "kind": "unjustified_step",
+    "severity": 1,
+    "what_i_needed": "The minimality is over counterexamples with minimum vertex count, then minimum arc count. D_T has the same vertex count and fewer arcs, so it is not a counterexample. The text should say this explicitly, since the minimality order matters."
+   }
+  ]
+ }
+]

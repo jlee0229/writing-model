@@ -1,0 +1,238 @@
+{
+ "slug": "foulkes",
+ "questions": [
+  {
+   "id": 1,
+   "type": "gist",
+   "question": "State the main theorem exactly: which canonical map, in which direction, is shown to be surjective, and for which values of a, b and V?",
+   "answer": "For every integer a ≥ 2, every integer b ≥ a(a−1), and every finite-dimensional complex vector space V, the canonical multiplication map μ_{a,b,V}: Sym^b(Sym^a V) → Sym^a(Sym^b V) is surjective (equivalently A_b = R_b). The bound does not depend on dim V.",
+   "must_include": [
+    "direction Sym^b(Sym^a V) → Sym^a(Sym^b V), surjective",
+    "a ≥ 2 and b ≥ a(a−1)",
+    "holds for every finite-dimensional complex V (the bound is independent of dimension)"
+   ],
+   "key_confirmed": true,
+   "closed_book_novice": 0.0,
+   "closed_book_weak": 0.0,
+   "closed_book_mid": 0.0,
+   "usable": true
+  },
+  {
+   "id": 2,
+   "type": "gist",
+   "question": "Surjectivity of the canonical map is first turned into an equivalent vanishing statement about multilinear forms. What is that statement, and what correspondence makes it equivalent to surjectivity?",
+   "answer": "μ is surjective iff every symmetric a-linear form T on Sym^b V with T(P,…,P)=0 for all products P of b vectors is zero. Linear functionals λ on R_b correspond bijectively to symmetric a-linear forms T_λ(w_1,…,w_a)=λ(Av(w_1⊗…⊗w_a)), and T_λ(P,…,P)=λ(P^{⊗a}). Since the image A_b is spanned by the P^{⊗a}, the annihilator of A_b is exactly the set of such forms, and in finite dimension A_b=R_b iff this annihilator is zero.",
+   "must_include": [
+    "symmetric a-linear forms on Sym^b V whose diagonal vanishes on products of b vectors must be zero",
+    "forms correspond to functionals on R_b via averaging, with T(P,…,P)=λ(P^{⊗a})",
+    "image spanned by P^{⊗a}, so the annihilator of the image is zero iff surjective"
+   ],
+   "key_confirmed": true,
+   "closed_book_novice": 0.0,
+   "closed_book_weak": 0.0,
+   "closed_book_mid": 0.5,
+   "usable": true
+  },
+  {
+   "id": 3,
+   "type": "gist",
+   "question": "Describe how the proof of the vanishing statement is organised: what the induction is on, the order of the main moves in the inductive step (with r=a−1, m=b−r), and which move makes the bound quadratic.",
+   "answer": "Induction on a, the number of slots, for all b and V at once. Splitting the binary form x^r+ct^r gives T(x^rQ,…,x^rQ,t^rQ)=0. A sequence of derivatives D_{y_i,t} with distinct y_i, plus the injectivity lemma, then gives T(x^rQ,…,x^rQ,t^b)=0. The induction hypothesis applied to the r-linear form in the Q's on Sym^m V lets the Q_i vary independently. A second derivative sequence D_{x,v_i}^r, plus injectivity, gives T(v_1^b,…,v_r^b,t^b)=0, and spanning by pure powers gives T=0. The bound is quadratic because in the second sequence all r^2 operators raise the degree of the same variable x, so m must exceed about r^2.",
+   "must_include": [
+    "induction on a (number of slots) via an r-linear form on Sym^m V",
+    "order: binary factorization → first derivative sequence freeing the last slot → induction → second derivative sequence removing x^r → pure powers span",
+    "quadratic bound from the r^2 operators all pushing degree into the single shared variable x"
+   ],
+   "key_confirmed": true,
+   "closed_book_novice": 0.0,
+   "closed_book_weak": 0.0,
+   "closed_book_mid": 0.0,
+   "usable": true
+  },
+  {
+   "id": 4,
+   "type": "step",
+   "question": "Why is (x^r + c t^r)Q a product of b vectors for every c ∈ ℂ and all x, t ∈ V, even when x and t are linearly dependent?",
+   "answer": "Over ℂ, X^r + cY^r splits into r linear factors: ∏_j (X − αζ^j Y) with α^r = −c and ζ a primitive r-th root of unity, or X^r when c=0. Substituting X=x, Y=t is a ring homomorphism into Sym V, so it writes x^r+ct^r as a product of the r vectors x−αζ^j t whatever x and t are. Q contributes m more vectors, for r+m=b in total.",
+   "must_include": [
+    "X^r + cY^r splits into r linear factors over ℂ (roots of −c)",
+    "substituting into the polynomial identity needs no independence of x and t",
+    "r + m = b factors in total"
+   ],
+   "key_confirmed": true,
+   "closed_book_novice": 0.0,
+   "closed_book_weak": 0.0,
+   "closed_book_mid": 1.0,
+   "usable": true
+  },
+  {
+   "id": 5,
+   "type": "step",
+   "question": "After the diagonal hypothesis is applied to P=(x^r+ct^r)Q, why does it follow that T(x^rQ,…,x^rQ,t^rQ)=0?",
+   "answer": "For fixed x, t, Q, T(P,…,P) is a polynomial in c that vanishes for every c ∈ ℂ, so all of its coefficients vanish. By multilinearity, the coefficient of c^1 collects the a terms with t^rQ in exactly one slot. By symmetry these terms are equal, so the coefficient is a·T(x^rQ,…,x^rQ,t^rQ), and a ≠ 0.",
+   "must_include": [
+    "T(P,…,P) is a polynomial in c vanishing for all c, so each coefficient is zero",
+    "coefficient of c is a·T(x^rQ,…,t^rQ), using multilinearity and symmetry"
+   ],
+   "key_confirmed": true,
+   "closed_book_novice": 0.0,
+   "closed_book_weak": 1.0,
+   "closed_book_mid": 0.5,
+   "usable": true
+  },
+  {
+   "id": 6,
+   "type": "step",
+   "question": "Consider the derivative sequence that starts from T(x^rQ,…,x^rQ,t^b), Q=y_1⋯y_m, and applies D_{y_1,t}, then D_{y_2,t}, …, D_{y_m,t}. Why does the injectivity lemma apply to the i-th operator? Give the two degrees and say why the y_i-degree is what it is.",
+   "answer": "Just before the i-th operator, the t-degree is b−i+1 and the y_i-degree is r. The y_i-degree is r because y_i enters only through Q, which sits in each of the first r slots. The earlier operators inserted other variables y_j (j<i), never y_i. So p−q = b−i+1−r = m−i+1 ≥ 1 for every i ≤ m.",
+   "must_include": [
+    "t-degree b−i+1 and y_i-degree r",
+    "y_i-degree is r because Q appears in r slots and earlier operators use distinct variables y_j",
+    "p−q = m−i+1 ≥ 1"
+   ],
+   "key_confirmed": true,
+   "closed_book_novice": 0.0,
+   "closed_book_weak": 0.0,
+   "closed_book_mid": 0.5,
+   "usable": true
+  },
+  {
+   "id": 7,
+   "type": "step",
+   "question": "The induction hypothesis is applied to the form (Q_1,…,Q_r) ↦ T(x^rQ_1,…,x^rQ_r,t^b) on Sym^m V. Which hypotheses must this form satisfy, and what supplies each one?",
+   "answer": "The form must be symmetric and r-linear. It is linear because multiplying by x^r is linear and T is multilinear, and symmetric because T is symmetric. Its diagonal must vanish on products of m vectors: that is the previous step's identity T(x^rQ,…,x^rQ,t^b)=0 evaluated at vector values. The degree condition m ≥ r(r−1) with m ≥ 1 holds because b ≥ a(a−1) gives m = b−r ≥ r^2 ≥ 1.",
+   "must_include": [
+    "symmetric r-linear (from T's symmetry and multilinearity, with x^r as a fixed multiplier)",
+    "diagonal vanishing on products of m vectors comes from the previous step's vanishing with last slot t^b",
+    "m ≥ r^2 ≥ r(r−1) and m ≥ 1"
+   ],
+   "key_confirmed": true,
+   "closed_book_novice": 0.0,
+   "closed_book_weak": 0.0,
+   "closed_book_mid": 0.0,
+   "usable": true
+  },
+  {
+   "id": 8,
+   "type": "step",
+   "question": "In the final recovery step, D_{x,v_r}^r ⋯ D_{x,v_1}^r is applied to f = T(v_1^b,…,v_r^b,t^b). What exactly is the result, and why is it identically zero?",
+   "answer": "Each D_{x,v_i} differentiates only the v_i coordinates in slot i and leaves the inserted x factors alone, so D_{x,v_i}^r v_i^b = (b!/(b−r)!) x^r v_i^{b−r} = (b!/m!) x^r v_i^m. The result is (b!/m!)^r T(x^rv_1^m,…,x^rv_r^m,t^b). This vanishes at every vector value by the inductive identity T(x^rQ_1,…,x^rQ_r,t^b)=0 with Q_i = v_i^m, so it is zero as a polynomial.",
+   "must_include": [
+    "result is (b!/m!)^r T(x^r v_1^m,…,x^r v_r^m,t^b) (each operator acts only on its own slot)",
+    "zero by the identity from the induction hypothesis with Q_i = v_i^m, pointwise and hence as a polynomial"
+   ],
+   "key_confirmed": true,
+   "closed_book_novice": 0.0,
+   "closed_book_weak": 0.0,
+   "closed_book_mid": 0.5,
+   "usable": true
+  },
+  {
+   "id": 9,
+   "type": "step",
+   "question": "In the final recovery step, why does each of the r^2 operators D_{x,v_i} satisfy the degree condition of the injectivity lemma, and where is the hypothesis on b used?",
+   "answer": "The destination is always the same variable x. It starts at degree 0 and each operator raises it by one, so before any operator its degree is at most r^2−1. The source v_i has been differentiated at most r−1 times before, so its degree is at least b−r+1 = m+1. Since m ≥ r^2 (from b ≥ a(a−1)), m+1 ≥ r^2+1 > r^2−1.",
+   "must_include": [
+    "x-degree at most r^2−1 because all operators raise the same x",
+    "v_i-degree at least b−r+1 = m+1",
+    "uses m ≥ r^2 (from b ≥ a(a−1))"
+   ],
+   "key_confirmed": true,
+   "closed_book_novice": 0.0,
+   "closed_book_weak": 0.0,
+   "closed_book_mid": 0.5,
+   "usable": true
+  },
+  {
+   "id": 10,
+   "type": "step",
+   "question": "In the proof that D_{Y,U} is injective on polynomials of bidegree (p,q) with p>q, what identity is derived, how is it obtained, and how does it force h=0 when Dh=0?",
+   "answer": "Under the Fischer inner product, the adjoint of D=D_{Y,U} is E=D_{U,Y}, and ED−DE = N_U−N_Y, which acts as p−q on bidegree (p,q) by Euler's formula. So ‖Dh‖^2 − ‖Eh‖^2 = ⟨(ED−DE)h,h⟩ = (p−q)‖h‖^2. If Dh=0, the left side is −‖Eh‖^2 ≤ 0 while the right side is ≥ 0, so (p−q)‖h‖^2 = 0. With p>q and a positive definite inner product, h=0.",
+   "must_include": [
+    "adjoint D* = D_{U,Y} under the Fischer inner product",
+    "commutator ED−DE = N_U−N_Y gives ‖Dh‖²−‖Eh‖² = (p−q)‖h‖²",
+    "sign comparison plus positive definiteness gives h=0"
+   ],
+   "key_confirmed": true,
+   "closed_book_novice": 0.0,
+   "closed_book_weak": 0.5,
+   "closed_book_mid": 1.0,
+   "usable": true
+  },
+  {
+   "id": 11,
+   "type": "step",
+   "question": "Why is the image A_b of the canonical map exactly the span of the tensors P^{⊗a}, where P ranges over products of b vectors?",
+   "answer": "Averaging sends u^a to u^{⊗a}. By polarization (a! ≠ 0) pure powers span Sym^a V, so the elements u^{⊗a} span R_1. Hence A_b is spanned by products of b such generators. By componentwise multiplication, u_1^{⊗a}⋯u_b^{⊗a} = (u_1⋯u_b)^{⊗a}.",
+   "must_include": [
+    "pure powers u^a span Sym^a V (polarization, characteristic 0), and their averages u^{⊗a} span R_1",
+    "product of b generators equals (u_1⋯u_b)^{⊗a}"
+   ],
+   "key_confirmed": true,
+   "closed_book_novice": 0.0,
+   "closed_book_weak": 0.0,
+   "closed_book_mid": 0.5,
+   "usable": true
+  },
+  {
+   "id": 12,
+   "type": "transfer",
+   "question": "Suppose the scalars were ℝ instead of ℂ and everything else stayed the same. Does the step that produces the identity with a single slot t^rQ still go through for a=3 (r=2)? Does it go through for a=4 (r=3)? Explain.",
+   "answer": "For r=2 it survives: X^2+cY^2 splits into real linear factors for every c ≤ 0, and a polynomial in c that vanishes on the infinite set c ≤ 0 is still identically zero, so the coefficient argument works. For r=3 it breaks: for every real c ≠ 0, X^3+cY^3 has an irreducible real quadratic factor, so (x^3+ct^3)Q is not shown to be a product of b real vectors. The diagonal hypothesis then gives vanishing only at c=0, which says nothing about the coefficient of c.",
+   "must_include": [
+    "r=2: splits for c ≤ 0, and infinitely many c still force the polynomial to vanish, so the step survives",
+    "r=3: X^3+cY^3 has an irreducible real quadratic factor for c ≠ 0, so the factorization step fails"
+   ],
+   "key_confirmed": true,
+   "closed_book_novice": 0.0,
+   "closed_book_weak": 0.0,
+   "closed_book_mid": 1.0,
+   "usable": true
+  },
+  {
+   "id": 13,
+   "type": "transfer",
+   "question": "Suppose that in the step passing from T(x^rQ,…,x^rQ,t^rQ)=0 to T(x^rQ,…,x^rQ,t^b)=0 one took Q = y^m, a pure power of one variable y, and applied D_{y,t} m times. Before the i-th application, what are the t-degree and y-degree? For which i does the injectivity lemma stop applying?",
+   "answer": "Before the i-th application, the t-degree is b−i+1 and the y-degree is r+i−1, because each earlier application raised the same y. The lemma needs b−i+1 > r+i−1, i.e. m ≥ 2i−1. So it fails once i > (m+1)/2, and for any m ≥ 2 the full composite of m operators can no longer be certified injective.",
+   "must_include": [
+    "degrees (t, y) = (b−i+1, r+i−1)",
+    "condition m ≥ 2i−1 fails for i > (m+1)/2, so the full sequence fails whenever m ≥ 2"
+   ],
+   "key_confirmed": false,
+   "closed_book_novice": 0.0,
+   "closed_book_weak": 0.0,
+   "closed_book_mid": 0.0,
+   "usable": false
+  },
+  {
+   "id": 14,
+   "type": "transfer",
+   "question": "Take a=3 (r=2). In the final recovery step, apply D_{x,v_1} twice and then D_{x,v_2} twice to T(v_1^b,v_2^b,t^b). List the (source degree, x-degree) pair just before each of the four operators, and find the least b for which all four satisfy the lemma's hypothesis.",
+   "answer": "The pairs are (b,0), (b−1,1), (b,2), (b−1,3). The binding condition is the last one, b−1 > 3, so the least such b is 5. This is one less than the theorem's a(a−1)=6, so this step does not by itself require the full stated bound.",
+   "must_include": [
+    "pairs (b,0),(b−1,1),(b,2),(b−1,3)",
+    "binding condition b−1 > 3, so least b = 5"
+   ],
+   "key_confirmed": true,
+   "closed_book_novice": 0.0,
+   "closed_book_weak": 1.0,
+   "closed_book_mid": 0.5,
+   "usable": true
+  },
+  {
+   "id": 15,
+   "type": "transfer",
+   "question": "Check the norm identity behind the injectivity lemma in the case V of dimension 1 (scalar variables U, Y), h = U^2Y, D = Y∂_U, E = U∂_Y. Compute Dh, Eh, their Fischer norms squared, and (p−q)‖h‖^2.",
+   "answer": "Dh = 2UY^2, so ‖Dh‖^2 = 4·1!·2! = 8. Eh = U^3, so ‖Eh‖^2 = 3! = 6. Also p−q = 1 and ‖h‖^2 = 2!·1! = 2. Then 8 − 6 = 2 = (p−q)‖h‖^2, as the identity requires.",
+   "must_include": [
+    "Dh = 2UY^2 with norm squared 8, and Eh = U^3 with norm squared 6",
+    "difference 2 equals (p−q)‖h‖^2 = 1·2"
+   ],
+   "key_confirmed": true,
+   "closed_book_novice": 0.0,
+   "closed_book_weak": 1.0,
+   "closed_book_mid": 1.0,
+   "usable": true
+  }
+ ]
+}

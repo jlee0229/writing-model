@@ -1,0 +1,6 @@
+[
+ {
+  "find": "with $\\alpha^r=-c$",
+  "replace": "with $\\alpha^r=c$"
+ }
+]

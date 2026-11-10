@@ -1,0 +1,26 @@
+[
+ {
+  "find": "\\tau=2^{4h},\\qquad \\pi=2^{-8h},",
+  "replace": "\\tau=2^{4h},\\qquad \\pi=2^{-6h},"
+ },
+ {
+  "find": "$\\pi m=2^{4h}$.",
+  "replace": "$\\pi m=2^{6h}$."
+ },
+ {
+  "find": "&\\le2^{-8h}\\cdot2^{h+1}\\cdot2^{r}\\cdot2^{4h}",
+  "replace": "&\\le2^{-6h}\\cdot2^{h+1}\\cdot2^{r}\\cdot2^{4h}"
+ },
+ {
+  "find": "\\le\\pi m=2^{4h}.",
+  "replace": "\\le\\pi m=2^{6h}."
+ },
+ {
+  "find": "$18h^2\\le18\\cdot2^{2h}\\le2^{4h}$, the last step because $18\\le2^{2h}$",
+  "replace": "$18h^2\\le18\\cdot2^{2h}\\le2^{6h}$, the last step because $18\\le2^{4h}$"
+ },
+ {
+  "find": "13rh+1\\le2^{4h}=\\pi m",
+  "replace": "13rh+1\\le2^{6h}=\\pi m"
+ }
+]

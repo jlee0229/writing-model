@@ -1,0 +1,10 @@
+[
+ {
+  "find": "entry $\\bar ph_0^{-1}$ at position $i$",
+  "replace": "entry $\\bar ph_0^{-1}$ at position $j$"
+ },
+ {
+  "find": "entry $\\bar p$ at position $j$",
+  "replace": "entry $\\bar p$ at position $i$"
+ }
+]

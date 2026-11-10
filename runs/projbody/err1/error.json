@@ -1,0 +1,17 @@
+{
+ "where": "Proposition 2 (product formula), proof, volume computation of Pi(A x B)",
+ "kind": "wrong scaling exponent / dimension mix-up under dilation",
+ "explanation": "Pi(A x B) = (|B| Pi A) x (|A| Pi B), where |B| Pi A lives in R^r and |A| Pi B in R^s. Its volume is therefore |B|^r |A|^s |Pi A||Pi B|. The edited line says |B|^s |A|^r, which applies each dilation factor with the dimension of the other space. With that numerator, dividing by (|A||B|)^{r+s-1} gives |Pi A|/|A|^{s-1} * |Pi B|/|B|^{r-1}, not R_r(A) R_s(B). So both the first displayed equality and the claimed simplification fail whenever r != s. The multiplicativity (eq:multiplicative) is used with unequal factor dimensions (T_10^k x T_{d_r}) in Corollary 5, and it is the general mechanism of the paper, so the proof of the product identity as written is invalid.",
+ "correct_version": "R_{r+s}(A\\times B)=\\frac{|B|^r|A|^s|\\Pi A||\\Pi B|}{(|A||B|)^{r+s-1}} (dilation by |B| in R^r scales volume by |B|^r, dilation by |A| in R^s by |A|^s).",
+ "edits": [
+  {
+   "find": "|B|^r|A|^s|\\Pi A||\\Pi B|",
+   "replace": "|B|^s|A|^r|\\Pi A||\\Pi B|"
+  }
+ ],
+ "validation": {
+  "verdict": "real_error",
+  "subtlety": 3,
+  "reason": "By (eq:product-body), Π(A×B) = (|B|ΠA)×(|A|ΠB), with |B|ΠA in R^r and |A|ΠB in R^s, so its volume is |B|^r|A|^s|ΠA||ΠB|. The edited numerator |B|^s|A|^r applies each dilation factor with the other space's dimension. This makes the first displayed equality false whenever r≠s and |A|≠|B|. The next line also no longer follows: dividing the edited numerator by (|A||B|)^{r+s-1} gives |ΠA|/|A|^{s-1} · |ΠB|/|B|^{r-1}, not the stated |ΠA|/|A|^{r-1} · |ΠB|/|B|^{s-1}. The proposition itself remains true, but its proof as written is invalid for r≠s, and that case is used in the Corollary (T_10^k × T_{d_r}) and in the general product test. A reader who checks the exponents against the product-body identity would catch it; it is a natural exponent-swap slip, not nonsense."
+ }
+}

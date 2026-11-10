@@ -1,0 +1,21 @@
+{
+ "where": "Lemma 3.1 (lifting the factorization modulo q), Section 3",
+ "kind": "off-by-one in a telescoping geometric series",
+ "explanation": "With Q=e+W+...+W^{k-2}, the telescoping product is QZ=Q(e-W)=e-W^{k-1}, not e-W^k. The proof only shows W^k=0, because each coefficient of W is even and a product of k of them is divisible by 2^k. W^{k-1} has no reason to vanish modulo 2^k. For example, with k=2 we get Q=e and QZ=Z=e-W, where W is only known to be even and is generally nonzero mod 4. So Q is not a corner inverse of Z, u_qv_q=QZ need not equal e, and the factorization of P modulo q that feeds the integral construction is unproved.",
+ "correct_version": "Q=e+W+\\cdots+W^{k-1} satisfies QZ=ZQ=e-W^k=e. When k=1, this sum is just e.",
+ "edits": [
+  {
+   "find": "Q=e+W+\\cdots+W^{k-1}",
+   "replace": "Q=e+W+\\cdots+W^{k-2}"
+  },
+  {
+   "find": "When $k=1$, this sum is just $e$.",
+   "replace": "When $k=2$, this sum is just $e$."
+  }
+ ],
+ "validation": {
+  "verdict": "real_error",
+  "subtlety": 3,
+  "reason": "With Q = e + W + ... + W^{k-2} and Z = e − W, the telescoping product is QZ = e − W^{k-1}, not e − W^k as the edited text still asserts. The proof only establishes W^k = 0 (k even coefficients multiply to a multiple of 2^k); W^{k-1} is only divisible by 2^{k-1} and need not vanish modulo q = 2^k. For k = 2 the edited Q is e, so QZ = Z = e − W, and W is merely even, generally nonzero mod 4. Hence Q is not a corner inverse of Z, u_q v_q = QZ need not equal e, and Lemma lem:lift's factorization modulo q is unproved. The edited sum is also undefined for k = 1, which the lemma allows. This is a natural off-by-one slip in a finite geometric series, caught by anyone who multiplies out the telescoping sum."
+ }
+}

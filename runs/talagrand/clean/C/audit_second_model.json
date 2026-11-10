@@ -1,0 +1,19 @@
+{
+ "statements": [],
+ "introduced": [],
+ "source_doubts": [
+  {
+   "where": "Proof of Corollary 1.2 (two unions), steps 2 and 4",
+   "quote": "By Li's result \\cite[Corollary~3.1]{Li26} in Park's fractional-cover formulation \\cite[Theorem~3.4]{Park26}, this family has a fractional cover of cost at most $1/2$ at $r=p/2$. ... The companion expectation-threshold theorem~\\cite[Theorem~1.1]{OpenAIThreshold26} then gives an integral cover of cost at most $1/2$ at $r/(25\\cdot512^4)$.",
+   "problem": "The source relies entirely on external results and does not state their hypotheses or say where the fractional density p/2 comes from. The step cannot be checked from the manuscript. It affects only the corollary, not Theorem 1.1.",
+   "already_marked_unverified": true
+  }
+ ],
+ "unverified_marks": [
+  {
+   "where": "Box after the proof of Corollary 1.2",
+   "concern": "Steps 2 and 4 cite Li, Park and the companion threshold paper exactly as the source does. Their hypotheses and the origin of sigma = p/2 are not stated, so they cannot be checked here.",
+   "warranted": true
+  }
+ ]
+}

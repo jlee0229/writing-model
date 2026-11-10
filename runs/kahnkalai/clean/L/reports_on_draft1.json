@@ -1,0 +1,219 @@
+[
+ {
+  "main_result": "Theorem (second Kahn--Kalai conjecture, explicit form): for n>=2 and a graph H on at most n vertices with h=e(H)>=1, pc(n,H) <= min{1, 2048 e^{50} pE(n,H)(1+log2 h)}, hence pc(n,H) <= 6144 e^{50} pE(n,H) log2 n. Here pc is the density at which G(n,p) contains H with probability 1/2, and pE is the least p at which every subgraph F of H has expected copy count at least 1/2. The proof shows that a random set of density r contains a copy of H with probability at least 2/3.",
+  "proof_strategy": "Set-system part (Sections 2-3): a single a-spread family is resampled by a 'transition' at a random set W of density rho = e^{50}a, and the fragment A_target minus W is shown to be small and to change measure by at most e^{11m}. Using the same W at every node of a disjoint probability tree, a potential D_v (built from local failure masses and child potentials) is shown to exceed 1 at bad nodes, its expectation is bounded by a recursion whose exponents are controlled by the factor-16 capacity growth, and Markov gives a good root with probability at least 3/4; the good nodes form a reduced tree with halved capacities and spread multiplied by at most 1/(1-e^{-m}). Iterating s = floor(log2 l_k)+1 times with fresh sets and bounding the number of attempts by 4s (geometric waiting times plus Markov) gives the tree covering theorem. Graph part (Section 4): for each edge set I, a maximizer S of sigma^{-|S|} P(S in G_I) is chosen; (F2) forces |S| < |I|/17, giving a chain of copies H_0 < H_1 < ... with capacity growth 16 and a tree whose conditional child laws are sigma-spread by maximality. Feeding this tree into the covering theorem with sigma = 128 pE yields the bound.",
+  "hardest_part": "The decoupling in Lemma reduction (Steps 4-5): the same W is used at every node, and one needs that the potential D_b of a child depends only on W outside A_v(b) (via disjointness of labels along paths) so that the distortion bound (distortion inequality in Lemma local) applies to f = D_b. I checked the logic and the exponent bookkeeping (e^{-8m} and e^{12m} factors, and 12/15 - 8 <= -7), and they are consistent, but this is the step where a subtle dependence error would be easiest to miss, and I checked it by reading rather than by a full independent recomputation.",
+  "issues": [
+   {
+    "where": "Section 4, Standing facts (F2)",
+    "quote": "By the convention above $F$ is a subgraph of $H$, so $\\EE N(G(n,q),F)\\ge\\frac12$; now use \\eqref{eq:expect}.",
+    "kind": "unjustified_step",
+    "severity": 2,
+    "what_i_needed": "The constraint in the definition of pE is on N(K_n,F) with F as a graph (possibly with isolated vertices), while M(F) counts edge sets. The step needs M(F) <= N(K_n,F_with_isolated_vertices), i.e. that the number of vertex-level copies dominates the number of edge-set copies (each edge set extends to at least one vertex-level copy by choosing positions for isolated vertices). This is never stated."
+   },
+   {
+    "where": "Theorem tree, proof, Step 5 (number of attempts)",
+    "quote": "conditioning attempt by attempt,",
+    "kind": "unjustified_step",
+    "severity": 2,
+    "what_i_needed": "The inequality P(Delta_i > x+1) <= (1/4) P(Delta_i > x) needs an explicit argument: the attempt index Lambda_{i-1} is random and the procedure may stop, so one must condition on the history up to the (x+1)-st attempt after Lambda_{i-1} and use the conditional success bound 3/4 for that attempt. The compressed sentence does not show this."
+   },
+   {
+    "where": "Lemma reduction, Step 1, fact (M4)",
+    "quote": "If this event meets ``no local failure'' with positive probability",
+    "kind": "ambiguous_statement",
+    "severity": 1,
+    "what_i_needed": "The conclusion |A_v(b) minus W| <= floor(m_j/2) for t_vb(W)>0 follows directly from the definition of local failure (|T|>m/2 is a failure). The phrasing about 'the event meeting no local failure with positive probability' should say this directly; as written it is hard to parse."
+   },
+   {
+    "where": "Theorem tree, Step 1, definition of alpha_i(tau) in eq. (capacities)",
+    "quote": "(when $m_i(\\tau-1)\\ge1$ or $\\tau=0$)",
+    "kind": "ambiguous_statement",
+    "severity": 1,
+    "what_i_needed": "The definition of alpha_i(tau) is only given under a side condition, and the condition is used implicitly later (in (A4) and (I2)). The text should state that alpha_i(tau) is only needed for levels with m_i(tau) >= 1 (which gives m_i(u) >= 1 for all u < tau, needed for positivity and distinctness in (A4))."
+   },
+   {
+    "where": "Lemma reduction, Step 6 (solving the recursion), eq. (beta)",
+    "quote": "Downward induction on $j$ yields",
+    "kind": "unjustified_step",
+    "severity": 1,
+    "what_i_needed": "The closed form for beta_j is asserted by downward induction with only a verbal description. I could reconstruct it by unrolling beta_j <= e^{-8m_j} + e^{12 m_j} beta_{j+1}, but the text should display the induction step explicitly (the shift of the inner sum start from g=i to g=j and the new term i=j)."
+   },
+   {
+    "where": "Section 1.2 / Section 4 'Key idea' paragraph",
+    "quote": "It is controlled because the edge sets added at different stages of one construction are disjoint.",
+    "kind": "ambiguous_statement",
+    "severity": 1,
+    "what_i_needed": "The actual decoupling in the proof (Lemma local distortion bound plus D_b depending only on W outside A_v(b)) is driven by disjointness of labels along a path, not by disjointness of stage edge sets in a single construction. The informal summary should match the formal mechanism, or point to the step (Lemma reduction Step 4) where it is used."
+   },
+   {
+    "where": "Section 1.3, 'Earlier graph results'",
+    "quote": "The identity is quoted from that reference; the symmetry behind it is that a fractional cover may be averaged over the permutations of $[n]$.",
+    "kind": "unjustified_step",
+    "severity": 1,
+    "what_i_needed": "A sketch of why the modified threshold equals q_f(F_H) would be needed to check this claim. It is not used later, so it is not load-bearing, but the 'symmetry behind it' is asserted without an argument."
+   },
+   {
+    "where": "Verification checklist (final section)",
+    "quote": "No step was left unverified in this rewrite.",
+    "kind": "ambiguous_statement",
+    "severity": 1,
+    "what_i_needed": "This is a self-certification, not evidence. The manuscript also defines an \\unverified macro that is never used, so it is unclear whether any step was flagged and then resolved. A referee would need the list of checks, or the macro should be removed or explained."
+   },
+   {
+    "where": "Lemma local, Step 4 (proof of eq. local-failure)",
+    "quote": "\\ee^{10m}\\,2^m\\,\\ee^{-25m}.",
+    "kind": "heavy_computation",
+    "severity": 1,
+    "what_i_needed": "The chain from sum_{m/2<i<=m} binom(m,i)(a/rho)^i to 2^m e^{-15m} (using (a/rho)^i <= e^{-50 i} < e^{-25m} for i>m/2, then e^{10m} 2^m e^{-25m} = e^{-(15-log2)m}) is compressed. I redid it and it is correct, but the explicit exponent bookkeeping should be written out."
+   }
+  ]
+ },
+ {
+  "main_result": "For every n≥2 and every graph H with h≥1 edges and at most n vertices, the containment threshold pc(n,H) (the density where G(n,p) contains a copy of H with probability 1/2) satisfies pc(n,H) ≤ min{1, 2048·e^50·pE(n,H)·(1+log2 h)}, where pE(n,H) is the graph expectation threshold. Since h ≤ n^2, this gives pc(n,H) ≤ 6144·e^50·pE(n,H)·log2 n. This is the second Kahn–Kalai conjecture with a single logarithm, with universal constants.",
+  "proof_strategy": "Edge sets of H are built into a chain of copies H_0 ⊂ ... ⊂ H_k with each step at least 16 times larger, where each step is chosen to maximize a normalized containment ratio R_σ(I,S)=σ^{-|S|}P(S⊆G_I) (Lemma hierarchy); this forces spread of each extension law with σ=128·pE and capacities ℓ_{i+1}≥16ℓ_i. A single-family lemma (Lemma local) resamples a set via a planted-set transition at density ρ, bounding the failure probability and a change-of-measure cost; the tree version (Lemma reduction) applies this at all nodes with one common W, using a potential D_v with a recursion whose exponents are controlled by the factor-16 growth, so the root survives with probability ≥3/4 and the surviving tree has halved capacities and slightly enlarged spread. Iterating ⌊log2 ℓ_k⌋+1 successes (Theorem tree covering) with a Markov bound on attempts yields a covering at density ≤ 16e^50σ(1+log2 ℓ_k) with probability ≥2/3. I checked the one-pair computation, the intersection bound, the potential recursion and its closed form, the disjointness-based decoupling, and the spread bounds on the reduced tree; they hold as written. The parts I checked less closely are the iteration invariants and the attempt-count conditioning argument.",
+  "hardest_part": "The attempt-count argument in the proof of Theorem (tree covering), Step 5, where P(Δ_i > x+1) ≤ (1/4)P(Δ_i > x) is asserted in one sentence. It needs the conditional failure bound from Lemma reduction to hold given the full history (the current tree is a random function of earlier sets), and I had to reconstruct that myself. Close behind is the decoupling in Lemma reduction Steps 4–5, which relies on D_b depending only on W outside A_v(b) and on the distortion bound applied to that D_b with a single shared W; I verified it, but only by tracing the labels through the disjointness argument.",
+  "issues": [
+   {
+    "where": "Theorem (tree covering), proof, Step 5 (number of attempts)",
+    "quote": "$\\PP(\\Delta_i>x+1)\\le\\frac14\\PP(\\Delta_i>x)$, so",
+    "kind": "unjustified_step",
+    "severity": 2,
+    "what_i_needed": "An explicit inclusion {Δ_i > x+1} ⊆ {Δ_i > x} ∩ {attempt Λ_{i-1}+x+1 fails}, and the statement that the conditional failure probability ≤1/4 holds given the entire history up to attempt Λ_{i-1}+x (the current tree is a function of that history). Also state that the procedure has not stopped before the i-th success."
+   },
+   {
+    "where": "Lemma (reduction), proof, Step 1, item (M4)",
+    "quote": "If this event meets ``no local failure'' with positive probability, then $|A_v(b)\\setminus W|\\le m_j/2$",
+    "kind": "ambiguous_statement",
+    "severity": 1,
+    "what_i_needed": "A cleaner statement: for fixed W, if t_vb(W)>0 then some transition with tgt=b has no local failure, and on that event the fragment is A_v(b)\\setminus W, so its size is ≤ m_j/2 (integer, hence ≤ floor). The current phrasing is circular-sounding and should say which probability is positive."
+   },
+   {
+    "where": "Theorem (tree covering), proof, Step 1, definition of α_i(τ)",
+    "quote": "(when $m_i(\\tau-1)\\ge1$ or $\\tau=0$)",
+    "kind": "ambiguous_statement",
+    "severity": 1,
+    "what_i_needed": "The domain of α_i(τ) should be stated so that every factor (1−e^{−⌊ℓ_i/2^u⌋})^{-1} is finite for 0≤u≤τ−1; for surviving levels m_i(τ)≥1 this follows from monotonicity of m_i in τ. The text should say this, since the positivity claim in (A4) relies on it."
+   },
+   {
+    "where": "Theorem (tree covering), proof, Step 1, item (A4)",
+    "quote": "are positive and strictly decreasing in $u$ (each is the floor of half its predecessor,",
+    "kind": "unjustified_step",
+    "severity": 1,
+    "what_i_needed": "A one-line reason for positivity: ⌊ℓ_i/2^u⌋ ≥ m_i(τ−1) ≥ 1 for u ≤ τ−1, by monotonicity of m_i(·) in τ, and the strict decrease from (A1) since x≥1 implies ⌊x/2⌋<x."
+   },
+   {
+    "where": "Section 1, Fact (c): pE(n,H) ≤ pc(n,H)",
+    "quote": "At $p=\\pc(n,H)$ the graph $G(n,p)$",
+    "kind": "unjustified_step",
+    "severity": 1,
+    "what_i_needed": "That P(N(G(n,p),H)>0) ≥ 1/2 at p = pc itself, not just for p > pc. This needs the set {p: P≥1/2} to be closed, which follows from continuity of the polynomial P(N>0) but is not stated for pc."
+   },
+   {
+    "where": "Section 2, Edge-set convention",
+    "quote": "the graph obtained from $H$ by deleting its isolated vertices",
+    "kind": "ambiguous_statement",
+    "severity": 1,
+    "what_i_needed": "The definition of pE quantifies over all subgraphs F⊆H, including ones with isolated vertices, whose copy counts differ from edge-set counts. The text should note that for F' = F plus i isolated vertices, N(K_n,F') = N(K_n,F)·C(n−v(F), i) ≥ N(K_n,F), so the edge-set constraints imply the rest. The manuscript uses only the edge-set constraints without saying so."
+   },
+   {
+    "where": "Section 1.3, abstract conjecture",
+    "quote": "$p_{\\mathrm c}(\\mathcal F)=O(q_f(\\mathcal F)\\log\\ell)$, where $\\ell$ is",
+    "kind": "undefined_notation",
+    "severity": 1,
+    "what_i_needed": "The symbol ℓ is reused later for capacities/label sizes ℓ_1,…,ℓ_k and ℓ_k ≤ e(H). Here it means a different quantity (maximum of 2 and the largest minimal member). A different letter, or a note that the two meanings are separate, would prevent confusion when checking the constants."
+   },
+   {
+    "where": "Section 1.3, context paragraph on integral vs fractional thresholds",
+    "quote": "The source also quotes that the integral and fractional thresholds are within a universal constant",
+    "kind": "unjustified_step",
+    "severity": 1,
+    "what_i_needed": "This is a contextual claim attributed to an external 'source' manuscript. I could not check it. It is stated as not used in the proof, which I confirmed, so it does not affect correctness of the main argument; the text should say what result it refers to."
+   },
+   {
+    "where": "Section 1.3, context paragraph on the hypercube",
+    "quote": "for every fixed $p>1/4$, $G(2^d,p)$ contains the $d$-dimensional cube",
+    "kind": "unjustified_step",
+    "severity": 1,
+    "what_i_needed": "I could not verify the specific constant 1/4 from the description given. It is contextual and not used in the proof, so this has no bearing on the main argument, but I could not confirm it."
+   }
+  ]
+ },
+ {
+  "main_result": "For every n≥2 and graph H with h≥1 edges and at most n vertices, pc(n,H) ≤ min{1, 2048·e^50·pE(n,H)·(1+log2 h)}, and hence pc(n,H) ≤ 6144·e^50·pE(n,H)·log2 n. Here pc is the density at which G(n,p) contains H with probability 1/2, and pE is the least p at which every subgraph F of H has expected copy count at least 1/2. The proof shows that a random set of density r contains a copy of E(H) with probability at least 2/3.",
+  "proof_strategy": "The argument has three layers. Lemma local (resampling) defines a transition: sample a source c from the spread family, then a target b with posterior weight proportional to ν_b ρ^{-|A_b|} on the event A_b ⊆ W∪A_c, and keep the fragment A_b\\W. It bounds the failure probability by e^{-9m} and gives a change-of-measure bound with cost e^{11m}, using the spread hypothesis on intersections. Lemma reduction runs this transition at every node of a disjoint tree with one common W, marks nodes good or bad, and bounds a potential D_v by a recursion over levels; the factor-16 growth of capacities makes the sum converge, so the root survives with probability at least 3/4. Theorem tree covering iterates the reduction about s=⌊log2 ℓ_k⌋+1 successes, with capacities halving and spreads multiplying by less than 4, and takes 4s independent attempts. Lemma hierarchy builds the tree for H from a ratio-maximizing chain of subgraphs, and the graph-expectation threshold enters only through (F2). Final constants: 16·128=2048, and 1+log2 h ≤ 3 log2 n. I checked each inequality and constant I could reach, and found no error.",
+  "hardest_part": "The potential recursion in Lemma reduction (Steps 3–6) and the iteration bookkeeping in Theorem tree covering. The first depends on the claim that D_b is a function of W\\A_v(b) (Step 4) combined with the change-of-measure bound (M2), applied while the same W drives every node; I checked the logic but the reasoning is spread across several steps. The second depends on the spread products (A4) and the invariants (I1)–(I3) under trimming. I verified both but relied on my own reconstruction of the conditioning, so I trust them less than the one-pair computation.",
+  "issues": [
+   {
+    "where": "Lemma reduction (statement, hypotheses)",
+    "quote": "Suppose level $j$ is $\\alpha_j$-spread, where",
+    "kind": "undefined_notation",
+    "severity": 2,
+    "what_i_needed": "The statement uses a in the inequalities 0<α_j≤a and ρ=e^{50}a<1 without introducing a. It should say that a>0 is a fixed parameter in the statement."
+   },
+   {
+    "where": "Theorem tree covering, proof, Step 5 (number of attempts)",
+    "quote": "Splitting according to the value of $\\Lambda_{i-1}$ and\nconditioning attempt by attempt,",
+    "kind": "unjustified_step",
+    "severity": 2,
+    "what_i_needed": "The inequality P(Δ_i>x+1) ≤ (1/4)P(Δ_i>x) is the key geometric-tail step. The proof should write out the conditioning: on {Λ_{i-1}=λ} with the tree fixed, and given the first x attempts failed, attempt x+1 fails with probability at most 1/4. Then sum over λ."
+   },
+   {
+    "where": "Lemma reduction (statement)",
+    "quote": "There is a deterministic procedure which, given $W\\sim\\mu_\\rho$,",
+    "kind": "ambiguous_statement",
+    "severity": 1,
+    "what_i_needed": "Clarify that the procedure is deterministic in (T,W) and that the 3/4 success probability is over W∼μ_ρ. The lemma as stated could be read as randomized."
+   },
+   {
+    "where": "Proof at a glance, Key idea",
+    "quote": "It is controlled because the edge sets added at different",
+    "kind": "ambiguous_statement",
+    "severity": 1,
+    "what_i_needed": "The overview attributes control of W-dependence to disjointness of stages. In the proof, the control is Step 4 of Lemma reduction (D_b depends only on W\\A_v(b), using disjointness along paths) combined with (M2). The overview should point there."
+   },
+   {
+    "where": "Lemma reduction, Step 2 (good nodes)",
+    "quote": "By \\eqref{eq:local-masses}, condition \\eqref{eq:good-node}",
+    "kind": "unjustified_step",
+    "severity": 1,
+    "what_i_needed": "Reader needs the one-line identity d_v+Σ_bad t = 1−Σ_good t, which follows from the sum-to-one identity. It is correct but should be written out, since the potential bound in Step 3 depends on it."
+   },
+   {
+    "where": "Lemma local, Step 4 (grouping over i)",
+    "quote": "Applying \\eqref{eq:onepair} with $f\\equiv1$, then grouping the sources $c$ by",
+    "kind": "heavy_computation",
+    "severity": 1,
+    "what_i_needed": "The passage from Σ_c ν_c ρ^{-|A_c∩A_b|} 1{|A_c∩A_b|>m/2} to Σ_{m/2<i≤m} C(m,i)(a/ρ)^i needs the explicit identity Σ_c ν_c g(|A_c∩A_b|)=Σ_i P(|A_c∩A_b|=i)g(i) together with the bound P(|A_c∩A_b|=i) ≤ C(m,i)a^i. I checked it, but it is compressed."
+   },
+   {
+    "where": "Lemma local, end of Step 4",
+    "quote": "\\ee^{-10m}+\\ee^{-(15-\\log 2)m}\n \\le\\ee^{-9m},",
+    "kind": "heavy_computation",
+    "severity": 1,
+    "what_i_needed": "The inequality needs division by e^{-9m}, which reduces to e^{-m}+e^{-(6-log2)m} ≤ 1. The text gives this only after the display. I verified it (≈0.37+0.007<1), but the reduction should be shown."
+   },
+   {
+    "where": "Theorem tree covering, Step 2 (procedure, trimming)",
+    "quote": "choose by a fixed rule a node $o'$ of $\\TT'$ at depth $k_0$",
+    "kind": "unjustified_step",
+    "severity": 1,
+    "what_i_needed": "The text should note that a node at depth k_0 exists because all leaves of T' are at depth k' > k_0, and that it is retained (hence good). Both follow from earlier facts but are not stated here."
+   },
+   {
+    "where": "Introduction, normalization remark",
+    "quote": "So the normalization gives the same conjecture.",
+    "kind": "ambiguous_statement",
+    "severity": 1,
+    "what_i_needed": "It is unclear whether 'this bound' refers to pE or to the final inequality. The claim that the conjecture is unchanged needs the two-sided comparison of pE under 1/2 versus 1, plus the observation that pc does not depend on the normalization."
+   },
+   {
+    "where": "Section 'Standing notation' (graph section)",
+    "quote": "q=\\pE(n,H),\\qquad\\sigma=128q,\\qquad X=\\tbinom{[n]}2",
+    "kind": "undefined_notation",
+    "severity": 1,
+    "what_i_needed": "The letter q is also used in Section 1 for the functionals q(F) and q_f(F), and in the abstract discussion. The author notes the clash, but the reader must track two meanings. A distinct symbol would avoid confusion."
+   }
+  ]
+ }
+]

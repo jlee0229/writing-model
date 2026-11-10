@@ -1,0 +1,17 @@
+{
+ "where": "Section 2.2, the existence of the parent family I_1<...<I_D (used throughout Section 2.3 and the proof of Proposition 2.3)",
+ "kind": "off-by-one index that breaks a lemma hypothesis (internality)",
+ "explanation": "With I_j=[(2j-2)2^{-r},(2j-1)2^{-r}], the first parent is I_1=[0,2^{-r}]. Its left endpoint is 0, so it is not internal, and the claim that this family is internal is false. So is the later claim 'All these intervals are internal'. Lemma 2.2 needs internal intervals, and here its conclusion actually fails. Any h in F is an increasing bijection with h(0)=0, so it cannot carry I_2 (min I_2>0) onto I_1 (min I_1=0). Hence the transports h_{I,J} carrying separated pairs onto the reference pair (I_1,I_2) do not exist, S cannot be chosen, and the correlation comparison (avg:correlation) has no justification.",
+ "correct_version": "take $2^r>2D$ and use $I_j=[(2j-1)2^{-r},2j2^{-r}]$ (so every I_j lies strictly inside (0,1)).",
+ "edits": [
+  {
+   "find": "$I_j=[(2j-1)2^{-r},2j2^{-r}]$",
+   "replace": "$I_j=[(2j-2)2^{-r},(2j-1)2^{-r}]$"
+  }
+ ],
+ "validation": {
+  "verdict": "real_error",
+  "subtlety": 3,
+  "reason": "With the edited formula, j=1 gives I_1=[0,2^{-r}], whose left endpoint is 0, so the displayed family is not internal and fails as a witness for \"Choose internal basic intervals I_1<...<I_D\". The damage is not cosmetic: the later claim \"All these intervals are internal\" becomes false, and Lemma 2.2 (pair transport) requires internal intervals. Its conclusion genuinely fails here, since every h in F fixes 0 and so cannot carry an interval J with min J>0 onto I_1, nor carry I_1·I_j-type descendants appropriately; hence the transports h_{I,J} onto the reference pair (I_1,I_2) do not all exist and (avg:correlation) loses its justification. An internal family does exist (the original formula), so the fix is easy, but the step as written is false. Spotting it only requires plugging j=1 into the formula and comparing with the definition of internal."
+ }
+}

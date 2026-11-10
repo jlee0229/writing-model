@@ -1,0 +1,18 @@
+[
+ {
+  "find": "For every ordered $m$-tuple $(e_1,\\ldots,e_m)$ of distinct regular edges",
+  "replace": "For every ordered $m$-tuple $(e_1,\\ldots,e_m)$ of regular edges"
+ },
+ {
+  "find": "(e_1,\\ldots,e_t)\\in(\\mathcal H')^t\\\\ \\text{distinct}}",
+  "replace": "(e_1,\\ldots,e_t)\\in(\\mathcal H')^t\\\\ \\text{not necessarily distinct}}"
+ },
+ {
+  "find": "$e$ distinct from $e_1,\\ldots,e_t$; summing over all regular $e$ only\nincreases the sum.",
+  "replace": "$e$."
+ },
+ {
+  "find": "Fix an $m$-tuple of distinct regular edges.",
+  "replace": "Fix an $m$-tuple of regular edges."
+ }
+]

@@ -1,0 +1,240 @@
+{
+ "slug": "seymour",
+ "questions": [
+  {
+   "id": 1,
+   "type": "gist",
+   "question": "State exactly what the main theorem asserts: which graphs, which quantifier over vertices, and which inequality with which notion of second neighbourhood. Then describe the two-stage structure of the proof: what kind of graph is built from a hypothetical counterexample, and what is then shown about such graphs?",
+   "answer": "Every nonempty finite oriented graph (no loops, multiple arcs or digons; connectivity not assumed) has some vertex v with |N_1^+(v)| ≤ |N_2^+(v)|, where N_2^+(v) is the set of vertices at directed distance exactly two from v. The proof assumes a counterexample exists and builds from it a nonempty finite oriented graph G in which every vertex has positive indegree and |U|+|F_G^2(U)| < 2|F_G(U)| for every nonempty proper U. It then shows by an extremal argument that no such graph exists.",
+   "must_include": [
+    "existence of one vertex with |N_1^+(v)| ≤ |N_2^+(v)|, N_2^+ = exact distance two, in every nonempty finite oriented graph",
+    "the counterexample yields a graph with positive indegrees satisfying |U|+|F^2(U)|<2|F(U)| for all nonempty proper U",
+    "a separate extremal argument shows no such graph exists"
+   ],
+   "key_confirmed": true,
+   "closed_book_novice": 0.0,
+   "closed_book_weak": 0.0,
+   "closed_book_mid": 0.0,
+   "usable": true
+  },
+  {
+   "id": 2,
+   "type": "gist",
+   "question": "In the final contradiction ruling out graphs that satisfy the strict inequality |U|+|F^2(U)|<2|F(U)|, what quantity is maximized and over what objects? Outline why the construction produces a strictly larger value of that quantity.",
+   "answer": "Among pairs (P,Q) of subsets of X×X that both contain the diagonal and satisfy F_1P ∩ F_2Q = ∅, maximize M+d, where M=|P|+|Q| and d is the number of points outside F_1P ∪ F_2Q. The concavity inequality, summed over the columns of P and the rows of Q, shows that the complements of F_2^2Q and F_1^2P have total size > M+2d. Conflict removal then deletes at most |H|+d' ≤ d+d' members, keeps the diagonal, and leaves d' uncovered points. So the new pair has objective > M+2d−(d+d')+d' = M+d.",
+   "must_include": [
+    "maximize M+d (|P|+|Q| plus number of uncovered points) over compatible pairs containing the diagonal",
+    "complement families of the second iterated images have size > M+2d",
+    "pruning costs ≤ d+d', so the new objective exceeds M+d"
+   ],
+   "key_confirmed": true,
+   "closed_book_novice": 0.0,
+   "closed_book_weak": 0.0,
+   "closed_book_mid": 0.0,
+   "usable": true
+  },
+  {
+   "id": 3,
+   "type": "gist",
+   "question": "What exactly does the lemma that deletes members of two families of ordered pairs to remove all conflicts guarantee? How is its proof organised, from the auxiliary graph to the final choice of deletions?",
+   "answer": "For any finite set with an arbitrary binary relation and families R, C, it gives conflict-free subfamilies R' ⊆ R and C' ⊆ C. Every initially conflict-free member is kept, and the number of deleted members is at most |H| plus the number of points of Z covered by no surviving member. The proof builds a bipartite graph Γ on R ⊔ Z_L versus C ⊔ Z_R, with edges for conflicts and for covering, and shows that a maximum matching has size ≤ |Z|+|H|. This uses ranks of four coefficient maps with NL=AB at a generic real assignment. A König-type alternating-path argument then gives a vertex cover, and its original members are the ones deleted.",
+   "must_include": [
+    "conclusion: conflict-free subfamilies keeping conflict-free members, with deletions ≤ |H| + #points of Z uncovered by survivors",
+    "bipartite graph with conflict and covering edges; maximum matching ≤ |Z|+|H| via ranks/NL=AB",
+    "König vertex cover whose original members are deleted"
+   ],
+   "key_confirmed": true,
+   "closed_book_novice": 0.0,
+   "closed_book_weak": 0.0,
+   "closed_book_mid": 0.0,
+   "usable": true
+  },
+  {
+   "id": 4,
+   "type": "step",
+   "question": "In the arc-deletion argument for a minimal counterexample, g(T)=|F(T)\\(I∪T)|, Q is the set of out-neighbours that v loses, and C = F(Q)\\(I∪T∪Q∪F(T)). Why is g(T∪Q)−g(T) exactly |C|−|Q∩F(T)|?",
+   "answer": "g(T∪Q)=|(F(T)∪F(Q))\\(I∪T∪Q)|. Q ⊆ E\\T is disjoint from I∪T, so removing Q from F(T)\\(I∪T) removes exactly the points of Q∩F(T). The points of F(Q) that are not already in F(T) and lie outside I∪T∪Q form exactly C. So the old count loses |Q∩F(T)| and gains |C|.",
+   "must_include": [
+    "F(T∪Q)=F(T)∪F(Q)",
+    "Q is disjoint from I∪T, so exactly Q∩F(T) is removed from the old count",
+    "the new points are exactly C"
+   ],
+   "key_confirmed": true,
+   "closed_book_novice": 0.0,
+   "closed_book_weak": 0.0,
+   "closed_book_mid": 0.5,
+   "usable": true
+  },
+  {
+   "id": 5,
+   "type": "step",
+   "question": "In the blow-up that replaces each vertex of the minimal counterexample by a transitive tournament on m vertices, why must m exceed n=|V(D)|? Where exactly does this condition enter?",
+   "answer": "For S ≠ V(D), the estimate is |U|−2|F_G(U)|+|F_G^2(U)| ≤ m(|F^2(S)\\F(S)|−|F(S)\\S|)+|S\\F(S)|. Each block outside F(S) can contribute up to +1 internally, since a transitive tournament satisfies |T|−2|f(T)|+|f^2(T)| ≤ 1. These contributions total at most n. The base deficit is an integer ≤ −1 multiplied by m, so the bound is ≤ −m+n, which is negative only if m>n.",
+   "must_include": [
+    "each base block not in F(S) contributes an internal excess of at most 1, for a total ≤ n",
+    "the integer base deficit ≤ −1 is multiplied by m",
+    "so −m+n<0 needs m>n"
+   ],
+   "key_confirmed": true,
+   "closed_book_novice": 0.0,
+   "closed_book_weak": 0.0,
+   "closed_book_mid": 0.0,
+   "usable": true
+  },
+  {
+   "id": 6,
+   "type": "step",
+   "question": "In bounding the matching size, why does the map L : R^𝓡 → R^Z have rank at most ℓ (the size of the 𝓡–Z_R part α of the chosen maximum matching) for every choice of coefficients?",
+   "answer": "L has a nonzero entry at ((i,j),(p,j)) only if p→i, that is, only if (p,j) covers (i,j). Such a pair is exactly an edge of Γ between 𝓡 and Z_R. A nonzero r×r minor has a nonzero term in its determinant, and that term is a perfect matching between its rows and columns using such edges, so it is a matching of size r in the 𝓡–Z_R subgraph. Since α is maximum in that subgraph, r ≤ ℓ.",
+   "must_include": [
+    "the support of L is exactly the 𝓡–Z_R covering edges of Γ",
+    "a nonzero minor gives a matching of that size",
+    "α is a maximum matching in that subgraph"
+   ],
+   "key_confirmed": true,
+   "closed_book_novice": 0.0,
+   "closed_book_weak": 0.0,
+   "closed_book_mid": 0.0,
+   "usable": true
+  },
+  {
+   "id": 7,
+   "type": "step",
+   "question": "For each left endpoint r of a matched edge between two original members, why is there a vector u^r ∈ ker L with u^r_r=1 whose other nonzero coordinates lie in R_α? Why do these vectors restrict to distinct unit vectors on the set of such endpoints?",
+   "answer": "The coefficients are chosen so that the columns of L indexed by R_α form a basis of im L. So L e_r = Σ_{a∈R_α} c_a L e_a, and u^r = e_r − Σ c_a e_a lies in ker L. The vertex r is not in R_α, because it is already matched in 𝓜 by an original–original edge and α ⊆ 𝓜. The same holds for every such endpoint, so on these endpoints u^r is just e_r.",
+   "must_include": [
+    "the columns indexed by R_α form a basis of im L, so the column of r is a combination of them",
+    "r ∉ R_α because r is matched by the original–original edge and α is part of the same matching"
+   ],
+   "key_confirmed": true,
+   "closed_book_novice": 0.0,
+   "closed_book_weak": 0.0,
+   "closed_book_mid": 0.0,
+   "usable": true
+  },
+  {
+   "id": 8,
+   "type": "step",
+   "question": "In showing dim ker A ≥ k, why does every u ∈ ker B vanish at each left endpoint r of an original–original matched edge (r,c)? How does this give k independent vectors in ker A?",
+   "answer": "An edge of Γ between two original members is a conflict. Apply u_{pj}v_{is}=0 (for all u∈ker B, v∈ker N^T and every conflict) with v=v^c, which satisfies v^c_c=1; this gives u_r=0. If Σθ_r Bu^r=0, then u=Σθ_r u^r ∈ ker B and u_r=θ_r, so every θ_r=0. Finally A(Bu^r)=NLu^r=0 because u^r ∈ ker L.",
+   "must_include": [
+    "(r,c) is a conflict, so u_r·v^c_c=0 with v^c_c=1",
+    "a linear relation among the Bu^r gives a vector in ker B whose coordinates at the endpoints are the θ_r",
+    "ABu^r=NLu^r=0"
+   ],
+   "key_confirmed": true,
+   "closed_book_novice": 0.0,
+   "closed_book_weak": 0.0,
+   "closed_book_mid": 0.0,
+   "usable": true
+  },
+  {
+   "id": 9,
+   "type": "step",
+   "question": "In turning the maximum matching into a vertex cover K=(𝒱_L\\W_L)∪W_R by alternating paths from the unmatched left vertices, why does K contain no isolated vertex of Γ? Why is this property needed?",
+   "answer": "An isolated left vertex is unmatched, so it is a starting vertex. It therefore lies in W_L and is not in K. An isolated right vertex has no edges, so it cannot be reached and is not in W_R. This matters because the original members of K are the ones deleted. Initially conflict-free members are isolated in Γ, so they must stay outside K to be retained, which is what later keeps the diagonal.",
+   "must_include": [
+    "isolated left vertices are unmatched starting points, so they are in W_L; isolated right vertices are never reached",
+    "the original members of K are deleted, and initially conflict-free members (isolated) must be retained"
+   ],
+   "key_confirmed": true,
+   "closed_book_novice": 0.0,
+   "closed_book_weak": 0.0,
+   "closed_book_mid": 0.0,
+   "usable": true
+  },
+  {
+   "id": 10,
+   "type": "step",
+   "question": "In the extremal argument, why does applying the strict inequality |U|+|F^2(U)|<2|F(U)| give |P|+|F_1^2P|<2|F_1P| for the whole family P?",
+   "answer": "F_1 acts on each column separately: the j-th column of F_1P is F(P_j), and that of F_1^2P is F^2(P_j). Each column P_j contains j, and it is proper because otherwise compatibility fails at an in-neighbour of j. So the strict inequality holds for every column. Summing over the nonempty set of columns gives the strict inequality for P.",
+   "must_include": [
+    "the column of F_1P at j is F(P_j), and of F_1^2P is F^2(P_j)",
+    "each column P_j is nonempty and proper",
+    "summing the strict column inequalities over j"
+   ],
+   "key_confirmed": true,
+   "closed_book_novice": 0.0,
+   "closed_book_weak": 0.0,
+   "closed_book_mid": 0.0,
+   "usable": true
+  },
+  {
+   "id": 11,
+   "type": "step",
+   "question": "After removing conflicts from the complement families to get P' and Q', why are at most d' = |X|^2−|F_1P'|−|F_2Q'| points of Z left uncovered by the surviving members?",
+   "answer": "A point is covered by a surviving left member exactly when it lies in F_1P', and by a surviving right member exactly when it lies in F_2Q'. Because no conflicts remain, F_1P' ∩ F_2Q' = ∅. So |X|^2−|F_1P'|−|F_2Q'| counts exactly the points outside both images. The uncovered points of Z are among these.",
+   "must_include": [
+    "being covered by survivors means membership in F_1P' ∪ F_2Q'",
+    "conflict-freeness makes F_1P' and F_2Q' disjoint, so d' is exactly the number of points in neither"
+   ],
+   "key_confirmed": true,
+   "closed_book_novice": 0.0,
+   "closed_book_weak": 0.0,
+   "closed_book_mid": 0.0,
+   "usable": true
+  },
+  {
+   "id": 12,
+   "type": "transfer",
+   "question": "Take X={1,2,3} with relation 1→2 and 1→3 only. Take the left family 𝓡={(1,2),(1,3)} and the right family 𝓒={(2,1),(3,1)}. Compute Z and H. Does deleting all of 𝓡 (keeping 𝓒) satisfy the deletion bound of the conflict-removal lemma? What is the fewest number of deletions in a pruning that satisfies it?",
+   "answer": "Every left member conflicts with every right member, so Z={2,3}×{2,3} (4 points) and H={(1,1)}. Deleting 𝓡 costs 2, but the survivors (2,1) and (3,1) cover all of Z, so the bound is only 1+0=1, and this pruning fails. The same happens when deleting 𝓒. A valid pruning needs 3 deletions, for example all of 𝓡 plus (3,1): this leaves (3,2) and (3,3) uncovered, and 3 ≤ 1+2.",
+   "must_include": [
+    "Z={2,3}×{2,3} and H={(1,1)}",
+    "deleting exactly one side gives 2 > 1 because the survivors cover all of Z",
+    "the minimum valid number of deletions is 3 (one whole side plus one more member)"
+   ],
+   "key_confirmed": true,
+   "closed_book_novice": 0.0,
+   "closed_book_weak": 0.0,
+   "closed_book_mid": 0.0,
+   "usable": true
+  },
+  {
+   "id": 13,
+   "type": "transfer",
+   "question": "Suppose the extremal argument with pairs of families were run on a graph G that is like the one considered but has one pair of opposite arcs i→j and j→i. Which step fails, and why? Does the conflict-removal lemma itself need changing?",
+   "answer": "The starting pair P=Q=Δ is no longer compatible: (i,j) ∈ F_1Δ (from (j,j) and j→i) and (i,j) ∈ F_2Δ (from (i,i) and i→j). Every admissible pair contains Δ, so F_1P ⊇ F_1Δ and F_2Q ⊇ F_2Δ, and no compatible pair containing the diagonal exists. The maximization therefore has nothing to maximize over. The conflict-removal lemma holds for any binary relation and needs no change.",
+   "must_include": [
+    "compatibility of (Δ,Δ) fails because (i,j) ∈ F_1Δ ∩ F_2Δ",
+    "since every admissible pair contains Δ, no feasible pair exists",
+    "the pruning lemma is valid for arbitrary relations, so it is not where orientation is used"
+   ],
+   "key_confirmed": true,
+   "closed_book_novice": 0.0,
+   "closed_book_weak": 0.0,
+   "closed_book_mid": 0.0,
+   "usable": true
+  },
+  {
+   "id": 14,
+   "type": "transfer",
+   "question": "Suppose the extremal argument maximized only M=|P|+|Q| over compatible pairs containing the diagonal, leaving out the count d of uncovered points. With the same complement-and-prune construction and the same deletion bound, where does the argument break?",
+   "answer": "The complement families still have size > M+2d, and pruning still deletes at most |H|+d' ≤ d+d' members. So the new size is > M+d−d'. This exceeds M only when d' ≤ d, which nothing guarantees. Without d in the objective, the deletion cost d' charged to points left uncovered after pruning is no longer offset, and no contradiction follows.",
+   "must_include": [
+    "the new size is only > M+d−d'",
+    "d' (points uncovered after pruning) can exceed d, so no strict increase is guaranteed"
+   ],
+   "key_confirmed": true,
+   "closed_book_novice": 0.0,
+   "closed_book_weak": 0.0,
+   "closed_book_mid": 0.0,
+   "usable": true
+  },
+  {
+   "id": 15,
+   "type": "transfer",
+   "question": "Consider the lemma about kernels of a matrix that has maximum rank among real matrices with a given support. Take support T={(1,1),(2,2)} in {1,2}×{1,2} and D=diag(1,0). Does its conclusion hold for this D? Explain why the answer is consistent with the lemma.",
+   "answer": "It fails. x=e_2 ∈ ker D and y=e_2 ∈ ker D^T, and (2,2) ∈ T, but x_2y_2=1 ≠ 0. This does not contradict the lemma, because D is not of maximum support rank: diag(1,1) is supported on T and has rank 2. Indeed the perturbation D+τe_2e_2^T used in the proof raises the rank, exactly as the proof's argument shows.",
+   "must_include": [
+    "the conclusion fails: x=y=e_2 gives x_2y_2=1 at (2,2) ∈ T",
+    "D is not of maximum rank on T (rank 2 is attainable), so the hypothesis fails; the perturbation at (2,2) raises the rank"
+   ],
+   "key_confirmed": true,
+   "closed_book_novice": 0.0,
+   "closed_book_weak": 1.0,
+   "closed_book_mid": 0.0,
+   "usable": true
+  }
+ ]
+}

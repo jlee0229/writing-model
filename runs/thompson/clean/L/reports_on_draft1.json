@@ -1,0 +1,226 @@
+[
+ {
+  "main_result": "Claims that Thompson's group F is not amenable. The quantitative form (avg:boundary) says there is a finite S ⊂ F and c_0 > 0 such that every nonempty finite A ⊂ F has max_{h in S} |hA △ A|/|A| ≥ c_0. The argument colours partitions of [0,1] recursively with vectors in the unit ball of L^2([0,1];R^2) via a fixed-point-free Lipschitz map f. An almost-invariant finite A forces the parent colours to be nearly constant in correlation, which contradicts the displacement bound. I checked the algebra of Steps 0–7 and the appendix construction, and found no fatal error. Because the manuscript claims to settle a long-standing open problem, the result should be treated with caution until checked by specialists.",
+  "proof_strategy": "Fix a Lipschitz map f on the Hilbert ball with uniform displacement δ, and fix parent intervals I_1..I_D and children I_i·I_j. Colour each dyadic partition T recursively: if T respects all parents, colr(T) = f(average of colr(T restricted to I_j)); otherwise 0. For g in F, read off X_I(g) = colr((gT^(n))_I) at one fine level n. Pair transport (dyad:transport) gives an element h of F that moves two separated intervals affinely onto I_1 and I_2 at once, so colours are carried exactly. For a fixed finite A, averaging over A changes each cross-correlation by at most the boundary ratio η, so all separated correlations are within η of one number α. The recursion gives X_{I_i} = f(z_i), and convexity plus Lipschitz continuity then bound E||m - f(m)||^2 by L^2 times a variance that is at most 4/D + 4(1-1/D)η; the α terms cancel. Comparing with δ^2 forces η ≥ c_0 > 0. The tube-and-rotation construction in the appendix gives f itself. I could follow each step, but only by checking constants and the admissibility bookkeeping line by line.",
+  "hardest_part": "The hardest part to certify is the single-level bookkeeping in Step 0–1 of avg:boundary, namely that admissibility of both g and hg at the same fine level n, together with the normalized-restriction identity from dyad:covariancelemma, really gives the exact colour equality X_I(g) = X_{I_1}(hg) for every g in A. Next is the appendix separation and tube constants (aux:sep, aux:tube, aux:map Step 1c), which I checked but did not re-derive in full detail. I could not independently test the global claim against the literature.",
+  "issues": [
+   {
+    "where": "Abstract and §1.1 (Statement of result)",
+    "quote": "This confirms Geoghegan's conjecture and resolves the amenability problem for \\(F\\).",
+    "kind": "ambiguous_statement",
+    "severity": 2,
+    "what_i_needed": "The paper claims to settle an open problem. I could not check the literature status of Geoghegan's question, and the manuscript does not explain why earlier claims in both directions (Akhmedov, Shavgulidze, Moore) were wrong while this one is correct. A referee needs an independent check, or a short comparison with the failure modes of those earlier arguments."
+   },
+   {
+    "where": "Corollary cor:percolation, proof paragraph and its \\unverified box",
+    "quote": "The source does not reproduce the statement of",
+    "kind": "unjustified_step",
+    "severity": 2,
+    "what_i_needed": "The corollary is deduced from a companion theorem that is not stated. The inequality p_{2→2} ≤ p_u, the definition of p_u (only 'almost-sure uniqueness'), and the coupled interval [p_1,p_2] are all taken on trust. I could not verify any of them from the text."
+   },
+   {
+    "where": "Corollary cor:nonunitarizable, proof paragraph and its \\unverified box",
+    "quote": "The deduction is valid only if that theorem gives exactly the displayed",
+    "kind": "unjustified_step",
+    "severity": 2,
+    "what_i_needed": "The conclusion (a uniformly bounded representation with bound 1+ε that is not unitarizable, for every countable nonamenable group) is attributed to an unseen companion paper. The manuscript itself says this would be an open problem in general. I need the precise statement of the cited theorem to check whether it applies."
+   },
+   {
+    "where": "§2.2 'Proof at a glance', item (ii) 'Hilbert space'",
+    "quote": "\\mathbb E_A\\norm{z_i-m}^2\\le 4/D+4\\eta",
+    "kind": "ambiguous_statement",
+    "severity": 1,
+    "what_i_needed": "The sketch gives the variance bound with 4η, while Step 6 of avg:boundary gives 4(1−1/D)η. The sketch's version is weaker and still valid, but the two constants should be reconciled so the reader knows which is being used."
+   },
+   {
+    "where": "Remark rem:hypotheses (a)",
+    "quote": "The analogue of \\cref{dyad:transport} fails there, Step~2 is unavailable, and",
+    "kind": "unjustified_step",
+    "severity": 1,
+    "what_i_needed": "The remark says that for the solvable group of dyadic affine maps the transport lemma fails and the argument gives nothing. No proof is given. It is labelled 'not part of the proof', so it does not affect the main argument, but the claim needs either a short proof or a qualifier."
+   },
+   {
+    "where": "Lemma aux:tube (Lemma of tube and nearest-point projection), Step 3",
+    "quote": "So the late \\(t_n\\) lie in a compact",
+    "kind": "unjustified_step",
+    "severity": 1,
+    "what_i_needed": "The argument that the minimizing sequence has a convergent subsequence needs an explicit bounded interval. The text gives only that late parameters are within d of each other. Fixing one late t_N and noting all later t_n lie in [t_N−d, t_N+d] would make the step complete; as written it is implicit."
+   },
+   {
+    "where": "Lemma aux:rotation (Lipschitz dependence)",
+    "quote": "K_R\\le2(K_u+1)+8(K_u+1)+4(K_u+1)=14(K_u+1)",
+    "kind": "heavy_computation",
+    "severity": 1,
+    "what_i_needed": "The three contributions to K_R come from the product rule applied to Λ, Λ², and 1/(1+κ), each with a norm bound and a Lipschitz bound that are only sketched. I redid the sum and it is correct, but the individual bounds on ||Λ_t−Λ_τ|| ≤ 2(K_u+1)|t−τ| and on the Lipschitz constant of κ should be written out."
+   },
+   {
+    "where": "§2.4 Step 0 of proof of aux:map (Lipschitz estimate, case 1c) and the claim in dyad:eventual(b)",
+    "quote": "Since \\(\\dist(y,\\gamma(\\R))\\ge\\rho\\) and the distance function is",
+    "kind": "unjustified_step",
+    "severity": 1,
+    "what_i_needed": "I checked this step: β(s) ≤ χ(s) ≤ 2(ρ−s)/ρ holds on [0,ρ), and ρ−‖e‖ ≤ ‖x−y‖ follows from the 1-Lipschitz distance. Nothing is wrong here. I list it only because the chain of inequalities crosses four cases and a reader would need to reconstruct it."
+   }
+  ]
+ },
+ {
+  "main_result": "Claims that Thompson's group F is not amenable (Geoghegan's conjecture). Quantitatively: there is a finite S ⊂ F and c0 > 0 such that for every nonempty finite A ⊂ F, max_{h∈S} |hA△A|/|A| ≥ c0. This contradicts the Følner condition for S. The bound comes from a recursive coloring of dyadic partitions that, via a Lipschitz fixed-point-free map f of the Hilbert unit ball (Benyamini–Sternfeld type, constructed explicitly in the appendix), forces the averaged correlations over A to be nearly constant, which is impossible when the boundary ratio is small. Secondary corollaries on non-unitarizable representations and Bernoulli percolation are stated as consequences of unavailable companion papers and are not part of the proof.",
+  "proof_strategy": "Fix a Lipschitz map f: B→B with ||f(x)-x|| ≥ δ and a dyadic family of parent intervals I_1..I_D with children I_i·I_j. Define a color colr(T) for each dyadic partition T by a well-founded recursion (apply f to the average of the colors of the restrictions to the parents), and set X_I(g) = colr of the restriction of gT^(n) to I, for a level n chosen fine enough for a given finite A and its translates. Group-theoretic transport lemmas give, for each separated pair of intervals, an element h of F moving them affinely onto I_1 and I_2, so averaged correlations of separated pairs are within the boundary ratio η of a common number α. Exact covariance gives the recursion X_{I_i} = f(z_i), and the pointwise inequality ||m-f(m)||² ≤ L²·avg||z_i-m||² plus the three second-moment bounds yield δ² ≤ L²(4/D + 4(1-1/D)η), so η ≥ c0 > 0. I checked the inequality chain, the restriction/covariance identities, the transport construction, and the appendix construction of f line by line and found no error; the unclear parts are the cited companion results used only in the corollaries.",
+  "hardest_part": "Whether the single-level admissibility bookkeeping (dyad:eventual(b) applied to A∪SA, then covariance at the same n) and the pair-transport construction are airtight as the definitions are written, since the entire contradiction rests on them. I verified them by hand and they appear correct, but the statement that a short argument of this kind settles a long-open problem (Geoghegan's conjecture, which I believe is open to my knowledge) is exactly the kind of claim that needs an independent expert check that I cannot supply. I also could not check the literature citations.",
+  "issues": [
+   {
+    "where": "Corollary cor:nonunitarizable, proof",
+    "quote": "The conclusion is then quoted from the companion unitarizability theorem",
+    "kind": "unjustified_step",
+    "severity": 2,
+    "what_i_needed": "The statement of the companion theorem (OpenAIUnitarizability2026, Thm 1.1), since the conclusion, including the bound 1+ε for every countable nonamenable group, is asserted only by citation. The manuscript's own unverified box notes this general statement looks like an open problem."
+   },
+   {
+    "where": "Corollary cor:percolation, proof",
+    "quote": "Apply the companion percolation result",
+    "kind": "unjustified_step",
+    "severity": 2,
+    "what_i_needed": "The statement of the companion result (OpenAIPercolation2026, Cor 1.2). All listed conclusions (norm bound at p_c, p_c<p_{2→2}, the interval [p_1,p_2]) come from it, and p_c<p_u for general nonamenable Cayley graphs is flagged by the manuscript as open."
+   },
+   {
+    "where": "Section 1.2 (Proof at a glance), Functions on F bullet",
+    "quote": "let \\(X_I(g)\\) be the color of the partition",
+    "kind": "ambiguous_statement",
+    "severity": 2,
+    "what_i_needed": "The sketch's X_I(g) omits the admissibility condition (set to 0 otherwise in the formal definition). The displayed identity X_{I_i}(g)=f(z_i(g)) 'by construction' holds only for admissible (n,g); the sketch should say so."
+   },
+   {
+    "where": "Corollary cor:percolation, statement",
+    "quote": "For each fixed \\(p\\in(p_c,p_u)\\), there are almost surely infinitely many",
+    "kind": "unjustified_step",
+    "severity": 1,
+    "what_i_needed": "A citation or argument (e.g. Burton–Keane plus ergodicity/0-1 law) that non-uniqueness for p in (p_c,p_u) gives infinitely many clusters a.s. The definition of p_u as a 'threshold for almost-sure uniqueness' is also not stated as an inf or sup."
+   },
+   {
+    "where": "Section 2.3 (Percolation), notation paragraph",
+    "quote": "Write \\(p_c\\) for the threshold for existence of an infinite open cluster and \\(p_u\\) for the threshold for almost-sure uniqueness",
+    "kind": "ambiguous_statement",
+    "severity": 1,
+    "what_i_needed": "A precise definition of p_u (inf of p with a.s. uniqueness, or sup of p with non-uniqueness) and monotonicity in p, which the corollary's use of the interval (p_c,p_u) depends on."
+   },
+   {
+    "where": "Remark rem:hypotheses (b)",
+    "quote": "If \\(\\dim H<\\infty\\), Brouwer's theorem forces \\(\\delta=0\\) and",
+    "kind": "ambiguous_statement",
+    "severity": 1,
+    "what_i_needed": "Brouwer's theorem shows that no Lipschitz f with ||f(x)-x|| ≥ δ > 0 exists in finite dimension; it does not force δ=0. The statement should say the hypothesis of the lemma is unsatisfiable."
+   },
+   {
+    "where": "Section 1.1 (Følner criterion paragraph)",
+    "quote": "which, as the source reports it, bounds the \\emph{sum} over \\(h\\in S\\) of these ratios",
+    "kind": "unjustified_step",
+    "severity": 1,
+    "what_i_needed": "The reduction from a sum-over-S bound to a per-h bound relies on an external formulation (Moore 2013, Thm 1.2) read via a source. Stating the standard Følner property for finite S directly would avoid depending on this reading."
+   },
+   {
+    "where": "Appendix, proof of aux:calc (iv)",
+    "quote": "So \\(\\Lip(a\\theta')\\le7/16\\) and",
+    "kind": "unjustified_step",
+    "severity": 1,
+    "what_i_needed": "The step from piecewise derivative bounds to a global Lipschitz bound: aθ' is continuous and piecewise C^1 with breakpoints at 1,2,3 (and the derivative bound holds on each piece), so the mean value theorem on each piece and continuity give the global bound. This should be said explicitly."
+   },
+   {
+    "where": "Appendix, proof of aux:tube, Step 3",
+    "quote": "So the late \\(t_n\\) lie in a compact interval.",
+    "kind": "unjustified_step",
+    "severity": 1,
+    "what_i_needed": "Why pairwise parameter distances below d force boundedness: all late t_n lie within d of one fixed t_N, which gives boundedness. The text compresses this."
+   },
+   {
+    "where": "Section 1.2, Key idea (ii)",
+    "quote": "so any two averages of \\(D\\) of them nearly agree.",
+    "kind": "unjustified_step",
+    "severity": 1,
+    "what_i_needed": "The heuristic 'one common vector plus uncorrelated noise' is not justified in the sketch. The formal proof (Steps 5–6) uses only pairwise bounds and does not need it, so the sketch should say that."
+   },
+   {
+    "where": "Remark rem:hypotheses (a)",
+    "quote": "The analogue of \\cref{dyad:transport} fails there, Step~2 is unavailable, and",
+    "kind": "unjustified_step",
+    "severity": 1,
+    "what_i_needed": "A one-line reason why the transport lemma fails for the affine group (affine maps preserve length ratios, so cannot send I, J onto I_1, I_2 of different lengths). The remark is outside the proof, but its claim is asserted without argument."
+   },
+   {
+    "where": "Section 2.3 (Percolation) corollary text",
+    "quote": "Moreover, there are deterministic numbers",
+    "kind": "ambiguous_statement",
+    "severity": 1,
+    "what_i_needed": "Whether p_1,p_2 are required to satisfy p_c<p_1 with the single a.s. event for all p in [p_1,p_2] under the coupling; the quantifier order 'with probability one ... for every p' should be checked against the companion statement."
+   }
+  ]
+ },
+ {
+  "main_result": "Thompson's group F is not amenable (Theorem thm:main). The quantitative form (Proposition avg:boundary): there is a finite S ⊂ F and c0 > 0 such that max_{h∈S} |hA△A|/|A| ≥ c0 for every nonempty finite A ⊂ F. This contradicts the Følner property for S with ε = c0. The argument uses a Lipschitz self-map f of the closed unit ball of infinite-dimensional Hilbert space with uniform displacement δ (Lemma lem:displacement, constructed explicitly in the appendix with δ = 1/2).",
+  "proof_strategy": "A dyadic coloring recursion assigns to each basic partition T of [0,1] a vector colr(T) in the ball, using f applied to the average of the colors of restrictions of T to D fixed parent intervals. For g in F and a fine level n, the colors X_I(g) of parents and children are defined. A single element h_{I,J} of F transports two separated intervals affinely onto the two fixed parents, so colors are carried exactly across it (covariance lemma). For a finite A, the Følner-type defect η controls all cross-correlations of separated intervals up to a common constant α (Steps 1–2). The recursion X_{I_i} = f(z_i) plus the displacement inequality ‖m − f(m)‖ ≥ δ and Lipschitz continuity gives δ² ≤ L²(4/D + 4(1−1/D)η) after the α-terms cancel (Steps 3–7). I checked each of these inequalities and the constants c0; they are consistent. The construction of f in the appendix (curve γ, tube projection, rotations, map Φ) also appears internally consistent on my reading.",
+  "hardest_part": "The appendix separation and tube arguments (aux:sep, aux:tube, and the Lipschitz estimate in Step 1 of the proof of aux:map) involve many constants and case splits. I checked the case splits and the constants line by line but did not re-derive every numerical bound independently. The more basic question I could not settle from the text alone is whether a result of this strength (resolving Geoghegan's question about the amenability of F) is correct. The argument I could follow is consistent, but I cannot confirm against the current literature that this is a resolution, and the manuscript itself reports earlier claims in both directions.",
+  "issues": [
+   {
+    "where": "Consequences, Cor. cor:nonunitarizable (boxed unverified note)",
+    "quote": "The deduction is valid only if that theorem gives exactly the displayed",
+    "kind": "unjustified_step",
+    "severity": 2,
+    "what_i_needed": "The statement of the companion unitarizability theorem (Theorem 1.1 of OpenAIUnitarizability2026), so that the bound 1+ε and the claim for every countable nonamenable group can be checked. As written, the corollary cannot be verified and the note says it may rest on an open problem."
+   },
+   {
+    "where": "Consequences, Cor. cor:percolation (boxed unverified note)",
+    "quote": "Apply the companion percolation result",
+    "kind": "unjustified_step",
+    "severity": 2,
+    "what_i_needed": "The statement of OpenAIPercolation2026, Corollary 1.2, including the definitions of p_1, p_2 and the almost-sure simultaneity claim, and the hypotheses it needs beyond nonamenability. The note says p_c < p_u for general nonamenable Cayley graphs was an open conjecture, so the corollary is conditional."
+   },
+   {
+    "where": "Abstract and Section 1.1 (Statement)",
+    "quote": "This confirms Geoghegan's conjecture and resolves the amenability problem for \\(F\\).",
+    "kind": "ambiguous_statement",
+    "severity": 2,
+    "what_i_needed": "A statement of how this argument differs from the earlier claims listed in Section 1.4 (Akhmedov, Shavgulidze, Moore), and the status of the problem in the literature. I could follow the steps of the proof but could not verify the claimed resolution against the literature."
+   },
+   {
+    "where": "Section 1.1 (Folner criterion paragraph)",
+    "quote": "The source takes \\eqref{eq:folner} from the left-translation formulation in",
+    "kind": "unjustified_step",
+    "severity": 1,
+    "what_i_needed": "The precise form of Moore's Theorem 1.2 (a bound on the sum over h in S of the ratios). The deduction to the single-h bound with ε/2 is valid if that form is given, but it depends on a formulation I cannot see."
+   },
+   {
+    "where": "Appendix, proof of Prop. aux:map, Step 1 (1a)",
+    "quote": "Hence \\(\\norm{\\Phi(x)-\\Phi(y)}\\le C_1\\norm{x-y}\\) with",
+    "kind": "heavy_computation",
+    "severity": 1,
+    "what_i_needed": "An explicit statement that the identity term contributes +1 (since Φ(x) = x + correction). The listed correction terms sum to 15 + 7/(4ρ) + 16K_Rρ + 32M_γ, and C_1 = 16 + ... is only reached by adding that 1."
+   },
+   {
+    "where": "Section 1.3 (Key idea, item (ii))",
+    "quote": "so any two averages of \\(D\\) of them nearly agree.",
+    "kind": "ambiguous_statement",
+    "severity": 1,
+    "what_i_needed": "A precise version of this heuristic. The bound actually proved is E_A‖z_i − m‖² ≤ 4/D + 4η (Step 6), and the phrase 'nearly agree' does not say which quantity is controlled, nor how α enters."
+   },
+   {
+    "where": "Section 1.4 (Notation changed from the source) and Section 2.1 (Lemma dyad:eventual)",
+    "quote": "The finite set \\(K\\subset F\\) in \\cref{dyad:eventual} is now \\(E\\).",
+    "kind": "undefined_notation",
+    "severity": 1,
+    "what_i_needed": "The paragraph says every symbol now has one meaning, but E is also used for the expectation 𝔼_A, c is used both for the constant c0 and for the curve lower bound c = 1/8, and e is used both for the residual e(x) and for e_t, e_τ. The overloads should be removed or explained."
+   },
+   {
+    "where": "Remark (a) after proof of thm:main",
+    "quote": "Step~2 is unavailable, and",
+    "kind": "ambiguous_statement",
+    "severity": 1,
+    "what_i_needed": "A specific description of what fails in the affine-group analogue (which step's claim is false there, and why the same cancellation cannot be recovered), since the remark is offered as an explanation of why the hypotheses are needed."
+   },
+   {
+    "where": "Section 2.3 (Lemma dyad:transport), Step 2",
+    "quote": "Replacing a basic interval by its two halves gives two basic intervals and raises the count by one.",
+    "kind": "unjustified_step",
+    "severity": 1,
+    "what_i_needed": "A remark that bisection preserves the union and disjoint interiors of Γ_i, and that the resulting list still consists of basic intervals of possibly mixed levels. I checked this and it holds, but the text does not say it."
+   }
+  ]
+ }
+]

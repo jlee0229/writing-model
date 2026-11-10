@@ -1,0 +1,758 @@
+\documentclass[11pt,letterpaper]{article}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,mathtools}
+\usepackage{enumitem}
+\usepackage{microtype}
+\usepackage{tikz}
+\usepackage[colorlinks=true,linkcolor=blue,citecolor=blue,urlcolor=blue]{hyperref}
+\usepackage{bookmark}
+\pdftrailerid{}
+\pdfsuppressptexinfo=15
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+\numberwithin{equation}{section}
+\setlist{itemsep=3pt,topsep=5pt}
+\hypersetup{pdftitle={Talagrand's discrete-convexity conjecture},
+  pdfsubject={A positive solution to Talagrand's Research Problem 13.3.2}}
+
+\newcommand{\unverified}[1]{\par\smallskip\noindent\fbox{\parbox{0.95\linewidth}{\textbf{Unverified step.} #1}}\par\smallskip}
+\newcommand{\step}[1]{\par\smallskip\noindent\textbf{#1}\enspace}
+
+\title{Talagrand's discrete-convexity conjecture}
+\author{Rewritten for readability from the OpenAI manuscript of the same title}
+\date{September 23, 2026}
+
+\AddToHook{cmd/thebibliography/after}{\addcontentsline{toc}{section}{\refname}}
+
+\begin{document}
+\maketitle
+\begin{abstract}
+We prove Talagrand's discrete-convexity conjecture.
+There is a universal integer $k$ such that, whenever an arbitrary family has
+Bernoulli product measure at least $1-1/k$, the sets not contained
+in a union of $k$ members admit a cover of total cost at most $1/2$
+at the same density.
+\end{abstract}
+
+\section{Introduction}
+\label{sec:introduction}
+
+\paragraph{Setting.}
+Let $[N]=\{1,\ldots,N\}$, and let $\mu_p$ be the probability measure on
+$2^{[N]}$ under which each element is present independently with
+probability $p\in(0,1)$. For $\mathcal D\subseteq2^{[N]}$ and an integer
+$k\ge1$, the \emph{exceptional family} is
+\begin{equation}
+\label{eq:exceptional-definition}
+E_k(\mathcal D)
+=\bigl\{S\subseteq[N]:\text{no }D_1,\ldots,D_k\in\mathcal D
+\text{ satisfy }S\subseteq D_1\cup\cdots\cup D_k\bigr\}.
+\end{equation}
+The $D_j$ may repeat and need not be disjoint. Two immediate facts:
+$E_k(\mathcal D)$ is closed under supersets, and
+$\varnothing\notin E_k(\mathcal D)$ when $\mathcal D\ne\varnothing$.
+
+A family $\mathcal G$ of sets \emph{covers} a family $\mathcal A$ if every
+$S\in\mathcal A$ contains some $I\in\mathcal G$. For $\rho\in(0,1)$, the
+\emph{cost} of $\mathcal G$ at density $\rho$ is
+$c_\rho(\mathcal G)=\sum_{I\in\mathcal G}\rho^{|I|}$, and $\mathcal A$ is
+\emph{$\rho$-small} if it has a cover $\mathcal G$ with
+$c_\rho(\mathcal G)\le1/2$. Since $\mu_\rho\{S:I\subseteq S\}=\rho^{|I|}$,
+a union bound shows that a $\rho$-small family has $\mu_\rho$-measure at
+most $1/2$; the cover is an explicit certificate of this.
+
+\begin{theorem}
+\label{thm:main}
+Set $k=2^{75}$. For every integer $N\ge1$, every $p\in(0,1)$, and every
+family $\mathcal D\subseteq2^{[N]}$,
+\[
+\mu_p(\mathcal D)\ge1-\frac1k
+\quad\Longrightarrow\quad
+E_k(\mathcal D)\text{ is }p\text{-small}.
+\]
+\end{theorem}
+
+The constant is independent of $N$, $p$ and $\mathcal D$, and
+$\mathcal D$ is arbitrary (no monotonicity). This is Talagrand's
+conjecture \cite[Conjecture~7.1]{Talagrand10}, restated as Research
+Problem~13.3.2 in~\cite{Talagrand21}, whose Proposition~13.3.3 explains
+its connection to positive selector processes. The name reflects the
+analogy with his Gaussian convexity question
+\cite[Conjecture~2.1]{Talagrand10}, where sums of a balanced set play the
+role of unions.
+
+\paragraph{Proof at a glance.}
+The logical order is
+Lemma~\ref{lem:covering} $\Rightarrow$
+Proposition~\ref{prop:half-density} $\Rightarrow$
+Theorem~\ref{thm:main}.
+\begin{itemize}
+\item \emph{Weights (Section~\ref{sec:weights}, Steps 1--3).}
+Let $\mu_q(\mathcal F)\ge1/2$. The biased Fourier expansion of
+$\mathbf 1_{\mathcal F}$ yields weights $w(U)\ge0$, $U\subseteq[N]$, with
+a global bound $\sum_Uq^{|U|}w(U)\le1$ (Parseval) and, for every
+$S\in E_{32}(\mathcal F)$, a local bound
+$\sum_{\varnothing\ne U\subseteq S}w(U)^{16}\ge2^{-32}$. The local bound
+comes from a signed product measure on $32\times N$ arrays that vanishes
+unless the $32$ rows jointly contain $S$.
+\item \emph{From weights to a cover (Section~\ref{sec:weights}, Steps 4--7).}
+Sets with $w(U)\ge2^{-64|U|}$ are used as generators; the global bound
+makes them cheap at density $q/2^{70}$. The remaining sets are sorted
+into bins by size $r$ and weight level $w(U)\approx2^{-h}$. If $S$
+contains fewer than $2^{12h}$ sets from each bin, then each bin
+contributes in total less than $2^{12h}\cdot2^{-16h}=2^{-4h}$ to the
+local sum, which then falls below $2^{-32}$. So an exceptional set that
+avoids the first generators contains at least $2^{12h}$ sets of some bin.
+\item \emph{Covering lemma (Section~\ref{sec:covering}).}
+Lemma~\ref{lem:covering} covers, cheaply and by a random construction,
+all sets containing $2^{12h}$ members of one bin. This yields
+Proposition~\ref{prop:half-density}: $E_{32}(\mathcal F)$ is
+$(q/2^{70})$-small.
+\item \emph{Density recovery (Section~\ref{sec:density}).}
+With $L=2^{70}$, couple $L$ random sets, each of law $\mu_p$, whose union
+has law $\mu_{Lp}$. The family $\mathcal F$ of unions of $L$ members of
+$\mathcal D$ then has $\mu_{Lp}(\mathcal F)\ge1/2$ and
+$E_{32}(\mathcal F)=E_{32L}(\mathcal D)$, so the proposition with $q=Lp$
+gives density $q/L=p$.
+\end{itemize}
+
+The rest of this section is not used in the proof of
+Theorem~\ref{thm:main}.
+
+\paragraph{A consequence: positive selectors.}
+(The source's family $T$ is renamed $\mathcal T$; $T$ is a number in
+Section~\ref{sec:covering}.) Following \cite[Section~7]{Talagrand10}, let
+$\mathcal T\subseteq[0,\infty)^N$ be nonempty,
+\[
+\phi(S)=\sup_{\tau\in\mathcal T}\sum_{i\in S}\tau_i,
+\qquad M=\mathbb E_{\mu_p}\phi,
+\]
+and suppose $0<M<\infty$. Then $\{S:\phi(S)\ge k^2M\}$ is $p$-small for
+$k=2^{75}$; the source notes that this recovers the conclusion of Park
+and Pham \cite[Theorem~1.2]{ParkPham24}. Proof: put
+$\mathcal D=\{D:\phi(D)<kM\}$. Markov's inequality gives
+$\mu_p(\mathcal D)\ge1-1/k$. Since the $\tau_i$ are nonnegative, $\phi$
+is monotone and $\phi(A\cup B)\le\phi(A)+\phi(B)$ (bound each $\tau$
+separately, then take suprema). Hence
+$S\subseteq D_1\cup\cdots\cup D_k$ with all $D_j\in\mathcal D$ forces
+$\phi(S)<k\cdot kM$, so $\{\phi\ge k^2M\}\subseteq E_k(\mathcal D)$, and
+the cover from Theorem~\ref{thm:main} covers it. This gives a covering
+certificate, not just the measure bound that Markov's inequality provides.
+
+\paragraph{Related work.}
+(Attributions as given in the source.) Hua, Song and Tudose resolve the
+Gaussian problem and derive a discrete statement with three unions and
+covering density $p^C$ \cite[Corollaries~1.3--1.4]{HuaSongTudose26}.
+Ascoli, He, Park and Talagrand give a threshold reformulation and prove
+graph-containment cases
+\cite[Proposition~1.5 and Theorems~1.10--1.13]{AscoliEtAl26}. Talagrand
+introduced a fractional notion of smallness
+\cite[Sections~6 and~7]{Talagrand10}, defined below; Li resolves the
+fractional problem \cite[Theorem~1.9]{Li26}, and Park derives an integral
+cover of $E_2(\mathcal D)$ at density $p/(C\max\{1,\log\log(1/p)\})$ when
+$\mu_p(\mathcal D)>1/2$ \cite[Corollary~3.5]{Park26}. On methods: with
+two rows, the signed measure of Section~\ref{sec:weights} is, per the
+source, Li's signed kernel multiplied by the Bernoulli masses
+\cite[Section~2]{Li26}; Park notes the extension to an even number of
+unions \cite[Corollary~3.5, footnote~3]{Park26}; signed product operators
+and biased Fourier analysis go back to \cite[Section~2.2]{Friedgut08} and
+\cite[Sections~2.2 and~4.1]{EllisFilmusFriedgut12}; random unions also
+appear in the covering constructions of
+\cite[Sections~1.1 and~2]{FischerPerson25}.
+
+\paragraph{A two-union corollary.}
+This corollary trades fewer unions for a constant density loss and rests
+on two cited results. Call $\mathcal A$ \emph{fractionally $\rho$-small}
+if there are coefficients $a_I\ge0$ $(I\subseteq[N])$ with
+\[
+\sum_{I\subseteq S}a_I\ge1\quad(S\in\mathcal A),
+\qquad
+\sum_{I\subseteq[N]}\rho^{|I|}a_I\le\frac12 .
+\]
+(The source displays this at $\rho=p$ and uses it at other densities.)
+
+\begin{corollary}[Two unions at constant density loss]
+\label{cor:two-union}
+There is a universal constant $C\ge1$ such that, for every integer $N\ge1$,
+every $p\in(0,1)$, and every family $\mathcal D\subseteq2^{[N]}$,
+\[
+\mu_p(\mathcal D)>\frac12
+\quad\Longrightarrow\quad
+E_2(\mathcal D)\text{ is }(p/C)\text{-small}.
+\]
+\end{corollary}
+
+\begin{proof}
+We write $\sigma$ for the density the source calls $r$.
+\begin{enumerate}
+\item If $E_2(\mathcal D)=\varnothing$, the empty cover suffices.
+Otherwise $E_2(\mathcal D)$ is nonempty, increasing, and proper: it
+omits $\varnothing$, since $\mu_p(\mathcal D)>1/2$ gives
+$\mathcal D\ne\varnothing$.
+\item \emph{Cited.} By Li's result \cite[Corollary~3.1]{Li26} in Park's
+fractional-cover formulation \cite[Theorem~3.4]{Park26},
+$E_2(\mathcal D)$ is fractionally $\sigma$-small for $\sigma=p/2$.
+\item Replace each $a_I$ by $\min\{a_I,1\}$. The cost does not increase.
+Coverage persists: if some $I\subseteq S$ had $a_I>1$, that term alone is
+now $1$; otherwise nothing changed for $S$.
+\item \emph{Cited.} The companion expectation-threshold theorem
+\cite[Theorem~1.1]{OpenAIThreshold26} (called the ``constant-factor
+rounding theorem'' in the source's introduction) then gives an integral
+cover of cost at most $1/2$ at density
+$\sigma/(25\cdot512^4)=p/(50\cdot512^4)$. Thus $C=50\cdot512^4$ suffices.
+\qedhere
+\end{enumerate}
+\end{proof}
+
+\unverified{Steps 2 and 4 quote \cite{Li26}, \cite{Park26} and
+\cite{OpenAIThreshold26} exactly as the source uses them. The source
+states neither their hypotheses nor the origin of $\sigma=p/2$, and I
+could not check them against the cited papers. Steps 1 and 3 and the
+arithmetic are verified.}
+
+\section{An elementary covering lemma}
+\label{sec:covering}
+
+The lemma is applied in Section~\ref{sec:weights}, once per bin, with
+$X=[N]$. Covers and costs are defined as in
+Section~\ref{sec:introduction} with $X$ in place of $[N]$. An
+\emph{edge} is a member of $\mathcal H$.
+
+\begin{lemma}\label{lem:covering}
+Let \(X\) be a finite set, let \(0<\rho<1\), and let \(r,h\) be integers
+with \(1\le r\le h\) and \(h\ge64\). Suppose that
+\(\mathcal H\subseteq\binom{X}{r}\) satisfies
+\[
+|\mathcal H|\rho^r\le2^{h+1}.
+\]
+Then the family
+\[
+\left\{S\subseteq X:
+  |\{e\in\mathcal H:e\subseteq S\}|\ge2^{12h}\right\}
+\]
+has a cover \(\mathcal G\subseteq2^X\) with
+\[
+c_\rho(\mathcal G)\le3\cdot2^{-h}.
+\]
+\end{lemma}
+
+\begin{proof}
+\emph{Plan.} We build
+$\mathcal G=\mathcal C_0\cup\mathcal C_1\cup\mathcal C_2$, where
+$\mathcal C_0$ is deterministic and $\mathcal C_1,\mathcal C_2$ depend on
+a random sample. We show that $\mathcal G$ covers the target family for
+every outcome (Step~4) and that
+$\mathbb E[c_\rho(\mathcal G)]\le3\cdot2^{-h}$ (Steps 1, 3, 6).
+Throughout,
+\[
+m=2^{12h},\qquad T=2^{4h},\qquad \pi=2^{-6h}.
+\]
+
+\step{Step 1: sets of large weighted degree.}
+For $I\subseteq X$ with $|I|\le r$ put
+\[
+d(I)=|\{e\in\mathcal H:I\subseteq e\}|\,\rho^{r-|I|},
+\qquad
+\mathcal C_0=\{I\subseteq X:|I|\le r,\ d(I)>T\}.
+\]
+Since $d(I)\rho^{|I|}=|\{e\in\mathcal H:I\subseteq e\}|\rho^r$ and each
+edge has $2^r$ subsets,
+$\sum_{|I|\le r}d(I)\rho^{|I|}=2^r|\mathcal H|\rho^r$. Each
+$I\in\mathcal C_0$ satisfies $\rho^{|I|}<T^{-1}d(I)\rho^{|I|}$, so, by
+the hypothesis on $|\mathcal H|\rho^r$ and $r\le h$,
+\begin{equation}\label{eq:covering-initial-cost}
+c_\rho(\mathcal C_0)
+\le T^{-1}2^r|\mathcal H|\rho^r
+\le2^{-4h}\,2^r\,2^{h+1}=2^{r+1-3h}\le2^{1-2h}.
+\end{equation}
+
+\step{Step 2: regular edges and the extension bound.}
+Call an edge \emph{regular} if it contains no member of $\mathcal C_0$,
+and let $\mathcal H'$ be the set of regular edges. Thus $d(I)\le T$
+whenever $I$ is a subset of a regular edge. We claim that, for every
+$B\subseteq X$,
+\begin{equation}\label{eq:covering-extension}
+\sum_{e\in\mathcal H'}\rho^{|e\setminus B|}
+\le T\sum_{i=0}^r\binom{|B|}{i}.
+\end{equation}
+Group the edges $e\in\mathcal H'$ by $I=e\cap B$, a subset of $B$ of
+size at most $r$; there are at most $\sum_{i=0}^r\binom{|B|}{i}$ groups.
+Every edge in the group of $I$ has $|e\setminus B|=r-|I|$, so a nonempty
+group contributes
+\[
+|\{e\in\mathcal H':e\cap B=I\}|\,\rho^{r-|I|}\le d(I)\le T,
+\]
+the last step because $I$ lies in a regular edge.
+
+\step{Step 3: sampled pairs.}
+Independently for each ordered pair $(e,e')\in(\mathcal H')^2$, diagonal
+pairs included, \emph{sample} the pair with probability $\pi$. Let
+$\mathcal C_1$ be the set of unions $e\cup e'$ of sampled pairs.
+By \eqref{eq:covering-extension} with $B=e$ (so $|B|=r$ and the binomial
+sum is $2^r$), $\sum_{e'\in\mathcal H'}\rho^{|e'\setminus e|}\le2^rT$.
+Using $|e\cup e'|=r+|e'\setminus e|$ and linearity of expectation (a
+union arising from several pairs is counted several times, which only
+increases the bound),
+\begin{equation}\label{eq:covering-pair-cost}
+\mathbb E[c_\rho(\mathcal C_1)]
+\le\pi\sum_{e\in\mathcal H'}\rho^r\sum_{e'\in\mathcal H'}\rho^{|e'\setminus e|}
+\le\pi|\mathcal H'|\rho^r2^rT
+\le2^{-6h}\,2^{h+1}\,2^r\,2^{4h}\le2^{1-2h}.
+\end{equation}
+
+\step{Step 4: residual generators; $\mathcal G$ is a cover.}
+For every ordered $m$-tuple $(e_1,\ldots,e_m)$ of distinct regular edges
+such that none of the pairs $(e_i,e_j)$, $1\le i,j\le m$, was sampled,
+put $e_1\cup\cdots\cup e_m$ into $\mathcal C_2$. Now fix any outcome and
+let $S$ contain at least $m$ edges but no member of $\mathcal C_0$.
+Every edge $e\subseteq S$ is regular, since a member of $\mathcal C_0$
+inside $e$ would lie inside $S$. Pick $m$ distinct edges
+$e_1,\ldots,e_m\subseteq S$. If some pair $(e_i,e_j)$ was sampled, then
+$e_i\cup e_j\in\mathcal C_1$ lies in $S$; otherwise
+$e_1\cup\cdots\cup e_m\in\mathcal C_2$ lies in $S$.
+
+\step{Step 5: total weight of tuples.}
+For $0\le t\le m$ let
+\[
+W_t=
+\sum_{\substack{(e_1,\ldots,e_t)\in(\mathcal H')^t\\ \text{distinct}}}
+  \rho^{|e_1\cup\cdots\cup e_t|},
+\qquad W_0=1.
+\]
+We claim $W_{t+1}\le T(1+rm)^rW_t$ for $t<m$. Fix a $t$-tuple with union
+$B$; then $|B|\le rt\le rm$. Its extensions are indexed by regular edges
+$e$ distinct from $e_1,\ldots,e_t$; summing over all regular $e$ only
+increases the sum. Since
+$\rho^{|B\cup e|}=\rho^{|B|}\rho^{|e\setminus B|}$,
+\eqref{eq:covering-extension} gives
+\[
+\sum_{e\in\mathcal H'}\rho^{|B\cup e|}
+\le\rho^{|B|}\,T\sum_{i=0}^r\binom{|B|}{i}
+\le\rho^{|B|}\,T(1+rm)^r.
+\]
+The last step is $\sum_{i=0}^r\binom ni\le(1+n)^r$: list a subset of size
+at most $r$ of an ordered $n$-set in increasing order and pad it to
+length $r$ with a new symbol; this is an injection into words of length
+$r$ over $n+1$ symbols. Summing over $t$-tuples proves the claim, and
+iterating gives $W_m\le[T(1+rm)^r]^m$.
+
+\step{Step 6: expected cost of $\mathcal C_2$.}
+Fix an $m$-tuple of distinct regular edges. Its $m^2$ ordered pairs
+$(e_i,e_j)$ are pairwise distinct, hence sampled independently, so the
+tuple contributes to $\mathcal C_2$ with probability
+$(1-\pi)^{m^2}\le e^{-\pi m^2}\le2^{-\pi m^2}$. (This is the only use of
+independence.) By linearity of expectation, again counting with
+multiplicity,
+\[
+\mathbb E[c_\rho(\mathcal C_2)]
+\le W_m\,2^{-\pi m^2}\le[T(1+rm)^r]^m\,2^{-\pi m^2}.
+\]
+Now $1+rm\le(h+1)2^{12h}\le2^{13h}$ by $r\le h$ and $h+1\le2^h$, so
+$T(1+rm)^r\le2^{4h+13rh}$. Also $\pi m=2^{6h}$ and
+\[
+4h+13rh+1\le5h^2+13h^2=18h^2\le18\cdot2^{2h}\le2^{6h},
+\]
+using $4h+1\le5h^2$, $r\le h$, $h\le2^h$, and $18\le2^{2h}$ (as
+$h\ge64$). Therefore
+\begin{equation}\label{eq:covering-residual-cost}
+\mathbb E[c_\rho(\mathcal C_2)]
+\le2^{m(4h+13rh-\pi m)}\le2^{-m}.
+\end{equation}
+
+\step{Step 7: conclusion.}
+By \eqref{eq:covering-initial-cost}, \eqref{eq:covering-pair-cost} and
+\eqref{eq:covering-residual-cost},
+$\mathbb E[c_\rho(\mathcal G)]\le2^{2-2h}+2^{-m}\le2\cdot2^{-h}
+\le3\cdot2^{-h}$, since $h\ge2$ and $m\ge h$. The sample space is finite,
+so some outcome has cost at most the expectation, and by Step~4 its
+$\mathcal G$ is a cover.
+\end{proof}
+
+\section{Weights for exceptional sets}
+\label{sec:weights}
+
+The next proposition gives a cover at a fixed fraction of the density.
+It is used in Section~\ref{sec:density} with $q=Lp$.
+
+\begin{proposition}\label{prop:half-density}
+Let $L=2^{70}$. For every integer $N\ge1$, every $q\in(0,1)$, and every
+$\mathcal F\subseteq 2^{[N]}$ satisfying $\mu_q(\mathcal F)\ge1/2$,
+the family $E_{32}(\mathcal F)$ is $(q/L)$-small.
+\end{proposition}
+
+\begin{proof}
+\emph{Plan.} Define weights $w(U)$ (Step 1); prove a global bound
+(Step 2) and a local bound on every exceptional set (Step 3); then build
+the cover from one family of heavy sets and one application of
+Lemma~\ref{lem:covering} per bin (Steps 4--7).
+
+\step{Step 1: weights.}
+Identify subsets of $[N]$ with indicator vectors and write
+$f=\mathbf 1_{\mathcal F}$. For $U\subseteq[N]$ define
+\begin{equation}\label{eq:weights-definition}
+ b(U)=(1-q)^{|U|}
+ \sum_{z\in\{0,1\}^{U}}(-1)^{|z|}\,
+ \mathbb E[f(z,Y)],
+ \qquad w(U)=b(U)^2,
+\end{equation}
+where $|z|=\sum_{i\in U}z_i$, the vector $Y$ has independent
+Bernoulli-$q$ coordinates on $[N]\setminus U$, and $(z,Y)$ equals $z$ on
+$U$ and $Y$ off $U$. In particular
+$b(\varnothing)=\mu_q(\mathcal F)\ge1/2$.
+
+\step{Step 2: global bound.} We claim
+\begin{equation}\label{eq:global-weight-bound}
+ \sum_{U\subseteq[N]}q^{|U|}w(U)\le1.
+\end{equation}
+Let $X\sim\mu_q$. The functions
+\[
+ \chi_U(x)=\prod_{i\in U}\frac{q-x_i}{\sqrt{q(1-q)}},
+ \qquad U\subseteq[N],
+\]
+form an orthonormal basis of the real functions on $\{0,1\}^N$ under
+$\mu_q$ (the biased Fourier basis \cite[Section~8.4]{ODonnell14}): each
+factor has mean $0$ and variance $1$, the coordinates are independent,
+and there are $2^N$ functions. With
+$\widehat f(U)=\mathbb E[f(X)\chi_U(X)]$, Parseval's identity gives
+$\sum_U\widehat f(U)^2=\mathbb E[f(X)^2]=\mu_q(\mathcal F)\le1$.
+To relate $\widehat f$ to $b$, condition on the restriction of $X$ to $U$:
+\[
+ \widehat f(U)=\sum_{z\in\{0,1\}^U}
+ \Bigl(\prod_{i\in U}\frac{\mathbb P(X_i=z_i)(q-z_i)}{\sqrt{q(1-q)}}\Bigr)
+ \mathbb E[f(z,Y)].
+\]
+Both cases $z_i=0,1$ give
+$\mathbb P(X_i=z_i)(q-z_i)=q(1-q)(-1)^{z_i}$ (namely $(1-q)q$ and
+$q(q-1)$). Hence
+\[
+ \widehat f(U)
+ =[q(1-q)]^{|U|/2}
+ \sum_{z\in\{0,1\}^{U}}(-1)^{|z|}\,\mathbb E[f(z,Y)]
+ =\left(\frac{q}{1-q}\right)^{|U|/2}b(U).
+\]
+Squaring, $q^{|U|}w(U)=(1-q)^{|U|}\widehat f(U)^2\le\widehat f(U)^2$;
+summing over $U$ gives \eqref{eq:global-weight-bound}.
+
+\step{Step 3: local bound.}
+Fix $S\in E_{32}(\mathcal F)$. We claim
+\begin{equation}\label{eq:exceptional-weight-bound}
+ \sum_{\varnothing\ne U\subseteq S}w(U)^{16}\ge2^{-32}.
+\end{equation}
+Consider arrays $x\in\{0,1\}^{32\times N}$ with rows
+$x_1,\ldots,x_{32}\in\{0,1\}^N$ (subsets of $[N]$) and columns
+$x^{(1)},\ldots,x^{(N)}\in\{0,1\}^{32}$. For $y\in\{0,1\}^{32}$ with
+$|y|=\sum_jy_j$, set
+\[
+ P(y)=q^{|y|}(1-q)^{32-|y|},
+ \qquad
+ Q(y)=P(y)-(1-q)^{32}(-1)^{|y|},
+ \qquad
+ \nu_S(x)=\prod_{i\notin S}P(x^{(i)})\prod_{i\in S}Q(x^{(i)}).
+\]
+($Q$ is the source's $R$; $R$ denotes random sets in
+Section~\ref{sec:density}.)
+
+\emph{(a) Vanishing.} We have
+$\sum_x\nu_S(x)\prod_{j=1}^{32}f(x_j)=0$, term by term. Indeed
+$Q(0,\ldots,0)=0$, so if $\nu_S(x)\ne0$ then every column in $S$ contains
+a $1$, that is, $S\subseteq x_1\cup\cdots\cup x_{32}$. Since
+$S\in E_{32}(\mathcal F)$, some row is not in $\mathcal F$, and
+$\prod_jf(x_j)=0$. (The signs of $\nu_S$ play no role.)
+
+\emph{(b) Expansion.} Expand $\prod_{i\in S}Q(x^{(i)})$ by choosing, in
+each column $i\in S$, either $P(x^{(i)})$ or
+$-(1-q)^{32}(-1)^{|x^{(i)}|}$; let $U\subseteq S$ be the set of columns
+where the second term is chosen. Then
+\[
+ \nu_S(x)=\sum_{U\subseteq S}(-1)^{|U|}(1-q)^{32|U|}
+ \prod_{i\in U}(-1)^{|x^{(i)}|}\prod_{i\notin U}P(x^{(i)}).
+\]
+Each factor splits over the $32$ rows:
+$(1-q)^{32|U|}=\prod_j(1-q)^{|U|}$,
+$\prod_{i\in U}(-1)^{|x^{(i)}|}=\prod_j(-1)^{\sum_{i\in U}x_{ji}}$, and
+$\prod_{i\notin U}P(x^{(i)})
+=\prod_j\prod_{i\notin U}q^{x_{ji}}(1-q)^{1-x_{ji}}$.
+So $\nu_S(x)=\sum_{U\subseteq S}(-1)^{|U|}\prod_{j=1}^{32}g_U(x_j)$ with
+\[
+ g_U(u)=(1-q)^{|U|}(-1)^{\sum_{i\in U}u_i}
+ \prod_{i\notin U}q^{u_i}(1-q)^{1-u_i}
+ \qquad(u\in\{0,1\}^N).
+\]
+The rows of $x$ range independently over $\{0,1\}^N$, so
+$\sum_x\prod_jg_U(x_j)f(x_j)=\bigl(\sum_ug_U(u)f(u)\bigr)^{32}$. Writing
+$u=(z,y)$ with $z$ on $U$ and $y$ off $U$, the sum over $y$ against the
+Bernoulli masses is $\mathbb E[f(z,Y)]$, so $\sum_ug_U(u)f(u)=b(U)$ by
+\eqref{eq:weights-definition}. With (a),
+\begin{equation}\label{eq:signed-identity}
+ 0=\sum_{U\subseteq S}(-1)^{|U|}b(U)^{32}.
+\end{equation}
+
+\emph{(c) Conclusion.} Isolating $U=\varnothing$ and using the triangle
+inequality,
+\[
+ 2^{-32}\le b(\varnothing)^{32}
+ \le\sum_{\varnothing\ne U\subseteq S}|b(U)|^{32}
+ =\sum_{\varnothing\ne U\subseteq S}w(U)^{16}.
+\]
+
+\step{Step 4: heavy sets.}
+Set $\rho=q/L$ and
+\[
+ \mathcal G_0=
+ \{U\subseteq[N]:U\ne\varnothing,\ w(U)\ge2^{-64|U|}\}.
+\]
+For $U\in\mathcal G_0$ with $|U|=r\ge1$,
+$\rho^r=2^{-6r}q^r2^{-64r}\le2^{-6r}q^rw(U)\le2^{-6}q^rw(U)$, so by
+\eqref{eq:global-weight-bound}
+\begin{equation}\label{eq:outright-cost}
+ c_\rho(\mathcal G_0)\le2^{-6}\sum_Uq^{|U|}w(U)\le2^{-6}.
+\end{equation}
+
+\step{Step 5: bins.}
+For integers $r\ge1$ and $h$ (of any sign), let
+\[
+ \mathcal H_{r,h}=
+ \bigl\{U\subseteq[N]:|U|=r,\ U\notin\mathcal G_0,
+ \ 2^{-(h+1)}<w(U)\le2^{-h}\bigr\}.
+\]
+Every nonempty $U\notin\mathcal G_0$ with $w(U)>0$ lies in exactly one
+bin. A nonempty bin has $h\ge64r$: a member satisfies
+$2^{-(h+1)}<w(U)<2^{-64r}$, so $h+1>64r$. By
+\eqref{eq:global-weight-bound},
+\[
+ |\mathcal H_{r,h}|\,q^r2^{-(h+1)}
+ <\sum_{U\in\mathcal H_{r,h}}q^r w(U)\le1,
+\]
+and $\rho^r\le q^r$ because $L\ge1$; hence
+$|\mathcal H_{r,h}|\rho^r\le2^{h+1}$. So Lemma~\ref{lem:covering} applies
+with $X=[N]$ and $\mathcal H=\mathcal H_{r,h}$; its hypotheses
+$1\le r\le h$ and $h\ge64$ follow from $h\ge64r\ge64$. It gives a family
+$\mathcal G_{r,h}$ with $c_\rho(\mathcal G_{r,h})\le3\cdot2^{-h}$ that
+covers every set containing at least $2^{12h}$ members of
+$\mathcal H_{r,h}$.
+
+\step{Step 6: the cover and its cost.}
+Let $\mathcal G$ be the union of $\mathcal G_0$ and the
+$\mathcal G_{r,h}$ over the nonempty bins (finitely many, since $[N]$ is
+finite). As each nonempty bin has $h\ge64r$,
+\begin{equation}\label{eq:bin-cost-sum}
+ c_\rho(\mathcal G)
+ \le2^{-6}+3\sum_{r\ge1}\sum_{h\ge64r}2^{-h}
+ =\frac1{64}+3\sum_{r\ge1}2^{1-64r}
+ =\frac1{64}+\frac{6}{2^{64}-1}<\frac12.
+\end{equation}
+
+\step{Step 7: $\mathcal G$ covers $E_{32}(\mathcal F)$.}
+Suppose $S\subseteq[N]$ contains no member of $\mathcal G$. Then $S$
+contains no member of $\mathcal G_0$ and, for each nonempty bin, fewer
+than $2^{12h}$ members of $\mathcal H_{r,h}$ (otherwise it would contain
+a member of $\mathcal G_{r,h}$). So every nonempty $U\subseteq S$ has
+$w(U)=0$ or lies in a bin, where $w(U)^{16}\le2^{-16h}$. Therefore
+\begin{equation}\label{eq:bin-power-sum}
+ \sum_{\varnothing\ne U\subseteq S}w(U)^{16}
+ \le\sum_{r\ge1}\sum_{h\ge64r}2^{12h}\cdot2^{-16h}
+ =\sum_{r\ge1}\frac{16}{15}\,2^{-256r}
+ =\frac{16}{15(2^{256}-1)}<2^{-32}.
+\end{equation}
+By \eqref{eq:exceptional-weight-bound}, $S\notin E_{32}(\mathcal F)$.
+Contrapositively, every member of $E_{32}(\mathcal F)$ contains a member
+of $\mathcal G$; with \eqref{eq:bin-cost-sum}, $E_{32}(\mathcal F)$ is
+$\rho$-small.
+\end{proof}
+
+\section{Returning to the original density}
+\label{sec:density}
+
+\begin{proof}[Proof of Theorem~\ref{thm:main}]
+\emph{Plan.} Build $L=2^{70}$ dependent random sets, each with law
+exactly $\mu_p$, whose union has density $Lp$ (or is all of $[N]$). A
+union bound puts all of them in $\mathcal D$ simultaneously with high
+probability. Then apply Proposition~\ref{prop:half-density} to unions of
+$L$ members of $\mathcal D$. (The source's Case~2 parameter $t$ is
+called $\theta$ here.)
+
+Let $L=2^{70}$, so $k=32L$, and assume $\mu_p(\mathcal D)\ge1-1/k$. If
+$R_1,\ldots,R_L$ are random subsets of $[N]$ on one probability space,
+each with law $\mu_p$, then, with no independence assumption,
+\begin{equation}
+\label{eq:all-good-rows}
+\mathbb P(R_j\in\mathcal D\text{ for all }1\le j\le L)
+\ge1-\sum_{j=1}^L\mathbb P(R_j\notin\mathcal D)
+\ge1-\frac Lk=\frac{31}{32}.
+\end{equation}
+
+\medskip
+\noindent\emph{Case 1: $Lp<1$.}
+Independently for each $i\in[N]$, choose a label
+$J_i\in\{0,1,\ldots,L\}$ with
+\[
+\mathbb P(J_i=0)=1-Lp,
+\qquad
+\mathbb P(J_i=j)=p\quad(1\le j\le L),
+\]
+and put $R_j=\{i:J_i=j\}$, so each element goes to at most one row. For
+fixed $j$, the events $\{i\in R_j\}$ are independent over $i$, each of
+probability $p$; so $R_j$ has law $\mu_p$. The union
+$R=R_1\cup\cdots\cup R_L=\{i:J_i\ne0\}$ has independent coordinates,
+each present with probability $q:=Lp\in(0,1)$; so $R$ has law $\mu_q$.
+
+Define
+$\mathcal F=\{D_1\cup\cdots\cup D_L:D_1,\ldots,D_L\in\mathcal D\}$.
+On the event in~\eqref{eq:all-good-rows}, $R\in\mathcal F$, hence
+\[
+\mu_q(\mathcal F)=\mathbb P(R\in\mathcal F)\ge\frac{31}{32}\ge\frac12.
+\]
+The unions of $32$ members of $\mathcal F$ are exactly the unions of
+$32L$ members of $\mathcal D$: expand each member of $\mathcal F$, or
+conversely group a $32L$-tuple into $32$ blocks of length $L$. Thus
+\[
+E_{32}(\mathcal F)=E_{32L}(\mathcal D)=E_k(\mathcal D).
+\]
+Proposition~\ref{prop:half-density} shows that this family is
+$(q/L)$-small, and $q/L=p$.
+
+\medskip
+\noindent\emph{Case 2: $Lp\ge1$.}
+Set
+\[
+\theta=\frac{p-1/L}{1-1/L},
+\]
+so $\theta\in[0,1)$ because $1/L\le p<1$. Independently for each
+$i\in[N]$: choose one row uniformly among the $L$ rows and put $i$ in
+it; then put $i$ into each other row independently with probability
+$\theta$. For fixed $j$,
+\[
+\mathbb P(i\in R_j)=\frac1L+\left(1-\frac1L\right)\theta=p,
+\]
+and these events are independent over $i$, so $R_j$ has law $\mu_p$;
+moreover $R_1\cup\cdots\cup R_L=[N]$ in every outcome.
+By~\eqref{eq:all-good-rows}, some outcome has all $R_j\in\mathcal D$.
+Repeating these $L$ sets $32$ times gives $k$ members of $\mathcal D$
+whose union $[N]$ contains every $S$. Hence $E_k(\mathcal D)=\varnothing$,
+which the empty family covers at cost $0$. (At the boundary $Lp=1$,
+$\theta=0$.)
+\end{proof}
+
+\section{Verification checklist}
+
+\begin{enumerate}
+\item \emph{Extension bound} \eqref{eq:covering-extension}
+(Lemma~\ref{lem:covering}, Step 2). Regularity is used exactly to get
+$d(e\cap B)\le T$. This bound drives both
+\eqref{eq:covering-pair-cost} and the recursion in Step 5.
+\item \emph{Residual cost} (Lemma~\ref{lem:covering}, Step 6). The $m^2$
+pairs of a tuple are distinct, giving probability $(1-\pi)^{m^2}$; then
+the arithmetic $4h+13rh+1\le2^{6h}=\pi m$.
+\item \emph{Coefficient identity}
+(Proposition~\ref{prop:half-density}, Step 2).
+$\widehat f(U)=(q/(1-q))^{|U|/2}b(U)$, and the discarded factor
+$(1-q)^{|U|}\le1$ goes in the right direction.
+\item \emph{Signed identity} \eqref{eq:signed-identity} (Step 3).
+$Q(0,\ldots,0)=0$ gives termwise vanishing; the row factorisation
+produces $b(U)^{32}$; $b(\varnothing)\ge1/2$.
+\item \emph{Bins} (Steps 5--7). Nonempty bins have $h\ge64r$; the sums
+\eqref{eq:bin-cost-sum} and \eqref{eq:bin-power-sum}; the threshold
+$2^{12h}$ is the same in Lemma~\ref{lem:covering} and in Step 7.
+\item \emph{Coupling} (Section~\ref{sec:density}). Each row has law
+exactly $\mu_p$; the union has law $\mu_{Lp}$ (Case 1) or equals $[N]$
+(Case 2); $E_{32}(\mathcal F)=E_k(\mathcal D)$ and $q/L=p$.
+\item \emph{Corollary~\ref{cor:two-union} only.} It depends on cited
+statements that are not checked here (see the boxed note);
+Theorem~\ref{thm:main} does not use it.
+\end{enumerate}
+
+\begin{thebibliography}{99}
+
+\bibitem{AscoliEtAl26}
+Ruben Ascoli, Xiaoyu He, Jinyoung Park, and Michel Talagrand,
+\emph{A reformulation of the discrete Convexity Conjecture via
+$k$-thresholds},
+arXiv:2608.11183v1, 2026.
+\href{https://arxiv.org/abs/2608.11183v1}{arXiv:2608.11183v1}.
+
+\bibitem{EllisFilmusFriedgut12}
+David Ellis, Yuval Filmus, and Ehud Friedgut,
+\emph{Triangle-intersecting families of graphs},
+Journal of the European Mathematical Society \textbf{14} (2012),
+no.~3, 841--885.
+\href{https://doi.org/10.4171/JEMS/320}{doi:10.4171/JEMS/320}.
+
+\bibitem{FischerPerson25}
+Thomas Fischer and Yury Person,
+\emph{Further remarks on fractional vs. expectation thresholds},
+arXiv:2505.21782v1, 2025.
+\href{https://doi.org/10.48550/arXiv.2505.21782}{doi:10.48550/arXiv.2505.21782}.
+
+\bibitem{Friedgut08}
+Ehud Friedgut,
+\emph{On the measure of intersecting families, uniqueness and stability},
+Combinatorica \textbf{28} (2008), no.~5, 503--528.
+\href{https://doi.org/10.1007/s00493-008-2318-9}{doi:10.1007/s00493-008-2318-9}.
+
+\bibitem{HuaSongTudose26}
+Dongming (Merrick) Hua, Antoine Song, and Stefan Tudose,
+\emph{On Talagrand's Convexity Conjecture},
+arXiv:2605.10908v2, 2026.
+\href{https://arxiv.org/abs/2605.10908v2}{arXiv:2605.10908v2}.
+
+\bibitem{Li26}
+Chen Li,
+\emph{On $p$-spread measures},
+arXiv:2609.08967v1, 2026.
+\href{https://arxiv.org/abs/2609.08967v1}{arXiv:2609.08967v1}.
+
+\bibitem{ODonnell14}
+Ryan O'Donnell,
+\emph{Analysis of Boolean Functions},
+Cambridge University Press, Cambridge, 2014.
+Author's corrected text, 2021:
+\href{https://arxiv.org/abs/2105.10386v1}{arXiv:2105.10386v1}.
+
+\bibitem{OpenAIThreshold26}
+OpenAI,
+\emph{Integral and fractional expectation thresholds are equivalent},
+OpenAI Math Release preprint
+\href{https://github.com/openai/math/blob/main/preprints/Integral-and-fractional-expectation-thresholds-are-equivalent-September-23-2026/paper.pdf}{OAI:Integral-and-fractional-expectation-thresholds-are-equivalent-September-23-2026},
+2026.
+
+\bibitem{Park26}
+Jinyoung Park,
+\emph{A dimension-free comparison between expectation thresholds and
+fractional expectation thresholds},
+arXiv:2609.14681v1, 2026.
+\href{https://arxiv.org/abs/2609.14681v1}{arXiv:2609.14681v1}.
+
+\bibitem{ParkPham24}
+Jinyoung Park and Huy Tuan Pham,
+\emph{On a conjecture of Talagrand on selector processes and a consequence
+on positive empirical processes},
+Annals of Mathematics \textbf{199} (2024), no.~3, 1293--1321.
+\href{https://doi.org/10.4007/annals.2024.199.3.6}{doi:10.4007/annals.2024.199.3.6}.
+
+\bibitem{Talagrand10}
+Michel Talagrand,
+\emph{Are many small sets explicitly small?},
+Proceedings of the Forty-Second ACM Symposium on Theory of Computing,
+ACM, New York, 2010, 13--36.
+\href{https://doi.org/10.1145/1806689.1806693}{doi:10.1145/1806689.1806693}.
+
+\bibitem{Talagrand21}
+Michel Talagrand,
+\emph{Upper and Lower Bounds for Stochastic Processes:
+Decomposition Theorems},
+2nd ed., Ergebnisse der Mathematik und ihrer Grenzgebiete, 3.~Folge,
+vol.~60, Springer, Cham, 2021.
+\href{https://doi.org/10.1007/978-3-030-82595-9}{doi:10.1007/978-3-030-82595-9}.
+
+\end{thebibliography}
+
+\end{document}

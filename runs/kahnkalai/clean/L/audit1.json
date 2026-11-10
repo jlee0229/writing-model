@@ -1,0 +1,13 @@
+{
+ "statements": [],
+ "introduced": [
+  {
+   "where": "Section 3, 'Use / Sanity check' paragraph immediately after Theorem 3.1 (Tree covering)",
+   "quote": "the theorem says that a random set of density $O(\\sigma\\log\\ell_1)$ contains one of them with probability $\\frac23$",
+   "problem": "Minor imprecision in an added sanity check. The theorem gives density 16e^{50}σ(1+log_2 ℓ_1), i.e. O(σ(1+log ℓ_1)), and probability at least 2/3. For ℓ_1=1 the expression O(σ log ℓ_1) is zero, and a density-0 set cannot contain a nonempty label, so the paraphrase is literally false in that case; it is correct for ℓ_1≥2. No proof depends on this sentence.",
+   "severity": 1
+  }
+ ],
+ "source_doubts": [],
+ "unverified_marks": []
+}

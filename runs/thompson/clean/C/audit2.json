@@ -1,0 +1,30 @@
+{
+ "statements": [],
+ "introduced": [],
+ "source_doubts": [
+  {
+   "where": "Section 3 (Consequences), proof of Corollary 3.1 (cor:nonunitarizable)",
+   "quote": "the source concludes by the companion unitarizability theorem \\cite[Theorem~1.1]{OpenAIUnitarizability2026}",
+   "problem": "The whole proof is a citation to a companion theorem whose statement is not reproduced, in both source and rewrite. As invoked (hypotheses: countable and nonamenable; conclusion: a non-unitarizable representation with bound 1+epsilon), that theorem would settle Dixmier's unitarizability problem, which is open as far as I know. Neither the hypotheses nor the 1+epsilon bound can be checked from this document. The corollary is not used in the proof of Theorem 1.1.",
+   "already_marked_unverified": true
+  },
+  {
+   "where": "Section 3 (Consequences), proof of Corollary 3.2 (cor:percolation)",
+   "quote": "The source applies the companion percolation result \\cite[Corollary~1.2]{OpenAIPercolation2026} to $F$, nonamenable by Theorem~\\ref{thm:main}.",
+   "problem": "The whole proof is a citation to a companion result whose statement is not reproduced, in both source and rewrite. The conclusions (bounded T_{p_c}, p_c < p_{2->2} <= p_u for every finite symmetric generating set, infinitely many infinite clusters on (p_c,p_u), and the simultaneous statement on [p_1,p_2]) amount to the Benjamini–Schramm p_c < p_u conjecture for all Cayley graphs of a nonamenable group, which is open in general as far as I know. Nothing here can be checked from this document. The corollary is not used in the proof of Theorem 1.1.",
+   "already_marked_unverified": true
+  }
+ ],
+ "unverified_marks": [
+  {
+   "where": "Proof of Corollary 3.1 (cor:nonunitarizable)",
+   "concern": "The companion unitarizability theorem is not reproduced, so it cannot be checked that countability and nonamenability are its only hypotheses or that it gives the bound 1+epsilon; a theorem of that generality would settle Dixmier's problem.",
+   "warranted": true
+  },
+  {
+   "where": "Proof of Corollary 3.2 (cor:percolation)",
+   "concern": "The companion percolation corollary is not reproduced, so none of the conclusions can be checked; p_c < p_u for general nonamenable Cayley graphs is an open conjecture.",
+   "warranted": true
+  }
+ ]
+}

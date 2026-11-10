@@ -1,0 +1,21 @@
+{
+ "where": "Section 2, proof of Lemma 2.1 (Local resampling), the change-of-measure bound (eq:distortion)",
+ "kind": "dropped hypothesis / invalid independence claim",
+ "explanation": "The distortion bound is now claimed for every nonnegative function f of W, and the proof justifies factoring E[1{A_b\\A_c ⊆ W} f(W)] = ρ^{|A_b\\A_c|} E f(W) by noting that the source is independent of W. That does not make the event {A_b\\A_c ⊆ W} independent of f(W): the event is a function of W (for each fixed c), and it correlates with any f that looks at coordinates in A_b. For example, f = 1{A_b ⊆ W} makes the left side much larger than e^{11m} ν_b E f. The factorization, and so the lemma as stated, is valid only when f ignores the coordinates in A_b. That restriction is exactly what the tree argument needs (disjointness along paths), and the edit removes it.",
+ "correct_version": "Lemma: '...every nonnegative function $f$ depending only on $W\\cap(X\\setminus A_b)$,'. Proof: 'The event $A_b\\setminus A_c\\subseteq W$ uses only coordinates inside $A_b$, so it is independent of $f(W)$.'",
+ "edits": [
+  {
+   "find": "$f$ depending only on $W\\cap(X\\setminus A_b)$,",
+   "replace": "$f$ of $W$,"
+  },
+  {
+   "find": "uses only coordinates inside $A_b$,",
+   "replace": "is averaged over a source drawn independently of $W$,"
+  }
+ ],
+ "validation": {
+  "verdict": "real_error",
+  "subtlety": 3,
+  "reason": "The edited Lemma (Local resampling) now claims the distortion bound (eq:distortion) for every nonnegative function f of W, and the proof factors E[1{A_b\\A_c ⊆ W} f(W)] = ρ^{|A_b\\A_c|} E f(W) on the grounds that the source is drawn independently of W. That inference is invalid: for each fixed source c, the event {A_b\\A_c ⊆ W} is a function of W on coordinates inside A_b, so it is correlated with any f that looks at those coordinates. Independence of the source from W is irrelevant to this.\n\nThe edited statement is also false, not just badly justified. Take N pairwise disjoint labels of size m with uniform ν, where 1/N ≤ a^m (so ν is a-spread), and f = 1{A_b ⊆ W}. Then Z(Y) is about 1 on the event A_b ⊆ W, so the left side is about ν_b, while the right side is e^{11m} ν_b ρ^m. This is violated whenever ρ < e^{-11}, which the hypotheses allow.\n\nThe original restriction to f depending only on W outside A_b is exactly what makes the factorisation valid. The later tree argument still only applies the bound to D_b(W), which does satisfy that restriction, so the downstream theorem survives; but the lemma as stated and its proof step are wrong. A reader checking the independence claim with care would catch it, and the later text stressing that D_b depends only on W outside A_b is a hint."
+ }
+}

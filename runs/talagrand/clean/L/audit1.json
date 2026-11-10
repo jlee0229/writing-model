@@ -1,0 +1,26 @@
+{
+ "statements": [],
+ "introduced": [
+  {
+   "where": "Section 4, proof of Theorem 1.1, opening sentence of Case 2 (Lp >= 1)",
+   "quote": "The labels of Case~1 are unavailable because $1-Lp$ would be negative or zero, so a different coupling is used.",
+   "problem": "The stated reason is wrong at the boundary Lp = 1. There P(J_i=0)=0 is a valid probability and the Case 1 labels are perfectly well defined. What actually fails is that q = Lp = 1 lies outside (0,1), so mu_q and Proposition 3.1 are unavailable. The source makes no such claim; it only notes that the Case 2 construction also covers Lp = 1 with t = 0. The proof itself is unaffected, since the Case 2 coupling is used for all Lp >= 1.",
+   "severity": 1
+  }
+ ],
+ "source_doubts": [
+  {
+   "where": "Proof of Corollary 1.2 (two unions), steps (3) and (5) in the rewrite; the citation chain in the source's proof",
+   "quote": "By (I1), $E_2(\\mathcal D)$ has a fractional cover $(a_I)$ of cost at most $1/2$ at density $\\sigma=p/2$.",
+   "problem": "This is an external-dependency gap, not a detected error. In both source and rewrite the corollary rests entirely on three cited statements (Li, Cor. 3.1; Park, Thm. 3.4; the companion preprint, Thm. 1.1) whose hypotheses, the density p/2 and the constant 25*512^4 are not reproduced, so they cannot be checked from the manuscript. The internal steps (emptiness case, nonempty/proper/increasing, capping coefficients at 1, C = 50*512^4) are correct. The corollary is not used for Theorem 1.1.",
+   "already_marked_unverified": true
+  }
+ ],
+ "unverified_marks": [
+  {
+   "where": "Section 5.2, boxed note after the proof of Corollary 1.2",
+   "concern": "Steps (3) and (5) rely on the external inputs (I1) (Li Cor. 3.1 / Park Thm. 3.4) and (I2) (companion preprint Thm. 1.1), cited by number without statements. The rewrite could not check that E_2(D) meets their hypotheses, why the fractional density is p/2, or the constant 25*512^4.",
+   "warranted": true
+  }
+ ]
+}

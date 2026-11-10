@@ -1,0 +1,13 @@
+{
+ "statements": [],
+ "introduced": [
+  {
+   "where": "Verification checklist, item 5 (Step 4, item (4d))",
+   "quote": "This is the\nplace where $b\\ge a(a-1)$ (that is, $m\\ge r^2$) is used in full.",
+   "problem": "Added claim not in the source, and not accurate. In (4d) the inequality needed is p>q with p>=m+1 and q<=r^2-1, so m>=r^2-1 already suffices; the rewrite's own display shows p>=r^2+1 against q<=r^2-1, a margin of 2. The hypothesis m>=r^2 is therefore not used at full strength here (nor in Step 3, which needs only m>=r(r-1)). The source says only that the accumulation 'leads to the quadratic sufficient bound' and explicitly does not assert sharpness. This is a misdescription of the proof's tightness; it does not affect the validity of any step.",
+   "severity": 1
+  }
+ ],
+ "source_doubts": [],
+ "unverified_marks": []
+}

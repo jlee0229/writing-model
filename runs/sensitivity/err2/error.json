@@ -1,0 +1,21 @@
+{
+ "where": "Lemma 2.3 (Disjoint blocks at zero), statement and inductive step",
+ "kind": "Induction hypothesis too weak for the inductive step (hypothesis mismatch)",
+ "explanation": "The lemma now only asserts that flipping a block makes the weakest predicate P_{ℓ,1} equal to one. The inductive step still says that flipping the union of copies of a level-(ℓ-1) block 'makes the strongest predicate in each of those children equal to one'. The targets need P_{ℓ-1,Q} with Q=H_{ℓ-1}, the strongest predicate. The weakened induction hypothesis only gives P_{ℓ-1,1}=1, so the step does not follow and the induction does not close. The theorem's block-sensitivity lower bound bs(f,0) ≥ M^2 k^d depends on this lemma at every level.",
+ "correct_version": "Statement: '...such that flipping any one block at zero makes every predicate at that level equal to one.' Proof: 'Thus every \\(P_{\\ell,q}\\) is one after the flip.' (The stronger statement for all q is needed so that the IH gives the strongest child predicate.)",
+ "edits": [
+  {
+   "find": "makes every predicate at that level equal to one",
+   "replace": "makes the weakest predicate \\(P_{\\ell,1}\\) at that level equal to one"
+  },
+  {
+   "find": "Thus every \\(P_{\\ell,q}\\) is one after the flip.",
+   "replace": "Thus \\(P_{\\ell,1}\\) is one after the flip."
+  }
+ ],
+ "validation": {
+  "verdict": "real_error",
+  "subtlety": 3,
+  "reason": "The edit weakens Lemma lem:blocks to claim only that flipping a block makes the weakest predicate P_{ℓ,1} equal to one, so the induction hypothesis at level ℓ-1 now gives only P_{ℓ-1,1}=1 on the flipped children. The inductive step still asserts that the flip \"makes the strongest predicate in each of those children equal to one\", which is what the target conditions P_{ℓ-1,Q}(x_{i,c})=1 with Q=H_{ℓ-1} require. By nesting, P_{ℓ-1,1}=1 does not imply P_{ℓ-1,Q}=1, so that inference is invalid and the induction does not close. The weakened statement is still true, and it would suffice for the theorem (only P_{d,1} is used at the top level), but the proof as written no longer establishes it; a careful reader comparing the hypothesis with the step would reject it. Spotting it requires matching \"weakest\" in the statement against \"strongest\" in the inductive step."
+ }
+}

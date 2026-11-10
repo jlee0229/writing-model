@@ -1,0 +1,21 @@
+{
+ "where": "Section 2.1, proof of Lemma 2.2 (dyad:transport)",
+ "kind": "miscounted case / invalid matching (per-gap equalization replaced by a global count)",
+ "explanation": "For the cell-by-cell affine map to send I onto I' and J onto J', the source and target partitions must have the same number of cells in each of the three corresponding gaps. Only then do the selected intervals sit at the same index. After the edit, only the total number of cells is equalized. Equal totals do not put the selected intervals in matching positions. Example: the source left gap has 1 cell and the target left gap has 3 cells, while the totals agree. Then I is the 2nd cell and I' is the 4th, so the increasing cell-to-cell map does not carry I to I'. The sentence 'with the two selected intervals in matching positions' no longer follows, so the lemma is unproved. The finite set S of transports h_{I,J}, which the whole Følner contradiction relies on, depends on this lemma.",
+ "correct_version": "Within each corresponding pair of gaps, equalize the numbers of cells by successively bisecting cells on the side with fewer cells.",
+ "edits": [
+  {
+   "find": "Within each corresponding pair of",
+   "replace": "Summing over the three"
+  },
+  {
+   "find": "gaps, equalize the numbers of cells by successively bisecting cells",
+   "replace": "gaps, equalize the total numbers of cells by successively bisecting cells"
+  }
+ ],
+ "validation": {
+  "verdict": "real_error",
+  "subtlety": 3,
+  "reason": "In the proof of Lemma dyad:transport, the edit equalizes only the total number of cells across the three gaps, not the number in each corresponding gap. Equal totals do not put I and I' (or J and J') at the same index in the ordered cell lists: for example, the left gaps could have 1 and 3 cells with the totals still agreeing. So the claim 'with the two selected intervals in matching positions' no longer follows, and the cell-by-cell affine map need not carry I onto I' or J onto J'. The lemma itself is still true, but the proof step as written is invalid. The transports h_{I,J} forming the set S depend on this lemma."
+ }
+}

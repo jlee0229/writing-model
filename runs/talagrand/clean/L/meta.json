@@ -1,0 +1,26 @@
+{
+ "slug": "talagrand",
+ "variant": "clean",
+ "arm": "L",
+ "source_words": 3859,
+ "stuck_load_source": 12.333333333333334,
+ "stuck_load_draft1": 11.666666666666666,
+ "repaired": true,
+ "repair_rounds": 3,
+ "compiles": true,
+ "rewrite_words": 7788,
+ "length_ratio": 2.02,
+ "unverified_marks": 1,
+ "audit1": {
+  "statements": 0,
+  "introduced": 1,
+  "source_doubts": 1,
+  "unverified_marks": 1
+ },
+ "final_audit": {
+  "statements": 0,
+  "introduced": 0,
+  "source_doubts": 1,
+  "unverified_marks": 1
+ }
+}

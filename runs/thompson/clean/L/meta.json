@@ -1,0 +1,25 @@
+{
+ "slug": "thompson",
+ "variant": "clean",
+ "arm": "L",
+ "source_words": 5078,
+ "stuck_load_source": 15.333333333333334,
+ "stuck_load_draft1": 12.666666666666666,
+ "repaired": false,
+ "compiles": true,
+ "rewrite_words": 10800,
+ "length_ratio": 2.13,
+ "unverified_marks": 2,
+ "audit1": {
+  "statements": 0,
+  "introduced": 0,
+  "source_doubts": 2,
+  "unverified_marks": 2
+ },
+ "final_audit": {
+  "statements": 0,
+  "introduced": 0,
+  "source_doubts": 2,
+  "unverified_marks": 2
+ }
+}

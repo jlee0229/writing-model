@@ -1,0 +1,10 @@
+[
+ {
+  "find": "Since \\(\\Pi A\\subset\\R^r\\) and \\(\\Pi B\\subset\\R^s\\), \\eqref{eq:product-body} gives \\(|\\Pi(A\\times B)|=|B|^r|\\Pi A|\\cdot|A|^s|\\Pi B|\\)",
+  "replace": "By \\eqref{eq:product-body}, \\(|\\Pi(A\\times B)|=|B|^s|\\Pi A|\\cdot|A|^r|\\Pi B|\\)"
+ },
+ {
+  "find": "=\\frac{|B|^r|A|^s|\\Pi A||\\Pi B|}{(|A||B|)^{r+s-1}}",
+  "replace": "=\\frac{|B|^s|A|^r|\\Pi A||\\Pi B|}{(|A||B|)^{r+s-1}}"
+ }
+]

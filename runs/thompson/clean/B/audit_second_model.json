@@ -1,0 +1,19 @@
+{
+ "statements": [],
+ "introduced": [],
+ "source_doubts": [
+  {
+   "where": "Section 3 (Consequences), proofs of Corollary 3.1 (nonunitarizable) and Corollary 3.2 (percolation)",
+   "quote": "so the conclusion follows from the companion unitarizability theorem \\cite[Theorem~1.1]{OpenAIUnitarizability2026}. ... Apply the companion percolation result \\cite[Corollary~1.2]{OpenAIPercolation2026} to \\(F\\)",
+   "problem": "The proofs are pure citations to unpublished companion papers. What they would need is very strong: that every countable nonamenable group has a non-unitarizable uniformly bounded representation with norm at most 1+ε, which is a strong form of a negative answer to Dixmier's unitarizability problem (open as far as I know), and that p_c<p_{2→2}≤p_u, and hence p_c<p_u, holds on every Cayley graph of a nonamenable group, which includes the Benjamini–Schramm conjecture (open in general as far as I know). Nothing in the source verifies these statements, so the corollaries are conditional on the companion papers.",
+   "already_marked_unverified": true
+  }
+ ],
+ "unverified_marks": [
+  {
+   "where": "End of Section 4/Consequences (boxed note after Corollary cor:percolation)",
+   "concern": "The two corollaries rest only on citations to companion papers that could not be checked. The general statements those papers would have to contain (every countable nonamenable group is non-unitarizable with norm at most 1+ε; p_c<p_{2→2}≤p_u and non-uniqueness on every nonamenable Cayley graph) are strong.",
+   "warranted": true
+  }
+ ]
+}

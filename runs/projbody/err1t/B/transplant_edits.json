@@ -1,0 +1,18 @@
+[
+ {
+  "find": "|\\Pi(A\\times B)|=|B|^r|\\Pi A|\\cdot|A|^s|\\Pi B|",
+  "replace": "|\\Pi(A\\times B)|=|B|^s|\\Pi A|\\cdot|A|^r|\\Pi B|"
+ },
+ {
+  "find": "=\\frac{|B|^r|A|^s|\\Pi A||\\Pi B|}",
+  "replace": "=\\frac{|B|^s|A|^r|\\Pi A||\\Pi B|}"
+ },
+ {
+  "find": "\\(s-(r+s-1)=-(r-1)\\)",
+  "replace": "\\(r-(r+s-1)=-(r-1)\\)"
+ },
+ {
+  "find": "\\(r-(r+s-1)=-(s-1)\\)",
+  "replace": "\\(s-(r+s-1)=-(s-1)\\)"
+ }
+]

@@ -1,0 +1,30 @@
+{
+ "statements": [],
+ "introduced": [],
+ "source_doubts": [
+  {
+   "where": "Corollary 3.1 (nonunitarizable representations), proof",
+   "quote": "so the conclusion follows from the companion unitarizability theorem \\cite[Theorem~1.1]{OpenAIUnitarizability2026}",
+   "problem": "The source proves nothing here beyond citing an unpublished companion theorem whose statement is not given. A result giving, for every countable nonamenable group, a uniformly bounded representation with norm bound 1+ε that cannot be unitarized would resolve Dixmier's unitarizability problem. That problem is open as far as I know, so the deduction cannot be checked from this document.",
+   "already_marked_unverified": true
+  },
+  {
+   "where": "Corollary 3.2 (percolation), proof",
+   "quote": "Apply the companion percolation result \\cite[Corollary~1.2]{OpenAIPercolation2026} to \\(F\\), which is nonamenable",
+   "problem": "This rests only on a citation of an unreproduced companion result. The conclusions (p_c < p_{2→2} ≤ p_u, a bounded connection kernel at p_c), applied to every nonamenable Cayley graph, include the Benjamini–Schramm conjecture p_c < p_u, which is open as far as I know. Not checkable from the source.",
+   "already_marked_unverified": true
+  }
+ ],
+ "unverified_marks": [
+  {
+   "where": "Section 3, proof of Corollary 3.1 (nonunitarizable)",
+   "concern": "The companion unitarizability theorem is not reproduced. Its hypotheses and the 1+ε bound cannot be checked, and a result this general would settle Dixmier's problem.",
+   "warranted": true
+  },
+  {
+   "where": "Section 3, proof of Corollary 3.2 (percolation)",
+   "concern": "The companion percolation corollary is not reproduced. In general form it would imply p_c < p_u for every nonamenable Cayley graph, an open conjecture.",
+   "warranted": true
+  }
+ ]
+}

@@ -1,0 +1,19 @@
+{
+ "statements": [],
+ "introduced": [],
+ "source_doubts": [
+  {
+   "where": "Theorem 1.2 (thm:input), the cited existence input used in the proof of Theorem 1.1",
+   "quote": "There exist a finite field $K_2$ of characteristic two, a finitely generated group $H_2$, and finite sums $a_2,b_2\\in K_2[H_2]$ with $a_2b_2=1$ and $b_2a_2\\ne1$.",
+   "problem": "The whole result rests on this statement, which is cited from a companion paper and not proved in either text. It asserts that a group algebra over a finite field is not directly finite, i.e. a counterexample to Kaplansky's direct-finiteness conjecture, which is open in positive characteristic. Since sofic groups have directly finite group algebras (Elek–Szabó), it would also give a non-sofic group. No explicit field, group or elements are supplied, so it cannot be checked. Every step after it checks out in both SOURCE and REWRITE, so what is actually proved is the implication Theorem 1.2 ⇒ Theorem 1.1.",
+   "already_marked_unverified": true
+  }
+ ],
+ "unverified_marks": [
+  {
+   "where": "Boxed note immediately after Theorem 1.2 (thm:input) in Section 1",
+   "concern": "Theorem 1.2 is quoted from the companion paper and neither proved nor checked; it contradicts Kaplansky's direct-finiteness conjecture, so the text only establishes 'Theorem 1.2 ⇒ Theorem 1.1'.",
+   "warranted": true
+  }
+ ]
+}

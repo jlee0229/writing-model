@@ -1,0 +1,25 @@
+{
+ "statements": [],
+ "introduced": [],
+ "source_doubts": [
+  {
+   "where": "Lemma 2.2 (dyad:transport), Step 3 of the rewrite's proof; same sentences in the source's proof",
+   "quote": "Summing over the three gaps, equalize the total numbers of cells by successively bisecting cells on the side with fewer cells. Each bisection increases the number by one. The source and target partitions now have the same number of cells, with the two selected intervals in matching positions.",
+   "problem": "Equalizing only the total number of gap cells does not put I, J and I', J' in matching positions. With gap counts (2,1,1) against (1,1,2), I is the third cell and I' is the second, so mapping the k-th cell to the k-th cell would not carry I onto I'. The repair is routine: bisect gap by gap so that corresponding gaps have equal counts, which is always possible since each gap has at least one cell. The lemma itself is true. The rewrite keeps the source wording, flags it, and uses the gap-by-gap version in Step 4.",
+   "already_marked_unverified": true
+  },
+  {
+   "where": "Section on consequences: proofs of Corollary 3.1 (cor:nonunitarizable) and Corollary 3.2 (cor:percolation)",
+   "quote": "The source then concludes from the companion unitarizability theorem \\cite[Theorem~1.1]{OpenAIUnitarizability2026}, which it applies to countable nonamenable groups.",
+   "problem": "Both corollaries are obtained only by citing companion results whose statements and hypotheses are not reproduced: a non-unitarizable uniformly bounded representation for every countable nonamenable group (Dixmier-type), and p_c < p_{2->2} <= p_u for every Cayley graph of a nonamenable group. Neither can be checked from the manuscript, and both go beyond what I know to be established in that generality. The same gap is in the source. The rewrite discloses it in prose (\"the companion theorems themselves are not verified in this document\" and checklist item 9) but does not put an \\unverified box on it. Neither corollary is used in the proof of the main theorem.",
+   "already_marked_unverified": false
+  }
+ ],
+ "unverified_marks": [
+  {
+   "where": "Proof of Lemma 2.2 (dyad:transport), between Step 3 and Step 4; also referenced in the abstract and checklist item 6",
+   "concern": "The source equalizes only the total number of gap cells, which does not force the selected intervals into matching positions (example: gap counts (2,1,1) against (1,1,2)). The rewrite says the argument needs equal counts in each corresponding gap and that the lemma's statement is unaffected.",
+   "warranted": true
+  }
+ ]
+}

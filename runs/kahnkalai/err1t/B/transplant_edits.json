@@ -1,0 +1,22 @@
+[
+ {
+  "find": "$f\\ge0$ of $W$\nthat depends only on $W\\cap(X\\setminus A_b)$,",
+  "replace": "$f\\ge0$ of $W$,"
+ },
+ {
+  "find": "Let $\\phi=f$ depend only on $W\\cap(X\\setminus A_b)$.",
+  "replace": "Let $\\phi=f$ be any function of $W$."
+ },
+ {
+  "find": "indicator depends only on $W\\cap A_b$. By (P1) the two are",
+  "replace": "indicator is averaged over a source drawn independently of $W$, so the two are"
+ },
+ {
+  "find": "needs $f$ to depend only on $W\\setminus A_b$ and",
+  "replace": "uses that the source is drawn independently of $W$."
+ },
+ {
+  "find": "the indicator only on $W\\cap A_b$. The exponent",
+  "replace": "The exponent"
+ }
+]

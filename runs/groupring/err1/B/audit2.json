@@ -1,0 +1,37 @@
+{
+ "statements": [],
+ "introduced": [
+  {
+   "where": "Section 1.3, inside the \\unverified box after Theorem 1.2 (thm:input)",
+   "quote": "Every result below, including Theorem~\\ref{thm:main}, is conditional on this statement.",
+   "problem": "Overstates the logical dependence. Only Theorem 1.1 (through Step 1 of the assembly) depends on the cited input. Lemma 2.1, Proposition 2.2, Lemmas 3.1, 3.2, 4.1, 4.2 and Proposition 4.3 are proved unconditionally from their own hypotheses, as in the source. The rewrite contradicts itself on this: it says steps (3)-(6) are independent of (1)-(2), and the checklist says the input enters only in Step 1 of Section 5. This is the only introduced problem found; all expanded computations and added steps checked out.",
+   "severity": 1
+  }
+ ],
+ "source_doubts": [
+  {
+   "where": "Theorem 1.2 (thm:input), the external existence input, used in Step 1 of the proof of Theorem 1.1",
+   "quote": "There exist a finite field $K_2$ of characteristic two, a finitely\ngenerated group $H_2$, and finite sums $a_2,b_2\\in K_2[H_2]$ with\n$a_2b_2=1$ and $b_2a_2\\ne1$.",
+   "problem": "The main theorem rests entirely on this statement, which is cited from a companion manuscript and proved in neither document. It asserts a counterexample to Kaplansky's direct finiteness conjecture and, combined with the Elek-Szabo results, the existence of a non-sofic group; both are long-standing open problems as far as I know. It cannot be checked from the source, so Theorem 1.1 is conditional on it. The rewrite kept the statement unchanged and flagged it.",
+   "already_marked_unverified": true
+  },
+  {
+   "where": "Proof of Proposition 2.2 (prop:separation), definition of f and w and the claim fCw = \\bar p (rewrite Step 7)",
+   "quote": "let $f$ be the row of length $d$ with entry $\\bar p h_0^{-1}$ at position $j$ and zero elsewhere, and let $w$ be the column of length $d$ with entry $\\bar p$ at position $i$ and zero elsewhere. The source then asserts\n\\begin{equation}\\label{eq:fCw}\n fCw=\\bar p .",
+   "problem": "With f supported at position j and w at position i, fCw = \\bar p h_0^{-1} C_{ji} \\bar p, which involves C_{ji} rather than the chosen entry C_{ij}. The sandwich identity \\bar p h_0^{-1} C_{ij} \\bar p = \\bar p therefore does not give fCw = \\bar p unless i = j. The same index slip is in the source. It is repaired by interchanging the positions (f at i, w at j), after which the rest of the proof is unaffected.",
+   "already_marked_unverified": true
+  }
+ ],
+ "unverified_marks": [
+  {
+   "where": "Section 1.3, box after Theorem 1.2 (thm:input)",
+   "concern": "The cited companion theorem (failure of direct finiteness for a group algebra over a finite field of characteristic two) is not proved in the source or the rewrite, could not be checked, and would settle long-standing open problems (Kaplansky's direct finiteness conjecture, existence of a non-sofic group).",
+   "warranted": true
+  },
+  {
+   "where": "Proof of Proposition 2.2, Step 7, box after the equation fCw = \\bar p",
+   "concern": "With the stated positions (f at j, w at i), fCw picks out C_{ji} rather than C_{ij}, so the sandwich identity does not yield fCw = \\bar p unless i = j; interchanging the positions fixes it.",
+   "warranted": true
+  }
+ ]
+}

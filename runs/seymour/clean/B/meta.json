@@ -1,0 +1,23 @@
+{
+ "slug": "seymour",
+ "variant": "clean",
+ "arm": "B",
+ "source_words": 7001,
+ "repaired": false,
+ "compiles": true,
+ "rewrite_words": 9522,
+ "length_ratio": 1.36,
+ "unverified_marks": 0,
+ "audit1": {
+  "statements": 0,
+  "introduced": 0,
+  "source_doubts": 0,
+  "unverified_marks": 0
+ },
+ "final_audit": {
+  "statements": 0,
+  "introduced": 0,
+  "source_doubts": 0,
+  "unverified_marks": 0
+ }
+}

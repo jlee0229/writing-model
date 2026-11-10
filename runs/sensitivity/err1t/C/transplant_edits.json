@@ -1,0 +1,10 @@
+[
+ {
+  "find": "Fix a clause $i$ that holds at $x$ at index $q'$; by",
+  "replace": "Fix a clause $i$ that holds at $x$ at index $q$; by"
+ },
+ {
+  "find": "(Mon) it also holds at index $q$. Let $e$ satisfy",
+  "replace": "(Mon) it also holds at index $q'$. Let $e$ satisfy"
+ }
+]

@@ -1,0 +1,133 @@
+\begin{thebibliography}{10}
+
+\bibitem{BehzadChartrandWall1970}
+Mehdi Behzad, Gary Chartrand, and Curtiss~E. Wall.
+\newblock On minimal regular digraphs with given girth.
+\newblock {\em Fundamenta Mathematicae}, 69(3):227--231, 1970.
+\newblock \href{https://doi.org/10.4064/fm-69-3-227-231}{doi}.
+
+\bibitem{BotlerMouraNaia2023}
+F{\'a}bio Botler, Phablo F.~S. Moura, and T{\'a}ssio Naia.
+\newblock {Seymour}'s second neighborhood conjecture for orientations of
+  (pseudo)random graphs.
+\newblock {\em Discrete Mathematics}, 346(12):113583, 2023.
+
+\bibitem{BrantnerBrockmanKaySnively2009}
+James Brantner, Greg Brockman, Bill Kay, and Emma Snively.
+\newblock Contributions to {Seymour}'s second neighborhood conjecture.
+\newblock {\em Involve}, 2(4):387--395, 2009.
+
+\bibitem{Brukhman2026}
+Jake Brukhman.
+\newblock A dense-case theorem for {Seymour}'s second neighborhood conjecture,
+  2026.
+\newblock arXiv:2608.11530v1, August 12, 2026.
+
+\bibitem{ChenShenYuster2003}
+Guantao Chen, Jian Shen, and Raphael Yuster.
+\newblock Second neighborhood via first neighborhood in digraphs.
+\newblock {\em Annals of Combinatorics}, 7(1):15--20, 2003.
+
+\bibitem{DaamouchAlMninyGhazal2025}
+Moussa Daamouch, Darine Al-Mniny, and Salman Ghazal.
+\newblock About the second neighborhood conjecture for tournaments missing two
+  stars or disjoint paths.
+\newblock {\em Contributions to Discrete Mathematics}, 20(2):363--383, 2025.
+
+\bibitem{DaraFrancisJacobNarayanan2022}
+Suresh Dara, Mathew~C. Francis, Dalu Jacob, and N.~Narayanan.
+\newblock Extending some results on the second neighborhood conjecture.
+\newblock {\em Discrete Applied Mathematics}, 311:1--17, 2022.
+
+\bibitem{DeanLatka1995}
+Nathaniel Dean and Brenda~J. Latka.
+\newblock Squaring the tournament---an open problem.
+\newblock {\em Congressus Numerantium}, 109:73--80, 1995.
+
+\bibitem{Edmonds1967}
+Jack Edmonds.
+\newblock Systems of distinct representatives and linear algebra.
+\newblock {\em Journal of Research of the National Bureau of Standards, Section
+  B}, 71B(4):241--245, 1967.
+
+\bibitem{EspunyDiazEtAl2025}
+Alberto Espuny~D{\'i}az, Ant{\'o}nio Gir{\~a}o, Bertille Granet, and Gal
+  Kronenberg.
+\newblock {Seymour}'s second neighbourhood conjecture: random graphs and
+  reductions.
+\newblock {\em Random Structures \& Algorithms}, 66(1):e21251, 2025.
+
+\bibitem{FidlerYuster2007}
+Dror Fidler and Raphael Yuster.
+\newblock Remarks on the second neighborhood problem.
+\newblock {\em Journal of Graph Theory}, 55(3):208--220, 2007.
+
+\bibitem{Fisher1996}
+David~C. Fisher.
+\newblock Squaring a tournament: A proof of {Dean}'s conjecture.
+\newblock {\em Journal of Graph Theory}, 23(1):43--48, 1996.
+\newblock
+  \href{https://doi.org/10.1002/(SICI)1097-0118(199609)23:1<43::AID-JGT4>3.0.CO;2-K}{doi}.
+
+\bibitem{Ghazal2012}
+Salman Ghazal.
+\newblock {Seymour}'s second neighborhood conjecture for tournaments missing a
+  generalized star.
+\newblock {\em Journal of Graph Theory}, 71(1):89--94, 2012.
+
+\bibitem{HavetThomasse2000}
+Fr{\'e}d{\'e}ric Havet and St{\'e}phan Thomass{\'e}.
+\newblock Median orders of tournaments: A tool for the second neighborhood
+  problem and {Sumner}'s conjecture.
+\newblock {\em Journal of Graph Theory}, 35(4):244--256, 2000.
+\newblock
+  \href{https://doi.org/10.1002/1097-0118(200012)35:4<244::AID-JGT2>3.0.CO;2-H}{doi}.
+
+\bibitem{HuangPeng2024}
+Hao Huang and Fei Peng.
+\newblock An improved bound on {Seymour}'s second neighborhood conjecture,
+  2024.
+\newblock arXiv:2412.20234v1, December 28, 2024.
+
+\bibitem{KanekoLocke2001}
+Yoshihiro Kaneko and Stephen~C. Locke.
+\newblock The minimum degree approach for {Paul Seymour}'s distance 2
+  conjecture.
+\newblock {\em Congressus Numerantium}, 148:201--206, 2001.
+
+\bibitem{konig1931}
+D{\'e}nes K{\H{o}}nig.
+\newblock Graphok {\'e}s matrixok.
+\newblock {\em Matematikai {\'e}s Fizikai Lapok}, 38:116--119, 1931.
+\newblock In Hungarian.
+
+\bibitem{SadhukhanSandeepSen2026}
+Arpan Sadhukhan, R.~B. Sandeep, and Sagnik Sen.
+\newblock A proof of {Seymour}'s second neighborhood conjecture for oriented
+  graphs with minimum out-degree equal to 7, 2026.
+\newblock arXiv:2606.30588v1, June 29, 2026.
+
+\bibitem{Seacrest2015}
+Tyler Seacrest.
+\newblock The arc-weighted version of the second neighborhood conjecture.
+\newblock {\em Journal of Graph Theory}, 78(3):219--228, 2015.
+\newblock Preprint (numbering used here):
+  \href{https://arxiv.org/abs/1212.1883v1}{arXiv:1212.1883v1}.
+
+\bibitem{Seacrest2019}
+Tyler Seacrest.
+\newblock {Seymour}'s second neighborhood conjecture for subsets of vertices,
+  2019.
+\newblock \href{https://arxiv.org/abs/1808.06293v3}{arXiv:1808.06293v3}
+  [math.CO], revised 12 April 2019.
+
+\bibitem{Sullivan2006}
+Blair~D. Sullivan.
+\newblock A summary of results and problems related to the
+  {Caccetta--H{\"a}ggkvist} conjecture.
+\newblock American Institute of Mathematics, 2006.
+\newblock AIM workshop report dated April 14, 2006;
+  \href{https://aimath.org/WWN/caccetta/caccetta.pdf}{report}; Section~3 and
+  Conjecture~6.12.
+
+\end{thebibliography}

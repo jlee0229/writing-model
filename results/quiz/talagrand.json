@@ -1,0 +1,241 @@
+{
+ "slug": "talagrand",
+ "questions": [
+  {
+   "id": 1,
+   "type": "gist",
+   "question": "State exactly what the main theorem asserts: the constant, the quantifiers, the hypothesis on the family D, and what 'p-small' means in the conclusion. Is any structural assumption, such as monotonicity, placed on D?",
+   "answer": "With the fixed constant k = 2^75, for every N ≥ 1, every p ∈ (0,1) and every family D ⊆ 2^[N], if μ_p(D) ≥ 1 − 1/k then E_k(D) is p-small. Here E_k(D) is the family of sets not contained in any union of k members of D, and p-small means there is a family G such that every set in E_k(D) contains a member of G and Σ_{I∈G} p^{|I|} ≤ 1/2. D is arbitrary, with no monotonicity assumed, and k does not depend on N, p or D.",
+   "must_include": [
+    "universal k = 2^75, for all N, p ∈ (0,1) and all D, with hypothesis μ_p(D) ≥ 1 − 1/k",
+    "conclusion: the sets not contained in a union of k members of D have a cover G with Σ p^{|I|} ≤ 1/2, at the same density p",
+    "D is arbitrary (not assumed monotone)"
+   ],
+   "key_confirmed": true,
+   "closed_book_novice": 0.0,
+   "closed_book_weak": 0.0,
+   "closed_book_mid": 0.0,
+   "usable": true
+  },
+  {
+   "id": 2,
+   "type": "gist",
+   "question": "The intermediate result shows that if μ_q(F) ≥ 1/2 then E_32(F) has a cover at the reduced density q/2^70. Which two inequalities about the weights w(U) = b(U)^2 drive this proof, and how are they turned into a cover?",
+   "answer": "First, a global bound Σ_U q^{|U|} w(U) ≤ μ_q(F) ≤ 1 comes from Parseval in the biased Fourier basis. Second, for every S ∈ E_32(F), the 32-row signed identity gives Σ_{∅≠U⊆S} w(U)^16 ≥ 2^{-32}. To build the cover, take every set with w(U) ≥ 2^{-64|U|} as a generator outright. Sort the remaining sets into bins by size r and dyadic weight level 2^{-h}, and apply the covering lemma to each bin to cover the sets containing at least 2^{12h} members of that bin. A set avoiding all these generators would have a sum of sixteenth powers below 2^{-32}, so it cannot be exceptional.",
+   "must_include": [
+    "global Parseval bound Σ q^{|U|} w(U) ≤ 1",
+    "lower bound Σ_{∅≠U⊆S} w(U)^16 ≥ 2^{-32} for every exceptional S, from the 32-row signed identity",
+    "large-weight sets taken outright; remaining sets binned by size and dyadic weight, with the covering lemma applied to each bin"
+   ],
+   "key_confirmed": true,
+   "closed_book_novice": 0.0,
+   "closed_book_weak": 0.0,
+   "closed_book_mid": 0.0,
+   "usable": true
+  },
+  {
+   "id": 3,
+   "type": "gist",
+   "question": "How does the proof get from the reduced-density result (covers at density q/L, L = 2^70, for 32 unions of a family F with μ_q(F) ≥ 1/2) to the main theorem at density p with k = 32L unions? Describe the construction and both cases.",
+   "answer": "Build L random sets, each with law μ_p but dependent on one another. When Lp < 1, independent per-coordinate labels make their union have law exactly μ_q with q = Lp. Let F be the family of unions of L members of D. A union bound gives P(all rows in D) ≥ 1 − L/k = 31/32, so μ_q(F) ≥ 31/32. Also E_32(F) = E_{32L}(D). The reduced-density result then gives a cover at density q/L = p. When Lp ≥ 1, a different coupling, with a mandatory row at each coordinate, makes the union equal [N] always, so some L members of D cover [N] and E_k(D) is empty.",
+   "must_include": [
+    "L rows, each with marginal law μ_p, coupled so the union has law μ_q with q = Lp",
+    "F = L-fold unions of D; union bound gives μ_q(F) ≥ 31/32; E_32(F) = E_k(D); apply at density q/L = p",
+    "case Lp ≥ 1: the union is always [N], so E_k(D) = ∅"
+   ],
+   "key_confirmed": true,
+   "closed_book_novice": 0.0,
+   "closed_book_weak": 0.0,
+   "closed_book_mid": 0.0,
+   "usable": true
+  },
+  {
+   "id": 4,
+   "type": "step",
+   "question": "In the lemma that covers sets containing at least 2^{12h} edges of an r-uniform family H with |H|ρ^r ≤ 2^{h+1}, the first generators are the sets I with weighted degree d(I) > T = 2^{4h}. Why is their total ρ-cost at most T^{-1}2^r|H|ρ^r, and why is that at most 2^{1-2h}?",
+   "answer": "Each such I has ρ^{|I|} < d(I)ρ^{|I|}/T, so the cost is at most T^{-1} Σ_{|I|≤r} d(I)ρ^{|I|}. Double counting the pairs I ⊆ e with e ∈ H shows this sum equals 2^r|H|ρ^r: each edge has 2^r subsets, and each pair contributes ρ^{r−|I|}ρ^{|I|} = ρ^r. Then |H|ρ^r ≤ 2^{h+1} and T = 2^{4h} give 2^{r+1−3h}, which is at most 2^{1−2h} because r ≤ h.",
+   "must_include": [
+    "Markov-type step: ρ^{|I|} ≤ d(I)ρ^{|I|}/T for I with d(I) > T",
+    "double counting: Σ d(I)ρ^{|I|} = 2^r|H|ρ^r (each edge has 2^r subsets, each contributing ρ^r)",
+    "uses |H|ρ^r ≤ 2^{h+1} and r ≤ h"
+   ],
+   "key_confirmed": true,
+   "closed_book_novice": 0.0,
+   "closed_book_weak": 1.0,
+   "closed_book_mid": 0.5,
+   "usable": true
+  },
+  {
+   "id": 5,
+   "type": "step",
+   "question": "In the same covering lemma, the total extension weight Σ_{e regular} ρ^{|e∖B|} is bounded by T·Σ_{i=0}^r C(|B|,i) for any set B. Why is the contribution of the regular edges with a given intersection e∩B = I at most T, and where does the binomial sum come from?",
+   "answer": "Every edge with e∩B = I has |e∖B| = r − |I|, and every such edge contains I. So the group contributes at most |{e ∈ H : I ⊆ e}|ρ^{r−|I|} = d(I). Because I lies inside a regular edge, I is not one of the large-degree generators, so d(I) ≤ T. The groups are indexed by the possible intersections I, which are subsets of B with at most r elements; there are Σ_{i≤r} C(|B|,i) of them.",
+   "must_include": [
+    "the group sum is ≤ d(I), since all these edges contain I and have |e∖B| = r − |I|",
+    "I is contained in a regular edge, so I is not a large-degree generator and d(I) ≤ T",
+    "the number of groups is at most the number of subsets of B of size ≤ r"
+   ],
+   "key_confirmed": true,
+   "closed_book_novice": 0.0,
+   "closed_book_weak": 1.0,
+   "closed_book_mid": 0.5,
+   "usable": true
+  },
+  {
+   "id": 6,
+   "type": "step",
+   "question": "In the covering lemma, why does the union of the three generator families cover every target set for every outcome of the random pair sampling? In particular, why can one find m = 2^{12h} regular edges inside a target set that contains no large-degree generator?",
+   "answer": "If an edge e ⊆ S were not regular, it would contain a large-degree generator, and that generator would then lie inside S. So all of the at least m edges inside S are regular. Choose m of them. If some ordered pair among them was sampled, the union of that pair is a sampled-pair generator inside S. Otherwise, the union of all m is a residual generator inside S.",
+   "must_include": [
+    "a non-regular edge inside S would put a large-degree generator inside S, so all ≥ m edges in S are regular",
+    "dichotomy: some pair among the chosen m edges sampled → its union (a sampled-pair generator) lies in S; none sampled → the full union is a residual generator in S"
+   ],
+   "key_confirmed": true,
+   "closed_book_novice": 0.0,
+   "closed_book_weak": 0.0,
+   "closed_book_mid": 0.0,
+   "usable": true
+  },
+  {
+   "id": 7,
+   "type": "step",
+   "question": "In bounding the expected cost of the residual generators in the covering lemma, why is the probability that a fixed m-tuple of regular edges produces a residual generator exactly (1−π)^{m^2}, rather than merely bounded by it?",
+   "answer": "The edges in the tuple are distinct, so the m^2 ordered pairs (e_i, e_j), including the diagonal pairs (e_i, e_i), are m^2 distinct sampling indices. Each index is sampled independently with probability π. The tuple contributes exactly when none of these m^2 indices is sampled, which has probability (1−π)^{m^2}.",
+   "must_include": [
+    "distinct edges make the m^2 ordered pairs (diagonal included) distinct sampling indices",
+    "independent sampling, so the probability that none is sampled is (1−π)^{m^2}"
+   ],
+   "key_confirmed": true,
+   "closed_book_novice": 0.0,
+   "closed_book_weak": 0.0,
+   "closed_book_mid": 0.5,
+   "usable": true
+  },
+  {
+   "id": 8,
+   "type": "step",
+   "question": "In the 32-row array argument for a fixed S ∈ E_32(F), the columns in S carry the signed mass R(y) = P(y) − (1−q)^{32}(−1)^{Σ y_j}. Why does Σ_x ν_S(x) ∏_j f(x_j) equal 0?",
+   "answer": "P(0,…,0) = (1−q)^{32}, so R vanishes on the all-zero column. Hence every array with nonzero ν_S-weight has a 1 in every column of S, so the union of its 32 rows contains S. Because S ∈ E_32(F), the 32 rows cannot all lie in F, so ∏_j f(x_j) = 0 on the whole support of ν_S. The sum is therefore 0, even though ν_S takes negative values.",
+   "must_include": [
+    "R(0,…,0) = 0, because P(0,…,0) = (1−q)^{32}",
+    "support arrays have row union ⊇ S, so not all rows are in F and the product of f vanishes pointwise",
+    "signs/negativity of ν_S are irrelevant"
+   ],
+   "key_confirmed": true,
+   "closed_book_novice": 0.0,
+   "closed_book_weak": 0.0,
+   "closed_book_mid": 0.0,
+   "usable": true
+  },
+  {
+   "id": 9,
+   "type": "step",
+   "question": "After expanding the column products in the 32-row signed sum and fixing the set U ⊆ S of columns where the parity correction is chosen, the term factors over rows and each row factor equals b(U). Explain why it factors over rows and why each factor is exactly b(U).",
+   "answer": "Every column factor is a product over the 32 rows. In columns outside U, the factor P(y) = ∏_j q^{y_j}(1−q)^{1−y_j} is the product of the rows' Bernoulli masses. In columns in U, after pulling out the sign, the factor (1−q)^{32}(−1)^{Σ_j y_j} equals ∏_j (1−q)(−1)^{y_j}. Combined with the product ∏_j f(x_j), the sum over the array splits into 32 identical row sums. Each row sum is (1−q)^{|U|} Σ_{z∈{0,1}^U} (−1)^{Σ z_i} E[f(z,Y)], with Y Bernoulli-q off U, which is b(U).",
+   "must_include": [
+    "both kinds of column factor are products over rows ((1−q)^{32}(−1)^{Σ y_j} = ∏_j (1−q)(−1)^{y_j}), so the sum factors with ∏_j f(x_j)",
+    "each row gets (1−q)^{|U|}(−1)^{Σ_{i∈U} x_i} on U and Bernoulli-q masses off U, which is exactly the definition of b(U)"
+   ],
+   "key_confirmed": true,
+   "closed_book_novice": 0.0,
+   "closed_book_weak": 0.0,
+   "closed_book_mid": 0.0,
+   "usable": true
+  },
+  {
+   "id": 10,
+   "type": "step",
+   "question": "When the covering lemma is applied to the class of sets U ∉ G_0 with |U| = r and 2^{-(h+1)} < w(U) ≤ 2^{-h}, how are its three hypotheses (|H|ρ^r ≤ 2^{h+1}, h ≥ 64, r ≤ h) checked?",
+   "answer": "Every member has w(U) > 2^{-(h+1)}. The global Parseval bound Σ q^{|U|} w(U) ≤ 1 then gives |H| q^r 2^{-(h+1)} < 1, and ρ = q/L ≤ q gives |H|ρ^r ≤ 2^{h+1}. Members are not in G_0, so 2^{-(h+1)} < w(U) < 2^{-64r}. Since these are integers, h ≥ 64r, which is at least 64 and at least r.",
+   "must_include": [
+    "count bound from the global weight bound Σ q^{|U|} w(U) ≤ 1 with w > 2^{-(h+1)}, plus ρ ≤ q",
+    "not in G_0 means w < 2^{-64r}, forcing h ≥ 64r ≥ max(64, r)"
+   ],
+   "key_confirmed": true,
+   "closed_book_novice": 0.0,
+   "closed_book_weak": 0.0,
+   "closed_book_mid": 0.0,
+   "usable": true
+  },
+  {
+   "id": 11,
+   "type": "step",
+   "question": "In the reduction for Lp < 1, why does F = {D_1 ∪ ⋯ ∪ D_L : D_j ∈ D} satisfy μ_q(F) ≥ 31/32 with q = Lp, even though D is not assumed monotone and the rows are not independent?",
+   "answer": "Each row R_j has marginal law μ_p, so P(R_j ∉ D) ≤ 1/k. A union bound, which needs no independence, gives P(all R_j ∈ D) ≥ 1 − L/k = 31/32 since k = 32L. On that event R = ∪R_j lies in F. The labels are independent across coordinates and a coordinate lies in R exactly when its label is nonzero, which has probability Lp. So R has law exactly μ_q, and μ_q(F) = P(R ∈ F) ≥ 31/32. Because the law is exact, no monotonicity comparison is needed.",
+   "must_include": [
+    "union bound over rows with marginal μ_p: P(all rows in D) ≥ 1 − L/k = 31/32 (no independence needed)",
+    "on that event the union R lies in F",
+    "R has exactly the law μ_q (independent coordinates, P(J_i ≠ 0) = Lp), so no monotonicity is needed"
+   ],
+   "key_confirmed": true,
+   "closed_book_novice": 0.0,
+   "closed_book_weak": 0.0,
+   "closed_book_mid": 0.5,
+   "usable": true
+  },
+  {
+   "id": 12,
+   "type": "transfer",
+   "question": "Take N = 1, q ≤ 1/2, and F = {∅}. Compute b(∅) and b({1}). Check that S = {1} is exceptional for 32 unions, and verify both the 32-row signed identity and the lower bound on sixteenth powers of weights in this case.",
+   "answer": "b(∅) = μ_q(F) = 1−q, and b({1}) = (1−q)(f(0) − f(1)) = (1−q)(1 − 0) = 1−q. Every union of members of F is ∅, so {1} is exceptional. The identity reads b(∅)^{32} − b({1})^{32} = (1−q)^{32} − (1−q)^{32} = 0. The lower bound reads w({1})^{16} = (1−q)^{32} ≥ 2^{-32}, which holds because 1−q ≥ 1/2.",
+   "must_include": [
+    "b(∅) = 1−q and b({1}) = 1−q",
+    "{1} is not contained in any union of copies of ∅, and (1−q)^{32} − (1−q)^{32} = 0",
+    "w({1})^{16} = (1−q)^{32} ≥ 2^{-32} because q ≤ 1/2"
+   ],
+   "key_confirmed": true,
+   "closed_book_novice": 0.0,
+   "closed_book_weak": 0.0,
+   "closed_book_mid": 0.0,
+   "usable": true
+  },
+  {
+   "id": 13,
+   "type": "transfer",
+   "question": "Apply the row-coupling construction with L = 3 rows (instead of 2^70) at p = 0.2 and at p = 0.4. For each, say which construction is used, give its parameter (the probability of label 0, or the extra-inclusion probability t), and give the density of the union of the rows.",
+   "answer": "At p = 0.2, Lp = 0.6 < 1, so labels are used. A label is 0 with probability 0.4 and each of 1, 2, 3 has probability 0.2, so the union has law μ_{0.6}. At p = 0.4, Lp = 1.2 ≥ 1, so the mandatory-row construction is used with t = (0.4 − 1/3)/(1 − 1/3) = 1/10. Each row then has inclusion probability 1/3 + (2/3)(1/10) = 0.4, and the union is always all of [N], so its density is 1.",
+   "must_include": [
+    "p = 0.2: label construction, P(J_i = 0) = 0.4, union density 0.6",
+    "p = 0.4: mandatory-row construction with t = 1/10 (check: 1/3 + (2/3)(1/10) = 0.4)",
+    "p = 0.4: the union is always [N]"
+   ],
+   "key_confirmed": true,
+   "closed_book_novice": 0.0,
+   "closed_book_weak": 0.0,
+   "closed_book_mid": 0.5,
+   "usable": true
+  },
+  {
+   "id": 14,
+   "type": "transfer",
+   "question": "Suppose the 32-row signed array were replaced by the analogous 2-row signed kernel, with the rest of the reduced-density argument kept (same cover threshold 2^{12h} per weight bin). At which step does the argument break, and why? Roughly how many rows would the binning argument need?",
+   "answer": "With n rows, the identity gives Σ_{∅≠U⊆S} |b(U)|^n = Σ w(U)^{n/2} ≥ 2^{-n}. With 2 rows this is only Σ w(U) ≥ 1/4. The final step bounds the weights inside a set that avoids all generators: it may contain up to 2^{12h} members of a bin, each with weight ≤ 2^{-h}. That gives Σ_h 2^{12h}·2^{-h} = Σ 2^{11h}, which diverges, so no contradiction follows. The bound becomes summable only when the power of w exceeds 12, i.e. with more than 24 rows; 32 rows give power 16.",
+   "must_include": [
+    "2 rows give only a first-power bound Σ w(U) ≥ 1/4",
+    "the final step fails: up to 2^{12h} members of weight ≤ 2^{-h} per bin gives Σ 2^{11h}, which is not small",
+    "the power of w must exceed 12 (more than 24 rows)"
+   ],
+   "key_confirmed": true,
+   "closed_book_novice": 0.0,
+   "closed_book_weak": 0.0,
+   "closed_book_mid": 0.0,
+   "usable": true
+  },
+  {
+   "id": 15,
+   "type": "transfer",
+   "question": "In the case Lp < 1, suppose the L rows were instead chosen independently, each with law μ_p. Which parts of the reduction still go through, and what conclusion would the argument then give? Would it prove the theorem as stated?",
+   "answer": "The union bound still gives P(all rows in D) ≥ 31/32, and the union is still a product measure, now with density q' = 1 − (1−p)^L. So μ_{q'}(F) ≥ 31/32, and E_32(F) = E_k(D) still holds. The reduced-density result then gives only (q'/L)-smallness. Since q' < Lp, q'/L < p strictly, and c_ρ increases with ρ, so a cover that is cheap at the smaller density need not be cheap at p. The theorem as stated is therefore not proved: the coupling must make the union density exactly Lp.",
+   "must_include": [
+    "union bound and E_32(F) = E_k(D) still hold; the union has product law with density q' = 1 − (1−p)^L",
+    "the conclusion is only (q'/L)-smallness, with q'/L < p",
+    "this does not give p-smallness (the cost increases with density), so the exact coupling with union density Lp is needed"
+   ],
+   "key_confirmed": true,
+   "closed_book_novice": 0.0,
+   "closed_book_weak": 0.0,
+   "closed_book_mid": 0.0,
+   "usable": true
+  }
+ ]
+}

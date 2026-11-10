@@ -1,0 +1,10 @@
+[
+ {
+  "find": "distinct\nmonomials are orthogonal and $\\|X^\\alpha\\|^2=\\alpha!:=\\prod_k\\alpha_k!$.\nIt is positive definite because $\\alpha!>0$.",
+  "replace": "the\nmonomials are orthonormal, $\\|X^\\alpha\\|^2=1$.\nIt is positive definite because it has an orthonormal basis."
+ },
+ {
+  "find": "Both sides are then $\\alpha!$ if\n$\\alpha=\\beta+e_k$ and $0$ otherwise, because\n$\\alpha_k\\,(\\alpha-e_k)!=\\alpha!$.",
+  "replace": "Both sides are then $1$ if\n$\\alpha=\\beta+e_k$ and $0$ otherwise, because\nthe monomials are orthonormal."
+ }
+]

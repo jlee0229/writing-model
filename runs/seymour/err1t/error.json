@@ -1,0 +1,17 @@
+{
+ "where": "Lemma 2.2 (Subset deficit), proof that a minimal counterexample is strongly connected",
+ "kind": "Wrong extremal choice: source component used where a sink component is needed (closure hypothesis fails)",
+ "explanation": "The proof now picks a strongly connected component with no incoming arc (a source component). The next sentence says all first and second out-neighbourhoods of its vertices stay inside that component. That is false for a source component, because its vertices can have out-arcs to other components. So the induced subgraph need not be a counterexample, and the minimality argument does not show that D is strongly connected. The rest of the lemma depends on strong connectivity: it gives E = F(S)\\S ≠ ∅, without which the strict inequality 0 < 0 would fail, and it gives positive indegrees. The step only works with a component that has no outgoing arc (a sink component).",
+ "correct_version": "take a strongly connected component with no outgoing arc to another component. All first and second out-neighborhoods of its vertices lie in that component.",
+ "edits": [
+  {
+   "find": "a strongly connected component with no outgoing arc to another component.",
+   "replace": "a strongly connected component with no incoming arc from another component."
+  }
+ ],
+ "validation": {
+  "verdict": "real_error",
+  "subtlety": 3,
+  "reason": "The edited proof of Lemma 2.2 picks a strongly connected component with no incoming arc (a source component), then claims all first and second out-neighbourhoods of its vertices lie inside it. That is false: a source component's vertices can send arcs to other components, so only in-neighbourhoods are confined. The induced subgraph therefore need not satisfy |N1+|>|N2+| at every vertex, and the minimality contradiction fails. Strong connectivity, which the lemma needs for E≠∅ and positive indegrees, is no longer established. The argument only works for a component with no outgoing arc."
+ }
+}

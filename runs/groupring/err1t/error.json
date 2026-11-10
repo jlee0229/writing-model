@@ -1,0 +1,21 @@
+{
+ "where": "Proposition 2.2 (proof of coefficient separation), Section 2",
+ "kind": "index swap (row/column indices of the selected entry interchanged)",
+ "explanation": "The row f now carries its entry at position j and the column w carries its entry at position i. Then fCw = \\bar p h_0^{-1} C_{ji} \\bar p, not \\bar p h_0^{-1} C_{ij} \\bar p. The displayed identity \\bar p h_0^{-1} C_{ij}\\bar p=\\bar p was derived only for the chosen entry (i,j), whose support satisfies Eq. (support). C_{ji} has a different support, and \\bar p h_0^{-1}C_{ji}\\bar p need not equal \\bar p (it may well be 0). So the claim 'Thus fCw=\\bar p' fails. The lower-right block of uv is then not \\bar p, and the factorization \\bar P=uv, which the rest of the argument relies on, is unproved.",
+ "correct_version": "Let $f$ be the row of length $d$ with entry $\\bar p h_0^{-1}$ at position $i$ and zero elsewhere. Let $w$ be the column with entry $\\bar p$ at position $j$ and zero elsewhere. Thus $fCw=\\bar p$.",
+ "edits": [
+  {
+   "find": "position $i$ and zero elsewhere. Let $w$",
+   "replace": "position $j$ and zero elsewhere. Let $w$"
+  },
+  {
+   "find": "entry $\\bar p$ at position $j$",
+   "replace": "entry $\\bar p$ at position $i$"
+  }
+ ],
+ "validation": {
+  "verdict": "real_error",
+  "subtlety": 3,
+  "reason": "After the swap, f is a row with its entry at position j and w a column with its entry at position i, so fCw = \\bar p h_0^{-1} C_{ji} \\bar p. The identity \\bar p h_0^{-1} C_{ij} \\bar p = \\bar p was established only for the chosen entry (i,j), whose support satisfies Eq. (support) and for which p was built. C_{ji} is an unrelated entry (unless i=j), so \"Thus fCw = \\bar p\" does not follow, and the lower-right block of uv is not shown to be \\bar p. The factorization \\bar P = uv, on which the rest of the paper depends, is therefore unproved as written. A reader who multiplies out row × matrix × column against the preceding display would catch the mismatch."
+ }
+}

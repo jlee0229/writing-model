@@ -1,0 +1,14 @@
+[
+ {
+  "find": "block at zero makes every predicate at that level equal to one.",
+  "replace": "block at zero makes the weakest predicate \\(P_{\\ell,1}\\) at that level equal to one."
+ },
+ {
+  "find": "\\item each child of row \\(i\\) equals \\(0^{B_h}\\), on which every\nlevel-\\((\\ell-1)\\) predicate, in particular \\(P_{\\ell-1,Q}\\), is one, so all\ntargets of clause \\(i\\) hold;",
+  "replace": "\\item each child of row \\(i\\) equals \\(0^{B_h}\\), on which the strongest\nlevel-\\((\\ell-1)\\) predicate \\(P_{\\ell-1,Q}\\) is one, so all\ntargets of clause \\(i\\) hold;"
+ },
+ {
+  "find": "Thus clause \\(i\\) is satisfied at every index, and every \\(P_{\\ell,q}\\) is one.",
+  "replace": "Thus clause \\(i\\) is satisfied, and \\(P_{\\ell,1}\\) is one."
+ }
+]

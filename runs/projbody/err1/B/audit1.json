@@ -1,0 +1,26 @@
+{
+ "statements": [],
+ "introduced": [
+  {
+   "where": "Lemma 4 (affine), Part B, step B5",
+   "quote": "B2--B4 used only such a sandwich and boundedness, so they hold with \\(LP_m,LP\\) in place of \\(P_m,P\\).",
+   "problem": "Minor misstatement of what the preceding steps use. B3 as written also uses that the polytopes are increasing (to get \\(\\Pi P_m\\subset\\Pi P_{m+1}\\) and a convex union) and that they contain a fixed ball (to get nonempty interior). Both properties do carry over to \\(LP_m\\) (L preserves inclusions, and \\(L(aB_2^d)\\) contains a ball), so the conclusion is correct; only the stated justification is incomplete. The source is equally terse here ('Applying L to the original sandwich gives the same convergence'), so this is a harmless imprecision in an added explanation, not a real gap.",
+   "severity": 1
+  }
+ ],
+ "source_doubts": [
+  {
+   "where": "Proof of Proposition 3 (product identity), final display; reproduced in the rewrite's Step 6",
+   "quote": "R_{r+s}(A\\times B) &=\\frac{|B|^s|A|^r|\\Pi A||\\Pi B|}{(|A||B|)^{r+s-1}}",
+   "problem": "The exponents r and s are transposed in the numerator. Since \\(|B|\\Pi A\\subset\\R^r\\) and \\(|A|\\Pi B\\subset\\R^s\\), the volume of \\((|B|\\Pi A)\\times(|A|\\Pi B)\\) is \\(|B|^r|A|^s|\\Pi A||\\Pi B|\\). As printed, the first line simplifies to \\(|\\Pi A||\\Pi B|/(|A|^{s-1}|B|^{r-1})\\), which equals the second line only when r=s or |A|=|B|. The second line and the stated identity (multiplicativity) are correct, so the proposition, the theorem (r=s=10) and the corollary are unaffected. The rewrite keeps the source display, boxes it, and supplies the correct computation.",
+   "already_marked_unverified": true
+  }
+ ],
+ "unverified_marks": [
+  {
+   "where": "Proposition 3 (product identity), proof Step 6",
+   "concern": "The source's intermediate numerator \\(|B|^s|A|^r|\\Pi A||\\Pi B|\\) does not match the product-body identity; it should be \\(|B|^r|A|^s|\\Pi A||\\Pi B|\\), a transposition of r and s. The final line and the multiplicativity identity are correct.",
+   "warranted": true
+  }
+ ]
+}

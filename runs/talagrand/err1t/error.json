@@ -1,0 +1,25 @@
+{
+ "where": "Lemma 2.1 (covering lemma), 'Residual generators' paragraph and the bound on E[c_rho(C_2)]",
+ "kind": "Dropped hypothesis (distinctness), so an independence/probability claim is applied where it fails",
+ "explanation": "The residual family C_2 now uses all ordered m-tuples of regular edges, repeats allowed, and W_t sums over all tuples. The proof still says that the m^2 ordered pair indices of such a tuple are all distinct, so a tuple survives with probability exactly (1-pi)^{m^2}. That is false once repeats are allowed. For example, the constant tuple (e,e,...,e) has only the one pair index (e,e). It survives with probability 1-pi and contributes rho^{|e|}=rho^r. These tuples alone give E[c_rho(C_2)] >= (1-pi)|H'|rho^r, which can be close to 2^{h+1}, far above 2^{-m}. Tuples with only a few distinct edges also escape the 2^{-pi m^2} factor. So the bound E[c_rho(C_2)] <= [T(1+rm)^r]^m 2^{-pi m^2} does not follow, and the lemma's cost bound 3*2^{-h} fails. The lemma is load-bearing: Proposition 3.1 uses it for every bin.",
+ "correct_version": "Residual generators should come only from ordered tuples of DISTINCT regular edges ('For every ordered tuple (e_1,...,e_m) of distinct regular edges'), with W_t summing over distinct tuples. Only then are the m^2 ordered pair indices distinct and the survival probability (1-pi)^{m^2}. The cover argument still works because a target set contains m distinct regular edges.",
+ "edits": [
+  {
+   "find": "For every ordered tuple \\((e_1,\\ldots,e_m)\\) of distinct regular edges,",
+   "replace": "For every ordered tuple \\((e_1,\\ldots,e_m)\\) of regular edges,"
+  },
+  {
+   "find": "e_1,\\ldots,e_t\\ \\text{distinct}",
+   "replace": "e_1,\\ldots,e_t\\ \\text{not necessarily distinct}"
+  },
+  {
+   "find": "ordered pair indices associated with a tuple of distinct",
+   "replace": "ordered pair indices associated with a tuple of regular"
+  }
+ ],
+ "validation": {
+  "verdict": "real_error",
+  "subtlety": 3,
+  "reason": "After the edits, the residual family C_2 and the sums W_t range over all ordered m-tuples of regular edges, repeats allowed. The proof still asserts that the m^2 ordered pair indices of such a tuple are all distinct, so that the tuple survives with probability exactly (1-π)^{m^2}. That is false once repeats are allowed. The constant tuple (e,…,e) has the single pair index (e,e), survives with probability 1-π, and contributes ρ^r. These tuples alone give E[c_ρ(C_2)] ≥ (1-π)|H'|ρ^r, which can be of order 2^{h+1}, far above the claimed 2^{-m}. So the bound E[c_ρ(C_2)] ≤ [T(1+rm)^r]^m·2^{-πm²} does not follow, and the lemma's cost bound 3·2^{-h} is unproved. The lemma is used for every bin in Proposition 3.1, so the damage propagates. The edited text is not nonsensical: the coverage argument still works by choosing m distinct edges, and the slip is a natural one. A reader who checks the 'all distinct' claim against the tuple definition would catch it."
+ }
+}

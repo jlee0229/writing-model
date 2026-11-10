@@ -1,0 +1,24 @@
+{
+ "statements": [],
+ "introduced": [],
+ "source_doubts": [
+  {
+   "where": "Theorem 1.2 (thm:input), the external existence input; used in Step 1 of the proof of Theorem 1.1",
+   "quote": "There exist a finite field $K_2$ of characteristic two, a finitely\ngenerated group $H_2$, and finite sums $a_2,b_2\\in K_2[H_2]$ with\n$a_2b_2=1$ and $b_2a_2\\ne1$.",
+   "problem": "This is a counterexample to Kaplansky's direct finiteness conjecture, an open problem in positive characteristic. The source only cites it from a companion manuscript and gives no proof, explicit instance or check. Combined with the rest of the paper it would also yield a non-sofic group, another open problem. Everything downstream (Lemma 2.1 through Proposition 4.3 and the assembly) checks out step by step, so the main theorem is conditional on exactly this unproved input. The rewrite keeps the statement verbatim and flags it.",
+   "already_marked_unverified": true
+  }
+ ],
+ "unverified_marks": [
+  {
+   "where": "Section 1, immediately after Theorem 1.2 (thm:input)",
+   "concern": "The whole result rests on Theorem 1.2, a counterexample to Kaplansky's direct finiteness conjecture, which the source cites from a companion manuscript without proving or checking it; Theorem 1.1 is therefore conditional on it.",
+   "warranted": true
+  },
+  {
+   "where": "Section 5, proof of Theorem 1.1, Step 1",
+   "concern": "Step 1 takes $K_2,H_2,a_2,b_2$ from Theorem 1.2, which is cited but neither proved nor checked; the conclusion of Theorem 1.1 is conditional on it.",
+   "warranted": true
+  }
+ ]
+}

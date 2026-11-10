@@ -1,0 +1,247 @@
+[
+ {
+  "main_result": "The projection-body volume functional R_d(K)=|ΠK|/|K|^{d-1} is not maximized by simplices in dimension 20. The witness is K=T_10×T_10 with T_10 the standard 10-simplex, and R_20(K)/c_20 = 121·C(20,10)/(21·2^20) = 22355476/22020096 ≈ 1.0152 > 1, where c_d=(d+1)d^d/d!. Corollary: for n≥N, a product of simplices K_n⊂R^n has R_n(K_n)/R_n(T_n) ≥ λ^n for some λ>1, measured relative to the simplex value c_n. I checked the arithmetic (C(20,10)=184756, 121·184756=22355476, 21·2^20=22020096, difference 335380; c_10 = 17187500/567; α = 2^22·5^8/(567·11^9) ≈ 1.2254), the facet formula normalization (cube and simplex checks), the product identity exponents, the simplex value (c_2=6, c_3=18), the zonotope/fiber volume argument, and the Corollary's k/r decomposition and threshold argument. I found no false statement.",
+  "proof_strategy": "The facet formula h_{ΠP}(u)=½Σ s_F|⟨ν_F,u⟩| (Lemma facets) comes from a double count: each generic line parallel to u meets exactly two facets, and projected facet areas scale by |⟨ν_F,u⟩|, so ΠP is a zonotope of the area-normal vectors s_Fν_F. For products, the facets of A×B are F×B and A×G, which gives Π(A×B)=(|B|ΠA)×(|A|ΠB) and hence R_{r+s}(A×B)=R_r(A)R_s(B). The simplex value comes from the zonotope of the d+1 area-normal vectors of T_d, which is a translate of ([0,1]^d+[0,w])/(d−1)!, with |[0,1]^d+[0,w]|=1+h_{Π[0,1]^d}(w)=d+1 by a fiber/Fubini argument. Affine covariance of R_d is proved for polytopes by tracking normals and areas under L, and extended to general convex bodies by a polytope sandwich and a limit. The main theorem and corollary are then exact arithmetic on c_10^2/c_20 and an exponential comparison using e<11/4.",
+  "hardest_part": "The general-convex-body limit in Lemma affine (Steps 5–8): the sandwich P_m⊂P⊂μ_mP_m, the passage of projection volumes to the limit, and the claim that the support function of the closure of ∪ΠP_m equals φ. I checked each inequality, but this part relies on several small points stated only in one sentence each. The Lemma facets Step 2 multiplicity argument was the second most delicate, and I verified it as well.",
+  "issues": [
+   {
+    "where": "Lemma facets (proof), Step 2, final sentence",
+    "quote": "The source also removes the relative boundary of \\(\\pi(P)\\) from consideration; by (ii) this is not needed.",
+    "kind": "ambiguous_statement",
+    "severity": 1,
+    "what_i_needed": "A self-contained statement of what is removed and why it is unnecessary. The sentence refers to 'the source' inside a self-contained proof and does not say which set is discarded. Step 2's conclusion mult(y)=2 holds on π(P)\\E as written, so the sentence seems to be a leftover remark."
+   },
+   {
+    "where": "Lemma facets (proof), Step 2(iv)",
+    "quote": "Finally \\(F_p\\ne F_q\\), because \\(H_{F_p}\\) is not parallel to \\(u\\) and so meets \\(\\ell\\) in a single point.",
+    "kind": "unjustified_step",
+    "severity": 1,
+    "what_i_needed": "The one-line reason: if F_p=F_q then p and q both lie in H_{F_p}∩ℓ, which is a single point, so p=q, contradicting p≠q from (ii). I could reconstruct this, but the text does not spell it out."
+   },
+   {
+    "where": "Lemma facets, Step 3 and the statement of (eq:facet)",
+    "quote": "Both sides of \\eqref{eq:facet} are positively homogeneous of degree one in \\(u\\), so the formula holds for all \\(u\\in\\R^d\\).",
+    "kind": "ambiguous_statement",
+    "severity": 1,
+    "what_i_needed": "The proof only treats unit u, where vol(proj_{u⊥}P) is defined. The sentence should say that the right side is the degree-one homogeneous extension of the unit-vector formula, since the projection onto u^⊥ is not defined for non-unit u."
+   },
+   {
+    "where": "Proposition product (proof), Step 1",
+    "quote": "\\(\\dim\\Phi=\\dim A_u+\\dim B_v\\).",
+    "kind": "unjustified_step",
+    "severity": 1,
+    "what_i_needed": "A one-line justification that dim(X×Y)=dim X+dim Y for convex sets (affine hull of a product is the product of affine hulls). The later dimension count depends on this."
+   },
+   {
+    "where": "Proposition product, statement and Step 2",
+    "quote": "Let \\(A\\subset\\R^r\\) and \\(B\\subset\\R^s\\) be full-dimensional convex polytopes, where \\(r,s\\ge2\\).",
+    "kind": "undefined_notation",
+    "severity": 1,
+    "what_i_needed": "The letter s is used as a dimension (R^s, r+s), as a subscript in area s_F, s_G, and as a bare symbol in Step 2. The overloading is not wrong but makes the exponent bookkeeping harder to read. The later use of B for a polytope clashes with B=B_2^d in Lemma affine."
+   },
+   {
+    "where": "Lemma affine (Step 3) vs Lemma facets (Step 4)",
+    "quote": "Let \\(Z=F+[0,\\nu_F]\\) be the prism of height one over \\(F\\), so",
+    "kind": "undefined_notation",
+    "severity": 1,
+    "what_i_needed": "Z is the zonotope in Lemma facets Step 4 and the prism in Lemma affine Step 3. The reuse is legal because the scopes differ, but a reader crossing between proofs could confuse them."
+   },
+   {
+    "where": "Lemma affine (proof), Step 3, Fubini argument",
+    "quote": "Integrating the areas of these slices in the direction \\(\\nu_{LF}\\)",
+    "kind": "unjustified_step",
+    "severity": 1,
+    "what_i_needed": "A sentence making explicit that the slice of LZ at signed height h is the translate LF+(h/η)Lν_F, that each slice has area s_{LF}, and that the heights fill [0,η]. Then |LZ|=s_{LF}η follows by Cavalieri's principle. I reconstructed this, but the text is compressed."
+   },
+   {
+    "where": "Lemma affine (proof), Step 8",
+    "quote": "The source derives this instead from \\eqref{eq:volsandwich}, which gives",
+    "kind": "ambiguous_statement",
+    "severity": 1,
+    "what_i_needed": "Step 8 gives two arguments: one says the Step 4 determinant computation applies verbatim given Step 7, and the other uses the sandwich volume bounds. The text does not say which one the proof relies on. The reader needs to know that the Step 7 identity Π(LP)=M·ΠP is what the first argument uses."
+   },
+   {
+    "where": "Subsection 'Context (reported from the source; not used in any proof)', Henk paragraph",
+    "quote": "We read ``optimal upper constant'' as the best constant in an upper bound for \\(R_d\\) over that class.",
+    "kind": "ambiguous_statement",
+    "severity": 1,
+    "what_i_needed": "This is the authors' interpretation of a cited term. It is not needed for any proof and does not affect the main result, but the referee cannot check it against the cited source."
+   },
+   {
+    "where": "Subsection 'Context', novelty paragraph",
+    "quote": "What the present paper adds is a different kind of witness, not a new dimension.",
+    "kind": "lost_thread",
+    "severity": 1,
+    "what_i_needed": "A precise statement of what is new relative to the cited counterexamples in dimensions d≥9. The claim that the present witness is different in kind is a judgement that depends on literature I cannot check. The conclusion that simplices fail in dimension 20 does follow from the cited d≥9 result."
+   },
+   {
+    "where": "Proof at a glance, heuristic paragraph",
+    "quote": "the polynomial prefactor of the product is larger once \\(r,s\\) are moderately large.",
+    "kind": "unjustified_step",
+    "severity": 1,
+    "what_i_needed": "The heuristic is labelled as not used. It could be made precise with Stirling: c_rc_s/c_{r+s} ~ ((r+1)(s+1)/(r+s+1))·√((r+s)/(2πrs)). The text should either give this or say that it is informal."
+   }
+  ]
+ },
+ {
+  "main_result": "For d >= 2, a convex body K in R^d has projection body PiK, with support function h(u) = vol_{d-1}(proj_{u-perp} K). The functional R_d(K) = |PiK| / |K|^{d-1} is compared with the simplex value c_d = (d+1)d^d/d!. The main theorem says that K = T_10 x T_10 in R^20 (T_10 the standard 10-simplex) has R_20(K)/c_20 = 121*C(20,10)/(21*2^20) = 22355476/22020096 > 1, so K violates the conjectured bound |PiK| <= c_d |K|^{d-1}. The corollary says that for some lambda > 1 and all large n, some product of simplices K_n in R^n has R_n(K_n)/R_n(T_n) >= lambda^n. I checked the arithmetic: 121*184756 = 22355476, 21*1048576 = 22020096, the difference is 335380, and alpha = 2^22*5^8/(567*11^9) is about 1.2255. I also checked the formula for c_r c_s / c_{r+s} and the cancellation of beta^{10k} in the corollary.",
+  "proof_strategy": "The facet formula (Lemma facets) writes PiP as a zonotope with one segment per facet, using a Jacobian argument and a count showing a generic line parallel to u meets exactly two facets. For a product of polytopes, the facets of A x B are F x B and A x G, which gives Pi(A x B) = (|B| PiA) x (|A| PiB) and so R is multiplicative (Prop. product). The simplex value is computed from the zonotope: PiT_d is a translate of ([0,1]^d + [0,w])/(d-1)!, and the volume of the extrusion is d+1 by a fiber argument. Affine covariance (Lemma affine) is then used to pass from the standard simplex to all simplices, with a sandwich-by-polytopes argument for general bodies. The theorem and corollary are finite arithmetic on c_d, with a Stirling-type bound c_n < (n+1)(11/4)^n. I followed each step and found no error, though several steps are stated tersely.",
+  "hardest_part": "The multiplicity count in Step 2 of the facet lemma (Lemma facets), where each generic line through the projection is shown to meet exactly two facets. The argument depends on several small facts: the exceptional set E is null, p lies in the relative interior of exactly one facet, and the open segment between p and q is interior. I checked each of these but several are compressed into one line. The general-body limiting argument (Lemma affine, Steps 5-8) was the next hardest to check, since it relies on the sandwich construction and on the claim that the support functions of the approximants converge.",
+  "issues": [
+   {
+    "where": "Lemma facets (facet formula), Step 2 (count), final sentence",
+    "quote": "The source also removes the relative boundary of \\(\\pi(P)\\) from consideration",
+    "kind": "ambiguous_statement",
+    "severity": 2,
+    "what_i_needed": "A clear statement of what is being removed and why. The claim mult(y)=2 is already asserted for all y in pi(P) minus E, so it is unclear what this sentence adds, or whether it refers to a different set from E."
+   },
+   {
+    "where": "Lemma facets (facet formula), Step 2, item (iv)",
+    "quote": "because \\(H_{F_p}\\) is not parallel to \\(u\\) and so meets \\(\\ell\\) in a single point",
+    "kind": "unjustified_step",
+    "severity": 1,
+    "what_i_needed": "The explicit argument: if F_p = F_q then q lies in F_p and on ell, so q lies in H_{F_p} meet ell, which is the single point p, contradicting p != q. As written the step only names the conclusion."
+   },
+   {
+    "where": "Lemma facets (facet formula), Step 2, item (i)",
+    "quote": "Also \\(\\langle\\nu_{F_p},u\\rangle\\ne0\\). The same holds for \\(q\\)",
+    "kind": "unjustified_step",
+    "severity": 1,
+    "what_i_needed": "The reason: a facet with <nu_F,u>=0 has pi(F) contained in E, and y is not in E, while y lies in pi(F_p). This is the link between the exceptional-set definition and the nonvanishing claim, and the text does not give it."
+   },
+   {
+    "where": "Prop. product (product identity), Step 1, case v=0",
+    "quote": "The functional \\(\\langle u,\\cdot\\rangle\\) is constant on \\(F\\) and maximal there, and \\(\\|u\\|=1\\), so \\(u=\\nu_F\\)",
+    "kind": "unjustified_step",
+    "severity": 1,
+    "what_i_needed": "The step that the supporting hyperplane {<u,x> = h_A(u)} contains the (r-1)-dimensional set A_u = F, hence equals H_F, so u = +-nu_F; the sign is fixed by maximality of the outward direction. The text compresses this into one clause."
+   },
+   {
+    "where": "Lemma affine (affine covariance), Step 3 (areas)",
+    "quote": "the translate with parameter \\(t\\) is at signed distance \\(t\\eta\\) from the hyperplane of \\(LF\\)",
+    "kind": "unjustified_step",
+    "severity": 1,
+    "what_i_needed": "The justification that the cross-section of LZ at each height is exactly one translate of LF (since the translates lie in parallel hyperplanes), so that Fubini gives |LZ| = s_LF * eta. This is plausible but is only asserted."
+   },
+   {
+    "where": "Lemma affine (affine covariance), Step 8",
+    "quote": "the determinant computation of Step~4 applies verbatim",
+    "kind": "ambiguous_statement",
+    "severity": 1,
+    "what_i_needed": "Step 4 is written for polytopes, while Step 8 is for general bodies. The text should state that the needed identity is Pi(LP) = M Pi P from Step 7 together with |det M| = |det L|^{d-1} and |LP| = |det L||P|, and that these hold for convex bodies."
+   },
+   {
+    "where": "Corollary (exponential excess), Step 2, expansion of 1/j!",
+    "quote": "\\frac1{j!}=\\frac1{6\\cdot4\\cdot5\\cdots(3+i)}\\le\\frac16\\,4^{-i}",
+    "kind": "ambiguous_statement",
+    "severity": 1,
+    "what_i_needed": "The product 6*4*5*...*(3+i) is degenerate at i=0 (it should be just 6), and the inequality 6*4*...*(3+i) >= 6*4^i needs a line of justification (each factor from 4 onward is at least 4). The strictness claim also depends on which step is strict."
+   },
+   {
+    "where": "Sec. 1.3 (Context, reported from the source)",
+    "quote": "was already known to be false, including in dimension twenty",
+    "kind": "ambiguous_statement",
+    "severity": 1,
+    "what_i_needed": "This novelty claim depends entirely on the cited Feng-Hu-Liu-Xu Theorem 1.3, which I could not check. The manuscript should say explicitly that the dimension-20 failure is a consequence of that external result, and not a result of this paper."
+   },
+   {
+    "where": "Sec. 1.4 (Proof at a glance), heuristic paragraph",
+    "quote": "the polynomial prefactor of the product is larger once \\(r,s\\) are moderately large",
+    "kind": "unjustified_step",
+    "severity": 1,
+    "what_i_needed": "The heuristic is labelled as not used in the proofs, but no computation is shown. With Stirling, the ratio of prefactors is about (r+1)(s+1)sqrt(r+s)/((r+s+1)sqrt(2 pi r s)). I could check this approximately, but the text does not state it, and the claim 'moderately large' is vague."
+   },
+   {
+    "where": "Sec. 1.3 (Context), Henk paragraph",
+    "quote": "We read ``optimal upper constant'' as the best constant in an upper bound",
+    "kind": "ambiguous_statement",
+    "severity": 1,
+    "what_i_needed": "The meaning of the cited lower bound: a lower bound on the best universal upper constant over symmetric bodies. The text should say whether this bound is for R_d or for a related functional, since it is only background."
+   },
+   {
+    "where": "Lemma facets (facet formula), Step 2, item (iii)",
+    "quote": "Applying this with \\(z=p\\) and \\(z=q\\), the open segment between \\(p\\) and \\(q\\) lies in the interior of \\(P\\)",
+    "kind": "unjustified_step",
+    "severity": 1,
+    "what_i_needed": "The fact that the interior point x_0 lies strictly between p and q, so that [x_0,p) and [x_0,q) together cover the open segment. The text uses this without saying it."
+   }
+  ]
+ },
+ {
+  "main_result": "For a convex body K in R^d, the projection body ΠK is defined by h_{ΠK}(u)=vol_{d-1}(proj_{u^perp}K). R_d(K)=|ΠK|/|K|^{d-1}, and c_d=(d+1)d^d/d!. The conjectured bound is R_d(K) ≤ c_d for all convex bodies K. The main theorem says that K=T_10×T_10 in R^20 (T_10 the standard 10-simplex) has R_20(K)=c_10^2, and that R_20(K)/c_20 = 121·C(20,10)/(21·2^20) ≈ 1.015 > 1, so the conjecture fails in dimension 20. A corollary gives polytopes K_n in R^n with R_n(K_n)/c_n ≥ λ^n for some λ>1 and all large n. I checked the arithmetic: C(20,10)=184756, 121·184756=22,355,476, 21·2^20=22,020,096, difference 335,380; α=2^22·5^8/(567·11^9)≈1.2255; the bound e<11/4 and c_n<(n+1)(11/4)^n; and the general product formula for c_r c_s/c_{r+s}. All of these are correct.",
+  "proof_strategy": "The facet formula (Lemma facets) writes ΠP as a zonotope with one segment per facet, spanned by the area-normal vector s_F ν_F. The proof counts that a generic line parallel to u meets the projection of exactly two facets, and double counting gives the factor 1/2. For a Cartesian product, the facets of A×B are F×B and A×G, so their area-normal vectors scale by |B| and |A|. This gives Π(A×B)=(|B|ΠA)×(|A|ΠB), and taking volumes gives R_{r+s}(A×B)=R_r(A)R_s(B). For the standard simplex, the area-normal vectors give ΠT_d as a translate of ([0,1]^d+[0,w])/(d-1)!, and a fiber argument gives the volume d+1, so R_d(T_d)=c_d. Affine covariance is used to extend this to all simplices, and the approximation argument in Lemma affine handles general convex bodies. The main theorem then follows from c_10^2 > c_20 by exact arithmetic. The corollary takes products of many copies of T_10 and bounds c_n by Stirling-type estimates.",
+  "hardest_part": "The multiplicity-two count in Lemma facets (Step 2) and the limiting approximation argument for general convex bodies in Lemma affine (Steps 5–8). Each step is locally plausible, and I checked the individual inequalities, but the geometric claims about boundary points, faces, and the sandwich ε-approximation are compressed and I could not fully reconstruct every detail from the text alone. I also cannot verify the external literature claims (Chen et al., Feng et al., Henk, Brannen), which the novelty statement depends on.",
+  "issues": [
+   {
+    "where": "Corollary (cor:exponential-excess), proof, Step 2",
+    "quote": "with strict inequality for \\(i\\ge1\\).",
+    "kind": "suspected_error",
+    "severity": 1,
+    "what_i_needed": "At i=1, j=4 and 1/4! = 1/24 = (1/6)(1/4), which is an equality, not a strict inequality. The final strict bound still holds because 4^{-i} < 3^{-i} for i≥1, but the stated justification of strictness at the first step is wrong."
+   },
+   {
+    "where": "Lemma facets (lem:facets), proof, Step 2, item (iv)",
+    "quote": "Finally \\(F_p\\ne F_q\\), because \\(H_{F_p}\\) is not parallel to \\(u\\) and so meets \\(\\ell\\) in a single point.",
+    "kind": "unjustified_step",
+    "severity": 2,
+    "what_i_needed": "The reason F_p ≠ F_q is not spelled out. One needs: if F_p = F_q then p and q (distinct, since p≠q) both lie in H_{F_p}, so ℓ ⊂ H_{F_p}, forcing ⟨ν,u⟩=0, which contradicts (i). The stated reason does not make this clear."
+   },
+   {
+    "where": "Lemma facets (lem:facets), proof, after Step 2 and the exceptional set",
+    "quote": "The source also removes the relative boundary of \\(\\pi(P)\\) from consideration; by (ii) this is not needed.",
+    "kind": "ambiguous_statement",
+    "severity": 1,
+    "what_i_needed": "It is unclear what 'the source' does here and why it is relevant. The claim mult(y)=2 is stated for all y in π(P)\\E, so no boundary removal seems to be needed. A direct sentence saying so would clear this up."
+   },
+   {
+    "where": "Novelty claim, Section 1.3 (Context)",
+    "quote": "So the statement ``simplices maximize \\(R_d\\) in every dimension'' was already known to be false, including in dimension twenty.",
+    "kind": "unjustified_step",
+    "severity": 2,
+    "what_i_needed": "This relies entirely on the cited Feng–Hu–Liu–Xu result (counterexamples for all d≥9). I could not verify that result. The manuscript's claim that its own witness is 'a different kind of witness' depends on it, so it should be stated as imported rather than as settled."
+   },
+   {
+    "where": "Lemma affine (lem:affine), proof, Step 3 (areas)",
+    "quote": "Integrating the areas of these slices in the direction \\(\\nu_{LF}\\)",
+    "kind": "unjustified_step",
+    "severity": 1,
+    "what_i_needed": "The argument needs: the translates LF+tLν for t∈[0,1] lie on hyperplanes at signed distance tη, so each level τ∈[0,η] of LZ contains exactly one translate of LF, which has area s_{LF}. Then |LZ|=s_{LF}·η follows by Cavalieri. The text only says 'Fubini'."
+   },
+   {
+    "where": "Lemma facets (lem:facets), proof, Step 1",
+    "quote": "The restriction of \\(\\pi\\) to \\(H_F\\) is affine with linear part",
+    "kind": "undefined_notation",
+    "severity": 1,
+    "what_i_needed": "The letter T denotes this linear map here, but T_d denotes the standard simplex elsewhere in the paper. The reuse is confusing but harmless. A different letter would avoid it."
+   },
+   {
+    "where": "Section 1.3 (Context), Henk paragraph",
+    "quote": "We read ``optimal upper constant'' as the best",
+    "kind": "ambiguous_statement",
+    "severity": 1,
+    "what_i_needed": "The interpretation of Henk's bound (over centrally symmetric bodies, and whether it is an upper constant for the same R_d) is an assumption of the author. It is not used in any proof, so it is only a presentational issue, but the reader cannot check it from the text."
+   },
+   {
+    "where": "Heuristic paragraph after 'Proof at a glance'",
+    "quote": "the polynomial prefactor of the product is larger once \\(r,s\\) are moderately large.",
+    "kind": "unjustified_step",
+    "severity": 1,
+    "what_i_needed": "This is a heuristic and is labelled as not used in the proofs. Still, the comparison of prefactors is not computed. The explicit ratio c_r c_s / c_{r+s} from the general product test would be needed to see the claim."
+   },
+   {
+    "where": "Prop simplex (prop:simplex), proof, Step 4 (extrusion volume)",
+    "quote": "for some \\(\\sigma\\in[0,\\|w\\|]\\). So",
+    "kind": "ambiguous_statement",
+    "severity": 1,
+    "what_i_needed": "The shift σ is measured in the direction ŵ (the fiber coordinate), while σ·w would have length σ||w||. The text mixes these, so it is unclear whether σ ranges over [0,||w||] in ŵ-units or over [0,1] in w-units. The resulting length (t1−t0)+||w|| is correct either way."
+   },
+   {
+    "where": "Lemma affine (lem:affine), proof, Step 2 (normals)",
+    "quote": "The sign of \\(\\det L\\) plays no role.",
+    "kind": "ambiguous_statement",
+    "severity": 1,
+    "what_i_needed": "A one-line justification that L^{-t}ν_F is the outward normal of LF for either sign of det L (a linear image of a half-space is a half-space, with the transformed normal) would make this clear. I believe it is correct, but the text gives no reason."
+   }
+  ]
+ }
+]

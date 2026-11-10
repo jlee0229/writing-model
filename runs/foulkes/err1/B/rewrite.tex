@@ -1,0 +1,900 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,mathtools}
+\usepackage{enumitem}
+\usepackage{microtype}
+\input{glyphtounicode}
+\pdfgentounicode=1
+\pdfglyphtounicode{mu}{03BC}
+\pdfglyphtounicode{bardbl}{2016}
+\pdfglyphtounicode{parenleftbig}{0028}
+\pdfglyphtounicode{parenrightbig}{0029}
+\pdfglyphtounicode{parenleftbigg}{0028}
+\pdfglyphtounicode{parenrightbigg}{0029}
+\pdfglyphtounicode{parenlefttp}{239B}
+\pdfglyphtounicode{parenleftbt}{239D}
+\pdfglyphtounicode{parenrighttp}{239E}
+\pdfglyphtounicode{parenrightbt}{23A0}
+\pdfglyphtounicode{circleplusdisplay}{2A01}
+\pdfglyphtounicode{summationdisplay}{2211}
+\pdfglyphtounicode{productdisplay}{220F}
+\usepackage[colorlinks=true,linkcolor=blue,citecolor=blue,urlcolor=blue]{hyperref}
+\usepackage{accsupp}
+\NewCommandCopy{\OriginalHookrightarrow}{\hookrightarrow}
+\NewCommandCopy{\OriginalLongmapsto}{\longmapsto}
+\NewCommandCopy{\OriginalUpbracefill}{\upbracefill}
+\renewcommand{\hookrightarrow}{\mathrel{
+  \BeginAccSupp{method=hex,unicode,ActualText=21AA}
+  \OriginalHookrightarrow\EndAccSupp{}}}
+\renewcommand{\longmapsto}{\mathrel{
+  \BeginAccSupp{method=hex,unicode,ActualText=27FC}
+  \OriginalLongmapsto\EndAccSupp{}}}
+\renewcommand{\upbracefill}{
+  \BeginAccSupp{method=hex,unicode,ActualText=23DF}
+  \OriginalUpbracefill\EndAccSupp{}}
+\hypersetup{pdftitle={Quadratic stabilization of the canonical Foulkes--Howe map},pdfauthor={Rewritten for readability from the OpenAI manuscript of the same title}}
+\newtheorem{theorem}{Theorem}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+\DeclareMathOperator{\Sym}{Sym}
+\DeclareMathOperator{\Av}{Av}
+\newcommand{\C}{\mathbb C}
+\newcommand{\Sa}{\mathfrak S_a}
+\newcommand{\D}[2]{D_{#1,#2}}
+\newcommand{\unverified}[1]{\par\smallskip\noindent\fbox{\parbox{0.95\linewidth}{\textbf{Unverified step.} #1}}\par\smallskip}
+\title{Quadratic stabilization of the canonical Foulkes--Howe map}
+\author{Rewritten for readability from the OpenAI manuscript of the same title}
+\date{September 25, 2026}
+\begin{document}
+\maketitle
+\begin{abstract}
+For every finite-dimensional complex vector space $V$, we prove that the
+canonical Foulkes--Howe map
+$\Sym^b(\Sym^a V)\longrightarrow\Sym^a(\Sym^b V)$ is surjective whenever
+$a\ge2$ and $b\ge a(a-1)$. This gives a quadratic stabilization bound
+independent of $\dim V$.
+\end{abstract}
+
+\section{The main result}\label{sec:introduction}
+
+Throughout, $V$ is a finite-dimensional complex vector space and
+$\Sym V=\bigoplus_{k\ge0}\Sym^kV$ is its symmetric algebra. A product of
+vectors always means a product in $\Sym V$.
+
+\paragraph{Averaging.}
+Let $W$ be a complex vector space and $a\ge1$ an integer. The symmetric
+group $\Sa$ acts on $W^{\otimes a}$ by permuting the tensor factors. Define
+the linear map $\Av\colon W^{\otimes a}\to W^{\otimes a}$ by
+\begin{equation}\label{eq:average}
+ \Av(w_1\otimes\cdots\otimes w_a)
+ =\frac1{a!}\sum_{\pi\in\Sa}
+ w_{\pi(1)}\otimes\cdots\otimes w_{\pi(a)}.
+\end{equation}
+We use three standard facts.
+\begin{enumerate}[label=(A\arabic*),leftmargin=3.2em]
+\item\label{A1} $\Av$ is a projection of $W^{\otimes a}$ onto the invariant
+ tensors $(W^{\otimes a})^{\Sa}$. Its values are invariant, because
+ permuting the factors only reindexes the sum. It fixes every invariant
+ tensor $\tau$, because then all $a!$ summands equal $\tau$.
+\item\label{A2} Let $\mathrm{pr}\colon W^{\otimes a}\to\Sym^aW$ be the
+ quotient map. Since $\Av$ takes the same value on a tensor and on any
+ permutation of it, $\Av$ factors as $\overline{\Av}\circ\mathrm{pr}$ with
+ \[
+ \overline{\Av}\colon\Sym^aW\to(W^{\otimes a})^{\Sa},\qquad
+ w_1\cdots w_a\longmapsto\Av(w_1\otimes\cdots\otimes w_a).
+ \]
+ This map is an isomorphism with inverse $\mathrm{pr}|_{(W^{\otimes a})^{\Sa}}$.
+ Indeed, $\mathrm{pr}\circ\Av=\mathrm{pr}$ gives
+ $\mathrm{pr}\circ\overline{\Av}=\mathrm{id}$, and for invariant $\tau$ we
+ have $\overline{\Av}(\mathrm{pr}(\tau))=\Av(\tau)=\tau$ by \ref{A1}.
+\item\label{A3} $\Av(w^{\otimes a})=w^{\otimes a}$ by \ref{A1}. Hence
+ $\overline{\Av}(w^a)=w^{\otimes a}$.
+\end{enumerate}
+
+\paragraph{The algebra $R$ and the map.}
+Fix an integer $a\ge1$. Let $\mathcal P=(\Sym V)^{\otimes a}$ with
+componentwise multiplication. (The source calls this algebra $P_a$; we
+rename it because $P$ will denote a product of vectors.) The group $\Sa$
+permutes the tensor factors of $\mathcal P$ by algebra automorphisms. For
+each integer $j\ge0$ put
+\[
+ R_j=\bigl((\Sym^j V)^{\otimes a}\bigr)^{\Sa},\qquad
+ R=\bigoplus_{j\ge0}R_j\subseteq\mathcal P .
+\]
+A product of invariant elements is invariant, $R_iR_j\subseteq R_{i+j}$,
+and $\mathcal P$ is commutative. So $R$ is a graded commutative algebra.
+By \ref{A2} with $W=V$ and with $W=\Sym^bV$,
+\[
+ R_1\cong\Sym^aV,\qquad R_b\cong\Sym^a(\Sym^bV).
+\]
+For every integer $b\ge0$, multiplication of $b$ elements of $R_1$ is
+symmetric and multilinear, so it induces a linear map $\Sym^bR_1\to R_b$.
+Under the two identifications above this is the \emph{canonical
+Foulkes--Howe map}
+\begin{equation}\label{eq:map}
+ \mu_{a,b,V}:\Sym^b(\Sym^a V)\longrightarrow\Sym^a(\Sym^b V).
+\end{equation}
+Let $A\subseteq R$ be the subalgebra generated by $R_1$ and put
+$A_b=A\cap R_b$. This is the span of all products of $b$ elements of $R_1$,
+so $\operatorname{im}\mu_{a,b,V}=A_b$. In positive dimension,
+Raicu--Sam--Weyman \cite[Section~2]{RSW} formulate this map as
+$\Sym^b(D^aV)\longrightarrow D^a(\Sym^bV)$, with divided powers realized as
+invariant tensors. Transporting both sides by the averaging above gives
+exactly \eqref{eq:map}.
+
+\begin{theorem}\label{thm:main}
+For every integer $a\ge2$, every integer $b\ge a(a-1)$, and every
+finite-dimensional complex vector space $V$, the map
+$\mu_{a,b,V}$ in \eqref{eq:map} is surjective. Equivalently, $A_b=R_b$.
+\end{theorem}
+
+The case $a=1$ is the identity map in every degree. The bound $a(a-1)$ is a
+sufficient bound, valid in every finite dimension at once. It is not
+asserted to be sharp, and the argument does not determine the least degree
+from which surjectivity holds. History and related work are collected in
+Section~\ref{sec:context}; nothing there is used in the proofs.
+
+\section{Proof at a glance}\label{sec:glance}
+
+\paragraph{Key idea.}
+Surjectivity is dualized. A linear functional on $R_b$ is the same thing as
+a symmetric $a$-linear form $T$ on $\Sym^bV$. The image $A_b$ is spanned by
+the tensors $P^{\otimes a}$, where $P=u_1\cdots u_b$ is a \emph{product of
+$b$ vectors}. So $\mu_{a,b,V}$ is surjective if and only if
+\[
+ T(P,\ldots,P)=0\ \text{for all products $P$ of $b$ vectors}
+ \quad\Longrightarrow\quad T=0
+\]
+(Proposition~\ref{prop:criterion}). This implication is proved by induction
+on $a$ (Proposition~\ref{prop:vanishing}). The engine is
+Lemma~\ref{lem:shift}: for two blocks of variables $U,Y$, the directional
+derivative $\D YU=\sum_kY_k\,\partial/\partial U_k$ is injective on
+polynomials whose $U$-degree exceeds their $Y$-degree. It is used
+backwards. To show that a polynomial $h$ vanishes, apply a chain of such
+derivatives until an expression already known to be zero is reached. Then
+remove the derivatives one at a time by injectivity.
+
+\paragraph{The induction step.}
+Put $r=a-1$ and $m=b-r$, so $m\ge r^2$.
+\begin{enumerate}[label=\textbf{Step \arabic*.},leftmargin=4.2em]
+\item Test the hypothesis on $P=(x^r+ct^r)Q$, where $Q$ is a product of $m$
+ vectors. This $P$ is a product of $b$ vectors because a binary form
+ splits over $\C$. The coefficient of $c$ gives
+ $T(x^rQ,\ldots,x^rQ,t^rQ)=0$.
+\item Free the last slot: $T(x^rQ,\ldots,x^rQ,t^b)=0$. A chain of $m$
+ derivatives $\D{y_i}{t}$ turns $t^b$ into a multiple of $t^rQ$, which is
+ Step~1. Each is injective because the $t$-degree $b-i+1$ exceeds the
+ $y_i$-degree $r$.
+\item For fixed $x,t$, the form
+ $(Q_1,\ldots,Q_r)\mapsto T(x^rQ_1,\ldots,x^rQ_r,t^b)$ is symmetric
+ $r$-linear on $\Sym^mV$ with vanishing diagonal on products. As
+ $m\ge r(r-1)$, the induction hypothesis makes it zero.
+\item Remove the common factor $x^r$. A chain of $r^2$ derivatives
+ $\D{x}{v_i}$ turns $T(v_1^b,\ldots,v_r^b,t^b)$ into a multiple of
+ $T(x^rv_1^m,\ldots,x^rv_r^m,t^b)$, which is zero by Step~3. All $r^2$
+ derivatives raise the degree of the \emph{same} block $x$, up to
+ $r^2-1$. The source degree stays at least $m+1\ge r^2+1$. This
+ accumulation is where the quadratic bound is needed. So $T$ vanishes on
+ pure powers, and pure powers span $\Sym^bV$.
+\end{enumerate}
+
+\paragraph{Dependencies.}
+\begin{itemize}[leftmargin=2em]
+\item Lemma~\ref{lem:powers} (pure powers span $\Sym^kV$) feeds
+ Proposition~\ref{prop:criterion}, and also the base case and the last
+ line of Proposition~\ref{prop:vanishing}.
+\item Lemma~\ref{lem:shift} (differential injectivity), in the chain form
+ of Remark~\ref{rem:chain}, feeds Steps~2 and~4 of
+ Proposition~\ref{prop:vanishing}.
+\item Proposition~\ref{prop:criterion} and Proposition~\ref{prop:vanishing}
+ together give Theorem~\ref{thm:main}. Theorem~\ref{thm:main} gives
+ Corollary~\ref{cor:comparison}.
+\end{itemize}
+Source numbering: Theorem~\ref{thm:main}, Lemma~\ref{lem:shift},
+Proposition~\ref{prop:vanishing} and Corollary~\ref{cor:comparison} are the
+source's Theorem~1, Lemma~2, Proposition~3 and Corollary~4.
+Proposition~\ref{prop:criterion} is the source's unnumbered criterion.
+Lemma~\ref{lem:powers} and Remark~\ref{rem:chain} are stated in the
+source's running text.
+
+\section{Conventions and two elementary facts}\label{sec:conventions}
+
+\paragraph{Products.}
+For $k\ge1$, a \emph{product of $k$ vectors} is an element
+$u_1\cdots u_k\in\Sym^kV$ with $u_i\in V$. The vectors may repeat or be
+zero. A \emph{pure power} is an element $u^k$.
+
+\begin{lemma}[pure powers span]\label{lem:powers}
+For every integer $k\ge1$, the pure powers $u^k$, $u\in V$, span $\Sym^kV$.
+\end{lemma}
+This is used with $k=a$ in Proposition~\ref{prop:criterion} and with $k=b$
+in Proposition~\ref{prop:vanishing}.
+\begin{proof}
+We prove the polarization identity
+\begin{equation}\label{eq:polar}
+ k!\,u_1\cdots u_k
+ =\sum_{J\subseteq\{1,\ldots,k\}}(-1)^{k-|J|}
+ \Bigl(\sum_{j\in J}u_j\Bigr)^k
+ \qquad(u_1,\ldots,u_k\in V).
+\end{equation}
+First take the $u_i$ to be indeterminates $z_1,\ldots,z_k$ of a polynomial
+ring. Let $\gamma\in\mathbb Z_{\ge0}^k$ with $|\gamma|=k$, and let $S$ be
+the set of indices $i$ with $\gamma_i>0$. The monomial $z^\gamma$ occurs in
+$(\sum_{j\in J}z_j)^k$ exactly when $J\supseteq S$, and then with the
+multinomial coefficient $\binom{k}{\gamma}$. Its coefficient on the right
+of \eqref{eq:polar} is therefore
+\[
+ \binom k\gamma\sum_{J\supseteq S}(-1)^{k-|J|}
+ =\binom k\gamma\sum_{i=0}^{k-|S|}\binom{k-|S|}{i}(-1)^{k-|S|-i}
+ =\binom k\gamma(1-1)^{k-|S|}.
+\]
+This is $0$ unless $|S|=k$. The only $\gamma$ with $|\gamma|=k$ and
+$|S|=k$ is $\gamma=(1,\ldots,1)$, where the coefficient is $k!$. So
+\eqref{eq:polar} holds for indeterminates. Applying the algebra
+homomorphism $\C[z_1,\ldots,z_k]\to\Sym V$, $z_i\mapsto u_i$, gives it for
+vectors. Products of $k$ vectors span $\Sym^kV$ and $k!\ne0$ in $\C$, so
+\eqref{eq:polar} shows that pure powers span $\Sym^kV$.
+\end{proof}
+
+\paragraph{Vector variables.}
+In Sections~\ref{sec:differential} and~\ref{sec:vanishing} we assume
+$n=\dim V>0$ and fix a basis $e_1,\ldots,e_n$ of $V$. A \emph{vector
+variable} $U$ is a block $(U_1,\ldots,U_n)$ of independent scalar
+indeterminates. We also write $U$ for the generic vector $\sum_kU_ke_k$.
+Expressions such as $U^b$ or $U^rY$ are then elements of
+$\Sym V\otimes\C[\text{variables}]$, a commutative algebra over the
+polynomial ring. A multilinear form $T$ on $\Sym^bV$ extends to a
+multilinear form over the polynomial ring, so $T$ of such expressions is a
+scalar polynomial. Substituting actual vectors for the vector variables is
+a ring homomorphism. It commutes with products in $\Sym V$ and with $T$.
+Following the source, we use the same letter for a vector variable and for
+the vector substituted into it.
+
+For two different vector variables $U,Y$ define
+\[
+ \D{Y}{U}=\sum_{k=1}^n Y_k\frac{\partial}{\partial U_k},
+\]
+acting on scalar polynomials, and coefficientwise on polynomials with
+values in $\Sym V$. It is a derivation and it kills everything not
+involving $U$. It lowers the $U$-degree by one and raises the $Y$-degree by
+one. We use three facts.
+\begin{enumerate}[label=(D\arabic*),leftmargin=3.2em]
+\item\label{D1} If $j\ge1$ and $G$ is a $\Sym V$-valued polynomial not
+ involving $U$, then $\D YU(U^jG)=j\,U^{j-1}Y\,G$. Indeed,
+ $\D YU(U)=\sum_kY_ke_k=Y$, so the derivation rule gives
+ $\D YU(U^j)=jU^{j-1}Y$ and $\D YU(G)=0$.
+\item\label{D2} Let $T$ be an $a$-linear form on $\Sym^bV$ and
+ $G_1,\ldots,G_a$ be $\Sym^bV$-valued polynomials, of which only $G_s$
+ involves $U$. Then
+ $\D YU\,T(G_1,\ldots,G_a)=T(G_1,\ldots,\D YUG_s,\ldots,G_a)$.
+ To see this, expand $G_s=\sum_\ell g_\ell\epsilon_\ell$ in a basis
+ $(\epsilon_\ell)$ of $\Sym^bV$ with scalar polynomials $g_\ell$. Then
+ $T(G_1,\ldots,G_a)=\sum_\ell g_\ell\,T(\ldots,\epsilon_\ell,\ldots)$, and
+ the factors $T(\ldots,\epsilon_\ell,\ldots)$ do not involve $U$.
+\item\label{D3} A polynomial in finitely many variables over $\C$ that
+ vanishes at every point is the zero polynomial. This follows by induction
+ on the number of variables from the univariate root bound.
+\end{enumerate}
+
+\section{The canonical image and diagonal vanishing}\label{sec:map}
+
+This section turns surjectivity of $\mu_{a,b,V}$ into a vanishing problem.
+The result is used once, in the proof of Theorem~\ref{thm:main}.
+
+\begin{proposition}[diagonal criterion]\label{prop:criterion}
+Let $a,b\ge1$ be integers. The map $\mu_{a,b,V}$ is surjective if and only
+if every symmetric $a$-linear form $T$ on $\Sym^b V$ satisfying
+$T(P,\ldots,P)=0$ for all products $P$ of $b$ vectors is zero.
+\end{proposition}
+
+\begin{proof}
+\emph{Plan.} We describe $A_b=\operatorname{im}\mu_{a,b,V}$ by explicit
+spanning vectors, identify $R_b^*$ with symmetric $a$-linear forms, and
+compare annihilators.
+
+\emph{Step 1: $A_b=\operatorname{span}_{\C}\{P^{\otimes a}: P\text{ is a
+product of }b\text{ vectors}\}$.}
+For $u\in V$ put $z(u)=u^{\otimes a}\in R_1$. By \ref{A3}, the
+identification $\Sym^aV\cong R_1$ sends $u^a$ to $z(u)$. By
+Lemma~\ref{lem:powers} with $k=a$, the $u^a$ span $\Sym^aV$, so the $z(u)$
+span $R_1$. The space $A_b$ is spanned by products of $b$ elements of
+$R_1$. By multilinearity of the product it is spanned by products of $b$
+spanning elements. Componentwise multiplication gives
+\[
+ z(u_1)\cdots z(u_b)=(u_1\cdots u_b)^{\otimes a}.
+\]
+
+\emph{Step 2: functionals on $R_b$ are symmetric forms.}
+For $\lambda\in R_b^*$ define
+\[
+ T_\lambda(w_1,\ldots,w_a)
+ =\lambda\bigl(\Av(w_1\otimes\cdots\otimes w_a)\bigr)
+ \qquad(w_i\in\Sym^bV).
+\]
+This is a symmetric $a$-linear form on $\Sym^bV$, and
+$\lambda\mapsto T_\lambda$ is a bijection onto all such forms.
+\emph{Surjective:} given a symmetric $a$-linear $T$, let $\widetilde T$ be
+the linear functional on $(\Sym^bV)^{\otimes a}$ with
+$\widetilde T(w_1\otimes\cdots\otimes w_a)=T(w_1,\ldots,w_a)$, and put
+$\lambda=\widetilde T|_{R_b}$. Then
+\[
+ T_\lambda(w_1,\ldots,w_a)
+ =\frac1{a!}\sum_{\pi\in\Sa}T(w_{\pi(1)},\ldots,w_{\pi(a)})
+ =T(w_1,\ldots,w_a)
+\]
+by symmetry of $T$.
+\emph{Injective:} by \ref{A1} the averages
+$\Av(w_1\otimes\cdots\otimes w_a)$ span $R_b$, so $T_\lambda$ determines
+$\lambda$.
+
+\emph{Step 3: the diagonal.}
+For a product $P$ of $b$ vectors, \ref{A3} gives
+$T_\lambda(P,\ldots,P)=\lambda(P^{\otimes a})$.
+
+\emph{Step 4: conclusion.}
+By Steps 1 and 3, $\lambda$ vanishes on $A_b$ if and only if
+$T_\lambda(P,\ldots,P)=0$ for every product $P$ of $b$ vectors. Since
+$R_b$ is finite-dimensional, $A_b=R_b$ if and only if the only
+$\lambda\in R_b^*$ vanishing on $A_b$ is $\lambda=0$. By Step 2 this is the
+stated condition on forms $T$.
+\end{proof}
+
+\begin{remark}
+This explains the reversed roles of the two parameters in the equation
+interpretation. The multiplication algebra concerns products of $a$ linear
+forms in coordinate degree $b$. Here $T(P,\ldots,P)$ is a homogeneous
+degree-$a$ polynomial on $\Sym^b V$, tested on products of $b$ vectors,
+viewed as linear forms on $V^*$. The pairing just proved connects these two
+descriptions; compare the product parametrization in
+\cite[Section~2]{RSW}.
+\end{remark}
+
+\section{Differential injectivity}\label{sec:differential}
+
+The induction in Section~\ref{sec:vanishing} recovers a polynomial from a
+sequence of its directional derivatives. The following lemma permits each
+derivative to be cancelled. It is used in Steps~2 and~4 of
+Proposition~\ref{prop:vanishing}. Recall $n=\dim V>0$ and the operator
+$\D YU$ from Section~\ref{sec:conventions}.
+
+The criterion is the positive-weight injectivity in the usual
+$\mathfrak{sl}_2$ weight strings; compare
+\cite[Section~11.1, Claim~11.4 and equation~(11.5)]{FultonHarris}.
+Ikenmeyer's argument \cite[Section~5, Claim~5.1]{Ikenmeyer} decomposes
+tensors according to untouched positions before applying a two-coordinate
+weight shift. The proof below is a direct inner-product proof with all
+additional variables present.
+
+\begin{lemma}\label{lem:shift}
+Let $p,q$ be nonnegative integers. On polynomials homogeneous of degree $p$
+in $U$ and degree $q$ in $Y$, the operator $\D{Y}{U}$ is injective if
+$p>q$. The polynomials may depend on any finite collection of additional
+variables independent of $U$ and $Y$.
+\end{lemma}
+
+\begin{proof}
+\emph{Plan.} Put an inner product on the polynomial ring for which the
+adjoint of $D=\D YU$ is the reversed operator $\D UY$. The commutator of
+the two operators acts on the given bidegree as the scalar $p-q$. This
+gives a norm identity that forces $h=0$ when $Dh=0$.
+
+\emph{Notation.} Let $X=(X_1,\ldots,X_N)$ list all scalar variables: the
+coordinates of $U$, of $Y$, and the additional variables. Write
+$D=\D{Y}{U}$ and $D'=\D{U}{Y}$. (The source calls the second operator $E$.)
+
+\emph{Step 1: the inner product.}
+The source says: give the polynomial ring the positive definite Fischer, or
+apolar, Hermitian inner product
+\cite[Section~2, equation~(8) and Proposition~3]{AldazRender}, in which the
+monomials are orthonormal, $\|X^\alpha\|^2=1$.
+
+\unverified{The normalization $\|X^\alpha\|^2=1$ does not support Step~2.
+If the monomials are orthonormal, then
+$\langle\partial_{X_j}X_j^2,\,X_j\rangle=2$ but
+$\langle X_j^2,\,X_j\cdot X_j\rangle=1$, so differentiation is not adjoint
+to multiplication, and identity \eqref{eq:norm} fails (see the sanity check
+after the proof). The inner product usually called Fischer or apolar has
+orthogonal monomials with $\|X^\alpha\|^2=\alpha!$. With that normalization
+every remaining step checks, and the statement of the lemma is unaffected.}
+
+For the rest of the proof, $\langle\cdot,\cdot\rangle$ therefore denotes
+the Hermitian inner product
+\[
+ \Bigl\langle\sum_\alpha c_\alpha X^\alpha,\ \sum_\alpha d_\alpha X^\alpha\Bigr\rangle
+ =\sum_\alpha\alpha!\,c_\alpha\overline{d_\alpha},
+ \qquad \alpha!=\alpha_1!\cdots\alpha_N!.
+\]
+It is positive definite because
+$\langle h,h\rangle=\sum_\alpha\alpha!\,|c_\alpha|^2$.
+
+\emph{Step 2: differentiation is adjoint to multiplication.}
+For monomials and any index $j$,
+\[
+ \langle\partial_{X_j}X^\alpha,\,X^\beta\rangle
+ =\alpha_j\,(\alpha-e_j)!\,\delta_{\alpha-e_j,\beta}
+ =\alpha!\,\delta_{\alpha,\beta+e_j}
+ =\langle X^\alpha,\,X_jX^\beta\rangle .
+\]
+Here $e_j$ is the $j$-th unit multi-index, and both sides are $0$ if
+$\alpha_j=0$. By sesquilinearity,
+$\langle\partial_{X_j}g,h\rangle=\langle g,X_jh\rangle$ for all polynomials
+$g,h$. Taking complex conjugates and exchanging the roles of $g$ and $h$
+gives $\langle X_jg,h\rangle=\langle g,\partial_{X_j}h\rangle$. Applying
+these two rules to $D=\sum_kY_k\,\partial_{U_k}$ gives
+\begin{equation}\label{eq:adjoint}
+ \langle Dg,h\rangle=\langle g,D'h\rangle,
+ \qquad D'=\sum_kU_k\,\partial_{Y_k}.
+\end{equation}
+
+\emph{Step 3: the commutator.}
+For indices $j,k$, using
+$\partial_{Y_j}Y_k=\delta_{jk}+Y_k\partial_{Y_j}$ and
+$\partial_{U_k}U_j=\delta_{jk}+U_j\partial_{U_k}$,
+\begin{align*}
+ (U_j\partial_{Y_j})(Y_k\partial_{U_k})
+ &=\delta_{jk}\,U_j\partial_{U_k}+U_jY_k\,\partial_{Y_j}\partial_{U_k},\\
+ (Y_k\partial_{U_k})(U_j\partial_{Y_j})
+ &=\delta_{jk}\,Y_k\partial_{Y_j}+Y_kU_j\,\partial_{U_k}\partial_{Y_j}.
+\end{align*}
+Subtracting and summing over $j,k$ gives
+\[
+ D'D-DD'=N_U-N_Y,
+ \qquad
+ N_U=\sum_k U_k\partial_{U_k},\quad
+ N_Y=\sum_k Y_k\partial_{Y_k}.
+\]
+By Euler's identity, $N_Uh=ph$ and $N_Yh=qh$ when $h$ is homogeneous of
+degree $p$ in $U$ and $q$ in $Y$.
+
+\emph{Step 4: the norm identity.}
+Let $h$ have the indicated bidegree. By \eqref{eq:adjoint},
+$\|Dh\|^2=\langle h,D'Dh\rangle$, which is real and so equals
+$\langle D'Dh,h\rangle$. Also by \eqref{eq:adjoint},
+$\|D'h\|^2=\langle DD'h,h\rangle$. Hence, by Step 3,
+\begin{equation}\label{eq:norm}
+ \|Dh\|^2-\|D'h\|^2=\langle(D'D-DD')h,h\rangle=(p-q)\|h\|^2.
+\end{equation}
+
+\emph{Step 5: conclusion.}
+If $Dh=0$ and $p>q$, the left side of \eqref{eq:norm} is
+$-\|D'h\|^2\le0$ and the right side is $\ge0$. So both are $0$, and
+$(p-q)\|h\|^2=0$ forces $h=0$.
+\end{proof}
+
+\emph{Sanity check of \eqref{eq:norm}.} Take $n=1$ and $h=U_1^2$, so
+$(p,q)=(2,0)$, $Dh=2U_1Y_1$ and $D'h=0$. With $\|X^\alpha\|^2=\alpha!$ we
+get $\|Dh\|^2=4$ and $(p-q)\|h\|^2=2\cdot2=4$. With orthonormal monomials
+we would get $4$ on the left and $2\cdot1=2$ on the right.
+
+\begin{remark}[chains of operators]\label{rem:chain}
+Lemma~\ref{lem:shift} is always applied in the following form. Let
+$D_1,\ldots,D_s$ be operators of the type $\D{Y}{U}$, possibly with
+different blocks, and let $h$ be a polynomial. Put
+$h_i=D_i\cdots D_1h$, with $h_0=h$. Suppose that for each $i=1,\ldots,s$
+the polynomial $h_{i-1}$ is homogeneous in the source block of $D_i$ of
+some degree $p_i$ and in the target block of $D_i$ of some degree $q_i$,
+with $p_i>q_i$. Then $h_s=0$ implies $h=0$. Indeed,
+$D_sh_{s-1}=0$ gives $h_{s-1}=0$ by the lemma, then $h_{s-2}=0$, and so
+on. All blocks other than the two belonging to $D_i$ count as additional
+variables.
+\end{remark}
+
+\section{Vanishing on products}\label{sec:vanishing}
+
+We now prove the vanishing statement required by
+Proposition~\ref{prop:criterion}.
+
+\begin{proposition}\label{prop:vanishing}
+Let $V$ be a finite-dimensional complex vector space, and let $a\ge1$ and
+$b\ge1$ be integers satisfying $b\ge a(a-1)$.
+If a symmetric $a$-linear form $T$ on $\Sym^b V$ satisfies
+\begin{equation}\label{eq:diagonal}
+ T(P,\ldots,P)=0
+ \qquad\text{for every product $P$ of $b$ vectors},
+\end{equation}
+then $T=0$.
+\end{proposition}
+
+\begin{proof}
+\emph{Plan.} Induct on $a$. In the induction step, Steps~1 and~2 show that
+$T(x^rQ,\ldots,x^rQ,t^b)=0$, with $r=a-1$ slots carrying a common product
+and one slot free. Step~3 applies the induction hypothesis to those $r$
+slots. Step~4 removes the common factor $x^r$ and concludes.
+
+\paragraph{Trivial case and base case.}
+If $V=0$ then $\Sym^bV=0$ because $b\ge1$, so $T=0$. Suppose
+$n=\dim V>0$. We induct on $a$, proving the assertion for all admissible
+$b$ and all $V$ at once. For $a=1$, $T$ is a linear form vanishing on all
+products of $b$ vectors. These span $\Sym^bV$, so $T=0$.
+
+\paragraph{Induction step: notation.}
+Let $a\ge2$, assume the assertion for $a-1$, and put
+\begin{equation}\label{eq:rm}
+ r=a-1,\qquad m=b-r.
+\end{equation}
+The hypothesis $b\ge a(a-1)=r(r+1)$ gives
+\begin{equation}\label{eq:range}
+ b\ge r(r+1),\qquad m\ge r^2\ge1.
+\end{equation}
+
+\paragraph{Step 1: a split binary form.}
+\emph{Claim:} for all vectors $x,t,y_1,\ldots,y_m\in V$, with
+$Q=y_1\cdots y_m$,
+\begin{equation}\label{eq:binary}
+ T(\underbrace{x^rQ,\ldots,x^rQ}_{r\text{ slots}},t^rQ)=0.
+\end{equation}
+
+\emph{(1a) $P_c=(x^r+ct^r)Q$ is a product of $b$ vectors for every
+$c\in\C$.}
+Let $\xi,\eta$ be indeterminates. (The source writes $X,Y$, and writes
+$\alpha$ for the number called $\beta$ here.) If $c\ne0$, choose
+$\beta\in\C$ with $\beta^r=-c$ and put $\zeta=e^{2\pi i/r}$. Since
+$\prod_{j=0}^{r-1}(\xi-\zeta^j\omega)=\xi^r-\omega^r$, taking
+$\omega=\beta\eta$ gives
+\[
+ \xi^r+c\eta^r=\prod_{j=0}^{r-1}(\xi-\beta\zeta^j\eta).
+\]
+If $c=0$ the factorization is $\xi^r$. Apply the algebra homomorphism
+$\C[\xi,\eta]\to\Sym V$, $\xi\mapsto x$, $\eta\mapsto t$. It exists for
+any $x,t$; they need not be independent. This shows that $x^r+ct^r$ is a
+product of $r$ vectors $x-\beta\zeta^jt$. Multiplying by $Q$ gives a
+product of $r+m=b$ vectors.
+
+\emph{(1b) Extracting the coefficient of $c$.}
+Write $P_c=x^rQ+c\,t^rQ$. By multilinearity and symmetry of $T$,
+\[
+ T(P_c,\ldots,P_c)=\sum_{k=0}^{a}\binom ak c^k\,
+ T(\underbrace{x^rQ,\ldots,x^rQ}_{a-k},\underbrace{t^rQ,\ldots,t^rQ}_{k}).
+\]
+By (1a) and \eqref{eq:diagonal} this polynomial in $c$ vanishes for every
+$c\in\C$, so each coefficient is $0$. The coefficient of $c$ is
+$a\,T(x^rQ,\ldots,x^rQ,t^rQ)$ with $a-1=r$ slots $x^rQ$, and $a\ne0$.
+This is \eqref{eq:binary}.
+
+\paragraph{Step 2: freeing the last slot.}
+\emph{Claim:} for all $x,t\in V$ and every product $Q$ of $m$ vectors,
+\begin{equation}\label{eq:free}
+ T(\underbrace{x^rQ,\ldots,x^rQ}_{r\text{ slots}},t^b)=0.
+\end{equation}
+\emph{Idea.} Differentiation in $t$ inserts the factors of $Q$ into the
+last slot one at a time and ends at \eqref{eq:binary}.
+Remark~\ref{rem:chain} then recovers the vanishing before the insertions.
+
+Fix a vector $x\in V$. Let $t,y_1,\ldots,y_m$ be independent vector
+variables, $Q=y_1\cdots y_m$, and
+\[
+ H_x=T(\underbrace{x^rQ,\ldots,x^rQ}_{r\text{ slots}},t^b),
+\]
+a scalar polynomial in the coordinates of $t,y_1,\ldots,y_m$.
+
+\emph{(2a) Formula.} For $0\le k\le m$,
+\begin{equation}\label{eq:first-composition}
+ \D{y_k}{t}\cdots\D{y_1}{t}H_x
+ =\frac{b!}{(b-k)!}\,
+ T(x^rQ,\ldots,x^rQ,\;t^{b-k}y_1\cdots y_k),
+\end{equation}
+with the empty composition for $k=0$. The proof is by induction on $k$.
+Only the last slot involves $t$, so by \ref{D2} the operator $\D{y_k}{t}$
+acts on the last slot alone. By \ref{D1} with $G=y_1\cdots y_{k-1}$,
+\[
+ \D{y_k}{t}\bigl(t^{b-k+1}y_1\cdots y_{k-1}\bigr)
+ =(b-k+1)\,t^{b-k}y_1\cdots y_k .
+\]
+Here $b-k+1\ge b-m+1=r+1\ge1$. The scalar factors multiply to
+$b(b-1)\cdots(b-k+1)=b!/(b-k)!$.
+
+\emph{(2b) The end of the chain is zero.}
+For $k=m$ we have $b-m=r$, so the right side of
+\eqref{eq:first-composition} is
+$\frac{b!}{r!}T(x^rQ,\ldots,x^rQ,t^rQ)$. By \eqref{eq:binary} it vanishes
+for every choice of vectors $t,y_1,\ldots,y_m$. By \ref{D3} it is the zero
+polynomial.
+
+\emph{(2c) Degree check.}
+Let $1\le i\le m$. By \eqref{eq:first-composition} with $k=i-1$, the
+polynomial to which the $i$-th operator $\D{y_i}{t}$ is applied is
+homogeneous in $t$ of degree $p=b-i+1$. In $y_i$ it is homogeneous of
+degree $q=r$: the variable $y_i$ occurs once in each of the $r$ slots
+$x^rQ$ and not in the last slot, since earlier operators inserted only
+$y_1,\ldots,y_{i-1}$. Thus
+\[
+ p=b-i+1,\qquad q=r,\qquad p-q=m-i+1\ge1 .
+\]
+
+\emph{(2d) Conclusion.}
+By (2b), (2c) and Remark~\ref{rem:chain}, $H_x=0$ as a polynomial.
+Substituting vectors for $t,y_1,\ldots,y_m$ gives \eqref{eq:free}, since
+$x$ was arbitrary.
+
+\paragraph{Step 3: induction on the remaining slots.}
+Fix $x,t\in V$ and define
+\[
+ S_{x,t}(Q_1,\ldots,Q_r)
+ :=T(x^rQ_1,\ldots,x^rQ_r,t^b)
+ \qquad(Q_i\in\Sym^mV).
+\]
+Multiplication by $x^r$ is a linear map $\Sym^mV\to\Sym^bV$ and $T$ is
+symmetric and multilinear, so $S_{x,t}$ is a symmetric $r$-linear form on
+$\Sym^mV$. By \eqref{eq:free}, $S_{x,t}(Q,\ldots,Q)=0$ for every product
+$Q$ of $m$ vectors. By \eqref{eq:range}, $m\ge1$ and
+$m\ge r^2\ge r(r-1)$. So the induction hypothesis applies, with $a-1=r$
+in place of $a$ and $m$ in place of $b$, and gives $S_{x,t}=0$:
+\begin{equation}\label{eq:inductive-vanishing}
+ T(x^rQ_1,\ldots,x^rQ_r,t^b)=0
+ \qquad(Q_1,\ldots,Q_r\in\Sym^m V;\ x,t\in V).
+\end{equation}
+
+\paragraph{Step 4: removing the common power.}
+\emph{Claim:} $T(v_1^b,\ldots,v_r^b,t^b)=0$ for all
+$v_1,\ldots,v_r,t\in V$.
+
+\emph{Idea.} In \eqref{eq:inductive-vanishing} the $Q_i$ are independent,
+and the only shared constraint left is the factor $x^r$. Differentiating
+$v_i^b$ towards $x$ exactly $r$ times produces $x^rv_i^m$.
+
+Fix a vector $t\in V$. Let $v_1,\ldots,v_r$ and $x$ be independent vector
+variables; from now on $x$ is a variable, not a fixed vector. Put
+\[
+ f=T(v_1^b,\ldots,v_r^b,t^b).
+\]
+This polynomial does not involve $x$. Apply $\D{x}{v_1}$ $r$ times, then
+$\D{x}{v_2}$ $r$ times, and so on up to $\D{x}{v_r}$. For $1\le i\le r$ and
+$0\le j\le r$ let
+\[
+ f_{i,j}=\D{x}{v_i}^{\,j}\,\D{x}{v_{i-1}}^{\,r}\cdots\D{x}{v_1}^{\,r}f .
+\]
+
+\emph{(4a) Formula.}
+\[
+ f_{i,j}=\Bigl(\frac{b!}{m!}\Bigr)^{i-1}\frac{b!}{(b-j)!}\;
+ T\bigl(x^rv_1^m,\ldots,x^rv_{i-1}^m,\;x^{j}v_i^{\,b-j},\;
+ v_{i+1}^b,\ldots,v_r^b,\;t^b\bigr).
+\]
+The proof is by induction along the chain. Only slot $i$ involves $v_i$,
+so by \ref{D2} the operator $\D{x}{v_i}$ acts on slot $i$ alone. It does
+not differentiate the $x$ factors already inserted, nor any other slot. By
+\ref{D1} with $G=x^{j}$,
+$\D{x}{v_i}(v_i^{\,b-j}x^{j})=(b-j)\,v_i^{\,b-j-1}x^{j+1}$ for
+$0\le j<r$. Also $f_{i,r}=f_{i+1,0}$ and $b-r=m$. In particular
+\begin{equation}\label{eq:second-composition}
+ \D{x}{v_r}^{\,r}\cdots\D{x}{v_1}^{\,r}f
+ =\left(\frac{b!}{m!}\right)^r
+ T(x^rv_1^m,\ldots,x^rv_r^m,t^b)=0.
+\end{equation}
+The last equality holds for every choice of vectors by
+\eqref{eq:inductive-vanishing} with $Q_i=v_i^m$. By \ref{D3} it holds as a
+polynomial identity.
+
+\emph{(4b) Degree check.}
+The operator leading from $f_{i,j-1}$ to $f_{i,j}$, for $1\le j\le r$, is
+$\D{x}{v_i}$, with source block $v_i$ and target block $x$. By (4a),
+$f_{i,j-1}$ is homogeneous in $v_i$ of degree $p=b-j+1$ and in $x$ of
+degree $q=(i-1)r+(j-1)$. All $r^2$ operators raise the degree of the same
+block $x$. Using \eqref{eq:range},
+\[
+ p\ \ge\ b-r+1=m+1\ \ge\ r^2+1,\qquad
+ q\ \le\ (r-1)r+(r-1)=r^2-1,
+\]
+so $p>q$ before every operator. All other blocks are spectators.
+
+\emph{(4c) Conclusion.}
+By \eqref{eq:second-composition}, (4b) and Remark~\ref{rem:chain}, $f=0$
+as a polynomial. Substituting vectors, and recalling that $t$ was
+arbitrary, proves the claim: $T$ vanishes on every tuple of pure powers.
+
+\paragraph{End of the induction step.}
+Pure powers span $\Sym^bV$ by Lemma~\ref{lem:powers} with $k=b$. Since $T$
+is multilinear and vanishes on all tuples of pure powers, $T=0$.
+\end{proof}
+
+\begin{proof}[Proof of Theorem~\ref{thm:main}]
+Let $a\ge2$ and $b\ge a(a-1)$, so $b\ge2\ge1$.
+Proposition~\ref{prop:vanishing} shows that every symmetric $a$-linear form
+on $\Sym^bV$ whose diagonal vanishes on products of $b$ vectors is zero. By
+Proposition~\ref{prop:criterion}, $\mu_{a,b,V}$ is surjective.
+\end{proof}
+
+\section{Representation comparison and scope}\label{sec:comparison}
+
+\begin{corollary}\label{cor:comparison}
+For every finite-dimensional complex vector space $V$, every integer
+$a\ge2$, and every integer $b\ge a(a-1)$, there exists a
+$\mathrm{GL}(V)$-equivariant embedding
+\[
+ \Sym^a(\Sym^b V)\hookrightarrow\Sym^b(\Sym^a V).
+\]
+In particular, this gives the sixth symmetric-power comparison for $b\ge30$.
+\end{corollary}
+
+\begin{proof}
+The group $\mathrm{GL}(V)$ acts on $\Sym V$ by algebra automorphisms. So it
+acts on $(\Sym V)^{\otimes a}$ by algebra automorphisms commuting with
+$\Sa$. Averaging and multiplication therefore commute with the action of
+$\mathrm{GL}(V)$, and the surjection $\mu_{a,b,V}$ of
+Theorem~\ref{thm:main} is equivariant. Finite-dimensional polynomial
+representations over $\C$ are completely reducible
+\cite[Chapter~I, Appendix~A, Sections~7--8]{Macdonald}. Choose an invariant
+complement $M$ to the kernel of $\mu_{a,b,V}$. The restriction
+$\mu_{a,b,V}|_M$ is an equivariant isomorphism onto $\Sym^a(\Sym^b V)$. Its
+inverse followed by the inclusion of $M$ in $\Sym^b(\Sym^a V)$ is the
+required embedding. For $a=6$ the range is $b\ge6\cdot5=30$. This
+construction asserts existence and does not identify the embedding with a
+prescribed canonical map.
+\end{proof}
+
+\begin{remark}
+The differential lemma holds for every finite number of coordinates and
+arbitrary additional variables, while the degree comparisons depend only
+on $a$ and $b$. Together with the finite-dimensional annihilator argument,
+this proves the same bound in every finite dimension, without a
+stable-dimension reduction. The written proof uses positivity of the
+Fischer Hermitian inner product, splitting of binary forms over $\C$, and
+the nonzero characteristic-zero scalar factors in the coefficient and
+differentiation identities.
+\end{remark}
+
+\section{Context and related work}\label{sec:context}
+
+This section reports the source's account of the literature. It is not
+used in the proofs.
+
+\paragraph{The stabilization question.}
+For fixed $a$ and $V$, the stabilization question asks for a nonnegative
+degree $b_0$ such that $\mu_{a,b,V}$ is surjective for every $b\ge b_0$.
+One may ask for the least such degree in a fixed dimension, or for a bound
+valid in every finite dimension at once. Theorem~\ref{thm:main} is of the
+second kind.
+
+\paragraph{History and significance.}
+The affine Chow variety of decomposable $a$-forms consists of products of
+$a$ linear forms in $\Sym^a(V^*)$. Its coordinate ring identifies with
+$A$, whose normalization is $R$; here $b$ is the coordinate degree
+\cite[Section~2, Theorem~2.3]{RSW}. This interpretation connects the
+canonical map to the geometry of symmetric products; see also
+Landsberg \cite[Section~7.6, Propositions~7.11--7.12]{Landsberg}.
+Brion established eventual surjectivity \cite{Brion1993} and subsequently
+gave an effective bound involving both $a$ and the dimension
+\cite[Theorem~3.3]{Brion}. In the normalization picture, eventual
+surjectivity says that the graded quotient $R/A$ has only finitely many
+nonzero components. The least stabilization degree is one more than its
+highest nonzero degree, or zero if $R=A$. Raicu, Sam, and Weyman bound the
+regularity of the Segre ring and modules of covariants, including the
+normalization \cite[Theorem~3.9]{RSW}. Their theorem does not compute the
+top degree of the separate quotient $R/A$ that controls stabilization.
+Theorem~\ref{thm:main} gives the sufficient bound $a(a-1)$ in every
+dimension. It also answers positively the request for a polynomial bound in
+\cite[Problem~7.19]{Landsberg}: in that source's notation $d=b$, $n=a$,
+and $w=\dim V$, the bound is $d\ge n(n-1)$, including when $w=n$.
+
+\paragraph{Relation to the Foulkes conjecture.}
+The canonical-map question must be distinguished from the ordinary
+Foulkes conjecture \cite{Foulkes1950}, which asks, for $a\le b$, for a
+$\mathrm{GL}(V)$-equivariant injection
+$\Sym^a(\Sym^b V)\hookrightarrow\Sym^b(\Sym^a V)$
+\cite[Conjecture~2.10]{RSW}.
+Surjectivity in Theorem~\ref{thm:main} implies that representation
+comparison in the stated range; Corollary~\ref{cor:comparison} gives the
+precise statement. Existence of an embedding alone does not specify the
+canonical map. At $a=b$ the two representations are the same, so their
+ordinary comparison is automatic, while a specified canonical endomorphism
+can still fail to be invertible. Indeed, the canonical map has nonzero
+kernels at the diagonal pairs $(a,b)=(5,5)$ and $(6,6)$ in suitable
+dimensions
+\cite[arXiv version, Theorem~6(b),(c) and Remark~7]{CIM}, both outside the
+range of Theorem~\ref{thm:main}.
+
+\paragraph{Relation to propagation arguments.}
+Successive weight shifts also occur in Ikenmeyer's proof
+\cite[Section~5]{Ikenmeyer} of McKay's propagation theorem \cite{McKay}.
+In Ikenmeyer's formulation, the canonical maps in the opposite direction
+$\Sym^a(\Sym^b V)\longrightarrow\Sym^b(\Sym^a V)$ are considered with
+$\dim V\ge b$ for each $b$. For fixed $a$ and $B\ge a$, injectivity at
+$(a,B)$ propagates to every $(a,b)$ with $b\ge B$
+\cite[Theorem~1.3 and Section~3]{Ikenmeyer}.
+Here the two differential sequences (Steps~2 and~4) surround an induction
+on the number of slots and give a surjectivity range directly. The first
+sequence uses a different target block at each step. The second raises the
+degree of one shared target block at every step, and this accumulation
+leads to the quadratic sufficient bound.
+
+\section{Verification checklist}\label{sec:checklist}
+
+\begin{enumerate}[leftmargin=2em]
+\item \textbf{Inner product in Lemma~\ref{lem:shift} (Steps 1--2 of its
+ proof).} The source's normalization $\|X^\alpha\|^2=1$ is flagged as an
+ unverified step. Check that with $\|X^\alpha\|^2=\alpha!$ differentiation
+ is adjoint to multiplication, and that nothing else in the paper depends
+ on the normalization.
+\item \textbf{Commutator and norm identity (Steps 3--4 of the same proof).}
+ Check $D'D-DD'=N_U-N_Y$ and \eqref{eq:norm}. The sanity check after the
+ proof tests the sign and the constant.
+\item \textbf{Image description (Proposition~\ref{prop:criterion}, Step 1).}
+ Check that $A_b$ is spanned by the tensors $P^{\otimes a}$. This uses
+ Lemma~\ref{lem:powers} with $k=a$ and \ref{A3}.
+\item \textbf{Step 1 of Proposition~\ref{prop:vanishing}.} Check that
+ $(x^r+ct^r)Q$ is a product of exactly $r+m=b$ vectors for every $c$, and
+ that the coefficient of $c$ is $a\,T(x^rQ,\ldots,x^rQ,t^rQ)$.
+\item \textbf{Step 2, degree check (2c).} The $y_i$-degree before the $i$-th
+ operator is $r$, not $0$, because $Q$ already sits in the first $r$
+ slots. The inequality is $p-q=m-i+1\ge1$ for $i\le m$.
+\item \textbf{Step 3.} The induction hypothesis is applied to $(r,m)$ in
+ place of $(a,b)$. Check $m\ge1$ and $m\ge r(r-1)$ from \eqref{eq:range}.
+\item \textbf{Step 4, degree check (4b).} The $x$-degree accumulates over
+ all $r^2$ operators, up to $r^2-1$, while the $v_i$-degree is at least
+ $m+1\ge r^2+1$. This is where $b\ge a(a-1)$ is used.
+\item \textbf{Pointwise versus polynomial vanishing.} In (2b) and
+ \eqref{eq:second-composition} a pointwise identity is upgraded to a
+ polynomial identity by \ref{D3} before Lemma~\ref{lem:shift} is applied.
+ The formulas \eqref{eq:first-composition} and (4a) rest on \ref{D1} and
+ \ref{D2}.
+\end{enumerate}
+
+\begin{thebibliography}{99}
+\bibitem{AldazRender}
+J.~M.~Aldaz and H.~Render,
+\href{https://doi.org/10.1007/s13324-023-00844-4}{\emph{A Fischer type decomposition theorem from the apolar inner product}},
+Analysis and Mathematical Physics \textbf{13} (2023), article~91.
+
+\bibitem{Brion1993}
+M.~Brion,
+\href{https://doi.org/10.1007/BF03026558}{\emph{Stable properties of plethysm: on two conjectures of Foulkes}},
+Manuscripta Mathematica \textbf{80} (1993), no.~4, 347--371.
+
+\bibitem{Brion}
+M.~Brion,
+\href{https://smf.emath.fr/publications/sur-certains-modules-gradues-associes-aux-produits-symetriques}{\emph{Sur certains modules gradu\'es associ\'es aux produits sym\'etriques}},
+in \emph{Alg\`ebre non commutative, groupes quantiques et invariants}
+(Reims, 1995), S\'eminaires et Congr\`es \textbf{2},
+Soci\'et\'e Math\'ematique de France, Paris, 1997, 157--183.
+
+\bibitem{CIM}
+M.-W.~Cheung, C.~Ikenmeyer, and S.~Mkrtchyan,
+\href{https://doi.org/10.1016/j.jsc.2016.09.002}{\emph{Symmetrizing tableaux and the 5th case of the Foulkes conjecture}},
+Journal of Symbolic Computation \textbf{80} (2017), part~3, 833--843.
+\href{https://arxiv.org/abs/1509.03944v1}{arXiv:1509.03944v1}.
+
+\bibitem{Foulkes1950}
+H.~O.~Foulkes,
+\href{https://doi.org/10.1112/jlms/s1-25.3.205}{\emph{Concomitants of the quintic and sextic up to degree four in the coefficients of the ground form}},
+Journal of the London Mathematical Society \textbf{25} (1950), no.~3,
+205--209.
+
+\bibitem{FultonHarris}
+W.~Fulton and J.~Harris,
+\href{https://doi.org/10.1007/978-1-4612-0979-9}{\emph{Representation Theory: A First Course}},
+Graduate Texts in Mathematics \textbf{129}, Springer-Verlag, New York, 1991.
+
+\bibitem{Ikenmeyer}
+C.~Ikenmeyer,
+\emph{On McKay's propagation theorem for the Foulkes conjecture},
+\href{https://arxiv.org/abs/1509.04957v1}{arXiv:1509.04957v1}, 2015.
+
+\bibitem{Landsberg}
+J.~M.~Landsberg,
+\href{https://doi.org/10.1007/s11565-014-0202-7}{\emph{Geometric complexity theory: an introduction for geometers}},
+Annali dell'Universit\`a di Ferrara \textbf{61} (2015), no.~1, 65--117.
+\href{https://arxiv.org/abs/1305.7387}{arXiv:1305.7387}.
+Locators refer to the published version.
+
+\bibitem{Macdonald}
+I.~G.~Macdonald,
+\href{https://doi.org/10.1093/oso/9780198534891.001.0001}{\emph{Symmetric Functions and Hall Polynomials}},
+second edition, Oxford Mathematical Monographs, Clarendon Press, Oxford, 1995.
+
+\bibitem{McKay}
+T.~McKay,
+\href{https://doi.org/10.1016/j.jalgebra.2007.12.003}{\emph{On plethysm conjectures of Stanley and Foulkes}},
+Journal of Algebra \textbf{319} (2008), no.~5, 2050--2071.
+
+\bibitem{RSW}
+C.~Raicu, S.~V.~Sam, and J.~Weyman,
+\href{https://doi.org/10.1007/s10013-021-00527-2}{\emph{On some modules supported in the Chow variety}},
+Vietnam Journal of Mathematics \textbf{50} (2022), no.~2, 501--521.
+\href{https://arxiv.org/abs/2108.10910v1}{arXiv:2108.10910v1}.
+Locators refer to this preprint version.
+\end{thebibliography}
+
+\end{document}

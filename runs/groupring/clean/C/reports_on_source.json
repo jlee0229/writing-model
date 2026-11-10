@@ -1,0 +1,254 @@
+[
+ {
+  "main_result": "There is a finitely generated group G_D and a square integer matrix A over Z[G_D] (size 2d+1), invertible over Q[G_D], whose Fuglede–Kadison determinant is q^{-θ} with q=2^k>1 and θ=(1/3)(2/3)^{|S|}>0. So 0<det<1, and the integral (1/n)τ_n(log T_A*T_A) equals -2θ log q/(2d+1)<0. This is a square counterexample to the group-ring determinant inequality ∫log t dμ_A ≥ 0. The construction is conditional on a cited characteristic-two existence theorem: a finite field K_2 of characteristic two, a finitely generated H_2, and a_2,b_2 in K_2[H_2] with a_2b_2=1≠b_2a_2.",
+  "proof_strategy": "Start from the cited one-sided inverse pair a_2,b_2 over a char-2 field and map it into Mat_d(F_2[H_2]) by a unital injective ring map, which yields X,Y with XY=I and an idempotent C=I-YX≠0 (Lemma binary). Build a rational idempotent p in Z[1/3][G_D], with G_D a sum of cyclic C_3 coordinates semidirectly multiplied by H_2, that has identity coefficient θ>0 and kills the binary defect mod 2, so P=diag(I_d,p) has trace d+θ and reduction factoring through d columns (Proposition separation). Lemma lift lifts that factorization modulo q=2^k using a finite geometric series in a corner ring, and Lemma integral builds an integral block matrix A with rational inverse whose Schur complement is J=-q^{-1}P-(I-P). The shear path L_xBR_x preserves the trace of log(M*M) because its tracial logarithmic derivative vanishes (Lemmas logderivative and shears), so log det A equals log det B=(r-τ(P))log q. I checked the block algebra, the Schur complement, the idempotent and vanishing identities psp=0, the trace θ computation, and the derivative formula in Lemma logderivative line by line and found no error. The only parts I could not check are the cited companion theorem and the cited Elek–Szabó statement.",
+  "hardest_part": "The cited existence theorem (the characteristic-two companion, Theorem 1.1) is the load-bearing input: every later step is conditional on it, and I could not verify its construction or its claimed a_2b_2=1≠b_2a_2 over a finite field. Within the manuscript, the hardest checkable step was the reduction-mod-2 bookkeeping in Proposition separation (that p̄ h_0^{-1}C_ij p̄ = p̄ using psp=0 and the coefficient identity), but I did verify it. I also could not independently confirm the cited Elek–Szabó statement's exact hypotheses for the sofic corollary.",
+  "issues": [
+   {
+    "where": "Section 1, 'The exact existence input' (Theorem 1.1 cited from the companion)",
+    "quote": "There exist a finite field $K_2$ of characteristic two, a finitely generated group $H_2$",
+    "kind": "unjustified_step",
+    "severity": 2,
+    "what_i_needed": "The companion's explicit construction or a verifiable witness for K_2, H_2, a_2, b_2 (or a precise statement of the cited result that I could check). This is the only external input and everything depends on it; a failure of direct finiteness over a finite field would be a substantial claim in its own right, so the reader needs more than an existence citation."
+   },
+   {
+    "where": "Section 1, paragraph on conventions (inversion unitary)",
+    "quote": "The inversion unitary $\\delta_g\\mapsto\\delta_{g^{-1}}$ identifies our integral-matrix convention with right multiplication by $A^*$",
+    "kind": "ambiguous_statement",
+    "severity": 2,
+    "what_i_needed": "An explicit formula for T_A and for the unitary, and a computation showing J T_A*T_A J has the same vector-state values at δ_1 (or the same μ_A). The claim is never used later, and I could not reconstruct why it holds."
+   },
+   {
+    "where": "Section 1, definition of T_A",
+    "quote": "write $T_A$ for its operator on $\\ell^2(G)^n$",
+    "kind": "undefined_notation",
+    "severity": 2,
+    "what_i_needed": "A precise action: whether T_A is left multiplication on column vectors (A acting through the left regular representation) or some other convention. μ_A and the determinant depend on this choice, and the reader needs it to check Equation (normalization)."
+   },
+   {
+    "where": "Section 5, Proposition criterion / Section 6 (sofic corollary, 'Applying the sofic determinant bound')",
+    "quote": "to the positive integral matrix $A^*A$ proves that $G_D$ is not sofic",
+    "kind": "unjustified_step",
+    "severity": 2,
+    "what_i_needed": "The step needs det(A*A)=det(A)^2 (multiplicativity of the Fuglede–Kadison determinant and det(A*)=conj det(A)), and confirmation that the cited Elek–Szabó Theorem 5 applies to square integer matrices with nonzero determinant. Neither is written out."
+   },
+   {
+    "where": "Section 2, proof of Lemma binary",
+    "quote": "Now $(YX)^2=Y(XY)X=YX$",
+    "kind": "unjustified_step",
+    "severity": 1,
+    "what_i_needed": "The identity C^2=C requires C^2=I-2YX+(YX)^2 and 2YX=0 in Mat_d(F_2[H_2]); the proof says 'proving all the identities' but never uses characteristic two explicitly."
+   },
+   {
+    "where": "Section 3, proof of Lemma lift / Section 4, proof of Lemma integral",
+    "quote": "Its reduction modulo $q$ is $e=P_q$, which is also the reduction of $UV$.",
+    "kind": "unjustified_step",
+    "severity": 1,
+    "what_i_needed": "The lifts U,V are of the factors u_q,v_q defined over (Z/q)[G], and u_q v_q=e there (Lemma lift). The lemma statement says only 'arbitrary integral lifts' of 'the factors supplied by Lemma lift', so the link UV≡e (mod q) should be stated."
+   },
+   {
+    "where": "Section 4, proof of Lemma integral (path M(x))",
+    "quote": "both $M(x)$ and its inverse lie in the real group ring",
+    "kind": "ambiguous_statement",
+    "severity": 1,
+    "what_i_needed": "Clarify whether 'real group ring' means R[G] with real coefficients, and write the inverse of M(x) explicitly for general x (R_x^{-1}B^{-1}L_x^{-1}), so the reader can see the inverse is a finite real-coefficient matrix and hence bounded in the regular representation."
+   },
+   {
+    "where": "Section 3, opening paragraph of the lifting section",
+    "quote": "only idempotence is needed for this step.",
+    "kind": "ambiguous_statement",
+    "severity": 1,
+    "what_i_needed": "The proof of Lemma lift also uses that D is odd (so P has a reduction mod 2 and mod q), and that P̄ is idempotent mod 2 via the odd denominators. The claim 'only idempotence' should be qualified."
+   },
+   {
+    "where": "Section 3 (Lemma lift) versus Section 0 (intro e_i)",
+    "quote": "Let $S,T$ have respective sizes $m\\times r$ and $r\\times m$ over",
+    "kind": "undefined_notation",
+    "severity": 1,
+    "what_i_needed": "The letters e (intro: standard basis vector e_i; lift: corner idempotent e=P_q), S (Proposition separation: finite set S ⊆ H_2∖{1}; Lemma shears: block matrix S), and W (nilpotent block; also vector w) are reused with different meanings. A notation remark or renaming is needed."
+   },
+   {
+    "where": "Section 1, 'Context and mathematical ancestry' (Kammeyer paragraph)",
+    "quote": "That discrepancy does not violate the lower bound one.",
+    "kind": "ambiguous_statement",
+    "severity": 1,
+    "what_i_needed": "Define 'the lower bound one' (presumably det ≥ 1 for the square case) and explain why a discrepancy in the limit formula for congruence quotients does not conflict with it."
+   },
+   {
+    "where": "Section 5, definition of the trace on A_n",
+    "quote": "Moreover $|\\tau_n(C)|\\le n\\|C\\|$",
+    "kind": "unjustified_step",
+    "severity": 1,
+    "what_i_needed": "A one-line justification that the identity-coefficient trace is bounded in the operator norm (for example [1]C_ii = <C_ii δ_1, δ_1>) and that it agrees with the operator trace Σ<Te_i,e_i> used in the introduction. The two definitions of τ_n are used interchangeably without this link."
+   }
+  ]
+ },
+ {
+  "main_result": "The manuscript claims a counterexample to the unrestricted group-ring Determinant Conjecture. It builds a finitely generated group G_D = (⊕_{h∈H_2} C_3) ⋊ H_2, where H_2 and a_2, b_2 come from an external theorem giving a finite characteristic-two field K_2 and a_2 b_2 = 1 ≠ b_2 a_2 in K_2[H_2]. It then gives a square integer matrix A of size 2d+1 (d = [K_2:F_2]), invertible over Q[G_D], with 0 < det_N(T_A) = q^{-θ} < 1, where θ = (1/3)(2/3)^{|S|} > 0 and q = 2^k ≡ 1 mod 3^{1+|S|}. The integral ∫ log t dμ_A equals −2θ log q/(2d+1) < 0, which is finite.",
+  "proof_strategy": "Step 1 (Lemma binary): a char-2 scalar failure of direct finiteness is pushed through the regular representation of K_2 over F_2 to give X, Y over F_2[H_2] with XY = I, C = I − YX ≠ 0, and C idempotent with XC = 0 = CY. Step 2 (Proposition separation): a rational idempotent p = p_1 ∏_{s∈S}(1 − p_s), built from averaging projections on commuting C_3 coordinates, has psp = 0 for s ∈ S and identity coefficient θ; reducing mod 2 gives a factorization of diag(I_d, p̄) through d columns. Step 3 (Lemmas lift and integral): a Hensel-type geometric series in a corner ring lifts the factorization mod q = 2^k, and the block matrix A = [[qI, V],[U, q^{-1}(UV − P − q(I−P))]] is integral with Schur complement J = −q^{-1}P − (I−P). Step 4 (Lemmas logderivative, shears, Proposition criterion): the trace of log(M*M) along the path M(x) = L_x B R_x is constant, since the derivative is 2Re τ(M'M^{-1}) and the shear contributions are traceless; evaluating at x=0 gives τ(log B*B) = 2(r − τ(P)) log q. I re-derived the block products, the Schur complement, the conjugation identity psp = 0, the trace identities, and small test cases (trivial group, n=2,3) by hand and they were consistent. The only step I could not check myself is the external existence theorem that supplies K_2, H_2, a_2, b_2; the convention identifying T_A with the group-ring matrix is also only asserted.",
+  "hardest_part": "The entire disproof rests on the cited companion theorem (Theorem 1.1 of CharacteristicTwo) producing a finite field K_2 of characteristic two, a finitely generated H_2, and a_2 b_2 = 1 ≠ b_2 a_2. The manuscript explicitly says it does not execute or check any instance, so I could not verify this input. Beyond that, the identification of the operator T_A on ℓ²(G)^n with the group-ring matrix A (left vs right action, via the inversion unitary) is asserted in one sentence and I could not confirm it from the text.",
+  "issues": [
+   {
+    "where": "Introduction, 'The exact existence input' paragraph",
+    "quote": "We use the existence theorem, not an executed numerical instance or a group-word decision procedure.",
+    "kind": "unjustified_step",
+    "severity": 2,
+    "what_i_needed": "Either the explicit data (K_2, H_2, a_2, b_2) from the companion's Section 6, or an independent argument that a_2 b_2 = 1 ≠ b_2 a_2 holds for them. Without this the disproof is conditional on an unchecked external claim, and the reader cannot confirm that H_2 is finitely generated."
+   },
+   {
+    "where": "Lemma binary (lem:binary), proof, final sentence",
+    "quote": "$(YX)^2=Y(XY)X=YX$, $X(I_d-YX)=X-(XY)X=0$",
+    "kind": "unjustified_step",
+    "severity": 1,
+    "what_i_needed": "C^2 = (I − YX)^2 = I − 2YX + (YX)^2 needs 2 = 0. This holds because the ring F_2[H_2] has characteristic 2, but the proof never says so when it claims C^2 = C."
+   },
+   {
+    "where": "Lemma integral (lem:integral), statement and proof",
+    "quote": "Choose arbitrary integral lifts $U,V$ of the factors supplied by Lemma~\\ref{lem:lift}.",
+    "kind": "ambiguous_statement",
+    "severity": 2,
+    "what_i_needed": "The factors from Lemma lift are over Z/qZ (u_q, v_q with u_q v_q = e), not over F_2. The proof's claim that UV reduces to e mod q is only valid if U, V lift u_q, v_q mod q. The statement should say this explicitly."
+   },
+   {
+    "where": "Section 1 (conventions) and the inversion-unitary remark",
+    "quote": "identifies our integral-matrix convention with right multiplication by $A^*$",
+    "kind": "ambiguous_statement",
+    "severity": 2,
+    "what_i_needed": "An explicit definition of T_A (left multiplication on column vectors, or otherwise) and a check that the spectral measure of T_A^*T_A at the e_i equals the group-ring trace τ_n(log(A^*A)) used in Lemmas logderivative and shears. The unitary-equivalence claim is asserted without proof."
+   },
+   {
+    "where": "Introduction, statement of the target conjecture",
+    "quote": "Thus the unrestricted group-ring Determinant Conjecture has a negative resolution.",
+    "kind": "ambiguous_statement",
+    "severity": 2,
+    "what_i_needed": "The exact statement and hypotheses of the cited Conjecture 13.2 in Lück's book (for example any restriction on G or on the matrix). The paper says 'unrestricted' but never reproduces the version it refutes."
+   },
+   {
+    "where": "Proposition separation (prop:separation), identity coefficient computation, Equation (theta)",
+    "quote": "The coefficient of the identity in their product is therefore the product of the individual identity coefficients.",
+    "kind": "unjustified_step",
+    "severity": 1,
+    "what_i_needed": "The reason this holds: all factors lie in the abelian subgroup ⊕C_3, the coordinate labels are distinct, and so a product of non-identity terms from different coordinates cannot equal 1. The identity coefficient of 1 − p_s = 2/3 also needs [1]p_s = 1/3, which is not written."
+   },
+   {
+    "where": "Lemma lift (lem:lift), proof, corner ring step",
+    "quote": "In the corner ring $e\\Mat_m(\\mathcal R)e$, whose identity is $e$,",
+    "kind": "unjustified_step",
+    "severity": 1,
+    "what_i_needed": "A check that e = P_q is idempotent in (Z/qZ)[G] (from P^2 = P and D invertible mod q). This is needed for eMe to be a ring with identity e, and it is never stated."
+   },
+   {
+    "where": "Lemma integral (lem:integral), proof, 'For general real x' sentence",
+    "quote": "For general real $x$, both $M(x)$ and its inverse lie in the real group ring and depend continuously",
+    "kind": "unjustified_step",
+    "severity": 1,
+    "what_i_needed": "A justification that M(x)^{-1} = R_x^{-1}B^{-1}L_x^{-1} has the stated form and lies in the closure used by Lemma logderivative. Only the inverse at x=1 is written out."
+   },
+   {
+    "where": "Final paragraph of Section 5 (assembly), non-sofic claim",
+    "quote": "Applying the sofic determinant bound of",
+    "kind": "ambiguous_statement",
+    "severity": 1,
+    "what_i_needed": "The precise form of Elek–Szabó Theorem 5 (all square integer matrices, or only some class) and why applying it to A^*A gives a contradiction (det(A^*A) = det(A)^2 < 1). Only the contrapositive is sketched."
+   },
+   {
+    "where": "Introduction, Kammeyer paragraph",
+    "quote": "That discrepancy does not violate the lower bound one.",
+    "kind": "unjustified_step",
+    "severity": 1,
+    "what_i_needed": "An argument for why the limiting-formula discrepancy (determinant 2 versus at most 5^{1/3} along congruence quotients) is unrelated to the lower bound at issue. The sentence is asserted without reasoning."
+   }
+  ]
+ },
+ {
+  "main_result": "The manuscript claims a counterexample to the unrestricted group-ring Determinant Conjecture. It constructs a finitely generated group G_D = (⊕_{h∈H_2} C_3) ⋊ H_2 and a square integer matrix A of size 2d+1 over Z[G_D], invertible over Q[G_D], with Fuglede–Kadison determinant q^{-θ} where q=2^k, θ=(1/3)(2/3)^{|S|}>0, and q≡1 mod D. Hence 0<det<1 and ∫log t dμ_A(t) = -2θ log q/(2d+1) < 0. The construction starts from a cited existence theorem: a finite characteristic-two field K_2 and a finitely generated H_2 with a_2b_2=1≠b_2a_2 in K_2[H_2]. I checked the internal algebra and it holds: the idempotent p, the factorization of its mod-2 reduction through d columns, the Z-lift via the corner geometric series, the block-shear path M(x)=L_xBR_x, and the trace-invariance lemma (derivative of τ log(M*M) equals 2Re τ(M'M^{-1}), which has zero trace in the shear case). The determinant then equals q^{-θ}.",
+  "proof_strategy": "Step 1 (Lemma binary, Prop separation): from the cited a_2,b_2 build binary matrices X,Y over F_2[H_2] with XY=I and C=I−YX a nonzero idempotent with XC=0, CY=0. Pick a nonzero coefficient of C and form the idempotent p = p_1 ∏_{s∈S}(1−p_s) from commuting order-3 coordinate idempotents, so that psp=0 for s∈S, [1]p=θ, and p̄ h_0^{-1}C_ij p̄ = p̄. Step 2 (Lemma lift): mod 2 the factorization P̄=uv through d columns is lifted to Z/2^k by the corner-ring geometric series Q=e+W+…+W^{k−1}, with W nilpotent because its entries are divisible by 2. Step 3 (Lemma integral): the block matrix A with B=diag(qI_r, J) and shears L_x, R_x gives an integral A with rational inverse, whose lower-right block is UV/q+J. Step 4 (Lemmas logderivative and shears, Prop criterion): the trace of log(M*M) is constant along the shear path, so it can be evaluated at x=0 where B*B is diagonal, giving log det = (r−τ_m(P)) log q. Step 5 (assembly): take r=d and τ_{d+1}(P)=d+θ to get log det = −θ log q. The external input is used only to produce the scalar pair.",
+  "hardest_part": "The load-bearing premise is the cited companion theorem (Theorem input): a finite characteristic-two field, a finitely generated group, and a one-sided inverse in K_2[H_2]. The manuscript says it does not execute or verify any explicit instance and that the field is not asserted to be F_2. A one-sided inverse over a finite field would be a serious claim about direct finiteness, and I cannot check it. Separately, I could verify the internal algebra, but the normalization and the definition of T_A (left versus right action, and the inversion-unitary remark) are stated loosely, so the link between the matrix A and the operator whose determinant is computed is the part I trust least.",
+  "issues": [
+   {
+    "where": "Section 1, 'The exact existence input'",
+    "quote": "We use the existence theorem, not an executed numerical instance or a group-word decision procedure.",
+    "kind": "unjustified_step",
+    "severity": 2,
+    "what_i_needed": "The precise statement of the companion Theorem 1.1 and enough of its construction (the field, H_2 and a_2,b_2, or a checkable reduction) to confirm the existence claim. The whole counterexample rests on it, and I cannot verify it from this manuscript."
+   },
+   {
+    "where": "Section 1, inversion-unitary remark after the normalization equation",
+    "quote": "It fixes the identity vectors, and therefore preserves the corresponding positive-square spectral measures.",
+    "kind": "unjustified_step",
+    "severity": 2,
+    "what_i_needed": "Explicit formulas for the operator T_A and for the claimed right-multiplication operator, and a proof that the inversion unitary J satisfies J T_A^*T_A J = (the other operator)^*(the other operator). Fixing δ_1 alone gives equal spectral measures only once that conjugation identity is shown."
+   },
+   {
+    "where": "Section 1, notation for T_A",
+    "quote": "write $T_A$ for its operator on",
+    "kind": "ambiguous_statement",
+    "severity": 2,
+    "what_i_needed": "A precise definition of T_A: left multiplication on column vectors in ℓ²(G)^n via the left regular representation, or some other convention. The determinant in Theorem 1 and Proposition 'criterion' depends on this choice."
+   },
+   {
+    "where": "Section 1, convention for det_N",
+    "quote": "For invertible $T_A$ the determinant convention is",
+    "kind": "ambiguous_statement",
+    "severity": 1,
+    "what_i_needed": "The standard Fuglede–Kadison definition det(T)=exp(τ(log|T|)) with τ the unnormalized trace on M_n(N(G)). The manuscript states the normalization as a convention instead of deriving it, which I could only check by recalling the definition."
+   },
+   {
+    "where": "Lemma binary, proof",
+    "quote": "The coefficient matrices commute with the formal group symbols, so products are preserved.",
+    "kind": "unjustified_step",
+    "severity": 1,
+    "what_i_needed": "The identification of Mat_d(F_2[H]) with Mat_d(F_2)⊗F_2[H] and an explicit check that the coefficientwise map ρ is multiplicative, which needs care because H is nonabelian."
+   },
+   {
+    "where": "Introduction, 'How a binary defect produces a real trace gap'",
+    "quote": "Averaging over the cyclic group at one coordinate and taking complementary averages",
+    "kind": "ambiguous_statement",
+    "severity": 1,
+    "what_i_needed": "A clearer description of what 'complementary averages' means. The actual construction is a product of commuting idempotents p_1∏(1−p_s), and the sentence does not say so."
+   },
+   {
+    "where": "Proposition separation, proof (after the definition of p)",
+    "quote": "This argument does not need disjointness of the two collections of coordinate labels.",
+    "kind": "ambiguous_statement",
+    "severity": 1,
+    "what_i_needed": "Which two collections are meant. The text does say 1∉S, so {1}∪S is a set of distinct labels, and the trace formula Equation (theta) uses exactly that distinctness. The remark about inverse pairs is not explained."
+   },
+   {
+    "where": "Lemma shears vs Proposition separation (notation)",
+    "quote": "Let $S,T$ have respective sizes $m\\times r$ and $r\\times m$ over",
+    "kind": "undefined_notation",
+    "severity": 1,
+    "what_i_needed": "S is used both as a finite subset of H_2∖{1} (Proposition separation) and as a block matrix (Lemma shears); C is the defect matrix I−YX, but also a letter in C[G], C_3 and C_{ij}. A reader must disambiguate by context."
+   },
+   {
+    "where": "Lemma integral (statement and proof)",
+    "quote": "Choose arbitrary integral lifts $U,V$ of the factors supplied by Lemma~\\ref{lem:lift}.",
+    "kind": "ambiguous_statement",
+    "severity": 1,
+    "what_i_needed": "Lemma lift never names the factors. The proof uses that U,V lift the Z/q-factors u_q,v_q (so UV ≡ e mod q), not merely u,v mod 2. This should be stated explicitly."
+   },
+   {
+    "where": "Lemma integral, proof (the path discussion)",
+    "quote": "both $M(x)$ and its inverse lie in the real group ring",
+    "kind": "ambiguous_statement",
+    "severity": 1,
+    "what_i_needed": "The ambient algebra in which the derivative is taken. Lemma logderivative needs a C^1 path in the C*-algebra A_n. The entries of M(x) are polynomials in x over Q[G], invertible because L_x, R_x and B are invertible, and the inverse formula should be displayed."
+   },
+   {
+    "where": "Introduction, Kammeyer paragraph",
+    "quote": "That discrepancy does not violate the lower bound one.",
+    "kind": "unjustified_step",
+    "severity": 1,
+    "what_i_needed": "The reason the cited approximation counterexample is compatible with the lower bound (for instance, that the lower bound concerns only the single matrix and not the limit formula). The text asserts this without argument."
+   },
+   {
+    "where": "Introduction, sofic consequence / concluding remarks",
+    "quote": "Applying the sofic determinant bound of",
+    "kind": "ambiguous_statement",
+    "severity": 1,
+    "what_i_needed": "The exact form of the Elek–Szabó bound (for all square integer matrices, or only for those with nonzero determinant or positive entries) and why it applies to the positive matrix A*A, whose determinant is det(A)^2<1."
+   }
+  ]
+ }
+]

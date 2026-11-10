@@ -1,0 +1,6 @@
+[
+ {
+  "find": "Let $Q=E+W+\\cdots+W^{k-1}$ (so $Q=E$ if $k=1$).",
+  "replace": "Let $Q=E+W+\\cdots+W^{k-2}$ (so $Q=E$ if $k=2$)."
+ }
+]

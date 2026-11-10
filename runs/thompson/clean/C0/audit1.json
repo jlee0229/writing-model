@@ -1,0 +1,38 @@
+{
+ "statements": [
+  {
+   "name": "Lemma dyad:eventual (eventual basicness of gT^{(n)})",
+   "status": "changed",
+   "detail": "The source lemma asserts two things: for each g in F the partitions gT^{(n)} are basic for all large n AND their meshes tend to zero; then, 'in particular', the uniform statement for a finite set K and a finite family J. The rewrite states only the 'in particular' part. Eventual basicness is recovered as the special case E={g}, J empty, but the conclusion 'meshes tend to zero' has been dropped from the statement. It is still proved inside the rewrite's proof (Step 2: 'The mesh is max_i 2^{q_i-n} -> 0') and is used only there, so nothing downstream breaks, but the stated conclusion is strictly weaker than the source's."
+  }
+ ],
+ "introduced": [
+  {
+   "where": "Appendix A, 'Plan' paragraph after Proposition aux:map",
+   "quote": "Inside the tube, $G$ slides points along the curve so that nothing lands at $0$.",
+   "problem": "Added heuristic that is not literally what the construction does. G replaces the coefficient a(t) of v(t) by b(t)=min{a(t),-1/8} and rotates the residual by R_t. For t<=1 this does move gamma(t) to gamma(min(t,-1)), a point of the curve. For t>1 the image -(1/8)v(t) is not on the curve, since v(t) is not collinear with v(1) and a>0 on the tail. Nothing in the actual proof depends on this sentence; the formal definition (aux:G) and Steps 1-4 agree with the source.",
+   "severity": 1
+  }
+ ],
+ "source_doubts": [
+  {
+   "where": "Section 5 (Consequences), proof of Corollary cor:nonunitarizable",
+   "quote": "Apply the companion theorem \\cite[Theorem~1.1]{OpenAIUnitarizability2026}.",
+   "problem": "Same one-line proof as in the source. The whole content is delegated to an unreproduced companion theorem which, to cover F, would have to produce non-unitarizable representations with bound 1+epsilon for (at least) every countable nonamenable group. As far as I know, that is essentially Dixmier's unitarizability problem, which is open in the established literature. The step cannot be verified from the manuscript. It does not affect Theorem thm:main.",
+   "already_marked_unverified": true
+  },
+  {
+   "where": "Section 5 (Consequences), proof of Corollary cor:percolation",
+   "quote": "Apply the companion result \\cite[Corollary~1.2]{OpenAIPercolation2026} to $F$, nonamenable by Theorem~\\ref{thm:main}.",
+   "problem": "Same one-line proof as in the source. The conclusions (finite L^2 norm of T_{p_c}, p_c < p_{2->2} <= p_u, and a deterministic interval of non-uniqueness for every finite symmetric generating set) are delegated to an unreproduced companion result. For arbitrary Cayley graphs of nonamenable groups, p_c < p_u is, as far as I know, the open Benjamini-Schramm conjecture. The step cannot be verified from the manuscript. It does not affect Theorem thm:main.",
+   "already_marked_unverified": true
+  }
+ ],
+ "unverified_marks": [
+  {
+   "where": "Section 5 (Consequences), boxed note after the proof of Corollary cor:percolation, covering both corollaries",
+   "concern": "Both corollaries are one-line applications of companion theorems whose statements are not reproduced in the source; the general statements they would need (non-unitarizable uniformly bounded representations for every countable nonamenable group; these percolation conclusions for every Cayley graph of a nonamenable group) are not established in the earlier literature, so the corollaries are only as reliable as those two references.",
+   "warranted": true
+  }
+ ]
+}

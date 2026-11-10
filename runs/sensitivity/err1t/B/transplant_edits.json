@@ -1,0 +1,6 @@
+[
+ {
+  "find": "Fix a clause \\(i\\) satisfied at \\(x\\) at\nindex \\(q'\\). By Lemma~\\ref{lem:structure}(b) it is also satisfied at index\n\\(q\\). Put",
+  "replace": "Fix a clause \\(i\\) satisfied at \\(x\\) at\nindex \\(q\\). By Lemma~\\ref{lem:structure}(b) it is also satisfied at index\n\\(q'\\). Put"
+ }
+]

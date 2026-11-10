@@ -1,0 +1,6 @@
+[
+ {
+  "find": "so some strong component $K$ has no arc leaving it.",
+  "replace": "so some strong component $K$ has no arc entering it."
+ }
+]

@@ -1,0 +1,25 @@
+{
+ "statements": [],
+ "introduced": [],
+ "source_doubts": [
+  {
+   "where": "Proof of Corollary (uniformly bounded representations), Section 'Consequences'",
+   "quote": "The conclusion follows from the companion unitarizability theorem \\cite[Theorem~1.1]{OpenAIUnitarizability2026}.",
+   "problem": "The whole proof is a citation to a companion paper whose statement is not reproduced. For the corollary to follow, that theorem must say every countable nonamenable group has, for each ε>0, a non-unitarizable representation with bound 1+ε. That is essentially a resolution of Dixmier's unitarizability problem, which cannot be checked from the manuscript. The rewrite keeps this step unchanged, as the source has it.",
+   "already_marked_unverified": true
+  },
+  {
+   "where": "Proof of Corollary (percolation on Cayley graphs), Section 'Consequences'",
+   "quote": "Apply the companion percolation result \\cite[Corollary~1.2]{OpenAIPercolation2026} to \\(F\\), which is nonamenable by \\cref{thm:main}.",
+   "problem": "The proof is a bare citation to a companion result that would have to give p_c < p_{2→2} ≤ p_u, boundedness of the connection operator at p_c, and non-uniqueness for every Cayley graph of every finitely generated nonamenable group. That is a Benjamini–Schramm-type statement of great strength, and it is not stated or verifiable in the manuscript. The rewrite keeps this step unchanged, as the source has it.",
+   "already_marked_unverified": true
+  }
+ ],
+ "unverified_marks": [
+  {
+   "where": "Boxed note at the end of Section 'Consequences', after the proof of the percolation corollary",
+   "concern": "Both corollaries are proved only by citing companion papers. The source does not reproduce the cited statements, so it cannot be confirmed that they give a non-unitarizable representation for every countable nonamenable group and the percolation conclusions for every Cayley graph of a finitely generated nonamenable group. The corollaries should be read as conditional on those papers.",
+   "warranted": true
+  }
+ ]
+}

@@ -1,0 +1,138 @@
+\begin{thebibliography}{10}
+
+\bibitem{Akhmedov2021}
+Azer Akhmedov.
+\newblock Non-amenability of {R. Thompson}'s group {$F$}.
+\newblock \href{https://arxiv.org/abs/1310.4395v3}{arXiv:1310.4395v3}, 2021.
+
+\bibitem{BenyaminiSternfeld1983}
+Y.~Benyamini and Y.~Sternfeld.
+\newblock Spheres in infinite-dimensional normed spaces are {Lipschitz}
+  contractible.
+\newblock {\em Proceedings of the American Mathematical Society},
+  88(3):439--445, July 1983.
+\newblock
+  \href{https://doi.org/10.1090/S0002-9939-1983-0699410-7}{doi:10.1090/S0002-9939-1983-0699410-7}.
+
+\bibitem{BrinSquier1985}
+Matthew~G. Brin and Craig~C. Squier.
+\newblock Groups of piecewise linear homeomorphisms of the real line.
+\newblock {\em Inventiones Mathematicae}, 79(3):485--498, 1985.
+\newblock \href{https://doi.org/10.1007/BF01388519}{doi:10.1007/BF01388519}.
+
+\bibitem{BrownGeoghegan1984}
+Kenneth~S. Brown and Ross Geoghegan.
+\newblock An infinite-dimensional torsion-free {$\mathrm{FP}_{\infty}$} group.
+\newblock {\em Inventiones Mathematicae}, 77(2):367--381, 1984.
+\newblock \href{https://doi.org/10.1007/BF01388451}{doi:10.1007/BF01388451}.
+
+\bibitem{CannonFloydParry1996}
+J.~W. Cannon, W.~J. Floyd, and W.~R. Parry.
+\newblock Introductory notes on {Richard Thompson}'s groups.
+\newblock {\em L'Enseignement Math\'ematique (2)}, 42(3--4):215--256, 1996.
+\newblock
+  \href{https://www.imo.universite-paris-saclay.fr/~emmanuel.breuillard/Cannon.pdf}{Primary
+  article scan}.
+
+\bibitem{Day1957}
+Mahlon~M. Day.
+\newblock Amenable semigroups.
+\newblock {\em Illinois Journal of Mathematics}, 1(4):509--544, 1957.
+\newblock
+  \href{https://doi.org/10.1215/ijm/1255380675}{doi:10.1215/ijm/1255380675}.
+
+\bibitem{Folner1955}
+Erling F{\o}lner.
+\newblock On groups with full {Banach} mean value.
+\newblock {\em Mathematica Scandinavica}, 3:243--254, 1955.
+\newblock
+  \href{https://doi.org/10.7146/math.scand.a-10442}{doi:10.7146/math.scand.a-10442}.
+
+\bibitem{Guba2025Density}
+Victor Guba.
+\newblock Cayley graphs of {R. Thompson}'s group {$F$}: New estimates for the
+  density.
+\newblock {\em Journal of Combinatorial Algebra}, 9(1/2):145--168, 2025.
+\newblock \href{https://doi.org/10.4171/JCA/110}{doi:10.4171/JCA/110}.
+
+\bibitem{Guba2026}
+Victor Guba.
+\newblock On zero-measured subsets of {Thompson}'s group {$F$}.
+\newblock {\em Journal of Algebra}, 692:106--122, April 2026.
+\newblock
+  \href{https://doi.org/10.1016/j.jalgebra.2025.12.006}{doi:10.1016/j.jalgebra.2025.12.006}.
+
+\bibitem{HaagerupOlesen2017}
+Uffe Haagerup and Kristian~Knudsen Olesen.
+\newblock Non-inner amenability of the {Thompson} groups {$T$} and {$V$}.
+\newblock {\em Journal of Functional Analysis}, 272(11):4838--4852, 2017.
+\newblock
+  \href{https://doi.org/10.1016/j.jfa.2017.02.003}{doi:10.1016/j.jfa.2017.02.003}.
+
+\bibitem{McKenzieThompson1973}
+Ralph McKenzie and Richard~J. Thompson.
+\newblock An elementary construction of unsolvable word problems in group
+  theory.
+\newblock In W.~W. Boone, F.~B. Cannonito, and R.~C. Lyndon, editors, {\em Word
+  Problems: Decision Problems and the {Burnside} Problem in Group Theory},
+  volume~71 of {\em Studies in Logic and the Foundations of Mathematics}, pages
+  457--478. North-Holland, Amsterdam, 1973.
+\newblock
+  \href{https://doi.org/10.1016/S0049-237X(08)71914-1}{doi:10.1016/S0049-237X(08)71914-1}.
+
+\bibitem{Moore2011Critique}
+Justin~Tatch Moore.
+\newblock A note on {Shavgulidze}'s papers concerning the amenability problem
+  for {Thompson}'s group {$F$}.
+\newblock \href{https://arxiv.org/abs/1102.0747v2}{arXiv:1102.0747v2}, 2011.
+
+\bibitem{Moore2012Withdrawn}
+Justin~Tatch Moore.
+\newblock Nonassociative {Ramsey} theory and the amenability of {Thompson}'s
+  group.
+\newblock \href{https://arxiv.org/abs/1209.2063v4}{arXiv:1209.2063v4}, 2012.
+\newblock Withdrawn.
+
+\bibitem{Moore2013}
+Justin~Tatch Moore.
+\newblock Amenability and {Ramsey} theory.
+\newblock {\em Fundamenta Mathematicae}, 220(3):263--280, 2013.
+\newblock \href{https://doi.org/10.4064/fm220-3-6}{doi:10.4064/fm220-3-6}.
+
+\bibitem{MooreFolner2013}
+Justin~Tatch Moore.
+\newblock Fast growth in the {F\o lner} function for {Thompson}'s group {$F$}.
+\newblock {\em Groups, Geometry, and Dynamics}, 7(3):633--651, 2013.
+\newblock \href{https://doi.org/10.4171/GGD/201}{doi:10.4171/GGD/201}.
+
+\bibitem{OpenAIPercolation2026}
+{OpenAI}.
+\newblock {Nonuniqueness of percolation on nonamenable quasi-transitive
+  graphs}.
+\newblock OpenAI Math Release preprint
+  \href{https://github.com/openai/math/blob/main/preprints/Nonuniqueness-of-percolation-on-nonamenable-quasi-transitive-graphs-September-24-2026/paper.pdf}{OAI:Nonuniqueness-of-percolation-on-nonamenable-quasi-transitive-graphs-September-24-2026},
+  2026.
+\newblock Corollary~1.2.
+
+\bibitem{OpenAIUnitarizability2026}
+{OpenAI}.
+\newblock {Unitarizability implies amenability for discrete groups}.
+\newblock OpenAI Math Release preprint
+  \href{https://github.com/openai/math/blob/main/preprints/Unitarizability-Implies-Amenability-for-Countable-Groups-September-23-2026/paper.pdf}{OAI:Unitarizability-Implies-Amenability-for-Countable-Groups-September-23-2026},
+  2026.
+\newblock Theorem~1.1.
+
+\bibitem{Shavgulidze2009}
+E.~T. Shavgulidze.
+\newblock About amenability of subgroups of the group of diffeomorphisms of the
+  interval.
+\newblock \href{https://arxiv.org/abs/0906.0107v1}{arXiv:0906.0107v1}, 2009.
+
+\bibitem{vonNeumann1929}
+John von Neumann.
+\newblock Zur allgemeinen {Theorie} des {Masses}.
+\newblock {\em Fundamenta Mathematicae}, 13:73--116, 1929.
+\newblock
+  \href{https://doi.org/10.4064/fm-13-1-73-116}{doi:10.4064/fm-13-1-73-116}.
+
+\end{thebibliography}

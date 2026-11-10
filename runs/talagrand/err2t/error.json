@@ -1,0 +1,25 @@
+{
+ "where": "Lemma 2.1 (covering lemma), parameter choice and 'Sampled pairs' cost bound (eq. covering-pair-cost)",
+ "kind": "Parameter rebalanced without rechecking a dependent inequality (a factor is dropped in the pair-cost estimate)",
+ "explanation": "The sampling probability is now pi=2^{-6h}. The residual condition still holds (pi*m=2^{6h} is much larger than 18h^2), and the text is updated to match. But the expected cost of sampled pairs is unchanged in the text, which still claims pi|H'|rho^r 2^r T <= 2^{r+1-3h} <= 2^{1-2h}. With |H'|rho^r <= 2^{h+1}, 2^r and T=2^{4h}, the left side is actually 2^{-6h}*2^{h+1}*2^r*2^{4h} = 2^{r+1-h}. For r close to h this is about 2, so E[c_rho(C_1)] is not O(2^{-2h}). The final bound E[c_rho(G)] <= 3*2^{-h} in the lemma statement fails.",
+ "correct_version": "pi = 2^{-8h}, so that pi|H'|rho^r 2^r T <= 2^{-8h}2^{h+1}2^r2^{4h} = 2^{r+1-3h} <= 2^{1-2h}, and pi*m = 2^{4h} >= 18h^2.",
+ "edits": [
+  {
+   "find": "T=2^{4h},\\qquad \\pi=2^{-8h}.",
+   "replace": "T=2^{4h},\\qquad \\pi=2^{-6h}."
+  },
+  {
+   "find": "makes \\(\\pi m=2^{4h}\\)",
+   "replace": "makes \\(\\pi m=2^{6h}\\)"
+  },
+  {
+   "find": "\\le18\\cdot2^{2h}\\le2^{4h}=\\pi m.",
+   "replace": "\\le18\\cdot2^{2h}\\le2^{6h}=\\pi m."
+  }
+ ],
+ "validation": {
+  "verdict": "real_error",
+  "subtlety": 3,
+  "reason": "With π=2^{-6h}, the sampled-pair cost bound in (covering-pair-cost) no longer follows. Using |H'|ρ^r ≤ 2^{h+1}, the factor 2^r and T=2^{4h}, one gets π|H'|ρ^r 2^r T ≤ 2^{-6h}·2^{h+1}·2^r·2^{4h} = 2^{r+1-h}, not the claimed 2^{r+1-3h} ≤ 2^{1-2h}. For r close to h this bound is about 2, so the stated E[c_ρ(C_1)] ≤ 2^{1-2h} and the final total 3·2^{-h} are unsupported. The residual-cost step is still fine (πm=2^{6h} ≥ 18h^2) and the text was updated consistently there, so the error only shows when the reader recomputes the exponents in the unchanged pair-cost line."
+ }
+}

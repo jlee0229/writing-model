@@ -1,0 +1,25 @@
+{
+ "slug": "groupring",
+ "variant": "clean",
+ "arm": "L",
+ "source_words": 3617,
+ "stuck_load_source": 14.666666666666666,
+ "stuck_load_draft1": 14.666666666666666,
+ "repaired": true,
+ "compiles": true,
+ "rewrite_words": 8261,
+ "length_ratio": 2.28,
+ "unverified_marks": 1,
+ "audit1": {
+  "statements": 0,
+  "introduced": 0,
+  "source_doubts": 1,
+  "unverified_marks": 0
+ },
+ "final_audit": {
+  "statements": 0,
+  "introduced": 0,
+  "source_doubts": 1,
+  "unverified_marks": 1
+ }
+}

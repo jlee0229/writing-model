@@ -1,0 +1,19 @@
+{
+ "statements": [],
+ "introduced": [],
+ "source_doubts": [
+  {
+   "where": "Proof of Lemma (differential injectivity), Step 1 in the rewrite; the corresponding sentence in the source's proof of Lemma 2",
+   "quote": "monomials are orthonormal, $\\|X^\\alpha\\|^2=1$",
+   "problem": "With orthonormal monomials, differentiation by a coordinate is not adjoint to multiplication by it: <d/dX (X^2), X> = 2 but <X^2, X*X> = 1. So the source's claims D* = E and ||Dh||^2 - ||Eh||^2 = (p-q)||h||^2 fail under the stated normalization (h = U_1^2 gives 4 on the left and 2 on the right). The Fischer/apolar inner product actually has ||X^alpha||^2 = alpha!. With that normalization the adjointness, the commutator identity and the norm identity all hold, so the lemma and everything downstream are unaffected. The rewrite quotes the source's normalization, flags it, and carries out the proof with alpha!; I checked its Steps 2-5 and they are correct.",
+   "already_marked_unverified": true
+  }
+ ],
+ "unverified_marks": [
+  {
+   "where": "Proof of Lemma (differential injectivity), Step 1",
+   "concern": "The source's normalization ||X^alpha||^2 = 1 does not make differentiation adjoint to multiplication, so the norm identity fails as written; the standard Fischer normalization ||X^alpha||^2 = alpha! repairs it without changing the lemma.",
+   "warranted": true
+  }
+ ]
+}

@@ -1,0 +1,19 @@
+{
+ "statements": [],
+ "introduced": [],
+ "source_doubts": [
+  {
+   "where": "Proof of Proposition 3 (product identity), final displayed computation; reproduced in the rewrite's Proposition (product), Step 6",
+   "quote": "R_{r+s}(A\\times B) &=\\frac{|B|^s|A|^r|\\Pi A||\\Pi B|}{(|A||B|)^{r+s-1}}",
+   "problem": "The exponents r and s in the numerator are interchanged. Since |B|ΠA lies in R^r and |A|ΠB lies in R^s, the volume of (|B|ΠA)×(|A|ΠB) is |B|^r|A|^s|ΠA||ΠB|. As printed, the first line simplifies to |ΠA||ΠB|/(|A|^{s-1}|B|^{r-1}), which equals the second line only when r=s or |A|=|B|. The second line and the multiplicativity identity are correct, so the proposition, the theorem (r=s=10) and the corollary are unaffected. The rewrite reproduces the display, boxes it, and supplies the corrected computation.",
+   "already_marked_unverified": true
+  }
+ ],
+ "unverified_marks": [
+  {
+   "where": "Proposition (product identity), Step 6, boxed note after the source's displayed volume computation",
+   "concern": "The source's numerator |B|^s|A|^r|ΠA||ΠB| does not match the product formula; it should be |B|^r|A|^s|ΠA||ΠB|. The rewrite calls this a transposition slip that leaves the second line and the multiplicativity identity correct.",
+   "warranted": true
+  }
+ ]
+}

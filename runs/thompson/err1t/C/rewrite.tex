@@ -1,0 +1,936 @@
+\documentclass[11pt]{article}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{amsmath,amssymb,amsthm,mathtools}
+\usepackage[letterpaper,margin=1in]{geometry}
+\usepackage{microtype}
+\usepackage{enumitem}
+\usepackage{booktabs}
+\usepackage{graphicx}
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta,calc,positioning}
+\usepackage{xcolor}
+\definecolor{linkblue}{HTML}{23527C}
+\definecolor{parentblue}{HTML}{28698D}
+\definecolor{childorange}{HTML}{B76223}
+\usepackage[colorlinks=true,linkcolor=linkblue,citecolor=linkblue,urlcolor=linkblue]{hyperref}
+\usepackage[capitalise,noabbrev]{cleveref}
+\hypersetup{pdftitle={Thompson's group F is nonamenable}}
+
+\newcommand{\R}{\mathbb R}
+\newcommand{\N}{\mathbb N}
+\newcommand{\Z}{\mathbb Z}
+\newcommand{\norm}[1]{\lVert #1\rVert}
+\newcommand{\ip}[2]{\langle #1,#2\rangle}
+\newcommand{\id}{\mathrm{id}}
+\DeclareMathOperator{\Lip}{Lip}
+\DeclareMathOperator{\dist}{dist}
+\DeclareMathOperator{\sinc}{sinc}
+\newcommand{\unverified}[1]{\par\smallskip\noindent\fbox{\parbox{0.95\linewidth}{\textbf{Unverified step.} #1}}\par\smallskip}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{remark}[theorem]{Remark}
+\numberwithin{equation}{section}
+\setlist[itemize]{topsep=4pt,itemsep=2pt,parsep=0pt}
+\setlist[enumerate]{topsep=4pt,itemsep=2pt,parsep=0pt}
+\setlength{\emergencystretch}{2em}
+
+\title{Thompson's group \(F\) is nonamenable}
+\author{Rewritten for readability from the OpenAI manuscript of the same title}
+\date{}
+
+\begin{document}
+\maketitle
+\begin{abstract}
+We prove that Thompson's group \(F\) is nonamenable. This confirms
+Geoghegan's conjecture and resolves the amenability problem for \(F\).
+\end{abstract}
+
+\section{The result and the plan of proof}\label{sec:introduction}
+
+\subsection{Statement}
+
+Thompson's group $F$ consists of the increasing piecewise linear
+homeomorphisms of $[0,1]$ with finitely many pieces, dyadic rational
+breakpoints, and slopes in $2^{\Z}$. Products are compositions,
+$hg=h\circ g$, and $F$ is regarded as a discrete group.
+
+A discrete group $\Lambda$ is \emph{amenable} if there is a linear
+functional $\mu:\ell^\infty(\Lambda;\R)\to\R$ with $\mu(1)=1$,
+$\mu(\varphi)\ge0$ whenever $\varphi\ge0$, and
+$\mu(g\mapsto\varphi(hg))=\mu(\varphi)$ for every $h\in\Lambda$
+\cite{vonNeumann1929,Day1957}. We use only the forward implication of
+the F\o lner criterion \cite{Folner1955}: if $\Lambda$ is amenable, then
+for every finite $S\subset\Lambda$ and every $\varepsilon>0$ there is a
+nonempty finite $A\subset\Lambda$ with
+\begin{equation}\label{eq:folner}
+  \frac{|hA\mathbin{\triangle}A|}{|A|}<\varepsilon\qquad(h\in S).
+\end{equation}
+(The left-translation formulation in \cite[Theorem~1.2]{Moore2013}
+bounds the sum of these ratios and hence implies each strict individual
+bound by taking a smaller tolerance.)
+
+\begin{theorem}\label{thm:main}
+Thompson's group \(F\) is not amenable.
+\end{theorem}
+
+The only other outside input is the following.
+
+\begin{lemma}[Benyamini--Sternfeld]\label{lem:displacement}
+There are a real Hilbert space \(H\), a Lipschitz map \(f:B\to B\) on its
+closed unit ball, and a constant \(\delta>0\) such that
+\(\norm{f(x)-x}\ge\delta\) for all \(x\in B\).
+\end{lemma}
+
+Benyamini and Sternfeld prove this for every infinite-dimensional normed
+space \cite[Theorem, part~(3), p.~439]{BenyaminiSternfeld1983}.
+Appendix~\ref{app:auxiliary} gives a self-contained construction on
+$L^2([0,1];\R^2)$ with $\delta=1/2$. In finite dimensions the lemma is
+false (Brouwer), so the infinite-dimensional space is essential.
+
+\paragraph{Context.}
+Thompson introduced $F$ in 1965; an early published construction is in
+\cite{McKenzieThompson1973}, with the identification explained in
+\cite[pp.~215--216]{CannonFloydParry1996}. Geoghegan's 1979 conjecture
+that $F$ is nonamenable is recorded in
+\cite[p.~227]{CannonFloydParry1996}. The problem is delicate because $F$
+has no nonabelian free subgroup \cite[Theorem~3.1]{BrinSquier1985} yet is
+not elementary amenable \cite[Theorem~4.10]{CannonFloydParry1996}; it
+also has a classifying space with finitely many cells in each dimension
+\cite{BrownGeoghegan1984}. Earlier constraints on amenability come from
+sizes of F\o lner sets \cite[Theorem~1.1]{MooreFolner2013}, a convex
+Ramsey characterization for binary trees \cite[Theorem~3.1]{Moore2013},
+densities and diagram classes \cite{Guba2025Density,Guba2026}, and the
+reduced $C^*$-algebra of Thompson's group $T$
+\cite[Theorem~5.5]{HaagerupOlesen2017}. Earlier claimed resolutions:
+nonamenability \cite{Akhmedov2021}; amenability \cite{Shavgulidze2009},
+with errors identified in \cite{Moore2011Critique}; and a withdrawn
+amenability claim \cite{Moore2012Withdrawn} (a different work from
+\cite{Moore2013}). None of this is used below.
+
+\subsection{Proof at a glance}
+
+Fix $f$, a Lipschitz constant $L$ and $\delta$ from
+Lemma~\ref{lem:displacement}, and an integer $D>4L^2/\delta^2$.
+
+\emph{Objects.} A basic interval is $[k2^{-r},(k+1)2^{-r}]$; a basic
+partition is a finite partition of $[0,1]$ into basic intervals. Fix
+$D$ basic intervals $I_1<\dots<I_D$ (``parents'') with gaps between
+them and endpoints in $(0,1)$, and inside each parent $I_i$ the affine
+copies $I_i\cdot I_j$ of all parents (``children''). Every basic
+partition $T$ gets a \emph{color} $p(T)\in B$ by recursion on the number
+of cells: if every parent is a union of cells of $T$, then $p(T)$ is
+$f$ applied to the mean of the colors of the $D$ partitions obtained by
+restricting $T$ to a parent and rescaling to $[0,1]$; otherwise
+$p(T)=0$. For $g\in F$ and $n$ large, the image $gT^{(n)}$ of the uniform
+partition of mesh $2^{-n}$ is basic, and $X_I(g)\in B$ denotes the color
+of its rescaled restriction to $I$.
+
+\emph{Key idea.} These vectors have two exact properties:
+\begin{enumerate}[label=(\alph*)]
+\item \emph{Recursion:} $X_{I_i}(g)=f(z_i(g))$, where
+$z_i(g)=\frac1D\sum_jX_{I_i\cdot I_j}(g)$.
+\item \emph{Transport:} for intervals $I<J$ of the family some
+$h_{I,J}\in F$ maps $I,J$ affinely onto $I_1,I_2$, and then
+$X_I(g)=X_{I_1}(h_{I,J}g)$, $X_J(g)=X_{I_2}(h_{I,J}g)$.
+\end{enumerate}
+Let $S$ be the finite set of all $h_{I,J}$; it is fixed before any
+finite set $A\subset F$ is considered. Put
+$\eta=\max_{h\in S}|hA\triangle A|/|A|$. By (b), the $A$-average of
+$\ip{X_I}{X_J}$ is within $\eta$ of one number $\alpha$ for \emph{all}
+separated pairs. Expanding the $A$-average of $\norm{z_i-m}^2$, where
+$m=\frac1D\sum_kX_{I_k}$, the $\alpha$'s cancel and the non-separated
+pairs form a fraction $1/D$ of the terms, so it is at most $4/D+4\eta$.
+By (a), $m$ is the mean of the $f(z_i)$, so $\norm{m-f(m)}^2\le
+\frac{L^2}D\sum_i\norm{z_i-m}^2$. Averaging,
+$\delta^2\le L^2(4/D+4\eta)$: a positive lower bound for $\eta$
+independent of $A$, contradicting \eqref{eq:folner}.
+
+\emph{Dependencies.}
+\begin{itemize}
+\item \S\ref{sec:dyadic}: restriction composes \eqref{dyad:restriction};
+fine images are basic (Lemma~\ref{dyad:eventual}); pair transport
+(Lemma~\ref{dyad:transport}); covariance \eqref{dyad:covariance}.
+\item \S\ref{sec:coloring}: the coloring, using $f$.
+\item \S\ref{sec:boundary}: Proposition~\ref{avg:boundary} (the bound on
+$\eta$). Property (b) uses Lemmas~\ref{dyad:eventual},
+\ref{dyad:transport} and \eqref{dyad:covariance}; (a) uses
+\eqref{dyad:restriction}; the contradiction uses
+Lemma~\ref{lem:displacement}.
+Theorem~\ref{thm:main} follows from Proposition~\ref{avg:boundary} and
+\eqref{eq:folner}.
+\item Appendix~\ref{app:auxiliary} proves Lemma~\ref{lem:displacement};
+\S\ref{sec:consequences} (consequences) is not used in the proof.
+\end{itemize}
+
+\emph{Renamed symbols.} The source reuses several letters. Here the
+generic group is $\Lambda$ and its mean $\mu$; in
+\S\ref{sec:consequences} the generating set is $\Sigma$, the Hilbert
+space $\mathcal K$, the conjugating operator $V$, the connection kernel
+$\mathcal T_p$; in the appendix $\Lip(\gamma')$ is $K_\gamma$ and the
+rotated field $Jv$ is written $v^\perp$.
+
+\section{Recursive colors and finite averages}\label{sec:proof}
+
+\subsection{Dyadic partitions and affine transport}\label{sec:dyadic}
+
+We use the standard dyadic-partition model of $F$
+\cite[Section~2, Lemma~2.2]{CannonFloydParry1996}.
+
+A \emph{basic interval} is $[k2^{-r},(k+1)2^{-r}]$ with integers
+$r\ge0$, $0\le k<2^r$. A \emph{basic partition} is a finite set of basic
+intervals (its \emph{cells}) covering $[0,1]$ with pairwise disjoint
+interiors; its \emph{mesh} is the largest cell length. A partition $T$
+\emph{respects} an interval $I$ if $I$ is a union of cells of $T$. We
+use the standard fact that two basic intervals whose interiors meet are
+nested (dyadic intervals form a binary tree under inclusion).
+
+For a basic interval $I=[a2^{-r},(a+1)2^{-r}]$ let
+$s_I(x)=2^{-r}(x+a)$, the increasing affine bijection $[0,1]\to I$, and
+write $I\cdot J=s_I(J)$. If $T$ respects $I$, its \emph{normalized
+restriction} is
+\[
+  T_I=\{s_I^{-1}(C):C\in T,\ C\subseteq I\}.
+\]
+
+\emph{Basicness.} $s_I$ maps $[b2^{-t},(b+1)2^{-t}]$ onto
+$[(a2^t+b)2^{-(r+t)},(a2^t+b+1)2^{-(r+t)}]$, so $I\cdot J$ is basic. A
+basic $C\subseteq I$ is $[k2^{-s},(k+1)2^{-s}]$ with $s\ge r$, and
+$s_I^{-1}(C)$ has left endpoint $(k-a2^{s-r})2^{-(s-r)}$ and length
+$2^{-(s-r)}$, so it is basic. Hence $T_I$ is a basic partition.
+
+\emph{Restriction composes.} Both $s_{I\cdot J}$ and $s_I\circ s_J$ are
+the increasing affine bijection $[0,1]\to I\cdot J$, hence equal.
+Suppose $T$ respects $I$. Applying $s_I$ shows that $J$ is a union of
+cells $s_I^{-1}(C)$ of $T_I$ exactly when $I\cdot J$ is a union of cells
+$C$ of $T$. Thus $T_I$ respects $J$ if and only if $T$ respects
+$I\cdot J$, and then
+\begin{equation}\label{dyad:restriction}
+  (T_I)_J=\{s_J^{-1}s_I^{-1}(C):C\in T,\ C\subseteq I\cdot J\}=T_{I\cdot J}.
+\end{equation}
+
+Let $T^{(n)}$ be the uniform partition into intervals of length
+$2^{-n}$, and for $g\in F$ let $gT^{(n)}$ be the set of images of its
+cells.
+
+\begin{lemma}\label{dyad:eventual}
+For each $g\in F$, the partitions $gT^{(n)}$ are basic for all
+sufficiently large $n$, and their meshes tend to zero. In particular,
+given a finite set $K\subset F$ and a finite family $\mathcal J$ of
+basic intervals, there is an $n_0$ such that $gT^{(n)}$ is basic and
+respects every member of $\mathcal J$ whenever $g\in K$ and $n\geq n_0$.
+\end{lemma}
+
+This lemma lets one level $n$ serve all finitely many group elements in
+Proposition~\ref{avg:boundary}.
+
+\begin{proof}
+\emph{Step 1.} Every linear piece of $g$ is $x\mapsto2^qx+b$ with
+$q\in\Z$ and $b$ dyadic: starting from $g(0)=0$, the image of each
+breakpoint is a sum of increments (power of two times dyadic length),
+hence dyadic.
+
+\emph{Step 2.} Write $b=c2^{-N}$ with $c\in\Z$, $N\ge0$. Let $n$ be so
+large that all breakpoints are multiples of $2^{-n}$ and $n\ge q+N$ on
+every piece. Each cell $[k2^{-n},(k+1)2^{-n}]$ then lies in one piece
+and its image is
+$[(k+c2^{n-q-N})2^{q-n},(k+c2^{n-q-N}+1)2^{q-n}]\subseteq[0,1]$, a basic
+interval of length $2^{q-n}$. So $gT^{(n)}$ is basic with mesh at most
+$2^{q_{\max}-n}\to0$.
+
+\emph{Step 3.} A basic partition with mesh smaller than the length of a
+basic interval $I$ respects $I$: every cell whose interior meets that of
+$I$ is nested with $I$ and, being shorter, lies in $I$; these cells
+cover $I$.
+
+\emph{Step 4.} Apply Step 3 to each member of $\mathcal J$ and take the
+largest of the finitely many thresholds over $g\in K$.
+\end{proof}
+
+Write $I<J$ when $\max I<\min J$ (a positive gap is required). An
+interval is \emph{internal} if both endpoints lie in $(0,1)$.
+
+\begin{lemma}\label{dyad:transport}
+If $I<J$ and $I'<J'$ are pairs of internal basic intervals, there is
+an $h\in F$ whose restrictions carry $I$ affinely onto $I'$ and $J$
+affinely onto $J'$.
+\end{lemma}
+
+This lemma supplies the finite set $S$ in \S\ref{sec:boundary}.
+
+\begin{proof}
+\emph{Step 1.} The complement of $I\cup J$ consists of three gaps
+$[0,\min I]$, $[\max I,\min J]$, $[\max J,1]$, each of positive length
+(internal, $I<J$) with dyadic endpoints; likewise for $I',J'$.
+
+\emph{Step 2.} Cut each of the six gaps into basic intervals, e.g.\ the
+cells of a sufficiently fine uniform dyadic grid.
+
+\emph{Step 3.} Bisecting a basic interval gives two basic intervals and
+raises the count by one. Bisecting on the side with fewer cells, make
+the three source gaps together and the three target gaps together have
+equally many cells in total.
+
+\emph{Step 4.} Now $[0,1]$ is cut on both sides into the same number of
+basic intervals, with $I,J$ in the same positions as $I',J'$. Let $h$
+map each source interval affinely and increasingly onto the
+corresponding target interval. Adjacent pieces agree at shared
+endpoints, so $h$ is an increasing homeomorphism of $[0,1]$; its
+breakpoints are dyadic and each slope is a ratio of two basic lengths,
+a power of two. Hence $h\in F$, and it is affine from $I$ onto $I'$ and
+from $J$ onto $J'$.
+\end{proof}
+
+\emph{Covariance.} Let $h\in F$ satisfy $h(I)=I'$ with $h|_I$ affine.
+Then $h\circ s_I=s_{I'}$ (both are the increasing affine bijection
+$[0,1]\to I'$). If $gT^{(n)}$ and $(hg)T^{(n)}$ are basic and respect
+$I$ and $I'$ respectively, then
+\begin{equation}\label{dyad:covariance}
+  \bigl((hg)T^{(n)}\bigr)_{I'}=(gT^{(n)})_I
+\end{equation}
+as sets of intervals. Indeed, the cells of $(hg)T^{(n)}$ are the images
+$h(C)$ of the cells $C$ of $gT^{(n)}$; since $h$ is a bijection with
+$h(I)=I'$, $h(C)\subseteq I'$ exactly when $C\subseteq I$; and
+$s_{I'}^{-1}(h(C))=s_I^{-1}(C)$ for such $C$.
+
+\subsection{The recursive coloring}\label{sec:coloring}
+
+Fix $H$, $B$, $f$ as in Lemma~\ref{lem:displacement}, and $L>0$,
+$\delta>0$ with
+\begin{equation}\label{color:map}
+  \norm{f(x)-f(y)}\leq L\norm{x-y},\qquad
+  \norm{f(x)-x}\geq\delta\quad(x,y\in B).
+\end{equation}
+Choose an integer $D\ge2$ with
+\begin{equation}\label{color:parameters}
+  D>\frac{4L^2}{\delta^2},
+\end{equation}
+and internal basic intervals $I_1<\cdots<I_D$; for instance, with
+$2^r>2D$, $I_j=[(2j-1)2^{-r},2j2^{-r}]$.
+
+Define $p(T)\in B$ for every basic partition $T$ by induction on its
+number of cells:
+\begin{equation}\label{color:recursion}
+  p(T)=
+  \begin{cases}
+  \displaystyle f\Bigl(\frac1D\sum_{j=1}^Dp(T_{I_j})\Bigr),
+       &\text{if $T$ respects every $I_j$},\\[6pt]
+  0,   &\text{otherwise}.
+  \end{cases}
+\end{equation}
+This is well defined: in the first case $T$ has a cell outside
+$I_j\ne[0,1]$, so $T_{I_j}$ has strictly fewer cells and its color is
+already defined; the mean of points of the convex set $B$ lies in $B$,
+the domain of $f$; and $f$ maps into $B$.
+
+\emph{Sanity check.} For the displayed $I_j$: $p(T^{(0)})=0$ (second
+case); $(T^{(r)})_{I_j}=T^{(0)}$, so $p(T^{(r)})=f(0)$;
+$(T^{(2r)})_{I_j}=T^{(r)}$, so $p(T^{(2r)})=f(f(0))$.
+
+Let
+\[
+  \mathcal I=\{I_i:1\leq i\leq D\}\cup\{I_i\cdot I_j:1\leq i,j\leq D\},
+\]
+a finite family of internal basic intervals. Call $(n,g)$
+\emph{admissible} if $gT^{(n)}$ is a basic partition respecting every
+member of $\mathcal I$. For all $n$, $g\in F$, $I\in\mathcal I$ put
+\begin{equation}\label{color:global}
+  X_I^{(n)}(g)=
+  \begin{cases}
+    p\bigl((gT^{(n)})_I\bigr),&\text{if $(n,g)$ is admissible},\\
+    0,&\text{otherwise},
+  \end{cases}
+  \qquad
+  \varphi_{I,J}^{(n)}(g)=\ip{X_I^{(n)}(g)}{X_J^{(n)}(g)}.
+\end{equation}
+These are defined on all of $F$, with $X_I^{(n)}(g)\in B$ and
+$|\varphi_{I,J}^{(n)}|\le1$. By Lemma~\ref{dyad:eventual} (with
+$\mathcal J=\mathcal I$), for every finite $K\subset F$ there is one $n$
+with $(n,g)$ admissible for all $g\in K$.
+
+\subsection{A uniform boundary bound}\label{sec:boundary}
+
+For every ordered pair $I<J$ in $\mathcal I$ fix, by
+Lemma~\ref{dyad:transport}, an $h_{I,J}\in F$ carrying $I,J$ affinely
+onto $I_1,I_2$. Let $S$ be the finite set of these elements. It depends
+only on $D$ and the $I_j$, not on any set $A$.
+
+\emph{Finite-average comparison.} For nonempty finite $A\subset F$,
+$h\in F$ and $\varphi:F\to[-1,1]$,
+\begin{equation}\label{eq:finite-translation}
+ \Bigl|\frac1{|A|}\sum_{g\in A}\varphi(hg)
+       -\frac1{|A|}\sum_{g\in A}\varphi(g)\Bigr|
+ \le\frac{|hA\mathbin{\triangle}A|}{|A|}.
+\end{equation}
+Indeed $\sum_{g\in A}\varphi(hg)=\sum_{x\in hA}\varphi(x)$; the terms
+with $x\in hA\cap A$ cancel against the second sum, leaving
+$|hA\setminus A|+|A\setminus hA|$ terms of absolute value at most one.
+
+\begin{proposition}\label{avg:boundary}
+For every nonempty finite set $A\subset F$,
+\begin{equation}\label{avg:boundary-bound}
+  \max_{h\in S}\frac{|hA\mathbin{\triangle}A|}{|A|}
+  \geq \frac{\delta^2/L^2-4/D}{4(1-1/D)}>0.
+\end{equation}
+\end{proposition}
+
+\emph{Plan.} Steps 1--2 establish properties (b) and (a) of the
+overview; Step 3 is a pointwise inequality from \eqref{color:map};
+Step 4 bounds an averaged variance; Step 5 combines.
+
+\begin{proof}
+\emph{Step 0 (setup).} Fix $A$ and put
+\begin{equation}\label{avg:defect}
+  \eta=\max_{h\in S}\frac{|hA\mathbin{\triangle}A|}{|A|}.
+\end{equation}
+The set $A\cup SA$, $SA=\bigcup_{h\in S}hA$, is finite, so there is one
+$n$ with $(n,g)$ admissible for all $g\in A\cup SA$. This $n$ depends on
+$A$ and is fixed for the rest of the proof; \emph{all} colors and
+correlations below are taken at this level and the superscript is
+omitted. Write
+\[
+  \mathbb E_A\psi=\frac1{|A|}\sum_{g\in A}\psi(g),\qquad
+  \alpha=\mathbb E_A\varphi_{I_1,I_2}.
+\]
+The number $\alpha$ depends on $A$ and $n$; it will cancel.
+
+\emph{Step 1 (all separated correlations are near $\alpha$).} Let $I<J$
+in $\mathcal I$, $h=h_{I,J}$, $g\in A$. Both $(n,g)$ and $(n,hg)$ are
+admissible, so $gT^{(n)}$ is basic and respects $I,J$, and
+$(hg)T^{(n)}$ is basic and respects $I_1,I_2$. By
+\eqref{dyad:covariance} (for $I\to I_1$ and for $J\to I_2$) and
+\eqref{color:global},
+\[
+  X_{I_1}(hg)=p\bigl(((hg)T^{(n)})_{I_1}\bigr)=p\bigl((gT^{(n)})_I\bigr)=X_I(g),
+  \qquad X_{I_2}(hg)=X_J(g).
+\]
+Hence $\varphi_{I,J}(g)=\varphi_{I_1,I_2}(hg)$ for $g\in A$. Averaging
+and applying \eqref{eq:finite-translation} to the globally defined
+$\varphi_{I_1,I_2}$, then \eqref{avg:defect}:
+\begin{equation}\label{avg:correlation}
+  \bigl|\mathbb E_A\ip{X_I}{X_J}-\alpha\bigr|\leq\eta
+  \qquad\text{whenever $I<J$ or $J<I$ in $\mathcal I$}
+\end{equation}
+(the case $J<I$ by symmetry of the inner product). The separated pairs
+used below are: (i) $I_k,I_l$ with $k\ne l$; (ii) $I_i\cdot I_j$,
+$I_i\cdot I_k$ with $j\ne k$ ($s_{I_i}$ is increasing, so it preserves
+order and gaps); (iii) $I_i\cdot I_j$, $I_k$ with $k\ne i$ (because
+$I_i\cdot I_j\subseteq I_i$). Nothing is claimed for $I_i\cdot I_j$
+against $I_i$, nor for an interval against itself.
+
+\emph{Step 2 (recursion).} For $g\in A$ put
+\[
+  m(g)=\frac1D\sum_{k=1}^DX_{I_k}(g),\qquad
+  z_i(g)=\frac1D\sum_{j=1}^DX_{I_i\cdot I_j}(g)\quad(1\leq i\leq D),
+\]
+points of $B$ by convexity. Since $gT^{(n)}$ respects $I_i$ and every
+$I_i\cdot I_j$, \eqref{dyad:restriction} shows that
+$(gT^{(n)})_{I_i}$ respects every $I_j$, with
+$((gT^{(n)})_{I_i})_{I_j}=(gT^{(n)})_{I_i\cdot I_j}$. So the first case
+of \eqref{color:recursion} applies to $T=(gT^{(n)})_{I_i}$:
+\begin{equation}\label{avg:recursive-identity}
+  X_{I_i}(g)=f(z_i(g))\qquad(g\in A,\ 1\leq i\leq D).
+\end{equation}
+
+\emph{Step 3 (pointwise inequality).} Fix $g\in A$ and drop it from the
+notation. By \eqref{avg:recursive-identity}, $m=\frac1D\sum_if(z_i)$, so
+\begin{align}
+  \delta^2&\leq\norm{m-f(m)}^2
+   =\Bigl\|\frac1D\sum_{i=1}^D\bigl(f(z_i)-f(m)\bigr)\Bigr\|^2\notag\\
+  &\leq\frac1D\sum_{i=1}^D\norm{f(z_i)-f(m)}^2
+   \leq\frac{L^2}{D}\sum_{i=1}^D\norm{z_i-m}^2,
+       \label{avg:displacement}
+\end{align}
+using, in order, the displacement bound in \eqref{color:map}, convexity
+of $\norm{\cdot}^2$, and the Lipschitz bound in \eqref{color:map}.
+
+\emph{Step 4 (variance).} Expand
+$\norm{m}^2=D^{-2}\sum_{k,l}\ip{X_{I_k}}{X_{I_l}}$. The $D(D-1)$ terms
+with $k\ne l$ are of type (i), each with average at most $\alpha+\eta$
+by \eqref{avg:correlation}; the $D$ diagonal terms are at most one.
+The same holds for $\norm{z_i}^2$ with type (ii). So
+\begin{align}
+  \mathbb E_A\norm{m}^2
+       &\leq\Bigl(1-\frac1D\Bigr)(\alpha+\eta)+\frac1D,
+       \label{avg:parent-bound}\\
+  \mathbb E_A\norm{z_i}^2
+       &\leq\Bigl(1-\frac1D\Bigr)(\alpha+\eta)+\frac1D.
+       \label{avg:child-bound}
+\end{align}
+In
+$\ip{z_i}{m}=D^{-2}\sum_{j,k}\ip{X_{I_i\cdot I_j}}{X_{I_k}}$ the
+$D(D-1)$ terms with $k\ne i$ are of type (iii), each with average at
+least $\alpha-\eta$; the $D$ terms with $k=i$ (a child against its own
+parent) are at least $-1$. So
+\begin{equation}\label{avg:mixed-bound}
+  \mathbb E_A\ip{z_i}{m}
+    \geq\Bigl(1-\frac1D\Bigr)(\alpha-\eta)-\frac1D.
+\end{equation}
+These bounds hold for $\alpha,\eta$ of any sign or size. From
+$\norm{z_i-m}^2=\norm{z_i}^2+\norm{m}^2-2\ip{z_i}{m}$,
+\begin{equation}\label{avg:variance}
+  \mathbb E_A\norm{z_i-m}^2
+   \le2\Bigl(1-\frac1D\Bigr)(\alpha+\eta)+\frac2D
+      -2\Bigl(1-\frac1D\Bigr)(\alpha-\eta)+\frac2D
+   =\frac4D+4\Bigl(1-\frac1D\Bigr)\eta .
+\end{equation}
+
+\emph{Step 5 (conclusion).} Average \eqref{avg:displacement} over
+$g\in A$ and insert \eqref{avg:variance}:
+\[
+  \delta^2\leq\frac{L^2}{D}\sum_{i=1}^D\mathbb E_A\norm{z_i-m}^2
+  \leq L^2\Bigl(\frac4D+4\Bigl(1-\frac1D\Bigr)\eta\Bigr).
+\]
+Since $D\ge2$, solving for $\eta$ gives \eqref{avg:boundary-bound}; the
+right-hand side is positive by \eqref{color:parameters} and involves
+neither $A$ nor $n$.
+\end{proof}
+
+\begin{proof}[Proof of Theorem~\ref{thm:main}]
+Let $c_0>0$ be the right-hand side of \eqref{avg:boundary-bound}. If
+$F$ were amenable, \eqref{eq:folner} with the finite set $S$ and
+$\varepsilon=c_0$ would give a nonempty finite $A$ with
+$\max_{h\in S}|hA\triangle A|/|A|<c_0$, contradicting
+Proposition~\ref{avg:boundary}.
+\end{proof}
+
+\begin{remark}[What is used about $F$]
+The proof of Proposition~\ref{avg:boundary} uses $F$ only through
+Step 1 (transport identities on $A$) and Step 2 (recursion on $A$),
+at one level $n$. Sanity check: if every $h_{I,J}$ were the identity,
+Step 1 would force all $X_I$ to coincide, and Step 2 would give a
+fixed point of $f$, which is impossible; this matches
+\eqref{avg:boundary-bound}, which would then read $0\ge c_0$. The
+content specific to $F$ is that both properties hold with the
+transports of Lemma~\ref{dyad:transport}, which change the size and
+position of intervals, while the recursion stays well founded.
+\end{remark}
+
+\section{Consequences}\label{sec:consequences}
+
+Two corollaries are deduced in the source from companion results;
+neither is used above.
+
+\begin{corollary}\label{cor:nonunitarizable}
+For every \(\varepsilon>0\), there are a separable complex Hilbert space
+\(\mathcal K\) and a representation \(\pi:F\to\mathrm{GL}(\mathcal K)\)
+such that \(\sup_{g\in F}\norm{\pi(g)}\le1+\varepsilon\), but no bounded
+invertible operator \(V\) on \(\mathcal K\) makes every
+\(V\pi(g)V^{-1}\) unitary.
+\end{corollary}
+
+\begin{proof}
+$F$ is countable (each element is given by finitely many dyadic
+breakpoints and slopes) and nonamenable by Theorem~\ref{thm:main}; the
+source concludes by the companion unitarizability theorem
+\cite[Theorem~1.1]{OpenAIUnitarizability2026}.
+\unverified{The source does not reproduce the statement of the companion
+theorem, so I could not check that countability and nonamenability are
+its only hypotheses or that it yields the bound $1+\varepsilon$. A
+theorem of that generality would settle Dixmier's unitarizability
+problem, which I know only as open.}
+\end{proof}
+
+For a finite symmetric generating set
+$\Sigma\subset F\setminus\{\id\}$, let $\mathcal G_\Sigma$ be the simple
+undirected Cayley graph with edges $\{x,xs\}$, $s\in\Sigma$. In
+Bernoulli bond percolation each edge is independently open with
+probability $p$. Let $p_c$ be the threshold for existence of an infinite
+open cluster and $p_u$ the threshold for almost-sure uniqueness of the
+infinite open cluster. The connection kernel
+$\mathcal T_p(x,y)=\mathbb P_p(x\leftrightarrow y)$ acts on
+counting-measure $\ell^2(F)$, initially on finitely supported functions
+by summation over $y$; put
+$p_{2\to2}=\sup\{p\in[0,1]:\mathcal T_p\text{ is bounded on }\ell^2(F)\}$.
+
+\begin{corollary}\label{cor:percolation}
+For every such generating set \(\Sigma\),
+\[
+  \norm{\mathcal T_{p_c}}_{2\to2}<\infty,\qquad p_c<p_{2\to2}\le p_u.
+\]
+For each fixed \(p\in(p_c,p_u)\), there are almost surely infinitely many
+infinite open clusters. Moreover, there are deterministic
+\(p_c<p_1<p_2<1\), depending on \(\Sigma\), such that in the coupling
+with independent uniform \([0,1]\) edge labels \(U_e\), opening \(e\)
+when \(U_e\le p\), there are almost surely infinitely many infinite open
+clusters simultaneously for every \(p\in[p_1,p_2]\).
+\end{corollary}
+
+\begin{proof}
+The source applies the companion percolation result
+\cite[Corollary~1.2]{OpenAIPercolation2026} to $F$, nonamenable by
+Theorem~\ref{thm:main}.
+\unverified{The statement of the companion corollary is not reproduced
+in the source, so none of the conclusions can be checked from this
+document. The general inequality $p_c<p_u$ for nonamenable Cayley graphs
+is, to my knowledge, an open conjecture.}
+\end{proof}
+
+\appendix
+\section{An explicit map with positive displacement}\label{app:auxiliary}
+
+This appendix proves the Hilbert-space case of
+Lemma~\ref{lem:displacement} \cite{BenyaminiSternfeld1983} directly. It
+is independent of \S\ref{sec:proof}; here $r$ denotes a distance.
+
+\begin{proposition}\label{aux:map}
+Let $H=L^2([0,1];\R^2)$ be a real Hilbert space and let
+$B=\{x\in H:\norm{x}\le1\}$. There is a globally Lipschitz map $f:B\to B$
+such that
+\[
+  \norm{f(x)}=1,\qquad\norm{f(x)-x}\ge\frac12\quad(x\in B).
+\]
+\end{proposition}
+
+\emph{Plan.} We build a Lipschitz $G:B\to H$ with
+$\norm{G(x)}\ge\rho/4$ and $G(x)=x$ for $\norm{x}\ge1/2$, and set
+$f=-G/\norm{G}$. $G$ is the identity outside a thin tube around a curve
+$\gamma$ through the origin. The curve enters along a straight ray and
+then spirals forever inside a small ball without approaching itself
+(Lemma~\ref{aux:tube}); inside the tube, $G$ moves points along the
+curve direction so that $0$ is avoided (Lemma~\ref{aux:rotation}
+supplies a needed rotation).
+
+Define
+\[
+ a(t)=
+ \begin{cases}
+ t/8,&t\le2,\\
+ 5/16-(3-t)^2/16,&2<t<3,\\
+ 5/16,&t\ge3,
+ \end{cases}
+ \qquad
+ \theta(t)=
+ \begin{cases}
+ 0,&t\le1,\\
+ (t-1)^2/2,&1<t<2,\\
+ t-3/2,&t\ge2,
+ \end{cases}
+\]
+and, for $w\in[0,1]$,
+\[
+ v(t)(w)=(\cos(\theta(t)w),\sin(\theta(t)w)),\qquad\gamma(t)=a(t)v(t).
+\]
+
+\emph{Elementary facts.} The pieces match to first order at the
+junctions ($a(2)=1/4$, $a'(2)=1/8$, $a'(3)=0$; $\theta(2)=1/2$,
+$\theta'(1)=0$, $\theta'(2)=1$), so $a,\theta$ are $C^1$ with
+Lipschitz derivatives, $0\le a'\le1/8$, $0\le\theta'\le1$. Moreover
+$a\le5/16$; $a(t)\ge1/8$ for $t\ge1$ and $a(t)\ge1/4$ for $t\ge2$;
+$\theta=0$ on $(-\infty,1]$ and $\theta$ is strictly increasing on
+$[1,\infty)$. Also $\norm{v(t)}=1$, $\norm{\gamma(t)}=|a(t)|$,
+$\gamma(0)=0$, and for $t\le1$: $v(t)=(1,0)$ and
+$\gamma(t)=(t/8)(1,0)$.
+
+\begin{lemma}\label{aux:tube}
+The curve $\gamma$ is injective, has a bounded Lipschitz derivative, and
+\[
+ c:=\inf_{t\in\R}\norm{\gamma'(t)}=\frac18.
+\]
+Its unit tangent $u(t)=\gamma'(t)/\norm{\gamma'(t)}$ is Lipschitz,
+$\ip{u(t)}{v(t)}\ge0$, and $u(t)=v(t)$ for $t\le1$.
+There is a radius $0<\rho<1/32$ such that every point in
+\[
+ U=\{x\in H:\dist(x,\gamma(\R))<\rho\}
+\]
+has a unique nearest point $\gamma(t(x))$. Writing
+$e(x)=x-\gamma(t(x))$, we have $e(x)\perp u(t(x))$, and
+\begin{equation}\label{aux:parameter}
+ |t(x)-t(y)|\le16\norm{x-y}
+ \quad\text{if }x,y\in U\text{ and }\norm{x-y}<\rho.
+\end{equation}
+\end{lemma}
+
+\begin{proof}
+\emph{Step 1 (derivative and speed).} Let
+$v^\perp(t)(w)=(-\sin(\theta(t)w),\cos(\theta(t)w))$. For each $w$,
+\[
+ \partial_t\bigl(\gamma(t)(w)\bigr)
+ =a'(t)v(t)(w)+a(t)\theta'(t)\,w\,v^\perp(t)(w).
+\]
+This is locally Lipschitz in $t$ uniformly in $w\in[0,1]$, so the
+difference quotients converge uniformly in $w$, hence in $H$; the right
+side is $\gamma'(t)$. As $v\perp v^\perp$ pointwise and
+$\int_0^1w^2dw=1/3$,
+\[
+ \norm{\gamma'(t)}^2=a'(t)^2+\frac{a(t)^2\theta'(t)^2}{3},
+ \qquad\ip{\gamma'(t)}{v(t)}=a'(t).
+\]
+For $t\le2$, $a'=1/8$, so $\norm{\gamma'}\ge1/8$, with equality for
+$t\le1$ (where $\theta'=0$). For $t\ge2$, $a\ge1/4$ and $\theta'=1$, so
+$\norm{\gamma'}^2\ge1/48>1/64$. Hence $c=1/8$.
+
+\emph{Step 2 (regularity).} Pointwise
+$|v(t)(w)-v(s)(w)|\le|\theta(t)-\theta(s)|w$, so
+$\norm{v(t)-v(s)}\le|t-s|$; likewise for $wv^\perp$. The coefficients
+$a'$ and $a\theta'$ are bounded and Lipschitz ($a\theta'$ vanishes for
+$t\le1$, and for $t\ge1$ both factors are bounded and Lipschitz). So
+$\gamma'$ is bounded, by $M$ say, and Lipschitz, with constant
+$K_\gamma$. Since $\norm{\gamma'}\ge1/8$, $u$ is Lipschitz, with
+constant $K_u$. Finally $\ip uv=a'/\norm{\gamma'}\ge0$, and for $t\le1$,
+$\gamma'=v/8$, so $u=v$.
+
+\emph{Step 3 (injectivity).} With $\sinc(q)=\sin(q)/q$, $\sinc(0)=1$,
+\[
+ \ip{v(s)}{v(t)}=\int_0^1\cos\bigl((\theta(t)-\theta(s))w\bigr)dw
+ =\sinc(\theta(t)-\theta(s)).
+\]
+Since $|\sinc(q)|<1$ for $q\ne0$, the unit vectors $v(s),v(t)$ are
+linearly independent whenever $\theta(s)\ne\theta(t)$ (equality case of
+Cauchy--Schwarz). Let $s<t$. If $t\le1$,
+$\gamma(s)=(s/8)(1,0)\ne\gamma(t)$. If $t>1$, then
+$\theta(s)<\theta(t)$, so $a(s)v(s)=a(t)v(t)$ would force $a(t)=0$,
+contradicting $a(t)\ge1/8$.
+
+\emph{Step 4 (uniform separation).} We claim
+\begin{equation}\label{aux:separation}
+ \sigma(d):=\inf_{|t-s|\ge d}\norm{\gamma(t)-\gamma(s)}>0\qquad(d>0).
+\end{equation}
+Otherwise there are $s_n<t_n$ with $t_n-s_n\ge d$ and
+$\norm{\gamma(t_n)-\gamma(s_n)}\to0$; pass to a subsequence with
+$s_n\to s_*$, $t_n\to t_*$ in $[-\infty,\infty]$. Each case is
+contradictory:
+\begin{itemize}
+\item Both finite: $t_*-s_*\ge d$ and $\gamma(s_*)=\gamma(t_*)$,
+against Step 3.
+\item $t_*=-\infty$: eventually $s_n<t_n\le1$ and the distance is
+$(t_n-s_n)/8\ge d/8$.
+\item $s_*=-\infty<t_*$: $\norm{\gamma(s_n)}=|s_n|/8\to\infty$ while
+$\norm{\gamma(t_n)}$ stays bounded.
+\item $s_*$ finite, $t_*=+\infty$: $\theta(t_n)-\theta(s_n)\to\infty$,
+so $\ip{v(s_n)}{v(t_n)}\to0$ and
+$\norm{\gamma(t_n)-\gamma(s_n)}^2\to(5/16)^2+a(s_*)^2>0$.
+\item $s_*=+\infty$: eventually $s_n,t_n\ge3$, so $a=5/16$,
+$\theta(t_n)-\theta(s_n)=t_n-s_n\ge d$, and
+\[
+ \norm{\gamma(t_n)-\gamma(s_n)}^2
+ =2(5/16)^2\bigl(1-\sinc(t_n-s_n)\bigr)
+ \ge2(5/16)^2\bigl(1-\sup_{q\ge d}\sinc(q)\bigr)>0,
+\]
+since $\sinc$ is continuous, less than $1$ on $[d,\infty)$, and tends
+to $0$.
+\end{itemize}
+
+\emph{Step 5 (tangent estimate; choice of $\rho$).} Fix $d>0$ with
+$K_\gamma d\le c/2$. Integrating $\gamma'(\tau)-\gamma'(s)$ from $s$ to
+$t$,
+\[
+ \norm{\gamma(t)-\gamma(s)-(t-s)\gamma'(s)}\le\frac{K_\gamma}2|t-s|^2 .
+\]
+Pair with $u(s)$ and use $\ip{\gamma'(s)}{u(s)}=\norm{\gamma'(s)}\ge c$:
+\begin{equation}\label{aux:tangent}
+ |\ip{\gamma(t)-\gamma(s)}{u(s)}|
+ \ge c|t-s|-\frac{K_\gamma}{2}|t-s|^2\ge\frac{3c}{4}|t-s|
+ \qquad(|t-s|\le d).
+\end{equation}
+Choose $\rho>0$ with
+\begin{equation}\label{aux:radius}
+ \rho<\frac1{32},\qquad4\rho<\sigma(d),\qquad\rho K_u<\frac c4.
+\end{equation}
+
+\emph{Step 6 (a nearest point exists; orthogonality).} Let $x\in U$ and
+let $\gamma(t_n)$ be a minimizing sequence for
+$\dist(x,\gamma(\R))$. Late terms satisfy
+$\norm{x-\gamma(t_n)}<2\rho$, so they are pairwise less than
+$4\rho<\sigma(d)$ apart, and by \eqref{aux:separation} their parameters
+differ by less than $d$. So the late $t_n$ lie in a compact interval,
+and a convergent subsequence attains the minimum. At a minimizing $t$,
+the derivative of $\norm{x-\gamma(t)}^2$ vanishes:
+$(x-\gamma(t))\perp\gamma'(t)$, i.e.\ $\perp u(t)$.
+
+\emph{Step 7 (parameter estimate; uniqueness).} Let $x,y\in U$,
+$\norm{x-y}<\rho$, with minimizing parameters $t,s$ and
+$x=\gamma(t)+e_t$, $y=\gamma(s)+e_s$, $\norm{e_t},\norm{e_s}<\rho$.
+Then $\norm{\gamma(t)-\gamma(s)}<3\rho<\sigma(d)$, so $|t-s|<d$. Since
+$e_s\perp u(s)$ and $e_t\perp u(t)$,
+\[
+ \ip{x-y}{u(s)}=\ip{\gamma(t)-\gamma(s)}{u(s)}+\ip{e_t}{u(s)-u(t)},
+\]
+so by \eqref{aux:tangent} and \eqref{aux:radius}
+\[
+ \norm{x-y}\ge\Bigl(\frac{3c}{4}-\rho K_u\Bigr)|t-s|
+ \ge\frac c2|t-s|=\frac1{16}|t-s|.
+\]
+Taking $y=x$ gives uniqueness of the minimizing parameter; in general
+this is \eqref{aux:parameter}.
+\end{proof}
+
+\begin{lemma}\label{aux:rotation}
+There is a family of orthogonal operators $R_t:H\to H$, Lipschitz
+in operator norm, such that $R_tu(t)=v(t)$ and $R_t$ is the identity
+for $t\le1$.
+\end{lemma}
+
+It is used to turn a residual $e\perp u(t)$ into a vector
+$R_te\perp v(t)$.
+
+\begin{proof}
+Suppress $t$ and put $\kappa=\ip uv\ge0$ (Lemma~\ref{aux:tube}). Define
+\[
+ Ah=v\ip uh-u\ip vh,\qquad R=\mathrm{Id}+A+\frac{A^2}{1+\kappa}.
+\]
+$A$ is skew-adjoint, since
+$\ip{Ah}{k}=\ip vk\ip uh-\ip uk\ip vh=-\ip h{Ak}$. If $u,v$ are
+independent, compute on their span: $Au=v-\kappa u$,
+$Av=\kappa v-u$, hence $A^2u=-(1-\kappa^2)u$, $A^2v=-(1-\kappa^2)v$, so
+$R=\kappa\mathrm{Id}+A$ there. Then
+$Ru=v$, and
+$(\kappa-A)(\kappa+A)=\kappa^2-A^2=\mathrm{Id}$ on the span, so $R$ is
+orthogonal there; on the orthogonal complement $A=0$ and
+$R=\mathrm{Id}$. If $u,v$ are dependent then $u=v$ (as $\kappa\ge0$),
+$A=0$, $R=\mathrm{Id}$; this covers $t\le1$. Finally $A_t$ and
+$\kappa(t)$ are Lipschitz because $u,v$ are, $\norm{A_t}\le2$, and
+$1+\kappa\ge1$, so $t\mapsto R_t$ is Lipschitz in operator norm, with
+constant $K_R$ say.
+\end{proof}
+
+\begin{proof}[Proof of Proposition~\ref{aux:map}]
+Fix $\rho$, $U$, $t(\cdot)$, $e(\cdot)$ from Lemma~\ref{aux:tube} and
+$R_t$ from Lemma~\ref{aux:rotation}.
+
+\emph{Step 1 (definition of $G$).} Set
+\[
+ b(t)=\min\{a(t),-1/8\},\qquad
+ q(t)=b(t)-a(t)=-\max\{a(t)+1/8,0\},
+\]
+so $|q|\le5/16+1/8=7/16$, $\Lip(q)\le1/8$, and $q(t)=0$ when
+$a(t)\le-1/8$. Let $\beta,\chi:[0,\infty)\to[0,1]$ be
+\[
+ \beta(r)=
+ \begin{cases}
+ 1,&r\le\rho/4,\\
+ 2-4r/\rho,&\rho/4<r<\rho/2,\\
+ 0,&r\ge\rho/2,
+ \end{cases}
+ \qquad
+ \chi(r)=
+ \begin{cases}
+ 1,&r\le\rho/2,\\
+ 2-2r/\rho,&\rho/2<r<\rho,\\
+ 0,&r\ge\rho.
+ \end{cases}
+\]
+Let $G(x)=x$ for $x\in B\setminus U$. For $x\in B\cap U$ write
+$t=t(x)$, $e=e(x)$, $r=\norm e=\dist(x,\gamma(\R))$, and set
+\begin{equation}\label{aux:G}
+ \begin{split}
+ G(x)&=\gamma(t)+\beta(r)q(t)v(t)
+       +\bigl((1-\chi(r))\mathrm{Id}+\chi(r)R_t\bigr)e\\
+ &=x+\beta(r)q(t)v(t)+\chi(r)(R_t-\mathrm{Id})e.
+ \end{split}
+\end{equation}
+
+\emph{Step 2 ($G$ is Lipschitz).} Let $x,y\in B$, $\Delta=\norm{x-y}$.
+
+\emph{(i) $x,y\in U$, $\Delta<\rho$.} By \eqref{aux:parameter},
+$|t(x)-t(y)|\le16\Delta$; hence
+$\norm{e(x)-e(y)}\le\Delta+\norm{\gamma(t(x))-\gamma(t(y))}
+\le(1+16M)\Delta$; and $r$ is $1$-Lipschitz. The factors in
+\eqref{aux:G} therefore satisfy:
+\begin{center}
+\begin{tabular}{lcccccc}
+factor & $\beta(r)$ & $q(t)$ & $v(t)$ & $\chi(r)$ & $R_t-\mathrm{Id}$ & $e$\\
+bound & $1$ & $7/16$ & $1$ & $1$ & $2$ & $\rho$\\
+change $\le$ & $4\Delta/\rho$ & $2\Delta$ & $16\Delta$ & $2\Delta/\rho$ & $16K_R\Delta$ & $(1+16M)\Delta$
+\end{tabular}
+\end{center}
+A product of three factors changes by at most the sum, over the
+factors, of that factor's change times the bounds of the other two.
+Hence
+\[
+ \norm{G(x)-G(y)}\le\Bigl[1+\Bigl(\frac7{4\rho}+2+7\Bigr)
+   +\bigl(4+16K_R\rho+2(1+16M)\bigr)\Bigr]\Delta .
+\]
+
+\emph{(ii) $\Delta\ge\rho$.} On $B$,
+$\norm{G(x)}\le1+7/16+2\rho<3/2$, so
+$\norm{G(x)-G(y)}\le3\le(3/\rho)\Delta$.
+
+\emph{(iii) $x\in U$, $y\notin U$, $\Delta<\rho$.} Both cutoffs satisfy
+$\beta(r)\le\chi(r)\le2(\rho-r)/\rho$, so
+\[
+ \norm{G(x)-x}\le\frac{2(\rho-r)}\rho\Bigl(\frac7{16}+2\rho\Bigr)
+ =\Bigl(\frac{7}{8\rho}+4\Bigr)(\rho-r).
+\]
+As $r$ is $1$-Lipschitz and $r(y)\ge\rho$, $\rho-r\le\Delta$. With
+$G(y)=y$: $\norm{G(x)-G(y)}\le(7/(8\rho)+5)\Delta$.
+
+\emph{(iv) $x,y\notin U$.} $G$ is the identity.
+
+\emph{Step 3 (nonvanishing).} We claim
+\begin{equation}\label{aux:nonzero}
+ \norm{G(x)}\ge\rho/4\qquad(x\in B).
+\end{equation}
+Outside $U$: $\norm{G(x)}=\norm{x-\gamma(0)}\ge\rho$. Inside $U$:
+\begin{itemize}
+\item $r\le\rho/2$. Then $\chi=1$ and
+$G(x)=(a(t)+\beta(r)q(t))v(t)+R_te$, with
+$\ip{R_te}{v(t)}=\ip{R_te}{R_tu(t)}=\ip e{u(t)}=0$ and
+$\norm{R_te}=r$. If $r\le\rho/4$, then $\beta=1$ and the coefficient of
+$v(t)$ is $b(t)\le-1/8$, so $\norm{G(x)}\ge1/8>\rho/4$. If
+$r\ge\rho/4$, then $\norm{G(x)}\ge\norm{R_te}\ge\rho/4$.
+\item $\rho/2\le r<\rho$. Then $\beta=0$ and the last term in the first
+line of \eqref{aux:G} has norm at most $r<\rho$. If $t>1$,
+$\norm{\gamma(t)}=a(t)\ge1/8$, so
+$\norm{G(x)}\ge1/8-\rho>\rho/4$. If $t\le1$, $R_t=\mathrm{Id}$, so
+$G(x)=a(t)v(t)+e$ with $e\perp u(t)=v(t)$, and
+$\norm{G(x)}\ge r\ge\rho/2$.
+\end{itemize}
+
+\emph{Step 4 ($G(x)=x$ when $\norm x\ge1/2$).} Outside $U$ this is the
+definition. Inside $U$,
+\[
+ |a(t)|=\norm{\gamma(t)}\ge\norm x-r>1/2-\rho>15/32>5/16 .
+\]
+Since $a\le5/16$ everywhere, $a(t)<-5/16$; thus $a(t)\le-1/8$ and
+$t\le1$, so $q(t)=0$ and $R_t=\mathrm{Id}$, and \eqref{aux:G} gives
+$G(x)=x$.
+
+\emph{Step 5 (the map $f$).} Define $f(x)=-G(x)/\norm{G(x)}$. The map
+$y\mapsto y/\norm y$ is Lipschitz with constant at most $8/\rho$ on
+$\{\norm y\ge\rho/4\}$, so $f$ is Lipschitz by Step 2 and
+\eqref{aux:nonzero}, and $\norm{f(x)}=1$. If $\norm x<1/2$, then
+$\norm{f(x)-x}\ge1-\norm x>1/2$. Otherwise $G(x)=x$ by Step 4,
+$f(x)=-x/\norm x$, and $\norm{f(x)-x}=1+\norm x\ge3/2$.
+\end{proof}
+
+\section*{Verification checklist}
+
+\begin{enumerate}
+\item \textbf{Order of choices.} $f,L,\delta,D$, the intervals $I_j$ and
+the set $S$ are fixed before $A$; only $n$ and $\alpha$ depend on $A$,
+and one $n$ is used for every color in the proof
+(Proposition~\ref{avg:boundary}, Step 0).
+\item \textbf{Transport identity.} $X_I(g)=X_{I_1}(h_{I,J}g)$ needs
+admissibility of both $g$ and $h_{I,J}g$ and the exact covariance
+\eqref{dyad:covariance} (Step 1; \S\ref{sec:dyadic}).
+\item \textbf{Which pairs are separated.} Types (i)--(iii) in Step 1,
+and the counts $D(D-1)$ versus $D$ in Step 4; a child against its own
+parent is only bounded by $-1$.
+\item \textbf{Recursion identity} \eqref{avg:recursive-identity}:
+admissibility plus \eqref{dyad:restriction} put
+$(gT^{(n)})_{I_i}$ in the first case of \eqref{color:recursion}
+(Step 2); well-foundedness of \eqref{color:recursion}
+(\S\ref{sec:coloring}).
+\item \textbf{Cancellation of $\alpha$} in \eqref{avg:variance} and the
+arithmetic from Step 5 to \eqref{avg:boundary-bound}, using
+\eqref{color:parameters}.
+\item \textbf{Transports lie in $F$} (Lemma~\ref{dyad:transport},
+Step 4) and fine images are basic (Lemma~\ref{dyad:eventual}, Step 2).
+\item \textbf{Appendix.} Uniform separation \eqref{aux:separation},
+especially the case of both parameters tending to $+\infty$
+(Lemma~\ref{aux:tube}, Step 4); nonvanishing \eqref{aux:nonzero}
+(Proposition~\ref{aux:map}, Step 3); the Lipschitz case analysis
+(Step 2).
+\item \textbf{Corollaries.} They rest on companion results not
+reproduced in the source; see the boxed notes in
+\S\ref{sec:consequences}.
+\end{enumerate}
+
+\bibliographystyle{plain}
+\bibliography{sources}
+\end{document}

@@ -1,0 +1,953 @@
+\documentclass[11pt]{article}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,mathtools}
+\usepackage{enumitem}
+\usepackage{microtype}
+\usepackage{tikz}
+\usepackage[colorlinks=true,linkcolor=blue!45!black,citecolor=green!35!black,urlcolor=blue!55!black]{hyperref}
+\usepackage[all]{hypcap}
+\hypersetup{
+  pdftitle={A product counterexample to the simplex maximum for projection-body volume},
+  pdfsubject={An elementary counterexample in dimension twenty}
+}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\newcommand{\R}{\mathbb R}
+\DeclareMathOperator{\conv}{conv}
+\DeclareMathOperator{\vol}{vol}
+\DeclareMathOperator{\proj}{proj}
+\newcommand{\unverified}[1]{\par\smallskip\noindent\fbox{\parbox{0.95\linewidth}{\textbf{Unverified step.} #1}}\par\smallskip}
+\newcommand{\step}[1]{\smallskip\noindent\textbf{#1}}
+\title{A product counterexample to the simplex maximum\\
+for projection-body volume}
+\author{Rewritten for readability from the OpenAI manuscript of the same title}
+\date{September 24, 2026}
+\raggedbottom
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+The product of two ten-dimensional simplices has larger normalized
+projection-body volume than a twenty-dimensional simplex. This gives
+a counterexample to Brannen's proposed simplex maximum.
+\end{abstract}
+
+\section{The result}\label{sec:result}
+
+\paragraph{Conventions.}
+Throughout, \(d\ge2\). A \emph{convex body} in \(\R^d\) is a compact
+convex set with nonempty interior. \(|K|\) is the \(d\)-dimensional volume
+of \(K\), \(\langle\cdot,\cdot\rangle\) the Euclidean inner product,
+\(S^{d-1}\) the unit sphere, \(\proj_{u^\perp}\) the orthogonal projection
+onto the hyperplane \(u^\perp\), and \(\vol_{d-1}\) the
+\((d-1)\)-dimensional volume. \(B_2^j\) is the Euclidean unit ball of
+\(\R^j\) and \(\kappa_j=|B_2^j|\). The \emph{support function} of a compact
+convex set \(C\) is \(h_C(x)=\max_{y\in C}\langle x,y\rangle\).
+
+\paragraph{Projection body.}
+For a convex body \(K\subset\R^d\), the projection body \(\Pi K\) (written
+\(\Pi_dK\) when the dimension needs emphasis) is the compact convex set whose
+support function is
+\[
+ h_{\Pi K}(u)=\vol_{d-1}\bigl(\proj_{u^\perp}K\bigr),
+ \qquad u\in S^{d-1},
+\]
+extended to \(\R^d\) by \(h_{\Pi K}(tu)=t\,h_{\Pi K}(u)\) for \(t\ge0\).
+A compact convex set is determined by its support function (fact (S2) in
+Section~\ref{sec:tools}). That such a set exists is proved in
+Lemma~\ref{lem:facets} for polytopes and in Part~B of
+Lemma~\ref{lem:affine} in general. Only polytopes are needed for the main
+results.
+
+\paragraph{The functional.}
+\begin{equation}\label{eq:functional}
+ R_d(K)=\frac{|\Pi K|}{|K|^{d-1}},
+ \qquad c_d=\frac{(d+1)d^d}{d!}.
+\end{equation}
+\(R_d\) is invariant under invertible affine maps (Lemma~\ref{lem:affine}),
+and \(c_d\) is its value on every \(d\)-simplex
+(Proposition~\ref{prop:simplex}). Brannen conjectured in 1996 that
+simplices maximize \(R_d\) among all convex bodies~\cite{Brannen}, that is,
+\begin{equation}\label{eq:proposed-bound}
+ |\Pi K|\le c_d|K|^{d-1}.
+\end{equation}
+
+\begin{theorem}\label{thm:counterexample}
+Let \(T_{10}=\conv(0,e_1,\ldots,e_{10})\subset\R^{10}\), where the
+\(e_i\) are the coordinate unit vectors, and let
+\(K=T_{10}\times T_{10}\subset\R^{20}\). Then
+\[
+ \frac{R_{20}(K)}{c_{20}}
+ =\frac{121\binom{20}{10}}{21\cdot2^{20}}
+ =\frac{22\,355\,476}{22\,020\,096}>1.
+\]
+Thus \(K\) violates \eqref{eq:proposed-bound} in dimension twenty.
+\end{theorem}
+
+The ratio is about \(1.0152\). A second result,
+Corollary~\ref{cor:exponential-excess} in
+Section~\ref{sec:counterexample}, iterates the construction: for some fixed
+\(\lambda>1\) and all sufficiently large \(n\) there is a product of
+simplices \(K_n\subset\R^n\) with \(R_n(K_n)\ge\lambda^nc_n\).
+
+\paragraph{Context (quoted from the source; not used in any proof).}
+In \eqref{eq:proposed-bound} it is the volume of \(\Pi K\) itself that
+occurs, not the volume of its polar. The classical projection inequalities
+involving the polar concern a different functional. For \(d\ge3\), Petty's
+separate minimum problem asks whether ellipsoids are the only minimizers of
+the same functional \(R_d\); see \cite[Section~1]{Saroglou} for these
+distinctions. In dimension three, Chen, Feng, Li, Xi, and Xu settle the
+minimum problem and also prove \(R_3(K)\le18=c_3\) for all
+three-dimensional convex bodies, with tetrahedra attaining
+equality~\cite[Theorems~1.1 and~1.2]{ChenEtAl}. Feng, Hu, Liu, and Xu give
+counterexamples to \eqref{eq:proposed-bound} in every dimension \(d\ge9\),
+using polytopes with at most \(d+2\) facets~\cite[Theorem~1.3]{FengEtAl}.
+Their construction uses perturbed projections of a cube and Minkowski's
+existence theorem~\cite[Section~4]{FengEtAl}. So the failure of the simplex
+maximum was already known. The present paper supplies a direct
+Cartesian-product construction with an exact value. The optimal upper
+constant and its maximizing bodies remain separate questions. For centrally
+symmetric bodies, Henk gives the lower bound
+\(2^d(9/8)^{\lfloor d/3\rfloor}\) for the optimal upper
+constant~\cite{Henk}.
+
+\paragraph{Notation changes from the source.}
+To avoid clashes, some symbols are renamed. Facet areas are \(\sigma_F\)
+(source: \(s_F\), clashing with the dimension \(s\)). In
+Lemma~\ref{lem:affine} the circumradius is \(\rho\) (source: \(R\)), the
+projection-volume function is \(g\) (source: \(F\)), and the dilation
+factors are \(\mu_m\) (source: \(\lambda_m\)). In
+Corollary~\ref{cor:exponential-excess} the residue index is \(q\) (source:
+\(r\)) and the constant \(c_{10}/\beta^{10}\) is \(\alpha\) (source: \(A\)).
+
+\section{Proof at a glance}\label{sec:glance}
+
+\paragraph{Key idea.}
+The functional \(R\) is \emph{multiplicative} on Cartesian products:
+\(R_{r+s}(A\times B)=R_r(A)R_s(B)\). The simplex value \(c_d\) is not
+multiplicative in this sense: \(c_{10}^2>c_{20}\). Hence
+\(T_{10}\times T_{10}\) beats the \(20\)-simplex.
+
+\paragraph{Steps and dependencies.}
+\begin{enumerate}[leftmargin=2em,itemsep=2pt]
+\item \textbf{Lemma~\ref{lem:facets} (facet formula).} For a polytope
+\(P\), \(\Pi P\) is the Minkowski sum of the segments
+\([-\tfrac12\sigma_F\nu_F,\tfrac12\sigma_F\nu_F]\) over the facets \(F\).
+This is Cauchy's projection formula. Every later result uses it.
+\item \textbf{Proposition~\ref{prop:product} (product identity).} The
+facets of \(A\times B\) are \(F\times B\) and \(A\times G\). Feeding this
+into Lemma~\ref{lem:facets} gives
+\(\Pi(A\times B)=(|B|\Pi A)\times(|A|\Pi B)\), and a volume count gives
+multiplicativity.
+\item \textbf{Lemma~\ref{lem:affine} (affine invariance).} It follows from
+Lemma~\ref{lem:facets} by tracking how facet normals and areas transform.
+Its only use is the last sentence of Proposition~\ref{prop:simplex}: every
+\(d\)-simplex has the same value of \(R_d\), so that \(c_d\) is ``the
+simplex value''. The numerical identity in Theorem~\ref{thm:counterexample}
+does not depend on it.
+\item \textbf{Proposition~\ref{prop:simplex} (simplex value).} By
+Lemma~\ref{lem:facets}, \(\Pi T_d\) is a translate of
+\(([0,1]^d+[0,w])/(d-1)!\) with \(w=(1,\dots,1)\). A Fubini argument gives
+\(|[0,1]^d+[0,w]|=d+1\), hence \(R_d(T_d)=c_d\).
+\item \textbf{Theorem~\ref{thm:counterexample}} is
+Proposition~\ref{prop:product} plus Proposition~\ref{prop:simplex} plus
+integer arithmetic.
+\item \textbf{Corollary~\ref{cor:exponential-excess}} is the same two
+propositions applied to \(T_{10}^k\times T_{d}\), \(10\le d\le19\),
+together with the elementary bounds \(c_n<(n+1)(11/4)^n\) and
+\(c_{10}>(11/4)^{10}\).
+\end{enumerate}
+\[
+\text{Lemma~\ref{lem:facets}}\Longrightarrow
+\bigl\{\text{Prop.~\ref{prop:product}},\ \text{Lemma~\ref{lem:affine}},\
+\text{Prop.~\ref{prop:simplex}}\bigr\},
+\qquad
+\text{Prop.~\ref{prop:product}}+\text{Prop.~\ref{prop:simplex}}
+\Longrightarrow
+\bigl\{\text{Thm.~\ref{thm:counterexample}},\
+\text{Cor.~\ref{cor:exponential-excess}}\bigr\}.
+\]
+
+\paragraph{One flagged step.}
+In the proof of Proposition~\ref{prop:product}, an intermediate displayed
+formula of the source has two exponents interchanged. It is marked there
+with a box. The proposition itself is unaffected.
+
+\section{Tools: support functions and volumes}\label{sec:tools}
+
+Minkowski addition is \(C+D=\{c+d:c\in C,\ d\in D\}\). The following facts
+are used repeatedly; \(C,D\) are nonempty compact convex sets.
+
+\begin{enumerate}[label=\textbf{(S\arabic*)},leftmargin=3em,itemsep=3pt]
+\item \emph{Calculus of support functions.} Directly from the definition
+(a maximum over independent variables splits):
+\(h_{C+D}=h_C+h_D\); \(h_{tC}=t\,h_C\) for \(t\ge0\);
+\(h_{MC}(u)=h_C(M^tu)\) for a linear map \(M\); and
+\(h_{C\times D}(u,v)=h_C(u)+h_D(v)\) for \(C\subset\R^r\),
+\(D\subset\R^s\).
+\item \emph{Support functions determine and order sets.} If
+\(h_C\le h_D\) everywhere, then \(C\subset D\). In particular
+\(h_C=h_D\) implies \(C=D\).
+
+\emph{Proof.} Let \(x\notin D\) and let \(y\in D\) be a point of \(D\)
+nearest to \(x\). For \(z\in D\) and \(t\in(0,1]\) the point
+\(y+t(z-y)\) lies in \(D\), so
+\(\|x-y\|^2\le\|x-y-t(z-y)\|^2
+=\|x-y\|^2-2t\langle x-y,z-y\rangle+t^2\|z-y\|^2\).
+Dividing by \(t\) and letting \(t\to0\) gives
+\(\langle x-y,z-y\rangle\le0\). With \(p=x-y\neq0\), this says
+\(\langle p,z\rangle\le\langle p,y\rangle
+=\langle p,x\rangle-\|p\|^2<\langle p,x\rangle\) for all \(z\in D\), so
+\(h_D(p)<\langle p,x\rangle\). If \(x\) were in \(C\), then
+\(\langle p,x\rangle\le h_C(p)\le h_D(p)\), a contradiction. Hence
+\(C\subset D\). \(\square\)
+\item \emph{Segments.} For \(v\in\R^d\),
+\(h_{[-v/2,\,v/2]}(u)=\tfrac12|\langle v,u\rangle|\), because a linear
+function on a segment is maximized at an endpoint.
+\item \emph{Volumes.} \(|MC|=|\det M|\,|C|\) for linear \(M\);
+\(|tC|=t^d|C|\) for \(t\ge0\) and \(C\subset\R^d\);
+\(|C\times D|=|C|\,|D|\).
+\item \emph{Interior points.} If \(q\) is an interior point of a convex
+set \(C\) and \(p\in C\), then \((1-t)p+tq\) is an interior point of \(C\)
+for every \(t\in(0,1]\). Indeed, if a ball \(B\) around \(q\) lies in
+\(C\), then \((1-t)p+tB\subset C\) is a ball around \((1-t)p+tq\).
+\end{enumerate}
+
+\section{Facet formula}\label{sec:facets}
+
+The next lemma writes the projection body of a polytope as a sum of
+segments, one per facet. It is the polytopal case of Cauchy's projection
+formula; see \cite[Section~1]{Saroglou}. The proof is included because the
+factor \(\tfrac12\) affects all later constants. The lemma is used in
+Propositions~\ref{prop:product} and~\ref{prop:simplex} and in
+Lemma~\ref{lem:affine}.
+
+\begin{lemma}\label{lem:facets}
+Let \(P\subset\R^d\), \(d\ge2\), be a full-dimensional convex polytope. For
+each facet \(F\), let \(\sigma_F\) be its \((d-1)\)-dimensional volume and
+\(\nu_F\) its outward unit normal. Then
+\begin{equation}\label{eq:facet}
+ h_{\Pi P}(u)=\frac12\sum_F\sigma_F|\langle\nu_F,u\rangle|,
+ \qquad u\in\R^d,
+\end{equation}
+and therefore
+\begin{equation}\label{eq:zonotope}
+ \Pi P=\sum_F
+ \left[-\frac{\sigma_F\nu_F}{2},\frac{\sigma_F\nu_F}{2}\right].
+\end{equation}
+\end{lemma}
+
+\begin{proof}
+\emph{Plan.} For a unit vector \(u\), we show that almost every point of
+\(\proj_{u^\perp}P\) is covered exactly twice by the projected facets, and
+that the facet \(F\) projects to a set of volume
+\(\sigma_F|\langle\nu_F,u\rangle|\). Integrating the covering multiplicity
+gives \eqref{eq:facet}. Fix a unit vector \(u\) and write
+\(\pi=\proj_{u^\perp}\).
+
+\step{Step 1 (Jacobian).} \emph{Let \(H\) be a linear hyperplane with unit
+normal \(\nu\). Then \(\pi|_H\colon H\to u^\perp\) multiplies
+\((d-1)\)-volume by \(|\langle\nu,u\rangle|\).}
+Let \(v_1,\dots,v_{d-1}\) be an orthonormal basis of \(H\). The factor is
+the \((d-1)\)-volume of the parallelepiped spanned by
+\(\pi v_1,\dots,\pi v_{d-1}\) in \(u^\perp\). Since \(u\) is a unit vector
+orthogonal to all \(\pi v_i\), this equals
+\(|\det(\pi v_1,\dots,\pi v_{d-1},u)|\). Because
+\(\pi v_i=v_i-\langle v_i,u\rangle u\), column operations turn this into
+\(|\det(v_1,\dots,v_{d-1},u)|\). Expanding
+\(u=\langle u,\nu\rangle\nu+\sum_i\langle u,v_i\rangle v_i\) in the last
+column, the terms with \(v_i\) vanish, and
+\(|\det(v_1,\dots,v_{d-1},\nu)|=1\). The result is
+\(|\langle u,\nu\rangle|\).
+
+\step{Step 2 (projected facets).} By Step~1 applied to the hyperplane
+parallel to that of \(F\),
+\begin{equation}\label{eq:projfacet}
+ \vol_{d-1}(\pi F)=\sigma_F|\langle\nu_F,u\rangle|
+ \qquad\text{for every facet }F.
+\end{equation}
+If \(\langle\nu_F,u\rangle=0\), the hyperplane of \(F\) contains the
+direction \(u\), so \(\pi F\) lies in a \((d-2)\)-dimensional affine
+subspace of \(u^\perp\), and both sides are \(0\).
+
+\step{Step 3 (exceptional set).} Let \(E\subset u^\perp\) be the union of
+\begin{enumerate}[label=(\roman*),leftmargin=2.5em,itemsep=1pt,topsep=2pt]
+\item the boundary of \(\pi P\) relative to \(u^\perp\);
+\item the projections of all faces of \(P\) of dimension at most \(d-2\);
+\item the projections of all facets \(F\) with
+\(\langle\nu_F,u\rangle=0\).
+\end{enumerate}
+\(E\) has \((d-1)\)-dimensional measure zero. For (ii) and (iii) the sets
+lie in finitely many affine subspaces of dimension at most \(d-2\)
+(Step~2 for (iii)). For (i), \(C=\pi P\) is a compact convex set with
+nonempty interior in \(u^\perp\). After translating an interior point to
+\(0\), (S5) gives \((1-\varepsilon)C\subset\operatorname{int}C\), so the
+boundary lies in \(C\setminus(1-\varepsilon)C\), of measure
+\((1-(1-\varepsilon)^{d-1})\vol_{d-1}(C)\to0\).
+
+\step{Step 4 (multiplicity two).} \emph{Every \(x\in\pi P\setminus E\) lies
+in \(\pi F\) for exactly two facets \(F\).}
+Let \(\ell=x+\R u\).
+
+(a) \emph{\(\ell\) meets the interior of \(P\).} Pick
+\(q\in\operatorname{int}P\). Since \(x\) is interior to \(\pi P\) by (i),
+\(x'=x+\delta(x-\pi q)\in\pi P\) for some \(\delta>0\). Choose \(p'\in P\)
+with \(\pi p'=x'\). The point \((p'+\delta q)/(1+\delta)\) is interior to
+\(P\) by (S5), and it projects to \((x'+\delta\pi q)/(1+\delta)=x\).
+
+(b) Hence \(\ell\cap P\) is a segment \([p_-,p_+]\) with \(p_-\ne p_+\).
+By (S5) all points strictly between \(p_-\) and \(p_+\) are interior to
+\(P\), while \(p_\pm\in\partial P\).
+
+(c) The boundary of a polytope is the union of its facets, and two distinct
+facets meet in a face of dimension at most \(d-2\). By (ii), \(p_+\) lies
+in no such face, so \(p_+\) lies in exactly one facet \(F_+\). Likewise
+\(p_-\) lies in exactly one facet \(F_-\). By (iii),
+\(\langle\nu_{F_\pm},u\rangle\ne0\).
+
+(d) \(F_+\ne F_-\): if \(\langle\nu_F,u\rangle\ne0\), the function
+\(\langle\nu_F,\cdot\rangle\) is strictly monotone along \(\ell\), so the
+hyperplane of \(F\) meets \(\ell\) in at most one point.
+
+(e) Finally, \(x\in\pi F\) if and only if \(F\) meets \(\ell\). The points
+of \(\ell\) in facets are exactly \(\ell\cap\partial P=\{p_-,p_+\}\). So
+the facets with \(x\in\pi F\) are exactly \(F_-\) and \(F_+\).
+
+\step{Step 5 (integration).} By Step~4, \(\sum_F\mathbf 1_{\pi F}=2\) on
+\(\pi P\setminus E\). The sum is \(0\) outside \(\pi P\), and \(E\) is null
+by Step~3. Integrating over \(u^\perp\) and using \eqref{eq:projfacet},
+\[
+ 2\vol_{d-1}(\pi P)=\sum_F\vol_{d-1}(\pi F)
+ =\sum_F\sigma_F|\langle\nu_F,u\rangle|.
+\]
+This is \eqref{eq:facet} for unit \(u\). Both sides of \eqref{eq:facet} are
+positively homogeneous of degree one in \(u\) (the left side by
+definition), so \eqref{eq:facet} holds for all \(u\in\R^d\).
+
+\step{Step 6 (zonotope).} By (S3) and (S1), the right side of
+\eqref{eq:facet} is the support function of the compact convex set on the
+right of \eqref{eq:zonotope}. So this set has the support function required
+of \(\Pi P\). It therefore \emph{is} \(\Pi P\), and \(\Pi P\) is unique by
+(S2).
+\end{proof}
+
+\emph{Sanity check.} For the unit square \(Q=[0,1]^2\) and \(u=e_1\):
+the projection is a unit segment, of length \(1\). The formula gives
+\(\tfrac12(1+1+0+0)=1\).
+
+\section{Cartesian products}\label{sec:product}
+
+The next proposition is the source of the counterexample. It is used in the
+proofs of Theorem~\ref{thm:counterexample} and
+Corollary~\ref{cor:exponential-excess}.
+
+\begin{proposition}\label{prop:product}
+Let \(A\subset\R^r\) and \(B\subset\R^s\) be full-dimensional convex
+polytopes, where \(r,s\ge2\). In the orthogonal product space
+\(\R^{r+s}=\R^r\times\R^s\),
+\begin{equation}\label{eq:product-body}
+ \Pi(A\times B)=(|B|\Pi A)\times(|A|\Pi B).
+\end{equation}
+In particular,
+\begin{equation}\label{eq:multiplicative}
+ R_{r+s}(A\times B)=R_r(A)R_s(B).
+\end{equation}
+\end{proposition}
+
+\begin{proof}
+\emph{Plan.} Identify the facets of \(A\times B\) with their normals and
+areas (Steps 1--3), apply Lemma~\ref{lem:facets} (Steps 4--5), and compare
+volumes (Step 6). Below, \(F\) ranges over the facets of \(A\) and \(G\)
+over the facets of \(B\).
+
+\step{Step 1 (exposed faces of a product).} For a compact convex set \(C\)
+and a vector \(u\), let \(C_u=\{y\in C:\langle u,y\rangle=h_C(u)\}\) be the
+face exposed by \(u\). For \((a,b)\in A\times B\),
+\(\langle(u,v),(a,b)\rangle=\langle u,a\rangle+\langle v,b\rangle
+\le h_A(u)+h_B(v)\), with equality if and only if \(a\in A_u\) and
+\(b\in B_v\). Hence
+\[
+ (A\times B)_{(u,v)}=A_u\times B_v,\qquad
+ \dim(A_u\times B_v)=\dim A_u+\dim B_v.
+\]
+
+\step{Step 2 (facets).} \(A_0=A\). If \(u\ne0\), then \(A_u\) lies in the
+hyperplane \(\{\langle u,\cdot\rangle=h_A(u)\}\), so \(\dim A_u\le r-1\).
+The same holds for \(B\). Every facet of a polytope is the face exposed by
+its outward unit normal. Let \(\Phi\) be a facet of \(A\times B\) with
+outward unit normal \((u,v)\). If both \(u\ne0\) and \(v\ne0\), then by
+Step~1 \(\dim\Phi\le(r-1)+(s-1)=r+s-2\), which is impossible for a facet.
+So exactly one of \(u,v\) is zero. If \(v=0\), then \(\Phi=A_u\times B\)
+with \(\dim A_u=r-1\). So \(A_u\) is a facet \(F\) of \(A\) and
+\(u=\nu_F\). Conversely, for each facet \(F\) of \(A\), the set
+\(F\times B=(A\times B)_{(\nu_F,0)}\) has dimension \(r+s-1\), so it is a
+facet with outward unit normal \((\nu_F,0)\). The case \(u=0\) is
+symmetric. Therefore the facets of \(A\times B\) are exactly
+\[
+ F\times B\ \text{ with normal }(\nu_F,0),
+ \qquad
+ A\times G\ \text{ with normal }(0,\nu_G).
+\]
+
+\step{Step 3 (areas).}
+\(\vol_{r+s-1}(F\times B)=\sigma_F|B|\) and
+\(\vol_{r+s-1}(A\times G)=|A|\sigma_G\).
+Indeed, \(F\times B\) lies in \(H_F\times\R^s\), where \(H_F\) is the
+hyperplane of \(F\). Because the two coordinate blocks are orthogonal, an
+isometry \(H_F\cong\R^{r-1}\) induces an isometry
+\(H_F\times\R^s\cong\R^{r-1}\times\R^s\) carrying \(F\times B\) to a
+product set, whose volume is the product of the volumes by Fubini. So the
+area-normal vectors (area times outward unit normal) are
+\[
+ (|B|\sigma_F\nu_F,0)
+ \quad\hbox{and}\quad
+ (0,|A|\sigma_G\nu_G).
+\]
+
+\step{Step 4 (facet formula).} Apply \eqref{eq:facet} to the
+full-dimensional polytope \(A\times B\subset\R^{r+s}\), and then to \(A\)
+and to \(B\):
+\[
+ h_{\Pi(A\times B)}(u,v)
+ =\frac12\sum_F|B|\sigma_F|\langle\nu_F,u\rangle|
+  +\frac12\sum_G|A|\sigma_G|\langle\nu_G,v\rangle|
+ =|B|h_{\Pi A}(u)+|A|h_{\Pi B}(v).
+\]
+
+\step{Step 5 (identification).} By (S1), the right side is the support
+function of \((|B|\Pi A)\times(|A|\Pi B)\) at \((u,v)\). By (S2), this
+proves \eqref{eq:product-body}.
+
+\step{Step 6 (volumes).} Since \(|A\times B|=|A||B|\), the denominator of
+\(R_{r+s}(A\times B)\) is \((|A||B|)^{r+s-1}\). The source concludes with
+the display
+\[
+ \begin{split}
+ R_{r+s}(A\times B)
+ &=\frac{|B|^s|A|^r|\Pi A||\Pi B|}
+         {(|A||B|)^{r+s-1}}\\
+ &=\frac{|\Pi A|}{|A|^{r-1}}
+   \frac{|\Pi B|}{|B|^{s-1}}.
+ \end{split}
+\]
+\unverified{The numerator in the first line does not match
+\eqref{eq:product-body}. The factor \(|B|\Pi A\) lies in \(\R^r\), so by
+(S4) its volume is \(|B|^r|\Pi A|\); likewise \(|A|\Pi B\subset\R^s\) has
+volume \(|A|^s|\Pi B|\). The numerator should therefore be
+\(|B|^r|A|^s|\Pi A||\Pi B|\), with \(r\) and \(s\) interchanged relative to
+the source. As printed, the first line simplifies to
+\(|\Pi A||\Pi B|/(|A|^{s-1}|B|^{r-1})\), which equals the second line only
+if \(r=s\) or \(|A|=|B|\). This appears to be a transposition slip: the
+second line and \eqref{eq:multiplicative} are correct, as the computation
+below shows.}
+The computation that I can verify is, by \eqref{eq:product-body} and (S4),
+\[
+ R_{r+s}(A\times B)
+ =\frac{|B|^r|\Pi A|\cdot|A|^s|\Pi B|}{(|A||B|)^{r+s-1}}
+ =\frac{|\Pi A|}{|A|^{(r+s-1)-s}}\cdot\frac{|\Pi B|}{|B|^{(r+s-1)-r}}
+ =\frac{|\Pi A|}{|A|^{r-1}}\cdot\frac{|\Pi B|}{|B|^{s-1}},
+\]
+which is \eqref{eq:multiplicative}. Theorem~\ref{thm:counterexample} uses
+only \(r=s=10\), where the two versions of the numerator coincide.
+Corollary~\ref{cor:exponential-excess} uses \(r\ne s\) and relies on
+\eqref{eq:multiplicative} itself.
+\end{proof}
+
+\section{Affine invariance}\label{sec:affine}
+
+The product identity reduces the comparison to the values of the factors.
+To call \(c_d\) ``the simplex value'' we need all \(d\)-simplices to have
+the same value of \(R_d\). The affine covariance of \(\Pi\) is due to
+Petty~\cite{Petty}; see also \cite[Equation~(1)]{Ludwig}. The lemma is used
+only in the last sentence of Proposition~\ref{prop:simplex}, and there only
+its polytope case (Part~A) is needed.
+
+\begin{lemma}\label{lem:affine}
+Let \(P\subset\R^d\), \(d\ge2\), be a convex body. For every
+invertible linear map \(L\colon\R^d\to\R^d\),
+\[
+ \Pi(LP)=|\det L|L^{-t}\Pi P,\qquad R_d(LP)=R_d(P),
+\]
+where \(L^{-t}\) denotes the inverse transpose. Translations also
+preserve \(R_d\).
+\end{lemma}
+
+\begin{proof}
+\emph{Plan.} Part~A treats polytopes via Lemma~\ref{lem:facets}: each
+area-normal vector \(\sigma_F\nu_F\) is transformed by \(|\det L|L^{-t}\).
+Part~B passes to general convex bodies by inscribed polytopes, and also
+shows that \(\Pi P\) exists.
+
+\step{Translations.} \(\proj_{u^\perp}(P+x)\) is a translate of
+\(\proj_{u^\perp}P\), so \(h_{\Pi(P+x)}=h_{\Pi P}\). Hence
+\(\Pi(P+x)=\Pi P\), and \(R_d(P+x)=R_d(P)\).
+
+\medskip\noindent\textbf{Part A: \(P\) a polytope.}
+
+\step{A1 (normals).} Let \(F\) be a facet of \(P\), lying in
+\(\{x:\langle\nu_F,x\rangle=t_F\}\), with
+\(P\subset\{\langle\nu_F,x\rangle\le t_F\}\). Put \(n_F=L^{-t}\nu_F\).
+Then \(\langle n_F,Lx\rangle=\langle\nu_F,x\rangle\), so
+\(LP\subset\{\langle n_F,y\rangle\le t_F\}\) and
+\(LF=LP\cap\{\langle n_F,y\rangle=t_F\}\). Since \(L\) is a linear
+bijection, the facets of \(LP\) are exactly the sets \(LF\), and the
+outward unit normal of \(LF\) is \(n_F/\|n_F\|\).
+
+\step{A2 (areas).} \(\sigma_{LF}=|\det L|\,\|n_F\|\,\sigma_F\).
+The prism \(Z=F+[0,\nu_F]\) has volume \(\sigma_F\cdot1\), so
+\(LZ=LF+[0,L\nu_F]\) has volume \(|\det L|\sigma_F\) by (S4). On the other
+hand, \(LZ\) is swept out by translates of \(LF\). By Fubini its volume is
+\(\sigma_{LF}\) times its height over the hyperplane of \(LF\), namely
+\[
+ \Bigl\langle L\nu_F,\frac{n_F}{\|n_F\|}\Bigr\rangle
+ =\frac{\langle\nu_F,L^tL^{-t}\nu_F\rangle}{\|n_F\|}
+ =\frac1{\|n_F\|}.
+\]
+Dividing volume by height gives the formula.
+
+\step{A3 (area-normal vectors).} By A1 and A2,
+\(\sigma_{LF}\,n_F/\|n_F\|=|\det L|\,L^{-t}(\sigma_F\nu_F)\).
+No sign of \(\det L\) enters, so this also holds when \(\det L<0\).
+
+\step{A4 (covariance).} Put \(M=|\det L|L^{-t}\). By \eqref{eq:zonotope}
+for \(LP\) and A3,
+\(\Pi(LP)=\sum_F[-\tfrac12M\sigma_F\nu_F,\tfrac12M\sigma_F\nu_F]
+=M\sum_F[-\tfrac12\sigma_F\nu_F,\tfrac12\sigma_F\nu_F]=M\,\Pi P\).
+This uses that a linear map sends segments to segments and commutes with
+Minkowski sums.
+
+\step{A5 (invariance).} \(|\det M|=|\det L|^d\,|\det L|^{-1}
+=|\det L|^{d-1}\). So \(|\Pi(LP)|=|\det L|^{d-1}|\Pi P|\), while
+\(|LP|^{d-1}=|\det L|^{d-1}|P|^{d-1}\). Hence \(R_d(LP)=R_d(P)\).
+
+\medskip\noindent\textbf{Part B: \(P\) a general convex body}
+(for completeness; not needed for Theorem~\ref{thm:counterexample} or
+Corollary~\ref{cor:exponential-excess}).
+
+\step{B1 (inscribed polytopes).} By translation invariance we may assume
+that \(0\) is an interior point of \(P\). Choose \(\rho>0\) with
+\(P\subset\rho B_2^d\), and a polytope \(P_0\subset P\) containing a ball
+\(aB_2^d\), \(a>0\) (for example a small cube centred at \(0\)). For
+\(m\ge1\) let \(\varepsilon_m=1/m\). By compactness choose finite sets
+\(N_1\subset N_2\subset\cdots\subset P\) with
+\(P\subset N_m+\varepsilon_mB_2^d\), and put \(P_m=\conv(P_0\cup N_m)\).
+Then the \(P_m\) are increasing polytopes containing \(aB_2^d\), and
+\[
+ P_m\subset P\subset P_m+\varepsilon_mB_2^d
+ \subset(1+\varepsilon_m/a)P_m,
+ \qquad \varepsilon_m\longrightarrow0.
+\]
+The last inclusion holds because
+\(\varepsilon_mB_2^d=(\varepsilon_m/a)\,aB_2^d\subset(\varepsilon_m/a)P_m\)
+and \(P_m+tP_m=(1+t)P_m\) for convex \(P_m\) and \(t\ge0\). Put
+\(\mu_m=1+\varepsilon_m/a\to1\).
+
+\step{B2 (uniform convergence).} For unit \(u\) write
+\(g(u)=\vol_{d-1}(\proj_{u^\perp}P)\) and \(f_m(u)=h_{\Pi P_m}(u)
+=\vol_{d-1}(\proj_{u^\perp}P_m)\). Projecting
+\(P_m\subset P\subset\mu_mP_m\) and taking \((d-1)\)-volumes gives
+\(f_m\le g\le\mu_m^{d-1}f_m\). Since
+\(\proj_{u^\perp}P_m\subset\rho B_2^{d-1}\), we have
+\(f_m\le\kappa_{d-1}\rho^{d-1}\). Therefore
+\[
+ 0\le g(u)-f_m(u)
+ \le(\mu_m^{d-1}-1)f_m(u)
+ \le (\mu_m^{d-1}-1)\kappa_{d-1}\rho^{d-1},
+\]
+and \(f_m\to g\) uniformly on \(S^{d-1}\).
+
+\step{B3 (existence of \(\Pi P\)).} Since \(P_m\subset P_{m+1}\), we have
+\(f_m\le f_{m+1}\), so \(\Pi P_m\subset\Pi P_{m+1}\) by (S2). Also
+\(\kappa_{d-1}a^{d-1}\le f_m\le\kappa_{d-1}\rho^{d-1}\) on \(S^{d-1}\), so
+by (S2) the bodies \(\Pi P_m\) contain \(\kappa_{d-1}a^{d-1}B_2^d\) and lie
+in \(\kappa_{d-1}\rho^{d-1}B_2^d\). Let \(Z\) be the closure of
+\(\bigcup_m\Pi P_m\). It is convex (an increasing union of convex sets is
+convex, and so is its closure), compact, and has nonempty interior. Its
+support function is \(\sup_mh_{\Pi P_m}\), which on the sphere equals
+\(\lim_mf_m=g\). So \(Z\) is a convex body with the support function
+required of \(\Pi P\); that is, \(\Pi P=Z\) exists.
+
+\step{B4 (volume sandwiches).} From \(f_m\le g\le\mu_m^{d-1}f_m\) and (S2),
+\[
+ \Pi P_m\subset\Pi P\subset\mu_m^{d-1}\Pi P_m,
+ \qquad
+ |\Pi P_m|\le|\Pi P|\le\mu_m^{d(d-1)}|\Pi P_m|.
+\]
+Likewise \(|P_m|\le|P|\le\mu_m^d|P_m|\). Consequently
+\(\mu_m^{-d(d-1)}R_d(P_m)\le R_d(P)\le\mu_m^{d(d-1)}R_d(P_m)\), so
+\(R_d(P_m)\to R_d(P)\).
+
+\step{B5 (covariance).} Applying \(L\) to the sandwich of B1 gives
+\(LP_m\subset LP\subset\mu_mLP_m\), with \(0\) interior to \(LP\). B2--B4
+used only such a sandwich and boundedness, so they hold with
+\(LP_m,LP\) in place of \(P_m,P\). In particular
+\(h_{\Pi(LP_m)}\to h_{\Pi(LP)}\) pointwise on \(\R^d\) and
+\(R_d(LP_m)\to R_d(LP)\). By Part~A and (S1), for every \(u\),
+\[
+ h_{\Pi(LP_m)}(u)=|\det L|\,h_{\Pi P_m}(L^{-1}u)
+ \longrightarrow|\det L|\,h_{\Pi P}(L^{-1}u)
+ =h_{|\det L|L^{-t}\Pi P}(u).
+\]
+The two limits agree, so \(\Pi(LP)=|\det L|L^{-t}\Pi P\) by (S2).
+
+\step{B6 (invariance).} By Part~A, \(R_d(LP_m)=R_d(P_m)\). Letting
+\(m\to\infty\) and using B4 for \(P\) and for \(LP\) gives
+\(R_d(LP)=R_d(P)\).
+\end{proof}
+
+\section{The simplex value}\label{sec:simplex}
+
+We now compute the value to which the product will be compared. The
+projection body of a simplex is a cube plus one extra segment. The
+proposition is used in Theorem~\ref{thm:counterexample} and
+Corollary~\ref{cor:exponential-excess}.
+
+\begin{proposition}\label{prop:simplex}
+For \(d\ge2\), the standard simplex
+\(T_d=\conv(0,e_1,\ldots,e_d)\subset\R^d\) satisfies
+\[
+ |T_d|=\frac1{d!},\qquad
+ |\Pi T_d|=\frac{d+1}{((d-1)!)^d},\qquad
+ R_d(T_d)=c_d.
+\]
+Every full-dimensional \(d\)-simplex has the same value \(c_d\).
+\end{proposition}
+
+\begin{proof}
+\emph{Plan.} List the \(d+1\) area-normal vectors of \(T_d\), read off
+\(\Pi T_d\) from \eqref{eq:zonotope}, and compute its volume by slicing
+along the direction \(w=e_1+\cdots+e_d\).
+
+\step{Step 1 (volume).} \(T_d\) is the pyramid with base
+\(T_{d-1}\times\{0\}\) and apex \(e_d\) at height \(1\). Its slice at
+height \(t\) is a copy of \((1-t)T_{d-1}\), so
+\(|T_d|=\int_0^1(1-t)^{d-1}|T_{d-1}|\,dt=|T_{d-1}|/d\). With
+\(|T_1|=1\), induction gives \(|T_d|=1/d!\).
+
+\step{Step 2 (facets).} \(T_d=\{x:x_i\ge0,\ \sum_ix_i\le1\}\) has \(d+1\)
+facets.
+\begin{itemize}[leftmargin=2em,itemsep=1pt,topsep=2pt]
+\item For \(i=1,\dots,d\): the facet \(T_d\cap\{x_i=0\}\) is a copy of
+\(T_{d-1}\) in a coordinate hyperplane. It has area \(1/(d-1)!\) and
+outward normal \(-e_i\). Its area-normal vector is \(-e_i/(d-1)!\).
+\item The facet \(F_0=\conv(e_1,\dots,e_d)\) has outward unit normal
+\(w/\sqrt d\). Dropping the last coordinate (projection along \(e_d\))
+maps \(F_0\) bijectively onto \(T_{d-1}\), since \(e_d\mapsto0\). By
+Step~1 of Lemma~\ref{lem:facets} this projection scales area by
+\(|\langle w/\sqrt d,e_d\rangle|=1/\sqrt d\). So
+\(\sigma_{F_0}=\sqrt d/(d-1)!\), and the area-normal vector is
+\(w/(d-1)!\).
+\end{itemize}
+
+\step{Step 3 (the projection body).} By \eqref{eq:zonotope}, with
+\(\gamma=1/(d-1)!\),
+\[
+ \Pi T_d=\sum_{i=1}^d\Bigl[-\frac{\gamma e_i}2,\frac{\gamma e_i}2\Bigr]
+ +\Bigl[-\frac{\gamma w}2,\frac{\gamma w}2\Bigr].
+\]
+The sign of a generator does not matter for a centred segment.
+Translating by \(\tfrac\gamma2(e_1+\dots+e_d+w)\) moves each segment to
+start at the origin. Since \(\sum_i[0,e_i]=[0,1]^d\), this shows that
+\(\Pi T_d\) is a translate of
+\[
+ \frac{[0,1]^d+[0,w]}{(d-1)!}.
+\]
+
+\step{Step 4 (volume of \(Q+[0,w]\), \(Q=[0,1]^d\)).} Let
+\(\omega=w/\|w\|\). For a compact convex set \(C\) and \(y\in w^\perp\),
+let \(I_C(y)=\{t\in\R:y+t\omega\in C\}\). It is a compact interval,
+possibly empty, and by Fubini
+\(|C|=\int_{w^\perp}\operatorname{length}(I_C(y))\,dy\). A point
+\(y+t\omega\) lies in \(Q+[0,w]\) if and only if
+\(y+(t-\tau\|w\|)\omega\in Q\) for some \(\tau\in[0,1]\), that is, if and
+only if \(t\in I_Q(y)+[0,\|w\|]\). So if \(I_Q(y)=[a,b]\) then
+\(I_{Q+[0,w]}(y)=[a,b+\|w\|]\). The fibre is nonempty exactly when
+\(y\in\proj_{w^\perp}Q\), and then it is longer by \(\|w\|\). Hence
+\[
+ |Q+[0,w]|
+ =|Q|+\|w\|\vol_{d-1}(\proj_{w^\perp}Q)
+ =1+h_{\Pi Q}(w),
+\]
+where the last equality is the homogeneous extension in the definition of
+\(h_{\Pi Q}\). The cube has, for each \(i\), two facets of area one with
+normals \(\pm e_i\), and \(|\langle\pm e_i,w\rangle|=1\). So
+\eqref{eq:facet} gives \(h_{\Pi Q}(w)=\tfrac12\cdot2d=d\). Thus
+\(|Q+[0,w]|=d+1\). Figure~\ref{fig:extrusion} shows the case \(d=2\).
+
+\step{Step 5 (the value).} By Steps 3--4 and (S4),
+\(|\Pi T_d|=(d+1)/((d-1)!)^d\). Dividing by \(|T_d|^{d-1}=(d!)^{-(d-1)}\),
+\[
+ R_d(T_d)=\frac{(d+1)(d!)^{d-1}}{((d-1)!)^d}
+ =\frac{d+1}{d!}\Bigl(\frac{d!}{(d-1)!}\Bigr)^d
+ =\frac{(d+1)d^d}{d!}=c_d.
+\]
+
+\step{Step 6 (all simplices).} Every full-dimensional \(d\)-simplex is the
+image of \(T_d\) under an invertible linear map followed by a translation.
+Lemma~\ref{lem:affine} (Part~A and the translation statement) gives the
+same value \(c_d\).
+\end{proof}
+
+\emph{Sanity check.} For \(d=2\): \(|T_2|=\tfrac12\), \(|\Pi T_2|=3\),
+\(R_2(T_2)=6=c_2\). For \(d=3\): \(c_3=4\cdot27/6=18\), the value quoted
+from \cite{ChenEtAl} in Section~\ref{sec:result}.
+
+\begin{figure}[tb]
+\centering
+\begin{tikzpicture}[scale=1.5, line join=round]
+ \fill[black!7] (0,0) rectangle (1,1);
+ \fill[blue!13] (1,0)--(2,1)--(2,2)--(1,1)--cycle;
+ \fill[yellow!23] (0,1)--(1,1)--(2,2)--(1,2)--cycle;
+ \draw[thick] (0,0)--(1,0)--(2,1)--(2,2)--(1,2)--(0,1)--cycle;
+ \draw[thin] (0,1)--(1,1)--(1,0);
+ \draw[thin] (1,1)--(2,2);
+ \node at (.5,.5) {\(Q\)};
+ \node at (1.5,1) {\(1\)};
+ \node at (1,1.5) {\(1\)};
+ \node[below left] at (0,0) {\(0\)};
+ \node[above right] at (2,2) {\((2,2)\)};
+ \draw[->,thick] (2.6,.3)--(3.6,1.3);
+ \node[right] at (3.15,.65) {\(w=(1,1)\)};
+\end{tikzpicture}
+\caption{The planar extrusion \(Q+[0,(1,1)]\), with
+\(Q=[0,1]^2\), consists of the unit square and two parallelograms of
+area one. Its area is \(3\). The fiber argument in
+Proposition~\ref{prop:simplex} proves the corresponding volume \(d+1\)
+in every dimension.}
+\label{fig:extrusion}
+\end{figure}
+
+\section{The counterexample and exponential excess}\label{sec:counterexample}
+
+The geometric work is complete. What remains is arithmetic with the
+constants \(c_d\).
+
+\begin{proof}[Proof of Theorem~\ref{thm:counterexample}]
+\step{Step 1.} \(T_{10}\) is a full-dimensional convex polytope in
+\(\R^{10}\), so \(K=T_{10}\times T_{10}\) is compact and convex with
+nonempty interior in \(\R^{20}\). Proposition~\ref{prop:product} applies
+with \(r=s=10\), and with Proposition~\ref{prop:simplex} gives
+\[
+ R_{20}(K)=R_{10}(T_{10})^2=c_{10}^2
+         =\left(\frac{11\cdot10^{10}}{10!}\right)^2.
+\]
+
+\step{Step 2.} Divide by \(c_{20}=21\cdot20^{20}/20!\), and use
+\(10^{20}/20^{20}=2^{-20}\) and \(20!/(10!)^2=\binom{20}{10}\):
+\[
+ \frac{R_{20}(K)}{c_{20}}
+ =\frac{121\cdot10^{20}\cdot20!}
+        {(10!)^2\cdot21\cdot20^{20}}
+ =\frac{121\binom{20}{10}}{21\cdot2^{20}}.
+\]
+
+\step{Step 3.} \(\binom{20}{10}=184\,756\) and \(2^{20}=1\,048\,576\), so
+the numerator is \(121\cdot184\,756=22\,355\,476\) and the denominator is
+\(21\cdot1\,048\,576=22\,020\,096\). The exact integer certificate is
+\[
+ 121\cdot184\,756-21\cdot1\,048\,576=335\,380>0.
+\]
+So \(R_{20}(K)>c_{20}\), that is, \(|\Pi K|>c_{20}|K|^{19}\). This is a
+strict violation of \eqref{eq:proposed-bound}.
+\end{proof}
+
+\paragraph{The general product test.}
+For \(r,s\ge2\), the same two propositions give
+\(R_{r+s}(T_r\times T_s)=c_rc_s\). Dividing by \(c_{r+s}\) and collecting
+\(\frac{(r+s)!}{r!\,s!}=\binom{r+s}{r}\),
+\[
+ \frac{R_{r+s}(T_r\times T_s)}{c_{r+s}}
+ =\frac{(r+1)r^r}{r!}\cdot\frac{(s+1)s^s}{s!}\cdot
+  \frac{(r+s)!}{(r+s+1)(r+s)^{r+s}}
+ =\frac{(r+1)(s+1)}{r+s+1}
+   \binom{r+s}{r}\frac{r^rs^s}{(r+s)^{r+s}}.
+\]
+Thus any universal upper constant for \(R_{r+s}\) must be at least
+\(c_rc_s\). Theorem~\ref{thm:counterexample} is the case \(r=s=10\).
+
+\medskip
+Iterating the product identity gives the following quantitative
+consequence.
+
+\begin{corollary}\label{cor:exponential-excess}
+There exist a constant \(\lambda>1\) and an integer \(N\ge20\) such that,
+for every integer \(n\ge N\), some full-dimensional convex polytope
+\(K_n\subset\R^n\) satisfies
+\[
+ \frac{R_n(K_n)}{R_n(T_n)}\ge\lambda^n.
+\]
+The polytopes \(K_n\) may be chosen as Cartesian products of simplices.
+\end{corollary}
+
+\begin{proof}
+\emph{Plan.} Take \(K_n\) to be a product of many copies of \(T_{10}\) and
+one simplex of dimension between \(10\) and \(19\). Its value is a product
+of simplex constants. We compare it with \(c_n\) using the upper bound
+\(c_n<(n+1)\beta^n\) and the lower bound \(c_{10}>\beta^{10}\), where
+\(\beta=11/4\).
+
+\step{Step 1 (the bodies).} For \(q\in\{0,\ldots,9\}\) put \(d_q=10+q\).
+Every integer \(n\ge20\) has a unique representation \(n=10k+d_q\) with
+\(k\ge1\): \(q\) is the last digit of \(n\) and
+\(k=\lfloor n/10\rfloor-1\). In the orthogonal coordinate product space,
+take
+\[
+ K_n=T_{10}^{\,k}\times T_{d_q},
+\]
+where \(T_{10}^{\,k}\) is the \(k\)-fold Cartesian product.
+
+\step{Step 2 (its value).} A product of full-dimensional convex polytopes
+is a full-dimensional convex polytope, and all dimensions involved are at
+least \(10\ge2\). Induction on \(k\) with Proposition~\ref{prop:product}
+(applied to \(T_{10}^{\,j}\times T_{10}\), then to
+\(T_{10}^{\,k}\times T_{d_q}\)) and Proposition~\ref{prop:simplex} give
+\[
+ R_n(K_n)=c_{10}^k c_{d_q}.
+\]
+
+\step{Step 3 (\(e<\beta=11/4\)).} In the series
+\(e=\sum_{j\ge0}1/j!\), the terms with \(j\le2\) sum to \(\tfrac52\). For
+\(j\ge3\), the ratio of consecutive terms is \(1/(j+1)\le\tfrac14<\tfrac13\),
+so \(1/j!\le\tfrac16\,3^{-(j-3)}\), with strict inequality for \(j\ge4\).
+Hence
+\[
+ e=\frac52+\sum_{j=3}^{\infty}\frac1{j!}
+ <\frac52+\frac16\sum_{j=0}^{\infty}3^{-j}
+ =\frac52+\frac16\cdot\frac32
+ =\frac{11}4=\beta.
+\]
+
+\step{Step 4 (upper bound for \(c_n\)).} The positive term \(n^n/n!\) of
+the series \(e^n=\sum_jn^j/j!\) is strictly smaller than the full sum.
+With Step~3,
+\[
+ c_n=(n+1)\frac{n^n}{n!}<(n+1)e^n<(n+1)\beta^n\qquad(n\ge2).
+\]
+
+\step{Step 5 (the ten-dimensional block).} Using
+\(10!=2^8\cdot3^4\cdot5^2\cdot7\) and \(10^{10}=2^{10}5^{10}\),
+\[
+ c_{10}=\frac{11\cdot10^{10}}{10!}
+ =\frac{11\cdot2^2\cdot5^8}{3^4\cdot7}
+ =\frac{17\,187\,500}{567}.
+\]
+With \(\beta^{10}=11^{10}/2^{20}\), \(11^9=2\,357\,947\,691\) and
+\(2^{22}5^8=2^{14}\cdot10^8\),
+\[
+ \alpha:=\frac{c_{10}}{\beta^{10}}
+ =\frac{2^{22}\cdot5^8}{567\cdot11^9}
+ =\frac{1\,638\,400\,000\,000}{1\,336\,956\,340\,797}>1 .
+\]
+Numerically, \(\alpha\approx1.2255\).
+
+\step{Step 6 (choice of \(\lambda\)).} Fix \(\lambda\) with
+\(1<\lambda<\alpha^{1/10}\), and put \(\theta=\alpha/\lambda^{10}>1\).
+
+\step{Step 7 (comparison).} By Proposition~\ref{prop:simplex},
+\(R_n(T_n)=c_n\). By Steps 2 and 4, and writing \(n=10k+d_q\) so that
+\(\beta^n\lambda^n=(\beta\lambda)^{10k}(\beta\lambda)^{d_q}\) and
+\(c_{10}^k/(\beta\lambda)^{10k}=\theta^k\),
+\[
+ \frac{R_n(K_n)}{R_n(T_n)\lambda^n}
+ >\frac{c_{10}^k\,c_{d_q}}{(n+1)\beta^n\lambda^n}
+ =c_{d_q}\beta^{-d_q}\lambda^{-d_q}\,
+   \frac{\theta^k}{10k+d_q+1}.
+\]
+
+\step{Step 8 (thresholds).} For each fixed \(q\), the right side tends to
+infinity as \(k\to\infty\), since \(\theta>1\) and exponential growth
+dominates the linear denominator. So there is \(k_q\ge1\) such that the
+right side is at least \(1\) for all \(k\ge k_q\). Let
+\(N=\max_{0\le q\le9}(10k_q+d_q)\ge20\). If \(n\ge N\) and
+\(n=10k+d_q\), then \(10k+d_q\ge10k_q+d_q\), so \(k\ge k_q\). Step~7 then
+gives \(R_n(K_n)/R_n(T_n)>\lambda^n\).
+\end{proof}
+
+\section{Verification checklist}\label{sec:checklist}
+
+The load-bearing steps, in the order a sceptical reader should check them:
+
+\begin{enumerate}[leftmargin=2em,itemsep=3pt]
+\item \textbf{The factor \(\tfrac12\) in the facet formula.}
+Lemma~\ref{lem:facets}, Steps 3--5: almost every point of the projection
+is covered by exactly two projected facets. All constants depend on this.
+\item \textbf{Facets of a product and the exponent bookkeeping.}
+Proposition~\ref{prop:product}, Steps 2--3 (the facets are \(F\times B\)
+and \(A\times G\), with areas \(\sigma_F|B|\) and \(|A|\sigma_G\)) and
+Step~6. Step~6 contains the one boxed discrepancy with the source: its
+numerator \(|B|^s|A|^r\) should be \(|B|^r|A|^s\). Check that
+\((|B|\Pi A)\subset\R^r\) has volume \(|B|^r|\Pi A|\) and that
+\eqref{eq:multiplicative} follows.
+\item \textbf{The simplex value.} Proposition~\ref{prop:simplex}: Step~2
+(the slanted facet has area-normal vector \(w/(d-1)!\)), Step~4
+(\(|[0,1]^d+[0,w]|=d+1\)), and the algebra in Step~5. The cases \(d=2,3\)
+give \(6\) and \(18\).
+\item \textbf{The integer inequality.} Proof of
+Theorem~\ref{thm:counterexample}, Steps 2--3:
+\(c_{10}^2/c_{20}=121\binom{20}{10}/(21\cdot2^{20})\) and
+\(121\cdot184\,756-21\cdot1\,048\,576=335\,380>0\).
+\item \textbf{The corollary's two numerical inputs.}
+Corollary~\ref{cor:exponential-excess}, Step~3 (\(e<11/4\)) and Step~5
+(\(\alpha=2^{22}5^8/(567\cdot11^9)>1\)), and the exponent bookkeeping in
+Step~7.
+\item \textbf{Role of affine invariance.} Lemma~\ref{lem:affine} is needed
+only to say that \emph{every} simplex has value \(c_d\)
+(Proposition~\ref{prop:simplex}, Step~6), and for that Part~A suffices.
+Part~B (general convex bodies) is not used by the main results.
+\end{enumerate}
+
+\begin{thebibliography}{7}
+
+\bibitem{Brannen}
+N.~S.~Brannen,
+\emph{Volumes of projection bodies},
+Mathematika \textbf{43} (1996), no.~2, 255--264.
+\href{https://doi.org/10.1112/S002557930001175X}{doi:10.1112/S002557930001175X}.
+
+\bibitem{ChenEtAl}
+S.~Chen, Y.~Feng, Y.~Li, D.~Xi, and L.~Xu,
+\emph{Petty's conjectured projection inequality in dimension three},
+preprint, 2026, MathSciDoc:2608.23001.
+\href{https://archive.ymsc.tsinghua.edu.cn/pacm_download/741/12780-pettyinequality.pdf}{Full text}.
+
+\bibitem{FengEtAl}
+Y.~Feng, S.~Hu, W.~Liu, and L.~Xu,
+\emph{On the reverse projection inequality},
+preprint, 2026, MathSciDoc:2608.23002.
+\href{https://archive.ymsc.tsinghua.edu.cn/pacm_download/743/12781--2026.8.26.pdf}{Full text}.
+
+\bibitem{Henk}
+M.~Henk,
+\emph{Note on projection bodies of zonotopes with \(n+1\) generators},
+Acta Mathematica Scientia \textbf{45} (2025), 96--103.
+\href{https://doi.org/10.1007/s10473-025-0107-9}{doi:10.1007/s10473-025-0107-9}.
+
+\bibitem{Ludwig}
+M.~Ludwig,
+\emph{Projection bodies and valuations},
+Advances in Mathematics \textbf{172} (2002), no.~2, 158--168.
+\href{https://doi.org/10.1016/S0001-8708(02)00021-X}{doi:10.1016/S0001-8708(02)00021-X}.
+
+\bibitem{Petty}
+C.~M.~Petty,
+\emph{Projection bodies},
+in \emph{Proceedings of the Colloquium on Convexity (Copenhagen, 1965)},
+K\o benhavns Universitet Matematiske Institut, Copenhagen, 1967,
+pp.~234--241.
+
+\bibitem{Saroglou}
+C.~Saroglou,
+\emph{On the shape of a convex body with respect to its second projection body},
+Advances in Applied Mathematics \textbf{67} (2015), 55--74.
+\href{https://doi.org/10.1016/j.aam.2015.03.004}{doi:10.1016/j.aam.2015.03.004}.
+Preprint:
+\href{https://arxiv.org/abs/1409.4347v2}{arXiv:1409.4347v2}.
+
+\end{thebibliography}
+
+\end{document}

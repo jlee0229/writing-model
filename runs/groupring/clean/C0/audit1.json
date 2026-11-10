@@ -1,0 +1,13 @@
+{
+ "statements": [],
+ "introduced": [],
+ "source_doubts": [
+  {
+   "where": "Theorem 1.2 (external input, cited from [CharacteristicTwo, Theorem 1.1]) and its use in Step 1 of the proof of Theorem 1.1",
+   "quote": "There exist a finite field $K_2$ of characteristic two, a finitely\ngenerated group $H_2$, and finite sums $a_2,b_2\\in K_2[H_2]$ with\n$a_2b_2=1$ and $b_2a_2\\ne1$.",
+   "problem": "The whole result rests on this cited statement, which is a counterexample to Kaplansky's direct finiteness conjecture for group algebras. Neither the SOURCE nor the REWRITE proves or checks it; both only point to an unavailable 'companion' manuscript. Everything downstream (Lemma 2.1 through Proposition 4.3 and the assembly) checks out step by step, so Theorem 1.1 is conditional on this input. The REWRITE says so in prose ('cited, not proved or checked here') and in checklist item 1, but does not use an \\unverified{...} mark.",
+   "already_marked_unverified": false
+  }
+ ],
+ "unverified_marks": []
+}

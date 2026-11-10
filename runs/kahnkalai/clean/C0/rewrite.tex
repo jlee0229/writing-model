@@ -1,0 +1,833 @@
+\documentclass[11pt]{article}
+
+\usepackage[T1]{fontenc}
+\usepackage{mathtools,amsthm,amssymb}
+\usepackage{lmodern}
+\usepackage{microtype}
+\usepackage[margin=1.05in]{geometry}
+\usepackage{enumitem}
+\usepackage{needspace}
+\usepackage{xcolor}
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta}
+\pdftrailerid{}
+\pdfsuppressptexinfo=15
+\usepackage{hyperref}
+\hypersetup{colorlinks=true,linkcolor=black,citecolor=black,
+  urlcolor=blue!45!black,pdftitle={The second Kahn--Kalai conjecture},pdfauthor={OpenAI}}
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\numberwithin{equation}{section}
+
+\newcommand{\PP}{\mathbb P}
+\newcommand{\EE}{\mathbb E}
+\newcommand{\pc}{p_{\mathrm c}}
+\newcommand{\pE}{p_{\mathrm E}}
+\newcommand{\ind}{\mathbf 1}
+\newcommand{\TT}{\mathcal T}
+\newcommand{\UU}{\mathcal U}
+\newcommand{\ch}{\operatorname{Ch}}
+\newcommand{\ee}{\mathrm e}
+\newcommand{\unverified}[1]{\par\smallskip\noindent\fbox{\parbox{0.95\linewidth}{\textbf{Unverified step.} #1}}\par\smallskip}
+\newcommand{\Step}[1]{\par\smallskip\noindent\textbf{Step #1.}}
+
+\title{The second Kahn--Kalai conjecture}
+\author{Rewritten for readability from the OpenAI manuscript of the same title}
+\date{September 24, 2026}
+
+\begin{document}
+\maketitle
+\begin{abstract}
+For every finite simple graph $H$ with $h\ge1$ edges and at most $n$ vertices,
+the threshold for $G(n,p)$ to contain a copy of $H$ is at most
+$C\,\pE(n,H)(1+\log_2 h)$ with $C$ universal, where $\pE(n,H)$ is the least
+density at which every subgraph of $H$ has expected copy count at least $1/2$.
+This is the second Kahn--Kalai conjecture.
+\end{abstract}
+
+\section{The result}\label{sec:introduction}
+
+Graphs are finite and simple, $[n]=\{1,\ldots,n\}$, and $G(n,p)$ is the random
+graph on $[n]$ in which each of the $\binom n2$ possible edges is present
+independently with probability $p$. For graphs $G,F$, let $N(G,F)$ be the
+number of subgraphs of $G$ isomorphic to $F$ (ordinary copies: extra edges
+among the chosen vertices are allowed). For a graph $H$ with at least one edge
+and at most $n$ vertices define
+\begin{align*}
+ \pc(n,H)&=\inf\{p\in[0,1]:\PP(N(G(n,p),H)>0)\ge\tfrac12\},\\
+ \pE(n,H)&=\inf\{p\in[0,1]:\EE N(G(n,p),F)\ge\tfrac12
+                 \text{ for every subgraph }F\subseteq H\}.
+\end{align*}
+These are the \emph{containment threshold} and the \emph{graph expectation
+threshold}. Three elementary facts:
+\begin{enumerate}[label=(\alph*),leftmargin=2em,itemsep=1pt]
+\item $\EE N(G(n,p),F)=N(K_n,F)\,p^{e(F)}$, by linearity over the copies of $F$
+in $K_n$.
+\item Both infima are attained: each constraint says that a polynomial in $p$
+is at least $1/2$, there are finitely many constraints, and $p=1$ satisfies
+them. In particular
+\begin{equation}\label{eq:attained}
+ N(K_n,F)\,\pE(n,H)^{e(F)}\ge\tfrac12\qquad\text{for every subgraph }F\subseteq H.
+\end{equation}
+\item $0<\pE(n,H)\le\pc(n,H)$. The single-edge constraint is $\binom n2p\ge\frac12$.
+At $p=\pc$, every $F\subseteq H$ has
+$\EE N(G,F)\ge\PP(N(G,F)>0)\ge\PP(N(G,H)>0)\ge\frac12$.
+\end{enumerate}
+
+\begin{theorem}\label{thm:main}
+For every $n\ge2$ and every finite simple graph $H$ with $h=e(H)\ge1$
+edges and at most $n$ vertices,
+\begin{equation}\label{eq:stronger}
+ \pc(n,H)\le
+ \min\{1,\;2048\ee^{50}\pE(n,H)(1+\log_2 h)\}.
+\end{equation}
+In particular, $\pc(n,H)\le6144\ee^{50}\pE(n,H)\log_2 n$.
+\end{theorem}
+
+The constants are universal and $H$ may vary with $n$. Kahn and Kalai use
+expected count $1$ instead of $1/2$. By (a), for a subgraph with $g\ge1$ edges
+this changes its constraint by a factor $2^{1/g}\le2$, so it changes $\pE$ by a
+factor in $[1,2]$ and gives the same conjecture.
+
+\paragraph{Context (not used in the proof).}
+Thresholds for fixed targets are classical~\cite{ER60,Bollobas81}; here $H$ may
+grow with $n$. Kahn and Kalai~\cite{KK07} conjectured that the expectation
+obstruction determines $\pc$ up to a logarithmic factor. A logarithm is needed:
+for a perfect matching, $\pE=\Theta(1/n)$ but
+$\pc=\Theta(\log n/n)$~\cite{ER66,KK07}. Other spanning targets, such as
+cubes~\cite{Riordan00}, have required different methods. The \emph{first}
+Kahn--Kalai conjecture concerns an arbitrary increasing family $\mathcal F$ and
+its expectation threshold $q(\mathcal F)$, defined through covers. Talagrand
+\cite[Section~6]{Tal10} introduced the fractional version $q_f(\mathcal F)$.
+Alweiss, Lovett, Wu and Zhang~\cite{ALWZ21}, building on~\cite{LSZ19}, developed
+the fragment method. Frankston, Kahn, Narayanan and Park~\cite{FKNP21} proved
+$p_{\mathrm c}(\mathcal F)=O(q_f(\mathcal F)\log\ell)$, with $\ell$ bounding the
+size of minimal members. Park and Pham~\cite{PP24} proved this with $q$ in place
+of $q_f$, and $q,q_f$ agree up to a universal
+constant~\cite[Theorem~1.1]{OpenAIThresholdEquivalence2026}. For the family
+$\mathcal F_H$ of edge sets containing a copy of $H$ one has
+$\pE(n,H)\le q(\mathcal F_H)$, so these theorems do not bound $\pc$ by $\pE$.
+Towards that: \cite[Theorem~1]{MNSZ22} gives a single logarithm for a modified
+graph threshold, which equals $q_f(\mathcal F_H)$~\cite[Equation~(1)]{DKP25}.
+Dubroff, Kahn and Park~\cite[Theorems~1.2--1.5]{DKP25} proved
+$\pc=O(\pE\log^3n)$, and the conjecture when $\pE<1/(3n)$; they treated
+cliques, cycles and bounded-degree trees as test graphs
+in~\cite[Theorems~1.4--1.5]{DKP25Cases}. Tran~\cite{Tran26} reduced the loss to
+$O(\log^2(2e(H)))$, proved the conjecture for trees and for graphs whose average
+degree is at least the logarithm of their maximum degree, and proposed a
+coupling conjecture~\cite[Section~4]{Tran26}. The proof below borrows two
+constructions. Section~\ref{sec:resampling} uses the posterior resampling of
+\cite{MNSZ25}. Section~\ref{sec:graphs} uses Tran's ratio-maximizing
+cores~\cite[Section~3]{Tran26}, which have antecedents in
+\cite[Claim~29]{LSZ19} and \cite[Lemma~2.4]{ALWZ21}.
+
+\subsection*{Proof at a glance}
+
+\emph{Key idea.} A copy of $H$ is assembled in stages
+$\varnothing=H_0\subset H_1\subset\cdots\subset H_k=H$ whose sizes grow by a
+factor above $17$. The stages are chosen so that, given any copy of $H_{i-1}$,
+the edges added by a uniformly random extension to a copy of $H_i$ form a
+\emph{$\sigma$-spread} random set, with $\sigma=128\pE$. All assembly histories
+form a tree whose arcs are labelled by the added edges. One random edge set $W$
+of density $\rho=4\ee^{50}\sigma$ is then used at \emph{every} node of the tree
+at once. It replaces each label by a remainder outside $W$ of at most half the
+size, and spread is kept up to a constant. After $\lfloor\log_2 h\rfloor+1$
+successful rounds all remainders are empty, so the union of the random sets
+contains a copy of $H$.
+
+\emph{Steps and dependencies.}
+\begin{itemize}[leftmargin=1.5em,itemsep=1pt]
+\item Lemma~\ref{lem:local} (one node): the remainder is small except with
+probability $\ee^{-9m}$~\eqref{eq:local-failure}, and choosing a given target
+distorts the law of $W$ \emph{outside that target's label} by at most
+$\ee^{11m}$~\eqref{eq:distortion}.
+\item Lemma~\ref{lem:reduction} (whole tree, one $W$): uses both parts of
+Lemma~\ref{lem:local}. Labels are disjoint along paths, so everything below an
+arc ignores $W$ on that arc's label, and \eqref{eq:distortion} applies.
+\item Theorem~\ref{thm:tree} (tree covering): iterates
+Lemma~\ref{lem:reduction}.
+\item Lemma~\ref{lem:hierarchy} (graph tree): independent of
+Sections~\ref{sec:resampling}--\ref{sec:trees}; uses~\eqref{eq:attained}.
+\item Theorem~\ref{thm:main} is Theorem~\ref{thm:tree} applied to the tree of
+Lemma~\ref{lem:hierarchy}.
+\end{itemize}
+
+\emph{Conventions.} $\log$ is the natural logarithm and $\ee$ its base. For a
+finite set $X$ and $0\le\rho\le1$, $\mu_\rho$ is the law of the random subset of
+$X$ containing each element independently with probability $\rho$, and
+$\mu_\rho(y)=\rho^{|y|}(1-\rho)^{|X|-|y|}$ is the mass of a set $y$. The source
+reuses some letters, so we rename them. The intersection size in
+Lemma~\ref{lem:local} is $K_b$ with values $u$. An outgoing level is always
+$j$, and the summation indices in Lemma~\ref{lem:reduction} are $i,g$. The size
+$|S|$ in Lemma~\ref{lem:hierarchy} is $g$.
+
+\section{Resampling one spread family}\label{sec:resampling}
+
+Fix a finite set $X$. A \emph{weighted family} consists of subsets
+$A_b\subseteq X$, $b\in B$, with $B$ finite, and weights $\nu_b>0$ with
+$\sum_b\nu_b=1$. The $A_b$ are called \emph{labels}; repeated and empty labels
+are allowed. For $a>0$ the family is \emph{$a$-spread} if, for $c$ drawn with
+law $\nu$,
+\begin{equation}\label{eq:spread}
+ \PP(J\subseteq A_c)\le a^{|J|}\qquad\text{for every nonempty }J\subseteq X.
+\end{equation}
+
+\paragraph{The transition.} Fix $0<\rho<1$ and $W\subseteq X$.
+\begin{enumerate}[label=\arabic*.,leftmargin=2em,itemsep=1pt]
+ \item Choose a \emph{source} $c$ with law $\nu$, and set $Y=W\cup A_c$.
+ \item Choose a \emph{target} $b$ with conditional probabilities
+ \begin{equation}\label{eq:posterior}
+  \frac{\nu_b\rho^{-|A_b|}\ind\{A_b\subseteq Y\}}{Z(Y)},
+  \qquad
+  Z(Y)=\sum_{d\in B}\nu_d\rho^{-|A_d|}\ind\{A_d\subseteq Y\}.
+ \end{equation}
+ \item Retain the \emph{fragment} $T=A_b\setminus W$.
+\end{enumerate}
+This is the planted-set and posterior-resampling construction
+of~\cite[Sections~2.1--2.3]{MNSZ25}. We need four facts.
+\begin{enumerate}[label=(F\arabic*),leftmargin=2.6em,itemsep=2pt]
+\item \emph{Well defined.} $Z(Y)\ge\nu_c\rho^{-|A_c|}>0$, since $A_c\subseteq Y$.
+\item \emph{Inclusions.} In every transition,
+\begin{equation}\label{eq:two-inclusions}
+ T\subseteq A_c\cap A_b,\qquad A_b\subseteq W\cup T.
+\end{equation}
+Indeed the target satisfies $A_b\subseteq W\cup A_c$, so
+$A_b\setminus W\subseteq A_c$; the rest is the definition of $T$.
+\item \emph{Locality.} Given $W$, the joint law of the source, the target,
+$Z(Y)$ and $T$ depends on $W$ only through $W\cap\bigcup_{b\in B}A_b$. This
+holds because $\ind\{A_d\subseteq W\cup A_c\}=\ind\{A_d\setminus A_c\subseteq W\}$
+and $T=A_b\setminus W$ involve only elements of $\bigcup_bA_b$.
+\item \emph{Density.} If $W\sim\mu_\rho$ independently of the source, then
+$\PP(Y=y)=\mu_\rho(y)Z(y)$ for every $y\subseteq X$. For a fixed source $c$,
+$Y=y$ requires $A_c\subseteq y$ and $W\setminus A_c=y\setminus A_c$, so
+\[
+ \PP(Y=y\mid c)=\ind\{A_c\subseteq y\}\,\rho^{|y|-|A_c|}(1-\rho)^{|X|-|y|}
+ =\mu_\rho(y)\rho^{-|A_c|}\ind\{A_c\subseteq y\}.
+\]
+Averaging over $c\sim\nu$ gives $\mu_\rho(y)Z(y)$.
+\end{enumerate}
+By (F4) and Bayes' formula, \eqref{eq:posterior} is the posterior law of the
+source given $Y$; this explains the definition but is not used. At a
+\emph{fixed} $W$ the source has law $\nu$ exactly, while the target may not.
+
+\begin{lemma}[Local resampling]\label{lem:local}
+Suppose that $|A_b|\le m$ for all $b$, where $m$ is a positive integer, that
+$\nu$ is $a$-spread, and that
+\[
+ 0<\rho<1,\qquad a/\rho\le\ee^{-50}.
+\]
+Let $W\sim\mu_\rho$, independently of the source, and perform the transition.
+Call it a \emph{local failure} if $Z(Y)<\ee^{-10m}$ or $|T|>m/2$. Then
+\begin{equation}\label{eq:local-failure}
+ \PP(\textup{local failure})\le\ee^{-9m}.
+\end{equation}
+Moreover, for each fixed $b\in B$ and every nonnegative function
+$f$ depending only on $W\cap(X\setminus A_b)$,
+\begin{equation}\label{eq:distortion}
+ \EE\bigl[\ind\{\mathrm{target}=b,\ Z(Y)\ge\ee^{-10m}\}\, f(W)\bigr]
+ \le \ee^{11m}\nu_b\,\EE f(W),
+\end{equation}
+where the right-hand expectation is over $W\sim\mu_\rho$.
+\end{lemma}
+
+\emph{Where used:} in Lemma~\ref{lem:reduction}, at every node of a tree.
+There \eqref{eq:local-failure} bounds the failure mass, and
+\eqref{eq:distortion} is applied with $f$ the potential of the subtree below $b$.
+
+\begin{proof}
+\Step{0 (joint law)} By the definition of the transition, the probability that
+the random set, the source and the target equal a given triple $(W,c,b)$ is
+\begin{equation}\label{eq:joint}
+ \mu_\rho(W)\,\nu_c\,\nu_b\,\rho^{-|A_b|}\,
+ \frac{\ind\{A_b\setminus A_c\subseteq W\}}{Z(W\cup A_c)} .
+\end{equation}
+We use two remarks for fixed $(c,b)$. First,
+$\PP_W(A_b\setminus A_c\subseteq W)=\rho^{|A_b\setminus A_c|}$. Second,
+$\rho^{-|A_b|}\rho^{|A_b\setminus A_c|}=\rho^{-|A_c\cap A_b|}$.
+
+\Step{1 (small denominator)} By (F4),
+\[
+ \PP\bigl(Z(Y)<\ee^{-10m}\bigr)
+ =\sum_y\mu_\rho(y)Z(y)\ind\{Z(y)<\ee^{-10m}\}\le\ee^{-10m}.
+\]
+
+\Step{2 (intersections)} Fix $b$ and let $K_b=|A_c\cap A_b|$ with $c\sim\nu$.
+For $0\le u\le m$,
+\begin{equation}\label{eq:intersection}
+ \PP(K_b=u)\le\sum_{J\subseteq A_b,\ |J|=u}\PP(J\subseteq A_c)\le\binom mu a^u .
+\end{equation}
+The first inequality is a union bound over the possible intersections. The
+second is \eqref{eq:spread} together with $|A_b|\le m$; for $u=0$ the bound is $1$.
+
+\Step{3 (large fragment)} In \eqref{eq:joint}, bound $1/Z$ by $\ee^{10m}$ on
+$\{Z(Y)\ge\ee^{-10m}\}$. By \eqref{eq:two-inclusions}, $|T|>m/2$ forces
+$|A_c\cap A_b|>m/2$. Summing over $W$ with the two remarks of Step~0, and then
+over $c$ using Step~2,
+\begin{align*}
+ \PP\bigl(Z(Y)\ge\ee^{-10m},\ |T|>m/2\bigr)
+ &\le\ee^{10m}\sum_{c,b}\nu_c\nu_b\,\rho^{-|A_c\cap A_b|}\ind\{|A_c\cap A_b|>m/2\}\\
+ &=\ee^{10m}\sum_b\nu_b\sum_{u>m/2}\rho^{-u}\,\PP(K_b=u)\\
+ &\le\ee^{10m}\sum_{u>m/2}\binom mu(a/\rho)^u\le\ee^{10m}2^m\ee^{-25m}.
+\end{align*}
+The last step uses $(a/\rho)^u\le\ee^{-50u}\le\ee^{-25m}$ for $u>m/2$ and
+$\sum_u\binom mu=2^m$.
+
+\Step{4 (failure bound)} By Steps 1 and 3,
+$\PP(\text{local failure})\le\ee^{-10m}+\ee^{-(15-\log2)m}$. This is at most
+$\ee^{-9m}$ because $\ee^{-m}+\ee^{-(6-\log2)m}\le\ee^{-1}+\ee^{-5}<1$ for $m\ge1$.
+
+\Step{5 (distortion)} Fix $b$. Multiply \eqref{eq:joint} by $f(W)$, bound $1/Z$
+by $\ee^{10m}$, and sum over $W$ and $c$:
+\[
+ \EE\bigl[\ind\{\mathrm{target}=b,\ Z(Y)\ge\ee^{-10m}\} f(W)\bigr]
+ \le\ee^{10m}\nu_b\sum_c\nu_c\rho^{-|A_b|}
+       \EE\bigl[\ind\{A_b\setminus A_c\subseteq W\}f(W)\bigr].
+\]
+The indicator depends only on $W\cap A_b$ and $f$ only on $W\setminus A_b$.
+Under $\mu_\rho$ these are independent, so the expectation factors as
+$\rho^{|A_b\setminus A_c|}\,\EE f(W)$. By the second remark of Step~0 and then
+\eqref{eq:intersection}, the right-hand side equals
+\[
+ \ee^{10m}\nu_b\,\EE f(W)\sum_c\nu_c\rho^{-|A_c\cap A_b|}
+ \le\ee^{10m}\nu_b\,\EE f(W)\sum_{u=0}^m\binom mu(a/\rho)^u
+ \le\ee^{11m}\nu_b\,\EE f(W),
+\]
+since $\sum_{u}\binom mu(a/\rho)^u=(1+a/\rho)^m\le\ee^m$.
+\end{proof}
+
+\section{Covering a tree}\label{sec:trees}
+
+A \emph{probability tree on $X$} is a finite rooted tree whose leaves all have
+the same depth $k$, the number of \emph{levels}. Each non-leaf node $v$ carries
+a probability distribution $\nu_v$ with positive weights on its children
+$\ch(v)$, and the arc from $v$ to each child $b$ carries a label
+$A_v(b)\subseteq X$. Level $j$ consists of the arcs from depth $j-1$ to depth
+$j$, and a node at depth $j-1$ has \emph{outgoing level} $j$. Nodes are never
+identified because labels agree. A \emph{path} is a root-to-leaf path $P$, and
+$\UU(P)$ is the union of its labels. If $k=0$ the tree is a single node and
+$\UU=\varnothing$.
+
+The tree is \emph{disjoint} if the labels along each path are pairwise disjoint.
+Level $j$ has \emph{capacity} $m$ if all its labels have size at most $m$. It is
+\emph{$a$-spread} if, at every node $v$ of outgoing level $j$, the weighted
+family $(A_v(b))_{b\in\ch(v)}$ with weights $\nu_v$ is $a$-spread. No spread
+assumption is made on the law of a whole path.
+
+\begin{theorem}[Tree covering]\label{thm:tree}
+Let $\TT$ be a disjoint probability tree on a finite set $X$,
+with $k\ge1$ levels. Suppose that every level is $\sigma$-spread,
+where $\sigma>0$, and that level $i$ has a positive integer capacity $\ell_i$
+with
+\[
+ \ell_{i+1}\ge16\ell_i\qquad(1\le i<k).
+\]
+Set $r=\min\{1,\;16\ee^{50}\sigma(1+\log_2\ell_k)\}$. Then
+\[
+ \PP_{W\sim\mu_r}
+ \bigl(\UU(P)\subseteq W\text{ for some path }P\text{ of }\TT\bigr)
+ \ge\tfrac23.
+\]
+\end{theorem}
+
+\emph{Where used:} with the tree of Lemma~\ref{lem:hierarchy}, to prove
+Theorem~\ref{thm:main}.
+
+\subsection{One simultaneous reduction}
+
+\begin{lemma}[Reduction]\label{lem:reduction}
+Let $\TT$ be a disjoint probability tree with $k\ge1$ levels and positive integer
+capacities $m_1,\ldots,m_k$ satisfying $m_{j+1}\ge16m_j$.
+Suppose level $j$ is $\alpha_j$-spread, where
+\[
+ 0<\alpha_j\le a,\qquad \rho=\ee^{50}a<1.
+\]
+There is a deterministic procedure which, given $W\sim\mu_\rho$,
+succeeds with probability at least $3/4$ and on success returns a
+disjoint probability tree $\TT'$ with the same levels, such that:
+\begin{enumerate}[label=(\roman*),leftmargin=2.2em,itemsep=2pt]
+ \item level $j$ has capacity $\lfloor m_j/2\rfloor$ and is
+ $\alpha_j/(1-\ee^{-m_j})$-spread;
+ \item for every path $Q$ of $\TT'$ there is a path $P$ of $\TT$ with
+ \begin{equation}\label{eq:recovery}
+   \UU(P)\subseteq W\cup\UU(Q).
+ \end{equation}
+\end{enumerate}
+\end{lemma}
+
+\emph{Where used:} iterated in the proof of Theorem~\ref{thm:tree}. Output
+capacities may be $0$ and output labels may be empty.
+
+\begin{proof}
+\emph{Plan.} Run the transition of Section~\ref{sec:resampling} at every node of
+the input tree, with the same $W$. A bottom-up rule declares nodes good or bad,
+and success means that the root is good. A potential $D_v$ dominates badness and
+has small expectation. The key point (Step 4) is that the potential below a
+child $b$ ignores $W$ on the incoming label of $b$, so \eqref{eq:distortion}
+applies. The output keeps the good children, with fragments as labels.
+
+\Step{1 (local masses)} Let $v$ have outgoing level $j$.
+Lemma~\ref{lem:local} applies to the family $(A_v(b))_{b\in\ch(v)}$,
+$\nu_v$ with $m=m_j$. The labels have size at most $m_j$. The family is
+$\alpha_j$-spread, hence $a$-spread since $\alpha_j\le a$. Finally
+$a/\rho=\ee^{-50}$. For a fixed $W$, let $d_v(W)$ be the probability, over
+source and target, of a local failure at $v$. Let $t_{vb}(W)$ be the
+probability of the event \{no local failure, target $=b$\}. Then
+\begin{equation}\label{eq:local-masses}
+ d_v(W)+\sum_{b\in\ch(v)}t_{vb}(W)=1,\qquad \EE\, d_v(W)\le\ee^{-9m_j},
+\end{equation}
+the bound being \eqref{eq:local-failure}. These quantities always refer to the
+input tree, before any pruning.
+
+\Step{2 (good nodes)} Fix $W$ and put $\epsilon_j=\ee^{-m_j}$. Leaves are good.
+Working upward, a node $v$ of outgoing level $j$ is \emph{good} if
+\begin{equation}\label{eq:good-node}
+ \sum_{b\in\ch(v),\ b\ \mathrm{good}}t_{vb}(W)\ge1-\epsilon_j,
+\end{equation}
+and \emph{bad} otherwise. The procedure succeeds exactly when the root is good.
+
+\Step{3 (a potential dominating badness)} Set $D_v(W)=0$ at leaves and, at a
+node of outgoing level $j$,
+\begin{equation}\label{eq:pruning-recurrence}
+ D_v(W)=\epsilon_j^{-1}\Bigl(d_v(W)+\sum_{b\in\ch(v)}t_{vb}(W)D_b(W)\Bigr).
+\end{equation}
+Then $D_v\ge0$, and every bad node has $D_v(W)>1$. We prove the second claim by
+upward induction. If $v$ is bad and its bad children have $D_b>1$, the bracket
+is at least
+\[
+ d_v(W)+\sum_{b\ \mathrm{bad}}t_{vb}(W)
+ =1-\sum_{b\ \mathrm{good}}t_{vb}(W)>\epsilon_j ,
+\]
+by \eqref{eq:local-masses} and the failure of \eqref{eq:good-node}.
+
+\Step{4 (locality of the potential)} \emph{Claim: for every child $b$ of every
+node $v$, $D_b(W)$ is a function of $W\setminus A_v(b)$.} Let $w$ be a non-leaf
+node in the subtree rooted at $b$. All leaves have depth $k$, so each arc
+$(w,c)$ lies on a root-to-leaf path through the arc $(v,b)$. By disjointness,
+$A_w(c)\cap A_v(b)=\varnothing$. By (F3), $d_w(W)$ and $t_{wc}(W)$ depend only
+on $W\cap\bigcup_cA_w(c)$, a set disjoint from $A_v(b)$. By
+\eqref{eq:pruning-recurrence}, $D_b$ is a function of these quantities. The
+claim holds for all nodes of the input tree, good or not, and labels on
+different branches may overlap.
+
+\Step{5 (one-step bound)} Let $v$ have outgoing level $j$ and let $b\in\ch(v)$.
+No local failure implies $Z(Y)\ge\ee^{-10m_j}$, so
+$t_{vb}(W)\le\PP(\mathrm{target}=b,\ Z(Y)\ge\ee^{-10m_j}\mid W)$. Multiply by
+$D_b(W)\ge0$ and take expectations. Step~4 allows $f=D_b$ in
+\eqref{eq:distortion}, so
+\[
+ \EE\bigl[t_{vb}(W)D_b(W)\bigr]
+ \le\EE\bigl[\ind\{\mathrm{target}=b,\ Z(Y)\ge\ee^{-10m_j}\}D_b(W)\bigr]
+ \le\ee^{11m_j}\nu_v(b)\,\EE D_b(W).
+\]
+This is where the reuse of $W$ is paid for. With \eqref{eq:local-masses} and
+$\epsilon_j^{-1}=\ee^{m_j}$, the recurrence \eqref{eq:pruning-recurrence} gives
+\begin{equation}\label{eq:expected-potential}
+ \EE D_v(W)\le\ee^{-8m_j}+\ee^{12m_j}\sum_{b\in\ch(v)}\nu_v(b)\,\EE D_b(W).
+\end{equation}
+
+\Step{6 (success probability)} For $v$ of outgoing level $j$ we claim that
+\[
+ \EE D_v(W)\le B_j:=\sum_{i=j}^k\exp\Bigl(12\sum_{g=j}^{i-1}m_g-8m_i\Bigr).
+\]
+For $j=k$ the children are leaves and \eqref{eq:expected-potential} gives
+$\ee^{-8m_k}=B_k$. For $j<k$ the children have outgoing level $j+1$ and their
+weights sum to $1$, so
+$\EE D_v\le\ee^{-8m_j}+\ee^{12m_j}B_{j+1}=B_j$. For the root $o$, Step~3 and
+Markov's inequality give
+\[
+ \PP(o\text{ is bad})\le\PP(D_o>1)\le\EE D_o\le B_1
+ =\sum_{i=1}^k\exp\Bigl(12\sum_{g<i}m_g-8m_i\Bigr).
+\]
+Since $m_g\le16^{-(i-g)}m_i$, we have $\sum_{g<i}m_g\le m_i/15$, so each
+exponent is at most $-(8-\frac{12}{15})m_i\le-7m_i$. The $m_i$ are distinct
+positive integers, hence $B_1\le\sum_{m\ge1}\ee^{-7m}=1/(\ee^7-1)<\frac14$. The
+procedure therefore succeeds with probability at least $3/4$.
+
+\Step{7 (the output tree)} Suppose the root is good. Starting from the root,
+at each good node $v$ of outgoing level $j$ put
+\[
+ \gamma_v(W)=\sum_{b\ \mathrm{good}}t_{vb}(W)\ge1-\epsilon_j>0 .
+\]
+Keep every good child $b$ with $t_{vb}(W)>0$ and give it weight
+$t_{vb}(W)/\gamma_v(W)$. Relabel its incoming arc by $T_b=A_v(b)\setminus W$,
+and recurse into $b$. We check the properties.
+\begin{itemize}[leftmargin=1.5em,itemsep=1pt]
+\item \emph{Probability tree with the same levels.} The weights are positive
+and sum to $1$. Every kept non-leaf node is good, so $\gamma_v>0$ and it has a
+kept child. Hence all kept leaves are original leaves, at depth $k$.
+\item \emph{Disjoint.} The new labels are subsets of the old ones on the same arcs.
+\item \emph{Recovery \eqref{eq:recovery}.} A path $Q$ of $\TT'$ uses the arcs
+of a path $P$ of $\TT$, and $A_v(b)\subseteq W\cup T_b$ on each arc.
+\item \emph{Capacity.} If $t_{vb}(W)>0$, some transition at $v$ with target
+$b$ is not a local failure. Its fragment is $T_b$, so $|T_b|\le m_j/2$.
+\item \emph{Deterministic.} $\TT'$ is a function of $W$ through the numbers
+$t_{vb}(W)$. Sources and targets serve only the analysis.
+\end{itemize}
+
+\Step{8 (spread of the output)} Let $v$ be a kept node of outgoing level $j$
+and let $J\subseteq X$ be nonempty. Under the new child law, the probability
+that $J$ lies in the label is
+\[
+ \frac1{\gamma_v(W)}\sum_{b\ \mathrm{good},\ J\subseteq T_b}t_{vb}(W).
+\]
+The sum is the probability, given $W$, that the transition at $v$ has no local
+failure, has a good target, and has $J\subseteq T$. By
+\eqref{eq:two-inclusions}, $T\subseteq A_v(c)$ for the source $c$, and the
+source has law $\nu_v$ whatever $W$ is. So the sum is at most
+$\PP_{c\sim\nu_v}(J\subseteq A_v(c))\le\alpha_j^{|J|}$, and
+\[
+ \frac{\alpha_j^{|J|}}{\gamma_v(W)}\le\frac{\alpha_j^{|J|}}{1-\epsilon_j}
+ \le\Bigl(\frac{\alpha_j}{1-\epsilon_j}\Bigr)^{|J|}\qquad(|J|\ge1).
+\]
+This proves (i), with $\epsilon_j=\ee^{-m_j}$.
+\end{proof}
+
+\subsection{Iteration}
+
+\begin{proof}[Proof of Theorem~\ref{thm:tree}]
+\emph{Plan.} Apply Lemma~\ref{lem:reduction} repeatedly with fresh random sets.
+Each success halves all capacities. After $s$ successes all labels are empty,
+and the union of the sets used contains a path union of $\TT$. Then count
+attempts.
+
+\Step{1 (parameters)} If $r=1$ then $W=X$ and the claim is trivial. Let $r<1$ and
+\[
+ a=4\sigma,\qquad \rho=\ee^{50}a,\qquad s=\lfloor\log_2\ell_k\rfloor+1 .
+\]
+Then $0<\rho=4\ee^{50}\sigma\le16\ee^{50}\sigma(1+\log_2\ell_k)<1$.
+
+\Step{2 (the process and its invariant)} Let $W_1,W_2,\ldots$ be independent
+with law $\mu_\rho$. Attempt number $x$ applies the procedure of
+Lemma~\ref{lem:reduction} to the current tree with the set $W_x$. If the
+attempt fails, the tree is unchanged. If it succeeds, the tree is replaced by
+the output, truncated as described below. Let $\TT_t$ be the tree after $t$
+successes, with $\TT_0=\TT$, and for $0\le t\le s$ put
+\begin{equation}\label{eq:capacities}
+ m_i(t)=\Bigl\lfloor\frac{\ell_i}{2^t}\Bigr\rfloor,\qquad
+ \alpha_i(t)=\sigma\prod_{u=0}^{t-1}
+ \bigl(1-\ee^{-\lfloor\ell_i/2^u\rfloor}\bigr)^{-1}.
+\end{equation}
+\emph{Invariant.} $\TT_t$ is a disjoint probability tree whose levels are the
+original levels $i$ with $m_i(t)\ge1$. Level $i$ has capacity $m_i(t)$ and is
+$\alpha_i(t)$-spread. For every path $Q$ of $\TT_t$ there is a path $P$ of
+$\TT$ such that $\UU(P)\subseteq\UU(Q)\cup{}$(the union of the sets used in the
+first $t$ successful attempts).
+
+The invariant holds for $t=0$. Assume it for some $t<s$. Then $2^t\le\ell_k$,
+so at least one level remains. The remaining capacities satisfy
+$m_{i+1}(t)\ge\lfloor16\ell_i/2^t\rfloor\ge16m_i(t)$, and
+$\alpha_i(t)\le a$ by Step~3. So Lemma~\ref{lem:reduction} applies to $\TT_t$.
+On success, its output has capacities $\lfloor m_i(t)/2\rfloor=m_i(t+1)$,
+because $\lfloor\lfloor x\rfloor/2\rfloor=\lfloor x/2\rfloor$. Its spread
+parameters are $\alpha_i(t)/(1-\ee^{-m_i(t)})=\alpha_i(t+1)$. Composing
+\eqref{eq:recovery} with the invariant at $t$ gives the path statement at $t+1$.
+
+\emph{Truncation.} The $\ell_i$ increase, so the levels with $m_i(t+1)=0$ form
+an initial segment, and all their labels are empty. Follow, by a fixed rule, a
+path from the root through this segment. Let $\TT_{t+1}$ be the subtree hanging
+from its endpoint; if no level remains, this is a single node. Every path $Q'$
+of $\TT_{t+1}$, prefixed by the chosen arcs, is a path $Q$ of the output with
+$\UU(Q)=\UU(Q')$. Disjointness, capacities and spread concern single paths or
+single nodes, so they survive. The invariant holds at $t+1$.
+
+\Step{3 (spread stays below $a$)} For a level $i$ present in $\TT_t$, the
+integers $\lfloor\ell_i/2^u\rfloor$, $0\le u<t$, are positive. They are
+distinct, since $\lfloor x/2\rfloor<x$ for integers $x\ge1$. Using
+$-\log(1-x)\le x/(1-x)$ with $x=\ee^{-m}\le\ee^{-1}$,
+\[
+ \sum_{m=1}^{\infty}-\log(1-\ee^{-m})
+ \le\frac1{1-\ee^{-1}}\sum_{m=1}^\infty\ee^{-m}
+ =\frac{\ee^{-1}}{(1-\ee^{-1})^2}<0.93<\log4 .
+\]
+Hence $\prod_{m\ge1}(1-\ee^{-m})^{-1}<4$ and $\alpha_i(t)\le4\sigma=a$.
+
+\Step{4 (completion)} Since $2^s>\ell_k\ge\ell_i$, we have $m_i(s)=0$ for all
+$i$. So $\TT_s$ is a single node whose only path has empty union. By the
+invariant, some path $P$ of $\TT$ has $\UU(P)$ contained in the union of the
+sets used in the $s$ successful attempts.
+
+\Step{5 (number of attempts)} Given all earlier sets, the current tree is fixed
+and the next set has law $\mu_\rho$. By Lemma~\ref{lem:reduction} and Steps
+2--3, the next attempt succeeds with conditional probability at least $3/4$.
+So the waiting time $\tau$ from one success to the next satisfies
+$\PP(\tau>u)\le4^{-u}$, and $\EE\tau\le\sum_{u\ge0}4^{-u}=4/3$. The number $N$
+of attempts needed for $s$ successes has $\EE N\le4s/3$. By Markov's
+inequality, $\PP(N>4s)\le1/3$.
+
+\Step{6 (density)} Let $W_*=W_1\cup\cdots\cup W_{4s}$. Each element of $X$ is
+absent from $W_*$ independently with probability $(1-\rho)^{4s}$, so
+$W_*\sim\mu_{r_*}$ with
+\[
+ r_*=1-(1-\rho)^{4s}\le4s\rho=16\ee^{50}\sigma s
+ \le16\ee^{50}\sigma(1+\log_2\ell_k)=r .
+\]
+On $\{N\le4s\}$, an event of probability at least $2/3$, Step~4 gives a path $P$
+with $\UU(P)\subseteq W_*$. The event ``$W$ contains some $\UU(P)$'' is
+increasing in $W$ and $r_*\le r$, so the bound holds for $\mu_r$.
+\end{proof}
+
+\section{Application to graph containment}\label{sec:graphs}
+
+We construct the tree needed in Theorem~\ref{thm:tree}, following the
+normalized-containment maximization of Tran~\cite[Section~3, Lemma~3.1]{Tran26}
+with constants adapted to the factor $16$.
+
+\paragraph{Conventions.} Put $q=\pE(n,H)$, defined from the original $H$, and
+$\sigma=128q$. Delete the isolated vertices of $H$ and of every graph below, and
+identify a graph with its edge set. A \emph{copy} of an edge set $F$ is a subset
+of $X=\binom{[n]}2$ isomorphic to it. The deletion does not change the event of
+containing $H$. Copies need not be induced and $n\ge|V(H)|$, so a copy of the
+non-isolated part extends by adding unused vertices. For edge sets $F,I$ let
+\[
+ M(F)=N(K_n,F),\qquad M(I,F)=N(I,F),\qquad M(\varnothing)=M(I,\varnothing)=1 .
+\]
+These count copies, not vertex embeddings:
+$M(F)=(n)_{v(F)}/|\operatorname{Aut}(F)|$, a formula we do not need. Every edge
+subset $F\subseteq H$ is, on its incident vertices, a subgraph of the original
+$H$. So by \eqref{eq:attained} and fact (a),
+\begin{equation}\label{eq:first-moment}
+ M(F)\,q^{|F|}\ge\tfrac12\qquad(F\subseteq H).
+\end{equation}
+
+\paragraph{Copy-ratio identity} (also~\cite[Equation~(5)]{MNSZ22}). Let
+$\boldsymbol I$ be a uniformly random copy of $I$ and let $F_0$ be a fixed copy
+of an edge subset $F\subseteq I$. Then
+\begin{equation}\label{eq:copy-ratio}
+ \PP(F_0\subseteq\boldsymbol I)=\frac{M(I,F)}{M(F)} .
+\end{equation}
+Indeed, the law of $\boldsymbol I$ is invariant under permutations of $[n]$, so
+the probability is the same for all $M(F)$ copies $F_0$. Their sum is the
+expected number of copies of $F$ inside $\boldsymbol I$, which is $M(I,F)$.
+
+\begin{lemma}[Graph hierarchy]\label{lem:hierarchy}
+There is a disjoint probability tree on
+$X=\binom{[n]}2$ whose path unions are copies of $H$ with its isolated
+vertices removed, such that every level is $\sigma$-spread, all labels of
+level $i$ have the same size $\ell_i$, and
+\[
+ 1\le\ell_1,\qquad \ell_{i+1}\ge16\ell_i,\qquad \ell_k\le e(H).
+\]
+\end{lemma}
+
+\begin{proof}
+\emph{Plan.} Define a ``core'' of an edge set $I$ by maximizing a normalized
+containment probability. Show that the core is much smaller than $I$ (Step 1),
+iterate to get a chain (Step 2), turn the chain into a tree (Step 3), and read
+spread off the maximality (Step 4).
+
+\Step{1 (cores are small)} For a nonempty edge set $I\subseteq H$ and an edge
+subset $S\subseteq I$, let
+\begin{equation}\label{eq:maximizer}
+ R_\sigma(I,S)=\sigma^{-|S|}\,\PP(S_0\subseteq\boldsymbol I),
+\end{equation}
+where $S_0$ is any copy of $S$; by symmetry the choice is immaterial. Choose,
+by a fixed tie-breaking rule, an $S$ maximizing $R_\sigma(I,S)$. Since
+$R_\sigma(I,\varnothing)=1$, the maximum is at least $1$. Now let $g=|S|>0$ and
+$h_I=|I|$. The copies of $S$ in $I$ are $g$-subsets of $I$, so
+$M(I,S)\le\binom{h_I}g$, and $1/M(S)\le2q^g$ by \eqref{eq:first-moment}. By
+\eqref{eq:copy-ratio},
+\[
+ R_\sigma(I,S)\le2\binom{h_I}g(q/\sigma)^g=2\binom{h_I}g128^{-g}.
+\]
+If $g\ge h_I/17$, then $\binom{h_I}g\le(\ee h_I/g)^g\le(17\ee)^g$, and
+$R_\sigma(I,S)\le2(17\ee/128)^g<2\cdot0.37<1$. So such an $S$ is not a
+maximizer, and every maximizer satisfies $|S|<|I|/17$.
+
+\Step{2 (the chain)} Start from $I=H$ and replace $I$ by its maximizer until
+the empty set is reached. Reversing the order,
+\[
+ \varnothing=H_0\subset H_1\subset\cdots\subset H_k=H,\qquad
+ |H_{i-1}|<|H_i|/17,\qquad k\ge1,
+\]
+where $H_{i-1}$ maximizes $R_\sigma(H_i,\cdot)$. Put
+$\ell_i=|H_i|-|H_{i-1}|>0$. Then $\ell_1\ge1$, $\ell_k\le|H|=e(H)$ and
+$\ell_{i+1}>17|H_i|-|H_i|=16|H_i|\ge16\ell_i$.
+
+\Step{3 (the tree)} The root is $\varnothing$, the copy of $H_0$. A node at
+depth $i-1$ is reached through a history ending in a copy $S_0$ of $H_{i-1}$.
+Its children are all copies $I_0$ of $H_i$ with $I_0\supseteq S_0$, with the
+uniform distribution, and the arc is labelled $I_0\setminus S_0$. Distinct
+histories are distinct nodes. Children exist: $S_0$ is the image of $H_{i-1}$
+under an injection $V(H_{i-1})\to[n]$, which extends to an injection of
+$V(H_i)$ because $|V(H_i)|\le n$. Along a path
+$\varnothing\subset S_1\subset\cdots\subset S_k$ the labels
+$S_i\setminus S_{i-1}$ are disjoint, have sizes $\ell_i$, and have union $S_k$,
+a copy of $H$.
+
+\Step{4 (spread)} Fix a node with copy $S_0$ of $H_{i-1}$, let $A$ be its
+random label, and let $J\subseteq X$ be nonempty. If
+$J\cap S_0\ne\varnothing$, then $\PP(J\subseteq A)=0$. Otherwise, the child is
+a uniform copy $\boldsymbol I$ of $H_i$ conditioned on
+$S_0\subseteq\boldsymbol I$, so
+\begin{equation}\label{eq:conditional-ratio}
+ \PP(J\subseteq A)=
+ \frac{\PP(S_0\cup J\subseteq\boldsymbol I)}
+      {\PP(S_0\subseteq\boldsymbol I)} .
+\end{equation}
+If the numerator is $0$ we are done. If it is positive, $S_0\cup J$ lies in
+some copy of $H_i$, so it is a copy of an edge subset $U\subseteq H_i$ with
+$|U|=|S_0|+|J|$. Maximality of $H_{i-1}$ gives
+$R_\sigma(H_i,U)\le R_\sigma(H_i,H_{i-1})$, that is,
+\[
+ \sigma^{-(|S_0|+|J|)}\PP(S_0\cup J\subseteq\boldsymbol I)
+ \le \sigma^{-|S_0|}\PP(S_0\subseteq\boldsymbol I).
+\]
+With \eqref{eq:conditional-ratio} this is $\PP(J\subseteq A)\le\sigma^{|J|}$.
+\end{proof}
+
+\begin{proof}[Proof of Theorem~\ref{thm:main}]
+Apply Theorem~\ref{thm:tree} to the tree of Lemma~\ref{lem:hierarchy}, with
+$\sigma=128q$ and capacities $\ell_i$. A random edge set of density
+$r=\min\{1,16\ee^{50}\cdot128\,q(1+\log_2\ell_k)\}$ contains some path union,
+that is, a copy of $H$, with probability at least $2/3\ge1/2$. Since
+$\ell_k\le h$ and $16\cdot128=2048$, we get
+$r\le r':=\min\{1,2048\ee^{50}q(1+\log_2h)\}$. Containment is monotone in the
+density, so $\pc(n,H)\le r'$, which is \eqref{eq:stronger}. Finally
+$h\le\binom n2\le n^2$ and $\log_2n\ge1$ give
+$1+\log_2h\le1+2\log_2n\le3\log_2n$, and $3\cdot2048=6144$.
+\end{proof}
+
+\section*{Verification checklist}
+
+\begin{enumerate}[leftmargin=2em,itemsep=2pt]
+\item \textbf{Independence behind \eqref{eq:distortion}}
+(Lemma~\ref{lem:local}, Steps 0 and 5). The joint law \eqref{eq:joint} must be
+right. After bounding $1/Z$, the only remaining dependence on $W$ is the event
+$A_b\setminus A_c\subseteq W$, which lives on $A_b$, while $f$ lives off $A_b$.
+\item \textbf{Locality of the potential} (Lemma~\ref{lem:reduction}, Step 4).
+This is the one place where disjointness along paths enters the probability
+estimate. It licenses $f=D_b$ in Step 5, and Step 5 is what allows one $W$ to
+serve all nodes.
+\item \textbf{Arithmetic of the recursion} (Lemma~\ref{lem:reduction}, Step 6).
+The loss $\ee^{12m_j}$ per level must be beaten by the gain $\ee^{-8m_i}$ at
+deeper levels. This needs $\sum_{g<i}m_g\le m_i/15$, which is the role of the
+factor $16$.
+\item \textbf{Spread survives conditioning} (Lemma~\ref{lem:reduction}, Step 8;
+Theorem~\ref{thm:tree}, Step 3). The fragment lies in the \emph{source} label,
+whose law is $\nu_v$ at fixed $W$. The cost is $1/(1-\ee^{-m_j})$ per round, and
+the product over rounds is below $4$ because the capacities met are distinct
+integers.
+\item \textbf{Bookkeeping of the iteration} (Theorem~\ref{thm:tree}, Steps 2,
+4--6). Check the invariant with truncation of zero-capacity levels, the count
+$s=\lfloor\log_2\ell_k\rfloor+1$, Markov with $4s$ attempts, and
+$r_*\le4s\rho$.
+\item \textbf{Graph input} (Lemma~\ref{lem:hierarchy}, Steps 1 and 4). Check
+that \eqref{eq:first-moment} uses the attained infimum \eqref{eq:attained},
+that $2(17\ee/128)^g<1$, and that maximality is applied to $U\cong S_0\cup J$.
+\item \textbf{Constants.} $a=4\sigma$, $\rho=\ee^{50}a$, $4s$ attempts and
+$\sigma=128q$ give $4\cdot4\cdot128=2048$.
+\end{enumerate}
+
+\begin{thebibliography}{99}
+\raggedright
+
+\bibitem{ALWZ21}
+R.~Alweiss, S.~Lovett, K.~Wu, and J.~Zhang,
+\emph{Improved bounds for the sunflower lemma},
+Annals of Mathematics (2) \textbf{194} (2021), no.~3, 795--815.
+\href{https://doi.org/10.4007/annals.2021.194.3.5}{doi:10.4007/annals.2021.194.3.5}.
+
+\bibitem{Bollobas81}
+B.~Bollob\'as,
+\emph{Threshold functions for small subgraphs},
+Mathematical Proceedings of the Cambridge Philosophical Society
+\textbf{90} (1981), no.~2, 197--206.
+\href{https://doi.org/10.1017/S0305004100058655}{doi:10.1017/S0305004100058655}.
+
+\bibitem{DKP25}
+Q.~Dubroff, J.~Kahn, and J.~Park,
+\emph{On the ``second'' Kahn--Kalai conjecture},
+arXiv:2508.14269v1 (August 19, 2025).
+\url{https://arxiv.org/abs/2508.14269v1}.
+
+\bibitem{DKP25Cases}
+Q.~Dubroff, J.~Kahn, and J.~Park,
+\emph{On the ``second'' Kahn--Kalai conjecture: cliques, cycles, and trees},
+arXiv:2510.02005v2 (October 23, 2025).
+\url{https://arxiv.org/abs/2510.02005v2}.
+
+\bibitem{ER60}
+P.~Erd\H{o}s and A.~R\'enyi,
+\emph{On the evolution of random graphs},
+Publications of the Mathematical Institute of the Hungarian Academy of
+Sciences \textbf{5} (1960), 17--61.
+\url{https://static.renyi.hu/~p_erdos/1960-10.pdf}.
+
+\bibitem{ER66}
+P.~Erd\H{o}s and A.~R\'enyi,
+\emph{On the existence of a factor of degree one of a connected random graph},
+Acta Mathematica Academiae Scientiarum Hungaricae
+\textbf{17} (1966), 359--368.
+\url{https://users.renyi.hu/~p_erdos/1966-16.pdf}.
+
+\bibitem{FKNP21}
+K.~Frankston, J.~Kahn, B.~Narayanan, and J.~Park,
+\emph{Thresholds versus fractional expectation-thresholds},
+Annals of Mathematics (2) \textbf{194} (2021), no.~2, 475--495.
+\href{https://doi.org/10.4007/annals.2021.194.2.2}{doi:10.4007/annals.2021.194.2.2}.
+
+\bibitem{KK07}
+J.~Kahn and G.~Kalai,
+\emph{Thresholds and expectation thresholds},
+Combinatorics, Probability and Computing
+\textbf{16} (2007), no.~3, 495--502.
+\href{https://doi.org/10.1017/S0963548307008474}{doi:10.1017/S0963548307008474}.
+
+\bibitem{LSZ19}
+S.~Lovett, N.~Solomon, and J.~Zhang,
+\emph{From DNF compression to sunflower theorems via regularity},
+34th Computational Complexity Conference, LIPIcs \textbf{137} (2019),
+5:1--5:14.
+\href{https://doi.org/10.4230/LIPIcs.CCC.2019.5}{doi:10.4230/LIPIcs.CCC.2019.5}.
+
+\bibitem{MNSZ25}
+E.~Mossel, J.~Niles-Weed, N.~Sun, and I.~Zadik,
+\emph{A Bayesian proof of the spread lemma},
+Random Structures \& Algorithms \textbf{66} (2025), no.~4, e70008.
+\href{https://doi.org/10.1002/rsa.70008}{doi:10.1002/rsa.70008}.
+
+\bibitem{MNSZ22}
+E.~Mossel, J.~Niles-Weed, N.~Sun, and I.~Zadik,
+\emph{On the second Kahn--Kalai conjecture},
+arXiv:2209.03326v1 (September 7, 2022).
+\url{https://arxiv.org/abs/2209.03326v1}.
+
+\bibitem{OpenAIThresholdEquivalence2026}
+OpenAI,
+\emph{Integral and fractional expectation thresholds are equivalent},
+OpenAI Math Release preprint
+\href{https://github.com/openai/math/blob/main/preprints/Integral-and-fractional-expectation-thresholds-are-equivalent-September-23-2026/paper.pdf}{OAI:Integral-and-fractional-expectation-thresholds-are-equivalent-September-23-2026},
+2026, Theorem~1.1, p.~2.
+
+\bibitem{PP24}
+J.~Park and H.~T.~Pham,
+\emph{A proof of the Kahn--Kalai conjecture},
+Journal of the American Mathematical Society
+\textbf{37} (2024), no.~1, 235--243.
+\href{https://doi.org/10.1090/jams/1028}{doi:10.1090/jams/1028}.
+
+\bibitem{Riordan00}
+O.~Riordan,
+\emph{Spanning subgraphs of random graphs},
+Combinatorics, Probability and Computing
+\textbf{9} (2000), no.~2, 125--148.
+\href{https://doi.org/10.1017/S0963548399004150}{doi:10.1017/S0963548399004150}.
+
+\bibitem{Tal10}
+M.~Talagrand,
+\emph{Are many small sets explicitly small?},
+Proceedings of the 42nd ACM Symposium on Theory of Computing (2010),
+13--36.
+\href{https://doi.org/10.1145/1806689.1806693}{doi:10.1145/1806689.1806693}.
+
+\bibitem{Tran26}
+T.~Tran,
+\emph{Fractional expectation thresholds and the ``second'' Kahn--Kalai
+conjecture},
+arXiv:2609.20546v2 (September 24, 2026).
+\url{https://arxiv.org/abs/2609.20546v2}.
+
+\end{thebibliography}
+
+\end{document}

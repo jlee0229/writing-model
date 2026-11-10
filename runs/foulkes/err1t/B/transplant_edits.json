@@ -1,0 +1,22 @@
+[
+ {
+  "find": "=\\sum_\\alpha\\alpha!\\,a_\\alpha\\overline{b_\\alpha},",
+  "replace": "=\\sum_\\alpha a_\\alpha\\overline{b_\\alpha}."
+ },
+ {
+  "find": "\\qquad\\alpha!:=\\prod_k\\alpha_k!.",
+  "replace": ""
+ },
+ {
+  "find": "Distinct monomials are orthogonal, $\\|Z^\\alpha\\|^2=\\alpha!>0$, and the form",
+  "replace": "The monomials are orthonormal, $\\|Z^\\alpha\\|^2=1$, and the form"
+ },
+ {
+  "find": "both sides equal $\\alpha!$ if $\\alpha=\\beta+e_i$ and $0$ otherwise",
+  "replace": "both sides equal $1$ if $\\alpha=\\beta+e_i$ and $0$ otherwise"
+ },
+ {
+  "find": "(on the left, $\\alpha_i\\,(\\alpha-e_i)!=\\alpha!$)",
+  "replace": "(by orthonormality)"
+ }
+]

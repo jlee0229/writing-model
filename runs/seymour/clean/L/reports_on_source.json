@@ -1,0 +1,254 @@
+[
+ {
+  "main_result": "Claims that every nonempty finite oriented graph has a vertex v with |N1+(v)| <= |N2+(v)|, where N2+ excludes v and N1+. This resolves Seymour's second neighborhood conjecture. Corollaries: weighted forms (via Seacrest's equivalences); a non-neighbour bound (some v with d+(v) <= |Z(v)| and n-1 >= 2d+(v)+d-(v)) when there is no directed triangle; a directed triangle when min in- and out-degree >= n/3; and n >= 3r+1 for r-regular digraphs of directed girth 4.",
+  "proof_strategy": "Minimal counterexample D (min order, then min arcs). Lemma subset-deficit: by deleting arcs from S to E\\T and tracking exact second out-neighbourhoods, each vertex's Q-increment of g is strictly less than |Q|, giving |F^2(S)\\F(S)| < |F(S)\\S| for proper S. Lemma blowup replaces each vertex by a transitive tournament, giving |U|+|F^2(U)| < 2|F(U)| for all proper nonempty U. Proposition no-concavity takes a compatible pair of families (P,Q) containing the diagonal, maximising |P|+|Q|+d, applies the strict inequality column-wise and row-wise, complements the second images to get families R, C with |R|+|C| > M+2d, and then prunes conflicts via Lemma pruning, a matching/König argument using generic rank (Lemma kernel-support) to bound deletions by |H|+q with |H| <= d. The contradiction is M+d < |P'|+|Q'|+d'. I checked each displayed inequality in these steps and found them consistent; the step I could not independently certify to the level of a published result is the simultaneous generic-rank choice in Lemma pruning. Unclear: whether the chosen coefficients realise all three rank conditions at one real point, which I reconstructed only by the product-of-nonzero-polynomials sketch.",
+  "hardest_part": "The simultaneous coefficient choice in the proof of Lemma pruning: one real assignment must make L, N^T, all D^{p,i} (each at maximum support rank) and the matching minors nonzero at once, while the variables a_{pi} and b_{sj} are shared across many of these matrices. I could follow the polynomial-product argument, but the non-cancellation claims and the max-rank-on-support genericity are compressed, and I checked them only by reconstruction. The overall result also rests on this lemma, so I would not trust my verification of it as a substitute for a careful line-by-line check.",
+  "issues": [
+   {
+    "where": "Proof of Lemma pruning, 'Four maps and a simultaneous choice of coefficients'",
+    "quote": "Each block determinant is therefore a nonzero polynomial, and so is their product.",
+    "kind": "unjustified_step",
+    "severity": 2,
+    "what_i_needed": "An explicit statement that the chosen minors are nonzero polynomials in the shared ring of a and b variables, and why one real point makes all of them nonzero at once (not only each separately). The argument needs a written justification that the same assignment realises the support-rank conditions for D^{p,i}, L and N^T together."
+   },
+   {
+    "where": "Proof of Lemma pruning, the non-cancellation argument for the block minor of L and N^T",
+    "quote": "because different permutations use different sets of these variables",
+    "kind": "unjustified_step",
+    "severity": 1,
+    "what_i_needed": "Within a block the variables are distinct, but a_{pi} recurs across blocks j. The argument should say that a perfect matching in one block determines the permutation and hence a monomial that no other permutation produces. As written it is only asserted."
+   },
+   {
+    "where": "Proof of Lemma pruning, 'Choose one such minor for each arrow' (maximum rank of D^{p,i})",
+    "quote": "Choose one such minor for each arrow, taking the empty minor when the maximum rank is zero.",
+    "kind": "unjustified_step",
+    "severity": 2,
+    "what_i_needed": "Why a minor of size equal to the maximum real rank over matrices supported on T^{p,i} is a nonzero polynomial in the b-variables. This is the genericity fact that Lemma kernel-support depends on, and it is used but not proved. The fact that the variables b_{sj} are shared with B, N and other D^{p,i} needs to be addressed explicitly."
+   },
+   {
+    "where": "Proof of Lemma pruning, 'Each of alpha and beta is a maximum matching in its own subgraph.'",
+    "quote": "Each of $\\alpha$ and $\\beta$ is a maximum matching in its own subgraph.",
+    "kind": "unjustified_step",
+    "severity": 1,
+    "what_i_needed": "The augmenting-path argument is only sketched. A reader must check that the path's internal vertices are matched in M only through alpha, and that the orig-orig edge removed at a start vertex does not break the matching or the count k. I could reconstruct this, but it should be written out."
+   },
+   {
+    "where": "Proof of Lemma pruning, the conflict-kernel claim (eq. conflict-kernel)",
+    "quote": "Thus it holds for every $s\\in S_i$, including rows for which $(p,s)$ is absent from $H$.",
+    "kind": "ambiguous_statement",
+    "severity": 1,
+    "what_i_needed": "The equation sum_j b_{sj} u_{pj} = 0 is not a coordinate of Bu=0 when (p,s) is not in H. The text should say explicitly that the equation is trivially true (all coefficients zero) in that case, and that it is a genuine coordinate equation only when s has an allowed entry."
+   },
+   {
+    "where": "Proof of Lemma blowup, the first-image computation",
+    "quote": "In each remaining block the first image consists exactly of $f(T_v)$, so",
+    "kind": "ambiguous_statement",
+    "severity": 1,
+    "what_i_needed": "f was defined only for nonempty label sets with a least element. The statement should say this applies to blocks indexed by S\\F(S), and that blocks outside S contribute nothing to the first image. The formula is correct only with that restriction."
+   },
+   {
+    "where": "Proof of Lemma subset-deficit, first paragraph",
+    "quote": "A sink satisfies the second-neighborhood inequality, so $D$ has no sink",
+    "kind": "ambiguous_statement",
+    "severity": 1,
+    "what_i_needed": "A sink has |N1|=|N2|=0, so it violates the strict hypothesis |N1|>|N2| of the lemma. The phrase 'satisfies the second-neighborhood inequality' means the conclusion of the theorem, not the hypothesis. The wording should be made explicit."
+   },
+   {
+    "where": "Proof of Lemma subset-deficit, the claim about newly counted second out-neighbours",
+    "quote": "Every newly counted exact second out-neighbor must have been a first out-neighbor in $D$",
+    "kind": "unjustified_step",
+    "severity": 1,
+    "what_i_needed": "The reason is: w in N2_{D_T} \\ N2_D implies w is in N1_D, and not in N1_{D_T}, so w is in Q. This uses that paths are not created by deletion and that w is not v. The text should state this, since the later bound depends on it."
+   },
+   {
+    "where": "Proof of Corollary (weighted forms), part (ii)",
+    "quote": "Seacrest's Theorem~1 applies Farkas' lemma to give either a nonzero $\\eta\\ge0$ with $M_D\\eta\\ge0$,",
+    "kind": "unjustified_step",
+    "severity": 1,
+    "what_i_needed": "The exact alternative used is Ville's form of Farkas' lemma (exactly one of: some xi >= 0 with M^T xi < 0; some eta >= 0, eta nonzero, with M eta >= 0). The manuscript cites it without stating it, so the reader cannot check the orientation of the matrices. I checked it, and M_{rev D} = M_D^T holds."
+   },
+   {
+    "where": "Proof of Corollary (weighted forms), part (i)",
+    "quote": "This is the specialization noted immediately after Seacrest's Proposition~2.",
+    "kind": "unjustified_step",
+    "severity": 1,
+    "what_i_needed": "Part (i) follows from part (iii) by the choice w(us)=eta(s), and part (iii) is itself attributed to Seacrest's equivalence. The chain of citations should be stated so the reader can see that (i) is actually proved from the main theorem, not just cited."
+   }
+  ]
+ },
+ {
+  "main_result": "Every nonempty finite oriented graph D has a vertex v with |N1+(v)| <= |N2+(v)|, where N2+(v) is the set of vertices at exact directed distance two from v. This is Seymour's second neighborhood conjecture. Corollaries: weighted vertex forms (for every nonnegative weighting some vertex is good; some normalized weighting makes every vertex good), an arc-weighted form via Seacrest, and directed-cycle consequences (no directed triangle implies n-1 >= 2d+(v)+d-(v) for some v; min in- and out-degree >= n/3 forces a directed triangle; r-regular girth-4 digraphs have n >= 3r+1).",
+  "proof_strategy": "Assume a counterexample and take one of minimum order and then minimum arc count. Arc deletion on the counterexample gives a strict deficit |F^2(S)\\F(S)| < |F(S)\\S| for every nonempty proper S, and blowing each vertex up into a transitive tournament turns this into |U|+|F^2(U)| < 2|F(U)| for all nonempty proper U (Proposition on counterexample reduction, Lemmas subset-deficit and blowup). An extremal argument then takes two compatible families of ordered pairs (maximizing |P|+|Q|+uncovered points), applies the strict inequalities to columns/rows and complements to get a larger combined objective, and restores compatibility with a pruning lemma. The pruning lemma bounds deletions by a König cover of an augmented bipartite graph, using a maximum-matching bound proved by rank arguments: a coefficient assignment makes rank L = l, rank N = t, and kernel lifts give dim ker A >= k, with the identity NL = AB and Lemma kernel-support supplying the key vanishing. I checked the chain of inequalities in each lemma and found no error, but the simultaneous coefficient choice in the pruning lemma is only sketched.",
+  "hardest_part": "The pruning lemma (Lemma pruning and its rank proof). I reconstructed the chain |H| >= dim ker A + rank A >= k + rank(NL) >= k + l + t - |Z| and the kernel-lift independence argument, and they hold given the stated choices. However, the simultaneous choice of coefficients (rank L = l, rank N = t, maximal-rank D^{p,i} for every arrow, nonvanishing of all minors at one real point) is argued only by a short sketch of polynomial nonvanishing. Also the augmenting-path claim for alpha and beta is compressed. This is the step on which the whole extremal contradiction depends, and I would not trust my check of it without a careful independent reading. The statement is a strong, unusual result for an open conjecture, so an independent expert check of the whole argument is warranted.",
+  "issues": [
+   {
+    "where": "Lemma pruning, proof: 'Four maps and a simultaneous choice of coefficients'",
+    "quote": "We apply the determinant argument within coordinate blocks and verify that all required minors can be nonzero at the same assignment.",
+    "kind": "unjustified_step",
+    "severity": 2,
+    "what_i_needed": "An explicit argument that the product of the chosen nonzero minors (for L, N and every D^{p,i}) is a nonzero polynomial in the shared a- and b-variables, including why a maximum-rank minor of D^{p,i} is a nonzero polynomial and why it stays nonzero at the final real point. I could reconstruct this, but only from the sketch."
+   },
+   {
+    "where": "Lemma pruning, proof: 'The kernel restriction and the matching bound' (eq. conflict-kernel and its remark)",
+    "quote": "The hypothetical single-entry perturbation in that lemma concerns only",
+    "kind": "ambiguous_statement",
+    "severity": 1,
+    "what_i_needed": "A clear statement that Lemma kernel-support is applied to the fixed real matrix D^{p,i} at the chosen assignment, so no perturbation of the global assignment is involved. As written, the remark suggests a perturbation might break other rank conditions, which is confusing."
+   },
+   {
+    "where": "Lemma pruning, proof: alternating-path argument for the maximum matching with fewest original-original edges",
+    "quote": "Each of $\\alpha$ and $\\beta$ is a maximum matching in its own subgraph.",
+    "kind": "unjustified_step",
+    "severity": 1,
+    "what_i_needed": "The observation that Z_R vertices are matched in M only via alpha (since Z_R is adjacent only to R), and that alpha-edges are exactly the R-Z_R edges of M, both needed to conclude that an alpha-unmatched Z_R endpoint is M-unmatched. I could reconstruct it, but the text leaves it implicit."
+   },
+   {
+    "where": "Corollary weighted-forms, proof of (ii)",
+    "quote": "Seacrest's Theorem~1 applies Farkas' lemma to give either a nonzero",
+    "kind": "unjustified_step",
+    "severity": 2,
+    "what_i_needed": "The exact theorem of alternatives used (a Ville/Gordan-type statement: either some nonzero eta>=0 with M eta>=0, or some xi>=0 with M^T xi<0 in every coordinate). Mutual exclusivity I checked; the existence direction is not derivable from Farkas as stated and needs the precise cited form."
+   },
+   {
+    "where": "Lemma subset-deficit: statement",
+    "quote": "Choose $D$ with minimum order and, subject to that, minimum number of",
+    "kind": "ambiguous_statement",
+    "severity": 1,
+    "what_i_needed": "The lemma should say that D is a minimal counterexample within the class (order minimal, then arc count minimal), not that D is an arbitrary member of the class and then chosen. As written the quantifiers are unclear."
+   },
+   {
+    "where": "Lemma subset-deficit, proof, first paragraph",
+    "quote": "A sink satisfies the second-neighborhood inequality, so $D$ has no sink",
+    "kind": "ambiguous_statement",
+    "severity": 1,
+    "what_i_needed": "That a sink violates the strict hypothesis |N1+(v)| > |N2+(v)| (since 0 > 0 fails). The sentence says the sink satisfies an inequality, which reads like it satisfies the conclusion; the logic is right but the wording is misleading."
+   },
+   {
+    "where": "Lemma subset-deficit, proof, final iteration step",
+    "quote": "Each deletion is performed afresh on the original $D$, so the same",
+    "kind": "unjustified_step",
+    "severity": 1,
+    "what_i_needed": "A statement that the increment inequality (deficit-increment) is proved for an arbitrary T strictly inside E, with the witness v depending on T, so the telescoping sum g(E)-g(empty) < sum |Q_i| = |E| is valid along any chain. The text leaves the dependence of v and Q on T implicit."
+   },
+   {
+    "where": "Pruning lemma, proof, final paragraph (König cover)",
+    "quote": "Thus the cover gives exactly~\\eqref{eq:pruning-bound} and retains every",
+    "kind": "ambiguous_statement",
+    "severity": 1,
+    "what_i_needed": "The inequality (cover-charge) gives the bound (pruning-bound) with '<=', not equality. 'Exactly' should read 'at most'. Harmless, but the statement is imprecise."
+   },
+   {
+    "where": "Overview of proof (Introduction, 'Proof strategy')",
+    "quote": "write $M$ for their combined size and $d$ for the number of",
+    "kind": "undefined_notation",
+    "severity": 1,
+    "what_i_needed": "A note that M (here |P|+|Q|) is reused elsewhere in the paper as a maximum matching (script M in Lemma pruning), as a matrix M_D (weighted corollary), and as d-degrees in the directed-cycle corollary. Symbols are reused with different meanings across sections, and I had to track them by hand."
+   },
+   {
+    "where": "Corollary weighted-forms, part (iii)",
+    "quote": "Such paths are determined by the arcs of \\(D\\), so an arc of weight zero is still",
+    "kind": "ambiguous_statement",
+    "severity": 1,
+    "what_i_needed": "A clear statement of the convention for w(vs) when vs is an arc of weight zero versus a non-arc, since the definition sets w(vs)=0 for non-arcs and the two cases must not be confused in beta."
+   },
+   {
+    "where": "Corollary weighted-forms, part (ii)",
+    "quote": "The entries of this weighting need not all be positive.",
+    "kind": "ambiguous_statement",
+    "severity": 1,
+    "what_i_needed": "A statement of whether 'nonnegative' or 'positive' is intended, and what it means for the conclusion, since the vertex-weighting in (ii) is only nonnegative and some entries may vanish."
+   }
+  ]
+ },
+ {
+  "main_result": "Every nonempty finite oriented graph has a vertex v with |N_1^+(v)| <= |N_2^+(v)|, where N_1^+ is the out-neighbourhood and N_2^+ is the set of vertices at directed distance exactly two. This is Seymour's second neighbourhood conjecture. Corollaries give the vertex- and arc-weighted forms (via Seacrest's equivalences) and directed-cycle/degree consequences (non-neighbour counts, the one-third-degree triangle result, and a girth-four order bound for regular digraphs).",
+  "proof_strategy": "Minimal-counterexample reduction: in a minimal counterexample, an arc-deletion argument (Lemma subset-deficit) gives |F^2(S)\\F(S)| < |F(S)\\S| for all nonempty proper S. A lexicographic blow-up by transitive tournaments (Lemma blowup) converts this into a strict inequality |U|+|F^2(U)| < 2|F(U)| for all nonempty proper U. Proposition no-concavity then maximises M+d over compatible pairs of coordinate-image families containing the diagonal, takes complements of second images to get two larger families that may conflict, and removes conflicts with a pruning lemma (Lemma pruning). Pruning is a König-type cover bound obtained from a matching bound in an augmented bipartite graph, proved with a generic-rank/kernel argument (Lemma kernel-support). The pruning cost is at most |H| + d', which yields a strictly larger objective and a contradiction. I checked each step of these chains and found them consistent; the weaker points are the generic-rank facts and cited results, which I did not re-derive.",
+  "hardest_part": "The rank argument inside Lemma pruning: the simultaneous choice of coefficients (nonvanishing of the alpha and beta minors together with maximum-rank minors for each D^{p,i}), and the kernel-restriction step (conflict-kernel identity) that makes the lifts Bu^r independent. I verified the algebra line by line and it holds as far as I can tell, but it depends on generic-rank facts that the text asserts rather than proves, and on a shared-variable polynomial-nonvanishing argument. I also could not independently check the cited Seacrest statements, so the weighted corollary rests on citations.",
+  "issues": [
+   {
+    "where": "Lemma subset-deficit, proof, choice of v",
+    "quote": "Consequently $v\\in S$, and the set",
+    "kind": "unjustified_step",
+    "severity": 1,
+    "what_i_needed": "Explicit argument that Q = F({v}) ∩ (E\\T) is nonempty. It follows from the same 'no lost first out-neighbour implies still violating' argument used for v in S, but the text does not say so."
+   },
+   {
+    "where": "Lemma subset-deficit, proof, after eq. deleted-path-endpoints",
+    "quote": "Every newly counted exact second out-neighbor must have been a first",
+    "kind": "unjustified_step",
+    "severity": 1,
+    "what_i_needed": "A displayed inclusion N_2(v in D_T) ⊆ (N_2(v in D) \\ C) ∪ (Q ∩ F(T)), with the reason: a vertex not in N_2(v in D) and reachable in two steps in D_T must lie in N_1(v in D), and then in Q. The phrase 'deletion creates no paths' does not carry this step."
+   },
+   {
+    "where": "Lemma subset-deficit, statement",
+    "quote": "Choose $D$ with minimum order and, subject to that, minimum number of",
+    "kind": "ambiguous_statement",
+    "severity": 1,
+    "what_i_needed": "The lemma says 'Let D be ... such that ...' and then 'Choose D with minimum order'. It should say D is a minimal member of the class of such graphs, to make clear that the conclusions are for the chosen minimal graph and not an arbitrary D."
+   },
+   {
+    "where": "Lemma subset-deficit, proof, final summation step",
+    "quote": "Each $Q$ is a nonempty subset of the part of $E$ not yet adjoined",
+    "kind": "unjustified_step",
+    "severity": 1,
+    "what_i_needed": "A statement that the successive Q's are disjoint and their union is E, so that telescoping gives g(E) - g(∅) < Σ|Q_k| = |E|. The termination claim alone does not give this."
+   },
+   {
+    "where": "Lemma subset-deficit, proof, first paragraph",
+    "quote": "A sink satisfies the second-neighborhood inequality, so $D$ has no sink",
+    "kind": "ambiguous_statement",
+    "severity": 1,
+    "what_i_needed": "Clarify that a sink has |N_1|=|N_2|=0, hence violates the strict hypothesis |N_1|>|N_2|. The sentence as written reads as if a sink is a counterexample."
+   },
+   {
+    "where": "Introduction, proof of Lemma subset-deficit context",
+    "quote": "Specializing Seacrest's parameter $\\lambda$",
+    "kind": "unjustified_step",
+    "severity": 1,
+    "what_i_needed": "The exact statement of Seacrest's Lemma 4 with parameter λ, and why setting λ=1 gives |F^2(S)\\F(S)| < |F(S)|. The paper says it re-proves a strengthened form, so the cited bound is only context, but its exact form is what the reader needs in order to compare."
+   },
+   {
+    "where": "Lemma pruning, proof, rank section",
+    "quote": "A minor attaining its maximum possible rank at some assignment is therefore a nonzero polynomial",
+    "kind": "unjustified_step",
+    "severity": 2,
+    "what_i_needed": "A proof or precise citation that the maximum rank over all real matrices supported on T equals the generic rank of the variable matrix, and hence that some r×r minor is a nonzero polynomial. The text asserts this only in passing; the rest of the argument needs it."
+   },
+   {
+    "where": "Lemma pruning, proof, rank section",
+    "quote": "We apply the determinant argument within coordinate blocks and verify that all required minors can be nonzero at the same assignment.",
+    "kind": "heavy_computation",
+    "severity": 2,
+    "what_i_needed": "A short explicit argument that the finitely many nonzero polynomials (the two matching minors and the D^{p,i} minors, which share variables b and a) have a common non-root. The sentence announces this but the paragraph then gives only partial details."
+   },
+   {
+    "where": "Lemma kernel-support and Lemma pruning, notation",
+    "quote": "Suppose that $D:\\R^J\\to\\R^I$ has maximum rank among all real matrices supported on $T$.",
+    "kind": "undefined_notation",
+    "severity": 1,
+    "what_i_needed": "The letter D is the digraph throughout Sections 2 and 3 but is reused here, and also in D^{p,i} and D_T. T also denotes the subset of E in Lemma subset-deficit, labels in the blow-up, and the support in kernel-support. A reader must rely on context to tell these apart."
+   },
+   {
+    "where": "Corollary (weighted forms), proof of (ii)",
+    "quote": "either a nonzero $\\eta\\ge0$ with $M_D\\eta\\ge0$,",
+    "kind": "ambiguous_statement",
+    "severity": 1,
+    "what_i_needed": "The exact alternative stated in Seacrest's Theorem 1, with the sign and strictness conditions. The text calls it 'Farkas' lemma', but the stated alternative (one side nonzero η≥0 with Mη≥0, the other ξ≥0 with M^Tξ<0) is a Ville/Gordan-type alternative. I checked that the stated alternative is correct, but the attribution should match."
+   },
+   {
+    "where": "Corollary (weighted forms), statement (iii)",
+    "quote": "by setting $w(vs)=0$ when $vs\\notin A(D)$.",
+    "kind": "ambiguous_statement",
+    "severity": 1,
+    "what_i_needed": "The convention conflates a missing arc with an arc of weight zero. The text notes this in a closing sentence, but the definition of β should state directly that w(vs) is used only as a value, not as an arc indicator, and that max over the empty set is 0 by convention."
+   },
+   {
+    "where": "Proposition no-concavity, final contradiction paragraph",
+    "quote": "Consequently at most $d'$ points of $Z$ are uncovered after pruning.",
+    "kind": "ambiguous_statement",
+    "severity": 1,
+    "what_i_needed": "Make explicit that the uncovered points of Z are uncovered points of X×X in the sense of d' (not in F_1P' ∪ F_2Q' only within Z), and that the Lemma's 'covered by a member of R' ∪ C'' is the same as membership in F_1P' ∪ F_2Q'. The two notions are used interchangeably in the text."
+   }
+  ]
+ }
+]

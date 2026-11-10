@@ -1,0 +1,261 @@
+[
+ {
+  "main_result": "For every integer d>=1 and every M>=9^{d+1}, a recursive construction of nested Boolean predicates (targets plus gates on a labelled regular tournament on k=2M^2+1 rows) yields a nonconstant total f, namely an OR of M copies of P_{d,1}, with bs(f)/s(f)^2 >= 2^d/(4(d+2)^2). This ratio tends to infinity with d, so no universal constant C with bs(f) <= C s(f)^2 exists. Corollary: composing a fixed seed (d=9) gives functions F_m with s(F_m) <= A^m and bs(F_m,0) >= B^m, where B > A^2, so bs(F_m,0) >= s(F_m)^alpha for some alpha>2.",
+  "proof_strategy": "Predicates P_{l,q} are defined by OR over clauses; each clause has target conditions (all r children of row i accept at the strongest level) and gate conditions (one child per out-neighbour row rejects at a weaker level), so each flip touches at most one condition per clause. Three sensitivity profiles are tracked: S (single-bit sensitivity), J (simultaneous flips of two nested predicates on the same input), and the recursion of Proposition 3.1 bounds them in terms of the previous level, using a union bound over clauses and a label-based argument (Lemma labelling) that bounds the number of clauses failing exactly one target at a zero to fewer than t. Lemma quantitative normalises by M^{l+b} and proves by simultaneous induction that the normalised profiles stay below 2L when M>=9^{d+1}. The main theorem then uses an OR of M copies, the zero-block family of Lemma blocks (M^2 k^d disjoint blocks at zero), and the bound s(f)<=2LM^{d+1}. Composition (Lemma composition) multiplies sensitivity upper bounds and zero-block counts for the corollary. I checked the recurrences, the normalisation algebra (including the constants 3^16 M^{-20}, 128/121, and the 3^{l+1}-3-2l bound), and the composition inequalities, and found them consistent; the unclear parts are the case analyses noted below.",
+  "hardest_part": "The joint-sensitivity case analysis in Proposition 3.1 (the J_{l,0} bound and the gate contribution for the lists T and G at index q versus q'). The witness-list argument relies on comparing failure sets at two indices, on which clause conditions can change under a single flip, and on the outdegree structure of the induced tournament on G. I checked each inequality and believe it holds, but the text compresses several of these steps and I would not fully trust a quick reading to have caught a subtle index error.",
+  "issues": [
+   {
+    "where": "Proposition 3.1 (proof), joint transitions from zero",
+    "quote": "A genuine final witness also had exactly one failed condition at $q'$ initially, by the same distinct-child argument.",
+    "kind": "unjustified_step",
+    "severity": 2,
+    "what_i_needed": "An explicit argument: a clause satisfied after one flip had at most one failed condition initially at any index (one flip changes one condition). Since failures at q are a subset of failures at q' (weaker gates at q), and the clause fails at q because P_{l,q}(x)=0, it fails exactly one condition at q, so it lies in T or G for index q. The text should state this instead of invoking 'the same argument'."
+   },
+   {
+    "where": "Proposition 3.1 (proof), joint transitions from one",
+    "quote": "leave all its targets true and fail a gate even for $q$.",
+    "kind": "unjustified_step",
+    "severity": 1,
+    "what_i_needed": "A line explaining why a flip that breaks the clause at q' but leaves targets intact must fail a gate at q, using that the clause at q is weaker (its gates at q are weaker than at q'), so that the clause at q can only break through a gate."
+   },
+   {
+    "where": "Proposition 3.1 (proof), candidate clauses at a zero, vertex of G with no outgoing edge inside G",
+    "quote": "The possible vertex with no outgoing edge inside $\\mathcal G$ contributes at most $S'_1$, by counting flips of its",
+    "kind": "unjustified_step",
+    "severity": 1,
+    "what_i_needed": "Explicit statement that vertices of G with an outgoing edge inside G have their unique failed gate on that edge (contributing at most J'_1 each), that the outdegree-zero vertex is unique, and that its failed gate points to a row outside G, so its contribution is S'_1. The count of at most 3 J'_1 terms should be stated explicitly as coming from m<=3 minus the one S'_1 vertex."
+   },
+   {
+    "where": "Proposition 3.1 (proof), joint transitions from zero, G-witness with no outgoing edge inside G",
+    "quote": "the second parent index supplies the second child threshold, without requiring any initial target value",
+    "kind": "ambiguous_statement",
+    "severity": 2,
+    "what_i_needed": "A precise restatement: for this witness the failed gate at index q has P_{g}=1 and P_{g'}=1 initially (by nesting), and satisfying q' forces both to 0, so it is a J_{l-1,1}-type flip. The phrase 'second child threshold' and 'no initial target value' is vague and should be spelled out; the reader must reconstruct why no S'_1 term is needed here."
+   },
+   {
+    "where": "Lemma base (proof), joint sensitivities",
+    "quote": "To change both predicates with distinct integer radii from zero to one, or both from one to zero, would require",
+    "kind": "unjustified_step",
+    "severity": 1,
+    "what_i_needed": "The reason distinct radii force a gap of two: if the larger radius R exceeds the smaller R' then R>=R'+1, so D must move from at least R'+2 to at most R' (or the reverse), a change of at least 2 in the 1-Lipschitz function D. The text asserts this without the radius inequality."
+   },
+   {
+    "where": "Introduction, Method and relation to spectral sensitivity; Intro paragraph on gate repairs",
+    "quote": "the two corresponding child gate predicates must both change, even in the possible exceptional clause.",
+    "kind": "ambiguous_statement",
+    "severity": 1,
+    "what_i_needed": "Clarification of which 'exceptional clause' is meant and how it differs from the generic case (in the generic case the repaired gate forces the strongest predicate to change as well; in the exceptional clause the second predicate is the weaker one). Without this the informal overview is hard to match to the proof."
+   },
+   {
+    "where": "Lemma quantitative (proof)",
+    "quote": "We therefore make $\\epsilon$ small compared with $3^{-d}$.",
+    "kind": "ambiguous_statement",
+    "severity": 1,
+    "what_i_needed": "The reason 3^{-d} is the right scale should be stated: the induction needs U_l<2L with the factor 3^{l+1} growing with l<=d, so eps*(3^{d+1}) must be bounded. The text only gives the requirement later as a displayed inequality; a forward reference would help."
+   },
+   {
+    "where": "Abstract vs Corollary (power separation)",
+    "quote": "our examples have unbounded block sensitivity and satisfy",
+    "kind": "ambiguous_statement",
+    "severity": 1,
+    "what_i_needed": "The abstract claims bs(f) >= s(f)^alpha for the examples, while Corollary 4.3 proves bs(F_m,0) >= s(F_m)^alpha. The step bs(F_m) >= bs(F_m,0) is trivial but should be noted, and the abstract should say block sensitivity at zero if that is what is meant."
+   },
+   {
+    "where": "Corollary (power separation), proof",
+    "quote": "Fix $d=9$, choose an integer $M\\geq9^{10}$, and choose any admissible",
+    "kind": "ambiguous_statement",
+    "severity": 1,
+    "what_i_needed": "The exponent alpha = log B / log A depends on the arbitrary choice of M (and therefore on the constructed f). The existential statement is fine, but the text should say explicitly that alpha is determined after fixing M and is not canonical."
+   },
+   {
+    "where": "Introduction, Method paragraph",
+    "quote": "using a different forbidden-label condition and a direct union bound",
+    "kind": "ambiguous_statement",
+    "severity": 1,
+    "what_i_needed": "A precise comparison with Meiburg's construction (which lemma or label condition is changed, and which parts are taken verbatim). Since the self-contained proof does not depend on the cited work's correctness, a reader needs to know that the cited architecture is only used as motivation."
+   }
+  ]
+ },
+ {
+  "main_result": "For every real C>0 there is a nonconstant total Boolean function f with bs(f) > C·s(f)^2. The quantitative form is that for each integer d>=1 the construction gives bs(f)/s(f)^2 >= 2^d/(4(d+2)^2), which tends to infinity. The construction is the OR of M disjoint copies of a recursively defined nested predicate P_{d,1}, where M >= 9^{d+1}. A composition corollary (Corollary cor:power-separation) then gives, for some fixed alpha>2, nonconstant F_m with bs(F_m,0) >= s(F_m)^alpha and bs(F_m,0) -> infinity.",
+  "proof_strategy": "The construction is a depth-d recursion of nested predicates over k=2M^2+1 rows of r children, with one directed row-to-row edge per tournament pair, a labelling of edges that avoids t=16 consistent labelled vertices (Lemma labelling, by a union bound), and gate and target conditions in each clause. Proposition prop:recurrences bounds four quantities: S_{l,b} (max single-bit sensitivity) and J_{l,b} (max joint sensitivity of two nested predicates) at each level, by case analysis on which clause is repaired by a flip. Lemma quantitative-profiles normalises by M^{l+b} and runs a comparison-sequence induction to show S_{d,b} <= 2L M^{d+b}. The theorem then takes an OR of M copies, reads off s(f) <= 2LM^{d+1} and bs(f,0) >= M^2 k^d, and optimises d. The corollary composes a fixed seed with itself using the sensitivity bound s(f∘g)<=s(f)s(g) and the zero-block product bound. I checked the algebra of the normalisation, the Lemma labelling count, the base lemma, the blocks lemma, the OR step, the final ratio and the composition bounds, and found them consistent. The clause-level case analysis of Proposition prop:recurrences I checked by reconstruction, and it held, but several of its sentences are terse.",
+  "hardest_part": "The case analysis in Proposition prop:recurrences, specifically the joint-transition bounds (J_{l,1} and J_{l,0}) and the tournament argument that |G| <= 3 with at most one outdegree-zero vertex. I could reconstruct the full argument and found no error, but it depends on several nesting inequalities and on the claim that each counted flip lies in a fixed list of clauses, and some of the justifications are given in one-line remarks. I would least trust myself to have checked every sub-case without a second pass.",
+  "issues": [
+   {
+    "where": "Proposition prop:recurrences, joint transitions from zero (paragraph beginning 'Joint transitions from zero')",
+    "quote": "A genuine final witness also had exactly one failed condition at $q'$ initially, by the same distinct-child argument.",
+    "kind": "unjustified_step",
+    "severity": 2,
+    "what_i_needed": "An explicit argument: the failures of a clause at q' include those at q (q'-gates are stronger, targets unchanged), so c has at least one failure at q' before the flip; one flip alters at most one condition of c (distinct children), so exactly one failure at q' is forced."
+   },
+   {
+    "where": "Proposition prop:recurrences, joint transitions from zero, outdegree-zero vertex of G",
+    "quote": "the second parent index supplies the second child threshold, without requiring any initial target value at the failed gate.",
+    "kind": "ambiguous_statement",
+    "severity": 2,
+    "what_i_needed": "A spelled-out chain: the failed gate at index g has P_g=1 initially; nesting gives P_{g'}=1 initially; the witness needs P_{g'}=0 after the flip, so both P_g and P_{g'} go 1->0 in one child, which is what J_{l-1,1} counts. The remark about target values is not used and its role should be stated or removed."
+   },
+   {
+    "where": "Proposition prop:recurrences, joint transitions from one",
+    "quote": "This proves both inequalities on the one side.",
+    "kind": "ambiguous_statement",
+    "severity": 1,
+    "what_i_needed": "Say which two inequalities (the S_{l,1} bound and the J_{l,1} bound) are meant, and why the joint-from-one argument above establishes the J_{l,1} bound."
+   },
+   {
+    "where": "Proposition prop:recurrences, joint transitions from one",
+    "quote": "or leave all its targets true and fail a gate even for $q$.",
+    "kind": "unjustified_step",
+    "severity": 1,
+    "what_i_needed": "The reason the flip must make clause c fail at the weaker index q: since P_{l,q} is zero after the flip, every clause, including c, must fail at q; then a target or the gate at q must fail."
+   },
+   {
+    "where": "Proposition prop:recurrences, initial candidate clauses at a zero",
+    "quote": "Since only one condition of that clause can change, the clause belongs to $\\mathcal T\\cup\\mathcal G$",
+    "kind": "unjustified_step",
+    "severity": 1,
+    "what_i_needed": "Explicitly: c is false before and true after the flip, so c has at least one failed condition before; a single flip repairs at most one condition, so c has exactly one failed condition, hence lies in T or G."
+   },
+   {
+    "where": "Lemma quantitative-profiles, proof, choice of epsilon",
+    "quote": "We therefore make $\\epsilon$ small compared with $3^{-d}$.",
+    "kind": "ambiguous_statement",
+    "severity": 1,
+    "what_i_needed": "The precise condition used later, namely eps*[(3/2)(3^l-1)-l] < 1 for all l<=d. The heuristic 'small compared with 3^{-d}' is not the criterion actually checked, and the hypothesis M>=9^{d+1} is only used through eq. epsilon-choice."
+   },
+   {
+    "where": "Lemma quantitative-profiles, bound on U_l",
+    "quote": "+3\\epsilon L\\sum_{j=0}^{\\ell-1}(3^j-1)",
+    "kind": "heavy_computation",
+    "severity": 1,
+    "what_i_needed": "The evaluation sum_{j=0}^{l-1}(3^j-1) = (3^l-1)/2 - l, and the combination L + eps*L*[(3/2)(3^l-1) - l] that follows from it. These steps are skipped, though I redid them and they are correct."
+   },
+   {
+    "where": "Lemma quantitative-profiles, final inequality for U_l",
+    "quote": "The last inequality follows from~\\eqref{eq:epsilon-choice}, since",
+    "kind": "unjustified_step",
+    "severity": 1,
+    "what_i_needed": "The inequality 3^{l+1}-3-2l < 3^{d+1} uses l<=d, which is not stated at that point; it should be noted explicitly."
+   },
+   {
+    "where": "Lemma labelling, proof",
+    "quote": "There are at most $k^t r^t$ choices to consider, so the probability of any violation is at most",
+    "kind": "heavy_computation",
+    "severity": 1,
+    "what_i_needed": "Explicit statement that the number of edges inside a t-set is binom(16,2)=120 (every pair is an edge of the tournament), that binom(k,t)<=k^t, and that 16 r^16 * r^{-120} = r^{-104}. I verified these, but the text skips them."
+   },
+   {
+    "where": "Proposition prop:recurrences, joint transitions from zero, G-witness case; and the gate-repair step in the 'initial candidate clauses' section",
+    "quote": "Put\n\\[\n g=Q-q,\\qquad g'=Q-q',\\qquad 1\\leq g'<g<Q.",
+    "kind": "ambiguous_statement",
+    "severity": 1,
+    "what_i_needed": "The symbol g is also the name of a function in Lemma composition; m is used both for |G| and for the labels m_j and the index in F_m. A single meaning per symbol, or a remark that the uses are local, would remove the ambiguity."
+   },
+   {
+    "where": "Lemma composition, block-sensitivity part",
+    "quote": "The outer input therefore becomes $0^{C_i}$, which changes the value of $f$.",
+    "kind": "ambiguous_statement",
+    "severity": 1,
+    "what_i_needed": "Confirmation that 0^{C_i} is the x^B flip notation applied to the zero string, i.e. the indicator of C_i, and that f(indicator of C_i) differs from f(0) because C_i is sensitive for f at zero."
+   },
+   {
+    "where": "Corollary cor:power-separation, proof",
+    "quote": "The latter bound proves nonconstancy and tends to infinity.",
+    "kind": "unjustified_step",
+    "severity": 1,
+    "what_i_needed": "The implication bs(F_m,0) >= 1 implies a sensitive block at zero, so some flip changes F_m, so F_m is nonconstant. This one-line step should be spelled out."
+   },
+   {
+    "where": "Abstract and Corollary cor:power-separation",
+    "quote": "our examples have unbounded block sensitivity and satisfy",
+    "kind": "ambiguous_statement",
+    "severity": 1,
+    "what_i_needed": "Clarify that 'our examples' in the abstract refers to the composed family F_m of the corollary, not to the single function f of Theorem thm:main, which does not satisfy bs(f) >= s(f)^alpha for a fixed alpha."
+   },
+   {
+    "where": "Corollary cor:power-separation, choice of alpha",
+    "quote": "the fixed number \\[ \\alpha=\\frac{\\log B}{\\log A} \\] is greater than two.",
+    "kind": "ambiguous_statement",
+    "severity": 1,
+    "what_i_needed": "Note that alpha depends on the chosen M (alpha -> 2 as M grows) and is fixed only after M is chosen, so the statement 'there exist a real alpha>2' is correct but the dependence should be stated."
+   }
+  ]
+ },
+ {
+  "main_result": "For each integer d≥1 the paper builds a nonconstant total Boolean function f (an OR of M disjoint copies of a recursively defined predicate P_{d,1}, with M≥9^{d+1}) such that s(f) ≤ 2(d+2)M^{d+1} and bs(f,0) ≥ M^2 k^d with k=2M^2+1. Hence bs(f)/s(f)^2 ≥ 2^d/(4(d+2)^2), which tends to infinity, so no universal constant C with bs(f) ≤ C s(f)^2 exists. Corollary: iterating a fixed seed by disjoint composition gives F_m with bs(F_m,0) ≥ s(F_m)^α for a fixed α>2 (α depends on the chosen M=9^{10}), and bs(F_m,0)→∞.",
+  "proof_strategy": "A recursive family of nested threshold-type predicates is defined on a tournament-indexed layout: at each level, k=2M^2+1 rows each of r children, a clause per row asserts that all targets in its row are accepted at the strongest index and that one labelled child in each out-neighbouring row rejects at a weaker index. Edge labels from Lemma 2.1 (a random-labelling union bound) limit the number of candidate clauses that can be repaired by one flip. Proposition 4.1 gives four coupled recurrences for the ordinary sensitivity profiles S and the two-predicate profiles J, proved by case analysis on which clause a flip repairs (targets versus gates, and within the gate set G a tournament-outdegree count giving |G|≤3). Lemma 4.2 normalises by M^{ℓ+b} and solves the comparison recursion by simultaneous induction, giving S_{d,b} ≤ 2LM^{d+b}. The OR of M copies and the block count M^2k^d then give the ratio, and disjoint composition (Lemma 5.1) gives the power separation. I checked the recurrences, the normalised inequalities, the comparison-sequence induction, and the final algebra by hand; I did not run any computer check of the small-case combinatorics.",
+  "hardest_part": "The joint-transition bound J_{ℓ,0} in Proposition 4.1: the argument that, for two distinct parent indices q<q' and a flip making both predicates one, the witness clause must lie in the lists T and G defined at the weaker index q, and that its single failing condition at q' is the same condition that fails at q. This is where the nesting directions, the distinct-child argument and the tournament count all interact, and the prose is terse there. I followed it and believe it is correct, but I am least certain I would catch a subtle slip in that bookkeeping without a brute-force check on small parameters. Also, I could not independently confirm that a superquadratic separation of this kind is genuinely new or consistent with the literature the paper cites; I only checked internal consistency.",
+  "issues": [
+   {
+    "where": "Proposition (recurrences), 'Joint transitions from zero', final G-paragraph",
+    "quote": "the second parent index supplies the second child threshold, without requiring any initial target value at the failed gate.",
+    "kind": "unjustified_step",
+    "severity": 2,
+    "what_i_needed": "An explicit argument for the G-clause whose unique failed gate leaves the induced subtournament: its failed gate child has P_{ℓ-1,g}=1 initially, nesting gives P_{ℓ-1,g'}=1, and the flip must drive both to zero, so the count is at most J_{ℓ-1,1}. The sentence should say this directly rather than appeal to 'no target value'."
+   },
+   {
+    "where": "Proposition (recurrences), 'Joint transitions from zero', first G/T paragraph",
+    "quote": "Members of the weaker lists that have additional unrepaired failures at $q'$ simply contribute no flips.",
+    "kind": "unjustified_step",
+    "severity": 2,
+    "what_i_needed": "Why a clause in T_q or G_q with two or more failing conditions at q' cannot be made satisfied by one flip, and why, for a G-clause, the only possible failing condition at q' is the same gate that fails at q (since P_g=1 forces P_{g'}=1 by nesting). This justifies restricting the count to clauses with exactly one failure at q'."
+   },
+   {
+    "where": "Proposition (recurrences), 'Joint transitions from zero'",
+    "quote": "A genuine final witness also had exactly one failed condition at $q'$ initially, by the same distinct-child argument.",
+    "kind": "unjustified_step",
+    "severity": 1,
+    "what_i_needed": "A one-line justification: the witness is false at x for q' and one flip changes exactly one of its conditions, so exactly one condition fails at q' before the flip; combined with the q-analysis this identifies that condition."
+   },
+   {
+    "where": "Proposition (recurrences), 'Joint transitions from one'",
+    "quote": "leave all its targets true and fail a gate even for $q$.",
+    "kind": "ambiguous_statement",
+    "severity": 1,
+    "what_i_needed": "State that the clause is satisfied at x for q' and hence all its gates pass at x for both indices, so the gate that fails for q after the flip was passing at x for q; this is what licenses P_{ℓ-1,g}=0 initially in the following paragraph."
+   },
+   {
+    "where": "Lemma (labelling), proof",
+    "quote": "k^{16}r^{-104}\\le (3M^2)^{16}(\\sqrt M)^{-104}",
+    "kind": "unjustified_step",
+    "severity": 1,
+    "what_i_needed": "The intermediate union bound: (kr)^t choices of (I,m) times r^{-C(t,2)} = r^{-120} for t=16, combined as k^16 r^{-104}. The arithmetic is correct, but the combination is not shown, and the reader must notice that C(16,2)=120."
+   },
+   {
+    "where": "Proof of Lemma (composition), disjoint composition paragraph",
+    "quote": "The outer input therefore becomes $0^{C_i}$, which changes the value of $f$.",
+    "kind": "undefined_notation",
+    "severity": 1,
+    "what_i_needed": "That 0^{C_i} means the indicator string of C_i, i.e. the input 0 with the coordinates in C_i flipped (the x^B notation applied to x=0), and that the outer input is exactly this string; one sentence would remove the ambiguity."
+   },
+   {
+    "where": "Introduction, 'Construction and proof strategy' paragraph",
+    "quote": "For a gate repair that makes a clause hold for two rejecting parent predicates, the two corresponding child gate predicates must both change, even in the possible exceptional clause.",
+    "kind": "ambiguous_statement",
+    "severity": 1,
+    "what_i_needed": "The terms 'rejecting parent predicates' and 'exceptional clause' are not defined before this point; the statement only makes sense after reading the joint-transition argument in Section 4. A forward reference or definition is needed."
+   },
+   {
+    "where": "Introduction, 'Construction and proof strategy' paragraph",
+    "quote": "all but at most one have their failed gate in a row whose strongest child predicates all accept.",
+    "kind": "ambiguous_statement",
+    "severity": 1,
+    "what_i_needed": "A precise statement of what 'candidates of the second kind' are (clauses in the set G of exactly-one-gate-failure clauses) and why the exception is unique, which is only proved later through the outdegree argument."
+   },
+   {
+    "where": "Lemma (quantitative profiles), proof, before (epsilon-choice)",
+    "quote": "We therefore make $\\epsilon$ small compared with $3^{-d}$.",
+    "kind": "ambiguous_statement",
+    "severity": 1,
+    "what_i_needed": "The sentence suggests ε is a free choice, but ε=max(r,t)/M is determined by M, and the actual constraint used later is ε ≤ 2/3^{d+1}, which follows from M≥9^{d+1}. The text should say that the hypothesis M≥9^{d+1} is what is needed."
+   },
+   {
+    "where": "Corollary (power separation), proof",
+    "quote": "Fix $d=9$, choose an integer $M\\geq9^{10}$, and choose any admissible",
+    "kind": "ambiguous_statement",
+    "severity": 1,
+    "what_i_needed": "The exponent α=log B/log A depends on the chosen M (it is only 2+log(128/121)/log A, so close to 2). The abstract's phrase 'for some fixed α>2' is correct once M is fixed, but the dependence on M should be stated, since 'fixed' could be misread as universal."
+   }
+  ]
+ }
+]

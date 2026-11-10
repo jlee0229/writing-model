@@ -1,0 +1,10 @@
+[
+ {
+  "find": "For each of the three positions, if the source gap has fewer cells than the\ncorresponding target gap (or conversely), bisect one cell on the side with\nfewer cells.",
+  "replace": "Summing over the three gaps, if the source gaps have fewer cells in total\nthan the target gaps (or conversely), bisect one gap cell on the side with\nfewer cells."
+ },
+ {
+  "find": "cells increases by one. Repeat until the numbers agree.",
+  "replace": "cells increases by one. Repeat until the total numbers agree."
+ }
+]

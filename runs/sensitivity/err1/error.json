@@ -1,0 +1,21 @@
+{
+ "where": "Proposition 3.1 (Sensitivity recurrences), proof, paragraph 'Transitions from one', joint bound J_{ℓ,1}",
+ "kind": "Reversed monotonicity / nesting applied in the wrong direction",
+ "explanation": "Nesting gives P_{ℓ,q} ≥ P_{ℓ,q'} for q<q', so a clause satisfied at the weaker index q need not be satisfied at the stronger index q' (its gates at q' test the larger predicate P_{ℓ-1,g'} with g'<g). The edited text picks a clause satisfied for q and claims nesting makes it satisfied for q'. That is false. The next step ('initially P_{ℓ-1,g'}=0 because the clause holds for q'') then has no basis: at a gate of the chosen clause we only know P_{ℓ-1,g}=0, and P_{ℓ-1,g'} may already be 1. So a flip that fails the gate need only change one child predicate, and the per-gate count is S'_0, not J'_0. The bound J_{ℓ,1} ≤ M^2 J'_0 + r S'_1 then fails. The honest bound M^2 S'_0 + r S'_1 would make v_ℓ of order u_{ℓ-1} instead of ε u_{ℓ-1}, which ruins the quantitative lemma and hence the main theorem.",
+ "correct_version": "Choose a clause initially satisfied for $q'$; nesting makes it satisfied for $q$ as well.",
+ "edits": [
+  {
+   "find": "Choose a clause initially satisfied for $q'$; nesting makes it satisfied",
+   "replace": "Choose a clause initially satisfied for $q$; nesting makes it satisfied"
+  },
+  {
+   "find": "for $q$ as well.",
+   "replace": "for $q'$ as well."
+  }
+ ],
+ "validation": {
+  "verdict": "real_error",
+  "subtlety": 3,
+  "reason": "The edit reverses the direction of nesting in the joint one-side argument. The manuscript states P_{l,1} >= P_{l,2} >= ..., and that increasing q strengthens each gate condition. So for q<q', a clause satisfied at q' is satisfied at q, but not conversely. The edited text picks a clause satisfied for q and claims nesting makes it satisfied for q', which is false: its gates at q' test P_{l-1,g'} with g'<g, a larger predicate that may already be 1. The next step ('initially P_{l-1,g'}=0 because the clause holds for q'') then has no basis. A gate failure need only flip P_{l-1,g} from 0 to 1, so the per-gate count is S'_0, not J'_0. The bound J_{l,1} <= M^2 J'_0 + r S'_1 is therefore unproved, and the quantitative lemma depends on it. Catching it requires checking the nesting direction against the earlier definition, since the swap reads naturally on its own."
+ }
+}

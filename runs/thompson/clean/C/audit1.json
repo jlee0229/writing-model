@@ -1,0 +1,37 @@
+{
+ "statements": [],
+ "introduced": [
+  {
+   "where": "Section 1.2 (Proof at a glance), paragraph 'Objects'",
+   "quote": "Every basic\npartition $T$ gets a \\emph{color} $p(T)\\in B$ by recursion on the number\nof cells: $p(T)$ is $f$ applied to the mean of the colors of the $D$\npartitions obtained by restricting $T$ to a parent and rescaling to\n$[0,1]$.",
+   "problem": "The overview states the recursion without its base case. Restrictions exist only when T respects every parent; otherwise the colour is 0 (for example p(T^{(0)})=0). As written the recursion has no base case, so it is not well founded and is false for coarse partitions. The source's own sketch includes the clause ('when all these restrictions are defined, and by zero otherwise'), and the rewrite's formal definition (color:recursion) in Section 2.2 is correct, so this affects the overview only.",
+   "severity": 1
+  }
+ ],
+ "source_doubts": [
+  {
+   "where": "Corollary 3.1 (uniformly bounded representations), proof",
+   "quote": "the\nsource concludes by the companion unitarizability theorem\n\\cite[Theorem~1.1]{OpenAIUnitarizability2026}.",
+   "problem": "The whole proof is a citation to a companion theorem whose statement is not reproduced. To yield the corollary from only 'countable and nonamenable', that theorem would have to give a non-unitarizable representation with bound 1+epsilon for every countable nonamenable group, which amounts to a positive solution of Dixmier's unitarizability problem. Nothing in this document justifies the step. The same reliance is in the source.",
+   "already_marked_unverified": true
+  },
+  {
+   "where": "Corollary 3.2 (percolation), proof",
+   "quote": "The source applies the companion percolation result\n\\cite[Corollary~1.2]{OpenAIPercolation2026} to $F$, nonamenable by\nTheorem~\\ref{thm:main}.",
+   "problem": "The proof is a bare citation to an unreproduced companion result. The conclusions (finite L^2 norm of T_{p_c}, p_c < p_{2->2} <= p_u for every finite symmetric generating set, and a simultaneous non-uniqueness interval) would, from nonamenability alone, require the Benjamini–Schramm conjecture p_c < p_u for all nonamenable Cayley graphs, which is not an established theorem. It cannot be checked from this document. The same reliance is in the source.",
+   "already_marked_unverified": true
+  }
+ ],
+ "unverified_marks": [
+  {
+   "where": "Proof of Corollary 3.1 (non-unitarizable representations)",
+   "concern": "The companion unitarizability theorem is not stated in the source, so its hypotheses and the 1+epsilon bound cannot be checked; a theorem of that generality would settle Dixmier's unitarizability problem, which is known only as open.",
+   "warranted": true
+  },
+  {
+   "where": "Proof of Corollary 3.2 (percolation on Cayley graphs)",
+   "concern": "The companion percolation corollary is not reproduced, so none of the conclusions can be checked; p_c < p_u for general nonamenable Cayley graphs is an open conjecture.",
+   "warranted": true
+  }
+ ]
+}

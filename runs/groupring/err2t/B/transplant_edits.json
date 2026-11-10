@@ -1,0 +1,10 @@
+[
+ {
+  "find": "Put $Q=e+W+\\cdots+W^{k-1}$; for $k=1$ this is $e$.",
+  "replace": "Put $Q=e+W+\\cdots+W^{k-2}$; for $k=2$ this is $e$."
+ },
+ {
+  "find": "QZ=Q(e-W)=(e+W+\\cdots+W^{k-1})-(W+\\cdots+W^{k})=e-W^k=e.",
+  "replace": "QZ=Q(e-W)=(e+W+\\cdots+W^{k-2})-(W+\\cdots+W^{k})=e-W^k=e."
+ }
+]

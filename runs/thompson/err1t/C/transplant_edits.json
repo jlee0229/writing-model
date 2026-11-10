@@ -1,0 +1,6 @@
+[
+ {
+  "find": "the $k$-th source gap and the $k$-th target gap have equally many cells\n($k=1,2,3$).",
+  "replace": "the three source gaps together and the three target gaps together have\nequally many cells in total."
+ }
+]

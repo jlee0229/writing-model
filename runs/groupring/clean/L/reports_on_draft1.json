@@ -1,0 +1,254 @@
+[
+ {
+  "main_result": "Conditional on the cited companion theorem (Theorem thm:input: a finite field K_2 of characteristic two, a finitely generated H_2, and a_2, b_2 in K_2[H_2] with a_2b_2=1 but b_2a_2 != 1), the manuscript builds a finitely generated group G_D = (direct sum of C_3 indexed by H_2) semidirect H_2 and an integer matrix A of size 2d+1 over Z[G_D] (d = [K_2:F_2]) that is invertible over Q[G_D]. Its Fuglede-Kadison determinant is q^{-theta} with q = 2^k, q ≡ 1 mod 3^{1+|S|}, and theta = (1/3)(2/3)^{|S|} > 0. So 0 < det < 1, and the integral of log t against the spectral measure is finite and negative. This contradicts the square, unrestricted group-ring Determinant Conjecture as the manuscript states it.",
+  "proof_strategy": "Lemma binary turns a_2, b_2 into d x d matrices X, Y over F_2[H_2] with XY = I and an idempotent defect C = I - YX with XC = 0 and CY = 0; I checked these identities. Proposition separation builds a rational projection p = p_1 prod_{s in S}(1 - p_s) on the C_3-part, using commuting averaging idempotents, so that psp = 0 for s in S; its identity coefficient is theta. Reducing mod 2 and sandwiching the normalized defect entry gives a factorization of diag(I_d, p-bar) through d columns. Lemma lift lifts that factorization to Z/2^k using a finite geometric series, and Lemma integral builds the integral block matrix A = M(1) from a path M(x) = L_x B R_x with B = diag(qI_r, J); I checked the block products, the inverse of J, and the integrality. Lemmas trace, logderivative and shears show that the unipotent shears leave tau(log M*M) unchanged, so log det A = log det B = (r - tau_m(P)) log q, and I checked this derivative computation step by step. The trace of B*B gives (r - tau_m(P)) log q, which yields the value -theta log q.",
+  "hardest_part": "I could check the internal algebra (the idempotent and separation identities, the trace coefficient [1]p = theta, the block product, the shear derivative and the log-derivative formula) line by line and found no error. What I cannot verify is the external input (Theorem thm:input), and whether the manuscript's conjecture (eq:conjecture) matches the literature formulation of Luck's Conjecture 13.2, including any torsion or injectivity hypotheses. Those determine whether the claimed refutation is valid, and the manuscript does not reproduce the wording.",
+  "issues": [
+   {
+    "where": "Section 1.2 (conjecture statement), eq:conjecture and the sentence after it",
+    "quote": "The source does not reproduce the wording of that conjecture, and neither does this rewrite.",
+    "kind": "ambiguous_statement",
+    "severity": 2,
+    "what_i_needed": "The precise hypotheses of Luck's Conjecture 13.2 (rectangular vs square, injectivity or invertibility, any torsion-free or other restriction on G) so that a square invertible counterexample over Z[G_D] really contradicts the conjecture as stated."
+   },
+   {
+    "where": "Remark rem:input-status (and Section 1.3 Theorem 1.3 discussion)",
+    "quote": "There is no torsion-free hypothesis, and the companion's construction uses torsion.",
+    "kind": "ambiguous_statement",
+    "severity": 2,
+    "what_i_needed": "A statement of whether the Determinant Conjecture in the literature is posed for all groups including torsion groups. G_D contains C_3 summands, so the refutation only holds if the conjecture is unrestricted in this sense."
+   },
+   {
+    "where": "Remark rem:sofic (G_D is not sofic)",
+    "quote": "which a bound $\\det\\ge1$ for positive integral matrices over sofic groups forbids",
+    "kind": "unjustified_step",
+    "severity": 2,
+    "what_i_needed": "The exact hypotheses and conclusion of Elek-Szabo Theorem 5 (square vs general integer matrices, invertibility, which determinant), since the remark admits it has not been checked against the reference. Without this the non-soficity claim is unsupported."
+   },
+   {
+    "where": "Verification checklist (closing paragraph) vs Remark rem:sofic and Remark rem:input-status",
+    "quote": "No step of the argument in Sections~\\ref{sec:projection}--\\ref{sec:assembly} was left unverified in this rewrite.",
+    "kind": "ambiguous_statement",
+    "severity": 1,
+    "what_i_needed": "Reconcile this blanket claim with the admitted non-verification of the cited input and of the sofic consequence, or narrow the claim to the internal algebra only."
+   },
+   {
+    "where": "Proof at a glance, Key idea paragraph",
+    "quote": "For the trivial group this cannot happen: an idempotent rational matrix with odd denominators has the same rank modulo $2$, and this rank equals its trace.",
+    "kind": "unjustified_step",
+    "severity": 1,
+    "what_i_needed": "An argument that an idempotent with entries in Z_(2) splits as image plus kernel over the localization, so that rank mod 2 equals rank over Q. The sentence is stated without this justification."
+   },
+   {
+    "where": "Proof at a glance, Key idea paragraph",
+    "quote": "A failure of direct finiteness over $\\F_2$ is what makes $\\tau_m(P)>r$ possible.",
+    "kind": "unjustified_step",
+    "severity": 1,
+    "what_i_needed": "A precise link between the failure of direct finiteness and the inequality tau_m(P) > r. The heuristic is not used in the proof and no argument is given for it."
+   },
+   {
+    "where": "Section 1.4 (Remark convention), row-vector computation",
+    "quote": "\\sum_j\\xi_j\\,(A_{ij})^*",
+    "kind": "ambiguous_statement",
+    "severity": 1,
+    "what_i_needed": "Explicit statement that juxtaposition xi_j beta denotes right multiplication in the group ring acting on l^2(G), and that iota lambda(alpha) iota equals right multiplication by alpha^* for all alpha in C[G] (not only integer alpha)."
+   },
+   {
+    "where": "Section 1.2 (conjecture statement), after eq:conjecture",
+    "quote": "The integral is over the open half-line, so a possible atom of $\\mu_A$ at $0$ is omitted;",
+    "kind": "ambiguous_statement",
+    "severity": 1,
+    "what_i_needed": "Clarification of whether the stated inequality is equivalent to det >= 1 when T_A is singular; the manuscript says equivalence only holds for invertible T_A, so the formulation for singular A is weaker or different and should be stated."
+   },
+   {
+    "where": "Lemma lift, proof Step 3 and Step 4",
+    "quote": "Only this element is shown nilpotent, not the corner ring.",
+    "kind": "lost_thread",
+    "severity": 1,
+    "what_i_needed": "A clear statement of what is claimed about the corner ring e Mat_m e in Step 4 and why only W^k = 0 is needed for the inverse Q; the sentence as written does not say what is being asserted."
+   },
+   {
+    "where": "Context subsection (Kammeyer comparison)",
+    "quote": "Kammeyer's counterexample to such a limiting formula has determinant $2$ over the discrete Heisenberg group",
+    "kind": "unjustified_step",
+    "severity": 1,
+    "what_i_needed": "External numerical claims (determinant 2, bounds 5^{1/3}) are not used in the proofs; I could not check them and they are not needed for the main argument."
+   }
+  ]
+ },
+ {
+  "main_result": "Conditional on Theorem 1.1 of the companion paper (a finite-characteristic-two group algebra K_2[H_2] that is not directly finite), the manuscript constructs a finitely generated group G_D = (⊕_{h∈H_2} C_3) ⋊ H_2 and a square integer matrix A over Z[G_D] (size 2d+1, where d = [K_2:F_2]) that is invertible over Q[G_D]. Its Fuglede–Kadison determinant is q^{-θ} with θ = (1/3)(2/3)^{|S|} > 0 and q a power of 2 with q ≡ 1 mod 3^{1+|S|}. So 0 < det < 1, and the logarithmic integral of the spectral measure is finite and negative. This refutes the square-matrix instance of the group-ring Determinant Conjecture (the lower bound det ≥ 1).",
+  "proof_strategy": "Lemma binary turns the field-level pair a_2b_2=1≠b_2a_2 into matrices X,Y over F_2[H_2] with XY=I and an idempotent defect C=I−YX≠0 satisfying XC=0, CY=0. Proposition separation builds a rational projection p in Q[⊕C_3] by multiplying p_1 by commuting factors (1−p_s), so that psp=0 for s∈S kills all but the identity term modulo 2; this gives τ(p)=θ and a mod-2 factorization of diag(I,p) through d columns. Lemma lift lifts that factorization to Z/qZ by a geometric series in the nilpotent 2-divisible part, and Lemma integral builds an integral block matrix A = M(1) from block shears of B = diag(qI_r, J). Lemmas logderivative and shears show the log-trace is invariant along the shear path, so τ(log A*A) equals τ(log B*B) = 2(r−τ_m(P)) log q. Substituting r=d and τ_{d+1}(P)=d+θ gives the claimed determinant. I checked each algebraic identity (C²=C, the block products, the inverse of J, the derivative formula, the trace identities, psp=0, the coefficient θ) by hand and found them consistent; the only inputs I could not check are the cited theorems.",
+  "hardest_part": "The cited input, Theorem 1.1 of the companion paper (existence of a non-directly-finite group algebra over a finite characteristic-two field). Everything downstream depends on it, and I cannot verify it from the manuscript. Of the checked material, the analytic shear-invariance argument (Lemma logderivative, the Ω-series and termwise differentiation, then Lemma shears) was the most intricate, and I verified it by hand, but I would still want an independent check of the uniform-convergence bookkeeping.",
+  "issues": [
+   {
+    "where": "Section 1.2 (conjecture, eq. conjecture)",
+    "quote": "The integral is over the open half-line, so a possible atom of $\\mu_A$ at $0$ is omitted",
+    "kind": "ambiguous_statement",
+    "severity": 2,
+    "what_i_needed": "A precise statement of which conjecture is refuted. Eq. (conjecture) is only equivalent to det ≥ 1 for invertible T_A. For singular A it is weaker, since an atom at 0 is ignored. The manuscript should say explicitly that the refuted statement is the integral inequality for invertible A, and cite the exact source statement it is an instance of."
+   },
+   {
+    "where": "Section 1.2 (conjecture) and Remark on the conjecture wording",
+    "quote": "The source does not reproduce the wording of that conjecture, and neither does this rewrite.",
+    "kind": "ambiguous_statement",
+    "severity": 2,
+    "what_i_needed": "The exact wording of Luck's Conjecture 13.2 (square vs rectangular, invertibility assumptions) so a reader can confirm that the square instance in eq. (conjecture) is the one being refuted. Without it, the claim that the counterexample refutes the conjecture rests on an unquoted source."
+   },
+   {
+    "where": "Remark (G_D is not sofic)",
+    "quote": "a bound $\\det\\ge1$ for positive integral matrices over sofic groups forbids",
+    "kind": "unjustified_step",
+    "severity": 2,
+    "what_i_needed": "The precise statement of the Elek–Szabó bound (hypotheses on the matrix, nonsingularity, whether it applies to all integral matrices or only to specific classes). The computation det(A*A) = q^{-2θ} is correct, but the non-soficity conclusion needs the exact cited theorem."
+   },
+   {
+    "where": "Remark (G_D is not sofic)",
+    "quote": "The source does not quote the exact wording of the cited theorem and this rewrite has not checked it against the reference.",
+    "kind": "unjustified_step",
+    "severity": 2,
+    "what_i_needed": "Either a verified statement of the cited sofic theorem or a clear label that the non-soficity claim is an unverified external consequence. The Verification checklist says no step was left unverified, which conflicts with this admission."
+   },
+   {
+    "where": "Remark (input status) / Introduction",
+    "quote": "Theorem~\\ref{thm:input} is the only statement used without proof.",
+    "kind": "unjustified_step",
+    "severity": 2,
+    "what_i_needed": "The statement of Theorem 1.1 of the companion paper, with the hypotheses it actually requires (finite field, group presentation, which sums). Everything after it is conditional on this. I could not check any part of it from the manuscript."
+   },
+   {
+    "where": "Section 1 (Key idea)",
+    "quote": "an idempotent rational matrix with odd denominators has the same rank modulo $2$, and this rank equals its trace.",
+    "kind": "unjustified_step",
+    "severity": 1,
+    "what_i_needed": "A justification that the F_2-rank of the reduction equals the Q-rank (idempotents over Z_(2) lifting), and that the Q-rank equals the trace. The sentence as written compresses both steps, and the trivial-group comparison relies on them."
+   },
+   {
+    "where": "Section 1 (Key idea)",
+    "quote": "A failure of direct finiteness over $\\F_2$ is what makes $\\tau_m(P)>r$ possible.",
+    "kind": "unjustified_step",
+    "severity": 1,
+    "what_i_needed": "A reason (or pointer to Proposition separation) why a failure of direct finiteness over F_2 forces τ_m(P) > r. In the proof this comes out of the factorization and the trace calculation, but the heuristic is stated without that link."
+   },
+   {
+    "where": "Notation (Symbols renamed relative to the source)",
+    "quote": "The letters $C$ and $D$ always mean the defect matrix $I_d-YX$ and the odd denominator-clearing integer.",
+    "kind": "undefined_notation",
+    "severity": 1,
+    "what_i_needed": "The same letter C is also used for the cyclic group C_3 (\\mathcal B = ⊕ C_3), for the complex numbers \\mathbb C, and for the C*-algebra language. The claim 'always mean' is false as written. A distinct symbol for the defect matrix or the cyclic group would remove the ambiguity."
+   },
+   {
+    "where": "Section 4 (Operator algebra A_n)",
+    "quote": "Its elements are the $n\\times n$ matrices with entries in $\\mathcal A_1$.",
+    "kind": "unjustified_step",
+    "severity": 1,
+    "what_i_needed": "A short argument that the norm closure of {T_A} inside B(ℓ²(G)^n) consists exactly of matrices with entries in the closure A_1 of λ(C[G]) (i.e. that each entry of a norm limit is a norm limit of entries). Lemma trace(c) and the diagonal-trace argument rely on this identification."
+   },
+   {
+    "where": "Remark (Right multiplication on row vectors)",
+    "quote": "that is, $\\iota T_A\\iota$ is right multiplication of the row vector $\\xi$ by the integral matrix $A^*$.",
+    "kind": "ambiguous_statement",
+    "severity": 1,
+    "what_i_needed": "A clarification of how a column vector ξ in ℓ²(G)^n becomes a row vector here, and of which side the matrix acts on. The verification of the identity ι λ(α) ι = right multiplication by α* for α∈Z[G] is correct, but the transition between the two conventions is stated in one line."
+   },
+   {
+    "where": "Section 1.3 (Context)",
+    "quote": "Kammeyer's counterexample to such a limiting formula has determinant $2$ over the discrete Heisenberg group",
+    "kind": "unjustified_step",
+    "severity": 1,
+    "what_i_needed": "The cited numerical values (determinant 2 over the Heisenberg group, bound 5^{1/3} over the congruence quotients). This section is stated not to be used in the proofs, but I could not check it from the manuscript."
+   },
+   {
+    "where": "Checklist (Verification checklist)",
+    "quote": "No step of the argument in Sections~\\ref{sec:projection}--\\ref{sec:assembly} was left unverified in this rewrite.",
+    "kind": "unjustified_step",
+    "severity": 1,
+    "what_i_needed": "Consistency with the Remark on non-soficity, which is explicitly unverified. The checklist scope should either exclude that remark or say that it depends on an unchecked external citation."
+   },
+   {
+    "where": "Lemma lift (Step 3)",
+    "quote": "Only this element is shown nilpotent, not the corner ring.",
+    "kind": "ambiguous_statement",
+    "severity": 1,
+    "what_i_needed": "A plain statement of what is needed from the corner ring. The proof only uses W^k=0 and QZ=e, so the remark about the corner ring is unclear. A one-line note on which identities are used would help."
+   },
+   {
+    "where": "Proposition separation (Step 4)",
+    "quote": "Hence the identity coefficient of $p$ is the product of the identity coefficients of the factors",
+    "kind": "unjustified_step",
+    "severity": 1,
+    "what_i_needed": "Explicit justification that the monomials from distinct labels in {1}∪S multiply to the identity only when all exponents vanish. This follows from uniqueness of the normal form in ⊕C_3, which the text cites, but the step would be clearer with one line on the normal form."
+   },
+   {
+    "where": "Proposition criterion (Step 3)",
+    "quote": "For such an operator, $f(B^*B)=f(q^2)\\Pi_1+f(q^{-2})\\Pi_2+f(1)\\Pi_3$ for polynomials $f$, hence for continuous $f$.",
+    "kind": "unjustified_step",
+    "severity": 1,
+    "what_i_needed": "The extension from polynomials to continuous f on the spectrum (the spectrum is contained in {q^{-2},1,q^2}, so the extension is immediate). The text says 'hence', but the argument is one line that is not written out."
+   }
+  ]
+ },
+ {
+  "main_result": "Given a finitely generated group H_2 and a finite field K_2 of characteristic two with a_2b_2=1 but b_2a_2≠1 (the cited input), the manuscript builds a finitely generated group G_D = (⊕_{h∈H_2} C_3) ⋊ H_2 and an integer square matrix A over Z[G_D], invertible over Q[G_D], whose Fuglede–Kadison-type determinant (unnormalized-trace convention) equals q^{-θ} with q a power of 2 (q ≡ 1 mod D), θ = (1/3)(2/3)^{|S|} > 0, so 0 < det < 1. The integral ∫ log t dμ_A is finite and equals -2θ log q/(2d+1) < 0. This contradicts the unrestricted square-matrix group-ring Determinant Conjecture (det ≥ 1 for nonsingular integer matrices). The result is conditional on the cited non-direct-finiteness theorem.",
+  "proof_strategy": "Lemma binary turns the non-directly-finite pair a_2,b_2 over K_2 into X,Y ∈ Mat_d(F_2[H_2]) with XY=I, YX≠I, and the defect C=I−YX is an idempotent with XC=0, CY=0. Proposition separation builds, inside G_D, a rational projection p = p_1∏_{s∈S}(1−p_s) built from commuting 3-cycle averagers, with psp=0 for s∈S, so that after reduction mod 2 the sandwich p̄ h_0^{-1}C_ij p̄ collapses to p̄, giving P̄ = uv through d columns while τ(P)=d+θ. Lemma lift lifts the factorization modulo q=2^k by a finite geometric series, and Lemma integral builds an integral A = L_1 B R_1 from block shears and B = diag(qI_r, J). Lemmas logderivative and shears show that shears do not change τ(log(M*M)) because the derivative is 2Re τ(M'M^{-1}) and the diagonal blocks of M'M^{-1} vanish. Evaluating at B gives τ(log(B*B)) = 2(r−τ(P)) log q, and substituting r=d, τ=d+θ gives the determinant. I re-derived the block products, the idempotent and trace identities, the psp=0 argument, the mod-2 sandwich, the factorization uv, the lifting, and the shear derivative formula, and found them consistent; the unverified dependence is the cited input and the external sofic remark.",
+  "hardest_part": "The argument's truth rests on Theorem input (non-direct-finiteness of K_2[H_2]), which the manuscript itself says is not proved or tested here; I could not check it, and nothing in the rest of the chain can compensate if it fails. Within the manuscript, the step I would least trust myself to have checked independently is the normal-form argument in Proposition separation Step 4 (identity coefficient of the product of mixed-label factors), together with the block-trace bookkeeping in Lemma shears, though on reading both appeared correct.",
+  "issues": [
+   {
+    "where": "Theorem input / Remark rem:input-status",
+    "quote": "Neither the source nor this rewrite proves or tests it, so Theorem~\\ref{thm:main} is established here \\emph{relative to} Theorem~\\ref{thm:input}.",
+    "kind": "unjustified_step",
+    "severity": 2,
+    "what_i_needed": "The companion's statement and proof (or an independent check) that K_2[H_2] is not directly finite for some finite field K_2 of characteristic two and finitely generated H_2. Everything else in the chain is conditional on it."
+   },
+   {
+    "where": "Subsection 'The conjecture and the main theorem', eq. (conjecture)",
+    "quote": "for general $A$ the integral may be $-\\infty$",
+    "kind": "ambiguous_statement",
+    "severity": 2,
+    "what_i_needed": "The conjecture quantifies over all A ∈ Mat_n(Z[G]) including singular ones, yet the text says the integral may be −∞ for general A, so the inequality ≥ 0 is not well-posed for singular A. The intended statement should restrict to nonsingular A; the counterexample is nonsingular, so the conclusion is unaffected, but the stated conjecture needs fixing."
+   },
+   {
+    "where": "Subsection 'Spectral measure and determinant', eq. (normalization)",
+    "quote": "This is the Fuglede--Kadison determinant $\\exp\\tau_n(\\log|T_A|)$",
+    "kind": "ambiguous_statement",
+    "severity": 1,
+    "what_i_needed": "The classical Fuglede–Kadison determinant uses the normalized trace on M_n(N(G)); the manuscript uses the unnormalized trace (Lück's convention). An explicit remark that this differs from the normalized FK determinant by an n-th root is needed. The sign of log det, and hence the conclusion det<1, is unaffected."
+   },
+   {
+    "where": "Section 1.2 (Theorem main, text after it)",
+    "quote": "$n=2d+1$ and $\\det_{\\N(G_D)}(T_A)=q^{-\\theta}$",
+    "kind": "ambiguous_statement",
+    "severity": 1,
+    "what_i_needed": "The value q is not fixed: any k≥1 with 2^k≡1 mod D works, so the 'explicit value' depends on the choice of q. The theorem should say that det = q^{-θ} for some such q, or fix q."
+   },
+   {
+    "where": "Remark rem:sofic (G_D is not sofic)",
+    "quote": "which a bound $\\det\\ge1$ for positive integral matrices over sofic groups forbids.",
+    "kind": "unjustified_step",
+    "severity": 2,
+    "what_i_needed": "The precise statement of the cited sofic determinant theorem (Elek–Szabó) and verification that it applies to the integral matrix A*A. The manuscript admits it has not checked the wording; the computation log det(T_{A*A}) = −2θ log q itself follows from Prop. criterion."
+   },
+   {
+    "where": "Subsection 'Symbols renamed relative to the source' and Section 2 'The group G_D'",
+    "quote": "Let $\\mathcal B=\\bigoplus_{h\\in H_2}C_3$ be the direct sum",
+    "kind": "undefined_notation",
+    "severity": 1,
+    "what_i_needed": "The renaming paragraph says C and D always mean the defect matrix and the clearing integer, yet C_3 denotes the cyclic group and the matrix B (Section 3) is clashing with the calligraphic group B. A reader must track three overloaded symbols (C, B, D/d)."
+   },
+   {
+    "where": "Subsection 'Proof at a glance', Key idea",
+    "quote": "A failure of direct finiteness over $\\F_2$ is what makes $\\tau_m(P)>r$ possible.",
+    "kind": "unjustified_step",
+    "severity": 1,
+    "what_i_needed": "The heuristic is not derived in the text. The concrete mechanism (the defect C and the separation of one coefficient yielding trace d+θ with only d columns) is only proved in Proposition separation, so this sentence should be labelled as heuristic."
+   },
+   {
+    "where": "Verification checklist (final section)",
+    "quote": "No step of the argument in Sections~\\ref{sec:projection}--\\ref{sec:assembly} was left unverified in this rewrite.",
+    "kind": "ambiguous_statement",
+    "severity": 1,
+    "what_i_needed": "This sits alongside the statement that Theorem input is unverified and the sofic remark is unchecked, and the file defines an \\unverified macro it never uses. The scope of 'verified' needs to be stated: the in-manuscript algebra was checked, the external inputs were not."
+   }
+  ]
+ }
+]

@@ -1,0 +1,11 @@
+cache/
+__pycache__/
+*.pyc
+*.log
+*.aux
+*.out
+*.fls
+*.fdb_latexmk
+*.blg
+runs/**/*.pdf
+runs/**/*.bbl

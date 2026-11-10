@@ -1,0 +1,14 @@
+[
+ {
+  "find": "of length \\(\\ell(y)+\\|w\\|\\)",
+  "replace": "of length \\(\\ell(y)+1\\)"
+ },
+ {
+  "find": "\\bigl(\\ell(y)+\\|w\\|\\bigr)",
+  "replace": "\\bigl(\\ell(y)+1\\bigr)"
+ },
+ {
+  "find": "=|Q|+\\|w\\|\\,h_{\\Pi Q}(\\hat w)",
+  "replace": "=|Q|+h_{\\Pi Q}(\\hat w)"
+ }
+]

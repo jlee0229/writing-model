@@ -1,0 +1,268 @@
+[
+ {
+  "main_result": "For every n≥2 and every simple graph H with h≥1 edges and at most n vertices, the containment threshold pc(n,H) (the p at which G(n,p) contains an ordinary copy of H with probability 1/2) satisfies pc(n,H) ≤ min{1, 2048·e^50·pE(n,H)·(1+log2 h)}, where pE is the graph expectation threshold (least p at which every subgraph F⊆H has E[copies of F] ≥ 1/2). Hence pc(n,H) ≤ 6144·e^50·pE(n,H)·log2 n. This is a single-logarithm version of the second Kahn–Kalai conjecture for graphs. I checked the arithmetic of the constants (2048 = 16·128, 6144 = 3·2048, 1+log2 h ≤ 3 log2 n for n≥2) and they are consistent.",
+  "proof_strategy": "Step 1 (graph hierarchy): for each current edge set I⊆H, pick a subgraph S⊆I maximizing σ^{-|S|}·P(fixed copy of S lies in a uniform copy of I), with σ=128·pE. The expectation constraints plus a binomial bound force |S|<|I|/17, giving a nested chain ∅=H_0⊂…⊂H_k=H with label sizes growing by a factor 16 and conditional spread σ. Step 2 (local resampling): with W~μ_ρ and a planted source label, the posterior-resampled target has small failure probability and a change-of-measure bound (distortion) of e^{11m} on functions of coordinates outside the target label. Step 3 (tree reduction): one shared W is used at all nodes; a recursive potential D bounds the probability that the root cannot be pruned to a good subtree (≤1/4), using disjointness so that D_b depends only on W outside the incoming label. Surviving nodes are reweighted, halving every capacity and multiplying spread by at most 4. Step 4 (iteration): about log2(ℓ_k) successful reductions are needed, each succeeding with probability ≥3/4; Markov's inequality and a union of 4s predrawn sets give the 2/3 probability. Monotonicity in r then yields the theorem. I verified each of these steps by hand; the parts I could only partly reconstruct are the detailed bookkeeping in the local lemma and the composition of recovery through iterations.",
+  "hardest_part": "The most delicate point is the change-of-measure chain in Lemma 'Local resampling' (eq. distortion) combined with the potential recursion in the reduction lemma: one needs that the target posterior is bounded by e^{10m}·ν_b·ρ^{-|A_b|}, that the event A_b∖A_c⊆W is independent of f(W) for f depending only on W outside A_b, and that D_b depends only on W outside A_b because all labels below b are disjoint from A_b along paths. I checked each of these and they hold, but the manuscript compresses the exponent bookkeeping (the ρ^{-|A_b|} versus ρ^{|A_b∖A_c|} cancellation) and the indexing of levels in the potential, so I had to reconstruct these details myself.",
+  "issues": [
+   {
+    "where": "Lemma 'Local resampling', proof of the failure bound (after eq. intersection)",
+    "quote": "For a fixed pair $(c,b)$, the condition $A_b\\subseteq W\\cup A_c$ requires",
+    "kind": "unjustified_step",
+    "severity": 1,
+    "what_i_needed": "The displayed bound drops the factor ν_b·ρ^{-|A_b|} from the posterior and then uses ρ^{-|A_b|}·ρ^{|A_b∖A_c|}=ρ^{-|A_c∩A_b|}. Write this cancellation explicitly, since it is the source of the exponent ρ^{-|A_c∩A_b|} in the sum."
+   },
+   {
+    "where": "Section 'Resampling a spread family', paragraph before Lemma 'Local resampling'",
+    "quote": "The second lets us recover the chosen target from $W$ and its fragment.",
+    "kind": "ambiguous_statement",
+    "severity": 1,
+    "what_i_needed": "The inclusion A_b⊆W∪T only says the target label is covered by W together with the fragment. It does not determine A_b, since A_b∩W is not recovered. Reword to 'covers' or explain what 'recover' means."
+   },
+   {
+    "where": "Lemma 'Local resampling', first line of proof (density identity)",
+    "quote": "The density identity above gives",
+    "kind": "unjustified_step",
+    "severity": 1,
+    "what_i_needed": "The identity P(W∪A_c=Y)=μ_ρ(Y)·ρ^{-|A_c|}·1{A_c⊆Y} is asserted only in the prose before the lemma. Write out the computation: coordinates in Y∖A_c must lie in W, coordinates outside Y must not, and coordinates in A_c are free."
+   },
+   {
+    "where": "Lemma 'Reduction', proof, opening paragraph",
+    "quote": "discarding at most $\\ee^{-m_j}$ of the transition mass at each retained node",
+    "kind": "ambiguous_statement",
+    "severity": 1,
+    "what_i_needed": "The pruning rule actually discards both the local-failure mass d_v and the bad-child mass, and the bound is on their sum (1−Σ_good t_vb ≤ ε). State which mass is meant so the sentence matches the good-node condition."
+   },
+   {
+    "where": "Lemma 'Reduction', subsection 'Spread' of the reduced tree",
+    "quote": "the unconditioned source has law $\\nu_v$ even at fixed\n$W$",
+    "kind": "unjustified_step",
+    "severity": 1,
+    "what_i_needed": "The spread bound needs P(J⊆T, E_v | W) ≤ P(J⊆A_c | W) and P(E_v | W) = γ_v(W). Both facts hold (T⊆A_c, and the probability of E_v is the sum of t_vb over good b), but neither is stated; the conditioning step is only sketched."
+   },
+   {
+    "where": "Proof of Theorem 'Tree covering', iteration paragraph on zero-capacity levels",
+    "quote": "After each success, choose any one path through that segment and keep its ending subtree, deleting the segment.",
+    "kind": "unjustified_step",
+    "severity": 2,
+    "what_i_needed": "The claim that this trimming 'preserves the recovery guarantee and every bound at a retained node' is only asserted. Explain that recovered paths of the trimmed tree extend to paths of the previous tree through the chosen empty prefix, and that spread and capacity at the retained nodes are unchanged. Also note that the Reduction lemma promises 'the same levels', which conflicts with deleting levels here."
+   },
+   {
+    "where": "Proof of Theorem 'Tree covering', after the geometric waiting-time bound",
+    "quote": "Composing \\eqref{eq:recovery} through the successful reductions shows that the union of their draws",
+    "kind": "unjustified_step",
+    "severity": 1,
+    "what_i_needed": "An explicit induction over the successful steps is needed: U(P_{j-1}) ⊆ W_j ∪ U(P_j), chained backward from the final empty-label path. It also should be stated that only successful draws enter the union, which is why predrawing 4s sets covers the procedure."
+   },
+   {
+    "where": "Section 1 (Graph thresholds), paragraph on the Mossel–Niles-Weed–Sun–Zadik threshold",
+    "quote": "Thus $\\pE(n,H)\\le q(\\mathcal F_H)$",
+    "kind": "unjustified_step",
+    "severity": 1,
+    "what_i_needed": "The copies of a single F form a cover of cost E N(F) at p. The inequality needs the maximizing F (the one binding at p=pE) so that the cover cost is exactly 1/2 at pE, and so q(F_H) ≥ pE. The maximization over F is not stated."
+   },
+   {
+    "where": "Section 'Application to graph containment', reduction to edge sets",
+    "quote": "Every edge subset used below, on its incident vertices, is a subgraph of the original $H$",
+    "kind": "ambiguous_statement",
+    "severity": 1,
+    "what_i_needed": "The definition of pE quantifies over subgraphs F⊆H. The argument works only because the edge-only subgraph (vertices = endpoints) is itself such a subgraph, and this should be said explicitly. Otherwise the constraint for the edge-only graph is not obviously implied."
+   },
+   {
+    "where": "Section 'Application to graph containment', copy-count notation",
+    "quote": "$M(I,F)=N(I,F)$",
+    "kind": "undefined_notation",
+    "severity": 1,
+    "what_i_needed": "The letter I is used both for an edge set and for the random copy $\\boldsymbol I$, and H is used both for a graph and for its edge set. Define these conventions once so that M(I,F) and P(F_0 ⊆ 𝐈) are unambiguous."
+   },
+   {
+    "where": "Section 1, paragraph on integral and fractional thresholds",
+    "quote": "The integral and fractional thresholds are within a universal constant",
+    "kind": "unjustified_step",
+    "severity": 1,
+    "what_i_needed": "This relies on an unseen self-referenced result (OpenAIThresholdEquivalence2026) for a claim that is said to be unused. Either remove it or state it as a flagged external dependency. I could not verify it, and it is not needed for the argument."
+   },
+   {
+    "where": "Proof of Theorem 'Tree covering', potential bound in the Reduction lemma",
+    "quote": "Since the child weights sum to one, backward induction yields",
+    "kind": "unjustified_step",
+    "severity": 1,
+    "what_i_needed": "The indexing convention is never stated. The root has outgoing level 1, nodes at depth j−1 have outgoing level j, and leaves have D=0 (level k+1). With this, the stated sum follows by induction, but the convention should be written out."
+   },
+   {
+    "where": "Lemma 'Graph hierarchy', proof of conditional spread",
+    "quote": "Maximality of $H_{i-1}$ in \\eqref{eq:maximizer} gives",
+    "kind": "unjustified_step",
+    "severity": 1,
+    "what_i_needed": "Maximality is over edge subsets U⊆H_i, but the event concerns the copy S_0∪J in K_n. The step needs P(copy of U ⊆ 𝐈) to depend only on the isomorphism type of U, which holds by permutation symmetry; this should be stated."
+   }
+  ]
+ },
+ {
+  "main_result": "For every n>=2 and every finite simple graph H with h>=1 edges and at most n vertices, pc(n,H) <= min{1, 2048 e^50 pE(n,H)(1+log2 h)}, where pc is the containment threshold (G(n,p) contains an ordinary copy of H with probability at least 1/2) and pE is the graph expectation threshold (every subgraph F of H has expected copy count at least 1/2). Since h <= n^2, this gives pc <= 6144 e^50 pE log2 n. This is the second Kahn-Kalai conjecture with an explicit universal constant.",
+  "proof_strategy": "The argument reduces containment to a probabilistic statement about a random subset W of edges: a fixed tree of edge-set extensions, each level of which is sigma-spread with sigma = 128 pE, has a path union contained in W with probability at least 2/3 when W has density about 2048 e^50 pE(1+log2 h). The graph-specific tree (Lemma hierarchy) is built by repeatedly choosing a subgraph S of the current I that maximizes sigma^{-|S|} P(S_0 contained in a uniform copy of I); the first-moment constraint on pE forces |S| < |I|/17, so label sizes grow geometrically and spread follows from maximality. Tree covering (Theorem tree) iterates a one-level reduction (Lemma reduction) that resamples with a single shared product set W, using a Bayesian posterior transition whose local failure and change-of-measure are controlled by Lemma local resampling; a recursive potential D_v with a pruning rule shows the root survives with probability at least 3/4 per attempt. After about log2 l_k successful attempts all label capacities vanish, so the unions of the used draws contain a path union, and a Markov bound on the number of attempts gives probability at least 2/3. I checked the main inequalities (the failure bound e^{-9m}, the distortion bound e^{11m}, the potential recurrence and its unrolling, the geometric sum bounded below 1/4, the product bound below 4, and the constant 2048*3=6144) and found them consistent; the parts I could justify only by reconstructing unstated steps are noted below.",
+  "hardest_part": "The step in Lemma reduction that asserts the spread of the reduced child law at fixed W, which rests on the claim that the source keeps its law nu_v at fixed W, together with the claim that D_b depends only on W outside A_b. I verified both after reconstruction, but they depend on independence of W and the source and on an induction over the subtree that the text only sketches. The iteration bookkeeping (cutting branches, composition of recovery, waiting-time domination) is the next least-verified part.",
+  "issues": [
+   {
+    "where": "Section 'Covering a tree', proof of Lemma reduction, Pruning paragraph",
+    "quote": "declare a node $v$ with outgoing level $s$ good if",
+    "kind": "undefined_notation",
+    "severity": 2,
+    "what_i_needed": "A formal definition of the 'outgoing level' of a node and of 'level' in a probability tree (depth index of the arcs leaving v, children of a level-j node at level j+1, leaves at depth k). The recursion, the unrolling and the root bound all rely on this indexing, but it is only implicit."
+   },
+   {
+    "where": "Section 1, paragraph after the definition of cover (family F_H)",
+    "quote": "the copies of any one subgraph form a cover. Thus",
+    "kind": "unjustified_step",
+    "severity": 2,
+    "what_i_needed": "The implication needs the argument: for p below pE some F has E N(G(n,p),F) < 1/2, so the copies of F form a cover of cost below 1/2 at p, hence q(F_H) >= pE. The text states the conclusion with 'Thus' but does not give this monotonicity argument, and the direction is easy to get backwards."
+   },
+   {
+    "where": "Section 'Covering a tree', proof of Lemma reduction, spread bound for the reduced tree",
+    "quote": "the unconditioned source has law $\\nu_v$ even at fixed $W$",
+    "kind": "unjustified_step",
+    "severity": 2,
+    "what_i_needed": "An explicit statement that the source is independent of W (so its conditional law given W is nu_v), and that P(J subset T, E_v | W) <= P(J subset A_c | W) because T is contained in A_c. The bound alpha^{|J|}/gamma_v is only obtained after these two facts, and they are stated separately and in passing."
+   },
+   {
+    "where": "Section 'Iteration', proof of Theorem tree",
+    "quote": "choose any one path through that segment and keep its ending subtree",
+    "kind": "unjustified_step",
+    "severity": 1,
+    "what_i_needed": "An argument that discarding all other branches at the top of the tree keeps the recovery statement (each path of the new tree extends, through the empty segment, to a path of the old tree), keeps all child laws unchanged at retained nodes, and keeps the input hypotheses of Lemma reduction (leaves at equal depth, disjointness) for the next attempt."
+   },
+   {
+    "where": "Section 'Iteration', expected number of attempts",
+    "quote": "conditionally on the past, its tail is bounded by that of a geometric random variable",
+    "kind": "unjustified_step",
+    "severity": 1,
+    "what_i_needed": "A short justification that the s successes are dominated by a sum of s independent Geometric(3/4) variables (a coupling or tail-by-tail conditioning argument), since each attempt's success probability is only bounded below conditionally on the whole past."
+   },
+   {
+    "where": "Section 'Iteration', spread parameter alpha_i(t)",
+    "quote": "The infinite product over all positive integers is less than $4$",
+    "kind": "unjustified_step",
+    "severity": 1,
+    "what_i_needed": "The displayed chain bounds the sum of -log(1-e^{-m}) by a quantity below log 4, so the exponentiation step (product <= exp(0.92) < 4) must be written, together with the observation that the distinct integers floor(l_i/2^u) form a subset of the positive integers."
+   },
+   {
+    "where": "Section 'Graph application', opening paragraph",
+    "quote": "Every edge subset used below, on its incident vertices, is a subgraph of the original $H$",
+    "kind": "ambiguous_statement",
+    "severity": 1,
+    "what_i_needed": "A precise statement of which graph's expected count is >= 1/2 (the edge set with isolated vertices removed, which is itself a subgraph of H with the same edges), since the definition of pE counts subgraphs possibly containing isolated vertices, where N(G,F) is larger. The conclusion is fine but the sentence leaves this ambiguous."
+   },
+   {
+    "where": "Section 'Graph hierarchy', proof, spread verification",
+    "quote": "Maximality of $H_{i-1}$ in \\eqref{eq:maximizer} gives",
+    "kind": "unjustified_step",
+    "severity": 1,
+    "what_i_needed": "The observation that S_0 union J is isomorphic to an edge subset U of H_i (because it sits inside a copy of H_i), that R_sigma(H_i,U) depends only on the isomorphism type of U (by symmetry of the uniform copy), and that the maximality hypothesis applies to this U. The text compresses these three facts into one sentence."
+   },
+   {
+    "where": "Section 'Resampling', Lemma local resampling, statement of the distortion bound",
+    "quote": "\\ind_{\\{\\mathrm{target}=b,\\ Z(Y)\\ge\\ee^{-10m}\\}} f(W)",
+    "kind": "ambiguous_statement",
+    "severity": 1,
+    "what_i_needed": "The probability space on the left-hand side is not stated: the expectation is over W and the source c jointly (target and Z(Y) depend on c), and the statement should say so. The text only says the expectation on the right is over W."
+   },
+   {
+    "where": "Section 'Covering a tree', proof of Lemma reduction, Expected potential paragraph",
+    "quote": "By its recursive definition, $D_b(W)$ therefore depends only on $W$ outside $A_b$.",
+    "kind": "unjustified_step",
+    "severity": 1,
+    "what_i_needed": "An explicit induction on the depth of the subtree below b: each transition at a descendant node w inspects W only on the union of its child labels, and each such label is disjoint from A_b because it lies on a path through the arc into b. I could reconstruct this, but the text compresses it into one sentence and it is the key point for the distortion step."
+   },
+   {
+    "where": "Section 'Covering a tree', proof of Lemma reduction, reduced tree paragraph",
+    "quote": "A retained child has $t_{vb}>0$, which implies",
+    "kind": "unjustified_step",
+    "severity": 1,
+    "what_i_needed": "The reason that t_{vb}(W)>0 gives |T_b| <= floor(m_j/2): at fixed W, nonfailure with target b forces |A_b minus W| <= m_j/2, which is the definition of nonfailure. This should be stated since the capacity of the reduced level depends on it."
+   },
+   {
+    "where": "Section 1, paragraph on the integral and fractional thresholds",
+    "quote": "The integral and fractional thresholds are within a universal constant",
+    "kind": "ambiguous_statement",
+    "severity": 1,
+    "what_i_needed": "Clarification of whether any part of the main theorem depends on this external equivalence (the text says it does not). The reference is to a separate result whose status (published or preprint) is not stated, so the intro's contextual claims cannot be checked independently of the paper."
+   }
+  ]
+ },
+ {
+  "main_result": "For every n≥2 and every simple graph H with h≥1 edges and at most n vertices, pc(n,H) ≤ min{1, 2048·e^{50}·pE(n,H)·(1+log2 h)}, where pc is the p at which G(n,p) contains H with probability at least 1/2 and pE is the least p at which every subgraph F of H has expected copy count at least 1/2. Since h ≤ n², this gives pc(n,H) ≤ 6144·e^{50}·pE(n,H)·log2 n. The proof is a single-logarithm bound (the second Kahn–Kalai conjecture, in this normalisation).",
+  "proof_strategy": "A tree of successive edge extensions (copies of H_{i-1} extended to copies of H_i, with H_i chosen by maximising σ^{-|S|}·P(S₀⊆copy of I)) is built so that every level is σ-spread with σ=128·pE and capacities grow by a factor 16; I checked the maximality-based spread bound and the size bounds ℓ_{i+1}>16ℓ_i. Section 3 (tree covering) then reduces the tree level by level using one shared product sample W~μ_ρ: a local resampling step (Lemma local, with a failure bound e^{-9m} and a change-of-measure bound e^{11m}) is applied at every node, a recursive potential D_v with E D_v bounded by a geometric-type sum is used to show that with probability ≥3/4 the pruned tree succeeds, and the spread after conditioning is controlled by the source law. Iterating about s=⌊log2 ℓ_k⌋+1 times, with Markov's inequality on the number of attempts and a predrawn union of 4s product sets, gives the 2/3 probability bound at density r. I verified the constants (16·128=2048, 4sρ≤16e^{50}σs, the product bound below log 4) and the posterior/Bayes identity for the transition by direct computation. The Bayes identity for the target label is the part whose justification is least explicit in the text.",
+  "hardest_part": "The transition in Section 2 (planted set W, source c, target b drawn from a posterior): the text computes the posterior of the source index given Y, but the target b is a separate random variable whose joint law with (c,W) is never specified. The bounds in Lemma local and in the reduction depend on P(target=b | W) = Σ_c ν_c ν_b ρ^{-|A_b|} 1{A_b⊆W∪A_c}/Z(W∪A_c), which I reconstructed myself rather than read off. I also could not confirm from the text alone that the reweighted child law after pruning is spread conditional on W in the way the next iteration requires, although I think the argument via T⊆A_c works.",
+  "issues": [
+   {
+    "where": "Section 2, transition (eq:posterior) and the paragraph following it",
+    "quote": "the law of $Y$ therefore has density $Z$ relative to $\\mu_\\rho$, and Bayes' formula gives",
+    "kind": "unjustified_step",
+    "severity": 2,
+    "what_i_needed": "The text derives the posterior of the source index c given Y, but the transition samples a target b from that posterior. State the joint law of (c, b, W) explicitly: b is conditionally an independent resample of c given Y. Also say that P(target=b | W) is not ν_b, which the later bounds rely on."
+   },
+   {
+    "where": "Section 2, beginning of the transition description",
+    "quote": "Fix $0<\\rho<1$ and $W\\subseteq X$.",
+    "kind": "ambiguous_statement",
+    "severity": 1,
+    "what_i_needed": "W is fixed here but later treated as a random μ_ρ variable independent of the source (the Bayes derivation and Lemma local). Say which regime each statement refers to."
+   },
+   {
+    "where": "Section 1, paragraph on pE versus q(F_H)",
+    "quote": "the copies of any one subgraph form a cover.",
+    "kind": "ambiguous_statement",
+    "severity": 2,
+    "what_i_needed": "The inequality pE ≤ q needs the cover by copies of F to have cost ≤1/2 for p ≤ p_F, for every F, and then a maximum over F of p_F = pE. Say explicitly that each F gives q ≥ p_F and then take the max. As written, 'any one subgraph' reads as if a single F suffices."
+   },
+   {
+    "where": "Section 1, proof strategy paragraph",
+    "quote": "by $(C_0\\pE(n,H))^{|J|}$ for a universal constant $C_0$.",
+    "kind": "undefined_notation",
+    "severity": 1,
+    "what_i_needed": "C_0 is never defined. The actual proof gives spread σ=128·pE, so the strategy paragraph should use the same constant or define C_0."
+   },
+   {
+    "where": "Section 4, proof of Lemma hierarchy (tree construction)",
+    "quote": "Such children exist, since every copy of $H_{i-1}$ extends to a copy of $H_i$ on $[n]$.",
+    "kind": "unjustified_step",
+    "severity": 1,
+    "what_i_needed": "The extension needs n ≥ |V(H_i)| (an injective extension of the vertex map from V(H_{i-1}) to V(H_i)). This is where the hypothesis 'at most n vertices' is used, and it should be stated."
+   },
+   {
+    "where": "Section 3, proof of Theorem (tree covering), zero-capacity levels",
+    "quote": "choose any one path through that segment and keep its ending subtree, deleting the segment.",
+    "kind": "unjustified_step",
+    "severity": 2,
+    "what_i_needed": "This discards all other branches of the tree, not just the prefix. I could accept the recovery claim (any path of the retained tree extends by the empty prefix, and Lemma reduction's recovery applies to the whole tree), but the text asserts 'preserves the recovery guarantee and every bound at a retained node' without argument. Give that argument, including why spread and capacity bounds at retained nodes are unaffected."
+   },
+   {
+    "where": "Section 3, proof of Theorem (tree covering), setup",
+    "quote": "In particular $0<\\rho<1$.",
+    "kind": "unjustified_step",
+    "severity": 1,
+    "what_i_needed": "ρ=4e^{50}σ<1 follows from r<1 (since r ≥ 16e^{50}σ), which the text uses but does not say. A one-line remark would fix it."
+   },
+   {
+    "where": "Section 1, paragraph on Tran and the proof strategy (Section 1.2 and the Section 4 opening)",
+    "quote": "His ratio-maximizing cores give the conditional graph-extension distributions used here.",
+    "kind": "lost_thread",
+    "severity": 2,
+    "what_i_needed": "Tran and DKP lose powers of log in the containment step, but here the hierarchy gives spread σ=128·pE with no log loss. The log comes only from the tree covering. The text should explain which step of Tran's Lemma 3.1 is improved and why the same maximisation gives a spread without a log factor, because this is the main novelty claimed."
+   },
+   {
+    "where": "Section 1, paragraph on the modified threshold p̃E",
+    "quote": "By symmetry this parameter equals",
+    "kind": "unjustified_step",
+    "severity": 1,
+    "what_i_needed": "The identity between p̃E-type quantities and q_f(F_H) is cited from DKP25 Eq.(1) and attributed to 'symmetry'. The symmetry argument (copies of H, weight N(H,F)) needs to be spelled out, or the citation stated as the source of the identity."
+   },
+   {
+    "where": "Section 1, paragraph on the integral and fractional thresholds",
+    "quote": "The integral and fractional thresholds are within a universal constant",
+    "kind": "unjustified_step",
+    "severity": 1,
+    "what_i_needed": "This relies on an internal reference (OpenAIThresholdEquivalence2026, Theorem 1.1) that is not in the bibliography. The paper says the proof does not use it, but the remark should either be removed or flagged as an unverified external input."
+   }
+  ]
+ }
+]

@@ -1,0 +1,61 @@
+\begin{thebibliography}{1}
+
+\bibitem{deLaHarpeSkandalis1984}
+Pierre de~la Harpe and Georges Skandalis.
+\newblock D\'eterminant associ\'e \`a une trace sur une alg\`ebre de {Banach}.
+\newblock {\em Annales de l'Institut Fourier}, 34(1):241--260, 1984.
+
+\bibitem{DicksSchick2002}
+Warren Dicks and Thomas Schick.
+\newblock The spectral measure of certain elements of the complex group ring of
+  a wreath product.
+\newblock {\em Geometriae Dedicata}, 93:121--137, 2002.
+
+\bibitem{ElekSzabo2005}
+G{\'a}bor Elek and Endre Szab{\'o}.
+\newblock Hyperlinearity, essentially free actions and {$L^2$}-invariants.
+  {The} sofic property.
+\newblock {\em Mathematische Annalen}, 332:421--441, 2005.
+
+\bibitem{FK1952}
+Bent Fuglede and Richard~V. Kadison.
+\newblock Determinant theory in finite factors.
+\newblock {\em Annals of Mathematics}, 55(3):520--530, 1952.
+
+\bibitem{Kammeyer2026}
+Holger Kammeyer.
+\newblock A counterexample to the determinant approximation conjecture.
+\newblock \href{https://arxiv.org/abs/2609.15567v1}{arXiv:2609.15567v1}, 2026.
+\newblock Version 1, September 14, 2026.
+
+\bibitem{LehnerNeuhauserWoess2008}
+Franz Lehner, Markus Neuhauser, and Wolfgang Woess.
+\newblock On the spectrum of lamplighter groups and percolation clusters.
+\newblock {\em Mathematische Annalen}, 342(1):69--89, 2008.
+
+\bibitem{Luck2002}
+Wolfgang L{\"u}ck.
+\newblock {\em {$L^2$-Invariants: Theory and Applications to Geometry and
+  $K$-Theory}}, volume~44 of {\em Ergebnisse der Mathematik und ihrer
+  Grenzgebiete. 3. Folge}.
+\newblock Springer, 2002.
+
+\bibitem{CharacteristicTwo}
+{OpenAI}.
+\newblock {A Counterexample to Kaplansky's Direct-Finiteness Conjecture in
+  Characteristic Two}.
+\newblock OpenAI Math Release preprint
+  \href{https://github.com/openai/math/blob/main/preprints/A-Counterexample-to-Kaplanskys-Direct-Finiteness-Conjecture-in-Characteristic-Two-September-23-2026/paper.pdf}{OAI:A-Counterexample-to-Kaplanskys-Direct-Finiteness-Conjecture-in-Characteristic-Two-September-23-2026},
+  2026.
+\newblock Theorem 1.1 and Section 6.
+
+\bibitem{Schick2001}
+Thomas Schick.
+\newblock {$L^2$}-determinant class and approximation of {$L^2$}-{Betti}
+  numbers.
+\newblock {\em Transactions of the American Mathematical Society},
+  353(8):3247--3265, 2001.
+\newblock With the appended erratum in
+  \href{https://arxiv.org/abs/math/9807032v2}{arXiv:math/9807032v2}.
+
+\end{thebibliography}

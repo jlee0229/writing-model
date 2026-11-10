@@ -1,0 +1,205 @@
+[
+ {
+  "main_result": "For a finite-dimensional complex vector space V, integers a>=2 and b>=a(a-1), the canonical Foulkes-Howe map mu: Sym^b(Sym^a V) -> Sym^a(Sym^b V), sending a product of b a-th powers u_1^a...u_b^a to (u_1...u_b)^a, is surjective. Equivalently A_b = R_b in the invariant-tensor model. The bound does not depend on dim V. A corollary says a GL(V)-equivariant embedding Sym^a(Sym^b V) -> Sym^b(Sym^a V) exists in the same range. I checked the argument line by line and found no fatal gap.",
+  "proof_strategy": "Lemma (criterion) dualizes surjectivity of mu into the statement that a symmetric a-linear form T on Sym^b V vanishing on the diagonal of all products of b vectors must be zero. This uses the averaging isomorphism and the invariant-tensor model R_b. Proposition (vanishing) is proved by induction on a. Step 1 factors x^r + c t^r over C to get T(x^rQ,...,x^rQ,t^rQ)=0 from the diagonal hypothesis. Step 2 applies derivative operators D_{y_k}{t} and uses the injectivity lemma (Fischer inner product and norm identity N_U - N_Y) to replace t^rQ by t^b. Step 3 applies the induction hypothesis to an r-linear form on Sym^m V. Step 4 applies r^2 operators D_x{v_i} to remove the common factor x^r, with the degree inequality m >= r^2 ensuring injectivity at each step. Step 5 uses the spanning of pure powers. I could follow every degree count and the derivative rule.",
+  "hardest_part": "Step 4 of Proposition (vanishing): the degree bookkeeping for f_{i,s} (which blocks contribute x^r, the factorial coefficients) and the passage from polynomial identities in vector variables to evaluated identities via the zero principle. I rechecked the counts (p-q >= 2 using m >= r^2) and they agree, but this is the place where a sign, index or off-by-one slip would be easiest to miss. I did not independently recheck the cited literature claims.",
+  "issues": [
+   {
+    "where": "Section 'Injectivity', proof of Lemma (shift), Step 2",
+    "quote": "Taking complex conjugates in \\eqref{eq:adjoint} also gives",
+    "kind": "unjustified_step",
+    "severity": 1,
+    "what_i_needed": "The conjugate identity <X_k g,h> = <g, d_{X_k} h> should be written out (it follows from <d g,h>=<g,X h> by swapping and conjugating). I reconstructed it, but the text leaves it implicit, and Step 3 depends on it."
+   },
+   {
+    "where": "Lemma (Derivative rule), eq. (rule)",
+    "quote": "and likewise with $U^jw$ in any other slot.",
+    "kind": "ambiguous_statement",
+    "severity": 1,
+    "what_i_needed": "Moving U^j w into another slot requires the symmetry of T, and the statement does not say so. The other slots must also be U-free, which the hypothesis covers only for the g_i list. Both points should be stated explicitly."
+   },
+   {
+    "where": "Proposition (vanishing), Step 4 (degree counts)",
+    "quote": "which is at most $r^2-1$ before any of them",
+    "kind": "ambiguous_statement",
+    "severity": 1,
+    "what_i_needed": "Literally, the x-degree before the first operator is 0, so the sentence should say the x-degree before the k-th operator is at most r^2-1 (the bound applies to the last operator). The actual inequality q <= (i-1)r+s <= r^2-1 in (4b) is correct and needs no change."
+   },
+   {
+    "where": "Corollary (comparison), proof step (1)",
+    "quote": "this action commutes with $\\Sa$, with",
+    "kind": "unjustified_step",
+    "severity": 1,
+    "what_i_needed": "The claim that the identifications R_1 = Sym^a V and R_b = Sym^a(Sym^b V) (from Av3) are GL(V)-equivariant, and hence that mu is equivariant, is asserted without argument. It is routine, but the text should justify it, since the equivariant embedding depends on it."
+   },
+   {
+    "where": "Proof of Lemma (zero principle), section 'Evaluating a multilinear form'",
+    "quote": "(induction on the number of variables from the univariate root bound)",
+    "kind": "unjustified_step",
+    "severity": 1,
+    "what_i_needed": "A one-line induction argument (or a reference to the standard fact that a polynomial over an infinite field vanishing on all points is zero) for Sym V-valued coefficients. I accepted this as standard."
+   },
+   {
+    "where": "Section 'Context from the literature', paragraph 'Stabilization'",
+    "quote": "The source also states that Theorem~\\ref{thm:main} answers positively the request for a polynomial",
+    "kind": "unjustified_step",
+    "severity": 2,
+    "what_i_needed": "The identification of Landsberg's Problem 7.19 with d=b, n=a, w=dim V is taken on citation alone and the problem wording is not shown. This is not used in the proofs, but it should be marked as unverified rather than asserted. Similarly for Brion's effective bound and the Raicu-Sam-Weyman regularity claims."
+   },
+   {
+    "where": "Section 'Relation to the Foulkes conjecture'",
+    "quote": "The source reports that the canonical map has nonzero kernel at $(a,b)=(5,5)$ and $(6,6)$ in suitable dimensions",
+    "kind": "unjustified_step",
+    "severity": 2,
+    "what_i_needed": "This rests on an external arXiv theorem whose dimensions are unspecified. The 'no conflict' conclusion holds for any dimensions, since Theorem 1 covers all V but only for b >= 20 or 30 respectively. The text should say the conclusion does not depend on the unspecified dimensions."
+   },
+   {
+    "where": "Section 'Verification checklist', first paragraph",
+    "quote": "every step in Sections~\\ref{sec:map}--\\ref{sec:comparison} was rechecked while writing.",
+    "kind": "ambiguous_statement",
+    "severity": 1,
+    "what_i_needed": "A self-certification is not a verification. Its only function is to point the reader to the steps, so the checklist should be judged on its content, not on this claim."
+   }
+  ]
+ },
+ {
+  "main_result": "For a finite-dimensional complex vector space V, a >= 2 and b >= a(a-1), the canonical Foulkes-Howe map Sym^b(Sym^a V) -> Sym^a(Sym^b V) is surjective. Equivalently, the subalgebra generated by R_1 in the invariant algebra R = ((Sym V)^{\\otimes a})^{S_a} fills R_b. The corollary is a GL(V)-equivariant embedding Sym^a(Sym^b V) into Sym^b(Sym^a V) for b >= a(a-1), obtained by complete reducibility. The bound does not depend on dim V.",
+  "proof_strategy": "Averaging identifies R_b with Sym^a(Sym^b V), and a duality argument (Lemma criterion) reduces surjectivity to: a symmetric a-linear form on Sym^b V that vanishes on the diagonal of products of b vectors is zero. Proposition (vanishing) proves this by induction on a with r = a-1 and m = b-r. Step 1 uses splitting of X^r + cY^r over C and the linear-in-c coefficient to get T(x^rQ,...,x^rQ,t^rQ)=0. Step 2 frees the last slot by applying derivatives D_{y_k,t} and cancels them with Corollary (peel), using injectivity of D_{Y,U} on bihomogeneous polynomials with p>q (Lemma shift, proved via the Fischer adjoint and the commutator N_U - N_Y). Step 3 applies the induction hypothesis to the r-linear form (Q_1..Q_r) -> T(x^rQ_1,...,x^rQ_r,t^b). Step 4 applies D_{x,v_i} r times per slot to remove the common factor x^r and concludes by spanning with pure powers. I checked the Fischer adjoint identity, the commutator sign, the polarization identity, the derivative rule, the G_k normalisations, and the degree counts in Steps 2 and 4; all check out on my reading. The induction formula (4a) was accepted by me only after reconstructing it myself.",
+  "hardest_part": "The hardest part to verify was Step 4: the explicit closed formula (4a) for f_{i,s} with its factorial prefactors (b!/m!)^{i-1} b!/(b-s)!, which is asserted to follow by induction on (i,s) without writing the induction, and the degree bookkeeping p = b-s, q = (i-1)r+s that feeds Corollary (peel). I reconstructed both and they agree with the text, but I had to do the work myself. The Fischer-adjoint and commutator computation in Lemma shift is also easy to get wrong in sign and conjugation, and I only verified it by direct monomial computation.",
+  "issues": [
+   {
+    "where": "Lemma (Injectivity of D_{Y,U}), Step 2 of its proof",
+    "quote": "Taking complex conjugates in \\eqref{eq:adjoint} also gives",
+    "kind": "unjustified_step",
+    "severity": 1,
+    "what_i_needed": "An explicit line showing that conjugating (adjoint) and using Hermitian symmetry of the Fischer form yields <X_k g,h> = <g, partial_k h>. I checked this on monomials, but the text only gestures at it."
+   },
+   {
+    "where": "Lemma (Polarization), Step 1 of its proof",
+    "quote": "\\sum_{J\\subseteq\\{1,\\ldots,k\\}}(-1)^{k-|J|}",
+    "kind": "ambiguous_statement",
+    "severity": 1,
+    "what_i_needed": "A statement that the empty J contributes 0^k = 0 (k >= 1), so that the identity holds with the J = empty term included as zero. The text does not say this."
+   },
+   {
+    "where": "Lemma (The averaging facts, Av3)",
+    "quote": "$\\overline{\\Av}(q(\\tau))=\\Av(\\tau)=\\tau$ by (Av1)",
+    "kind": "unjustified_step",
+    "severity": 1,
+    "what_i_needed": "The fact that overline-Av composed with q equals Av on all of W^{\\otimes a}. This holds by linearity on simple tensors, but the text uses it without saying so."
+   },
+   {
+    "where": "Proposition (vanishing), Step 4, formula (4a)",
+    "quote": "This follows by induction from Lemma~\\ref{lem:deriv} with $U=v_i$, $Y=x$,",
+    "kind": "unjustified_step",
+    "severity": 2,
+    "what_i_needed": "The induction written out: the order of induction over (i,s), the verification that the completed slots carry the factor b!/m! each, and why the inserted x-factors are v_i-free. I reconstructed this, but it is the crux of Step 4 and is only asserted."
+   },
+   {
+    "where": "Proposition (vanishing), Step 2(2c) degree count",
+    "quote": "By $\\PP$-multilinearity, $G_{i-1}$ is therefore",
+    "kind": "unjustified_step",
+    "severity": 1,
+    "what_i_needed": "An explicit reason why the y_i-degree is exactly r: each of the r slots x^rQ contains y_i once, and the last slot contains no y_i since i-1 < i. Only the t-degree is stated explicitly."
+   },
+   {
+    "where": "Section 'Where the bound comes from'",
+    "quote": "Step~4 needs $m+1>r^2-1$.",
+    "kind": "ambiguous_statement",
+    "severity": 1,
+    "what_i_needed": "The stated requirement m+1 > r^2-1 is equivalent to m >= r^2-1, not m >= r^2. The paragraph says m >= r^2 is used in Step 4, which conflicts with this. Please state which inequality each step really needs, since the stated bound appears to be non-sharp by one."
+   },
+   {
+    "where": "Lemma shift, Key idea (Section 1.4)",
+    "quote": "is \\emph{injective} on polynomials whose degree in the vector variable $U$ exceeds their degree in",
+    "kind": "ambiguous_statement",
+    "severity": 1,
+    "what_i_needed": "Injectivity is proved only on bihomogeneous polynomials of bidegree (p,q) with p>q. For non-homogeneous polynomials 'degree in U' is undefined, so the informal statement should be qualified."
+   },
+   {
+    "where": "Remark (Scope)",
+    "quote": "The proof uses three features of $\\C$:",
+    "kind": "unjustified_step",
+    "severity": 1,
+    "what_i_needed": "Justification for why the list is complete. The zero principle (vanishing at all points implies zero) requires an infinite field, and the existence of r-th roots and the evaluation arguments are used too; these are not in the list."
+   },
+   {
+    "where": "Section 'Literature context', Stabilization paragraph",
+    "quote": "Theorem~\\ref{thm:main} answers positively the request for a polynomial",
+    "kind": "ambiguous_statement",
+    "severity": 2,
+    "what_i_needed": "The exact wording of Problem 7.19 in Landsberg, or at least the source's statement of the bound. The text says the wording is not reproduced, so the claimed answer cannot be checked from the manuscript."
+   },
+   {
+    "where": "Section 'Relation to the Foulkes conjecture'",
+    "quote": "nonzero kernel at $(a,b)=(5,5)$ and $(6,6)$ in suitable dimensions",
+    "kind": "ambiguous_statement",
+    "severity": 1,
+    "what_i_needed": "The dimensions in which the nonzero kernel occurs (or a note that they are unknown). This literature claim is not checked in the manuscript and is only used for a consistency remark."
+   }
+  ]
+ },
+ {
+  "main_result": "For a>=2, b>=a(a-1) and any finite-dimensional complex V, the canonical map mu: Sym^b(Sym^a V) -> Sym^a(Sym^b V) (sending a product of b a-th powers u_1^a...u_b^a to (u_1...u_b)^a) is surjective. Equivalently, the image A_b of the product map in the invariant-tensor algebra R equals R_b. Corollary: a GL(V)-equivariant embedding Sym^a(Sym^b V) -> Sym^b(Sym^a V) exists in the same range (e.g. a=6, b>=30), by complete reducibility.",
+  "proof_strategy": "Surjectivity is reduced (Lemma criterion, via averaging and polarization) to: a symmetric a-linear form T on Sym^b V vanishing on all b-th-power-of-product diagonals is zero. Proposition (induction on a) shows T(v_1^b,...,v_r^b,t^b)=0 with r=a-1, m=b-r>=r^2. Step 1 uses that X^r+cY^r splits over C to get T(x^rQ,...,x^rQ,t^rQ)=0; Step 2 uses a chain of m derivative operators D_{y_k,t} (injective by a norm/commutator argument, Lemma shift) to free the last slot; Step 3 applies induction to the r-linear form on Sym^m V; Step 4 applies r^2 operators D_{x,v_i} to free the common x^r factor, again using injectivity. I checked the degree bookkeeping in Steps 2 and 4, the commutator identity D'D-DD'=N_U-N_Y, the norm identity, the polarization identity, and the a=2 sanity check; these are consistent. Literature statements (Brion, Raicu-Sam-Weyman, Landsberg Problem 7.19, CIM kernel claims) are unverifiable from the text and were not checked.",
+  "hardest_part": "The nested derivative bookkeeping in Step 4 (formula (4a) for f_{i,s} with the constants (b!/m!)^{i-1} b!/(b-s)!, and the x-degree (i-1)r+s versus v_i-degree b-s), together with the claim that each Corollary hypothesis p_j>q_j holds at every stage. I checked it by hand and it is consistent, but it is long and I would not trust a quick read to catch an off-by-one. The literature identifications (Problem 7.19 notation, CIM kernel at (5,5),(6,6)) I could not verify at all.",
+  "issues": [
+   {
+    "where": "Setting, fact (Av3)",
+    "quote": "$\\overline{\\Av}(q(\\tau))=\\Av(\\tau)=\\tau$ by (Av1).",
+    "kind": "unjustified_step",
+    "severity": 1,
+    "what_i_needed": "The identity Av-bar composed with q equals Av on all of W^{otimes a} is used but not stated. It follows because both are linear and agree on simple tensors; this should be written."
+   },
+   {
+    "where": "Proof of Lemma shift, Step 2",
+    "quote": "Taking complex conjugates in \\eqref{eq:adjoint} also gives",
+    "kind": "unjustified_step",
+    "severity": 1,
+    "what_i_needed": "Conjugating gives <h,dg>=<Xh,g>; the identity <X g,h>=<g,dh> needs a renaming g<->h. I checked this is valid, but the text should say so."
+   },
+   {
+    "where": "Proof at a glance, Changes of notation; Lemma shift proof",
+    "quote": "the operator is called $D'$",
+    "kind": "undefined_notation",
+    "severity": 2,
+    "what_i_needed": "D' is used for the adjoint D_{U,Y} inside Lemma shift, while the operator in Proposition is written with the \\D macro as D_{Y,U}. The note says the source operator is called D', which conflicts with this usage; the naming should be made consistent."
+   },
+   {
+    "where": "Proof at a glance, 'Where the bound comes from'",
+    "quote": "The quadratic size is forced by Step~4, where",
+    "kind": "ambiguous_statement",
+    "severity": 2,
+    "what_i_needed": "The proof only shows sufficiency. Step 4 needs only m+1>r^2-1 and Step 3 needs only m>=r(r-1), so no necessity argument is given. The text also says m>=r^2 is used in three places, but Step 4 only needs m>=r^2-1. Either justify 'forced' or remove it."
+   },
+   {
+    "where": "Lemma (Polarization), 'Used in'",
+    "quote": "and the last step of Proposition~\\ref{prop:vanishing} (with $k=b$).",
+    "kind": "ambiguous_statement",
+    "severity": 1,
+    "what_i_needed": "The base case of Proposition (a=1) only needs that products span Sym^b V, which is immediate. It does not need the polarization identity, so this cross-reference is misleading."
+   },
+   {
+    "where": "Section Literature, Stabilization paragraph",
+    "quote": "the bound reads $d\\ge n(n-1)$, a",
+    "kind": "unjustified_step",
+    "severity": 2,
+    "what_i_needed": "The text itself says the problem wording is not reproduced, so the claim that Theorem 1 answers Problem 7.19 rests only on a citation I cannot check. I could not confirm the identification of d,n,w with b,a,dim V."
+   },
+   {
+    "where": "Section Literature, Relation to the Foulkes conjecture",
+    "quote": "The source reports that the canonical map has nonzero kernel at $(a,b)=(5,5)$ and $(6,6)$",
+    "kind": "unjustified_step",
+    "severity": 1,
+    "what_i_needed": "This is an external claim from CIM that the manuscript says it did not check. I could not verify the nonzero-kernel claim or the dimensions it holds in. It is not used in the proof."
+   },
+   {
+    "where": "Section Evaluating a multilinear form, Conventions (Evaluation)",
+    "quote": "Applied to coefficients, it replaces each vector variable by an actual vector of $V$",
+    "kind": "unjustified_step",
+    "severity": 1,
+    "what_i_needed": "Compatibility of evaluation with the PP-multilinear extension of T (evaluation of T(g_1,...,g_a) equals T of the evaluated arguments) is asserted without proof. It follows from linearity of T, but this should be stated, since Steps 2 and 4 rely on it."
+   }
+  ]
+ }
+]

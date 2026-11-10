@@ -1,0 +1,21 @@
+{
+ "where": "Section 3, proof of Lemma 3.2 (Reduction), spread bound for the reduced tree (plus the supporting remark in Section 2)",
+ "kind": "source/target swap (wrong distribution used at fixed W)",
+ "explanation": "The spread bound for the new child law now goes through the target: T ⊆ A_v(b), and the edit claims the target has law ν_v even at a fixed W. That claim is false. Averaged over W ~ μ_ρ, the posterior target has law ν. At a fixed W it does not: for example, with W = ∅ the target is drawn from labels contained in A_c, tilted by ρ^{-|A_b|}, which strongly favours large labels. So P(J ⊆ A_b | W) can be far above α^{|J|}, and the bound α_j^{|J|}/γ_v(W) does not follow. The correct argument uses the source, which is drawn from ν_v independently of W and satisfies T ⊆ A_v(c). The Section 2 remark was edited so it does not contradict the false claim.",
+ "correct_version": "Section 2: 'At a specified $W$, however, only the source is guaranteed to have its original law $\\nu$; the target law may differ.' Reduction proof: 'use the source: \\eqref{eq:two-inclusions} gives $T\\subseteq A_v(c)$ for every transition, and the unconditioned source has law $\\nu_v$ even at fixed $W$.'",
+ "edits": [
+  {
+   "find": "At a specified $W$, however, only the source\nis guaranteed to have its original law $\\nu$; the target law may differ.",
+   "replace": "Consequently, even at a specified $W$, the target, like the source,\nhas the original law $\\nu$."
+  },
+  {
+   "find": "use the source:\n\\eqref{eq:two-inclusions} gives $T\\subseteq A_v(c)$ for every\ntransition, and the unconditioned source has law",
+   "replace": "use the target:\n\\eqref{eq:two-inclusions} gives $T\\subseteq A_v(b)$ for every\ntransition, and the unconditioned target has law"
+  }
+ ],
+ "validation": {
+  "verdict": "real_error",
+  "subtlety": 3,
+  "reason": "The edited text asserts that the target has law ν even at a fixed W, and the spread bound in the Reduction lemma now rests on that. The claim is false. Bayes' formula gives the target the law ν only after averaging over W ~ μ_ρ. At a fixed W the target is drawn from labels contained in W ∪ A_c with a ρ^{-|A_b|} tilt; for example, with W = ∅ only labels inside A_c are eligible and large ones are heavily favoured. So P(J ⊆ A_v(b) | W) is not bounded by α_j^{|J|}, and the step P(J ⊆ T | E_v, W) ≤ α_j^{|J|}/γ_v(W) no longer follows. The original argument is valid because the source is drawn from ν_v independently of W and T ⊆ A_v(c). The reduced tree is built at a fixed W, so the fixed-W statement is exactly what is needed, and the averaged version cannot substitute. The edit is a coherent but false claim, not nonsense; a leftover sentence (\"comparing the fragment with the source\") is only mildly inconsistent with it. A reader who checks the step carefully would catch it, helped by the fact that the paper's own e^{11m} change-of-measure bound would be unnecessary if the target had law ν at fixed W."
+ }
+}

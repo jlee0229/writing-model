@@ -1,0 +1,66 @@
+{
+  "sensitivity": {
+    "title": "A superquadratic separation between sensitivity and block sensitivity",
+    "upstream_dir": "preprints/A-superquadratic-separation-between-sensitivity-and-block-sensitivity-September-25-2026",
+    "upstream_commit": "4eaee87548250b2682affda7d05d947c05554bae",
+    "lean_formalized_main_result": true,
+    "words": 5077,
+    "compiles": true
+  },
+  "groupring": {
+    "title": "A Counterexample to the Group-Ring Determinant Conjecture",
+    "upstream_dir": "preprints/A-Counterexample-to-the-Group-Ring-Determinant-Conjecture-September-23-2026",
+    "upstream_commit": "4eaee87548250b2682affda7d05d947c05554bae",
+    "lean_formalized_main_result": true,
+    "words": 3617,
+    "compiles": true
+  },
+  "talagrand": {
+    "title": "Talagrand's discrete-convexity conjecture",
+    "upstream_dir": "preprints/Talagrands-discrete-convexity-conjecture-September-23-2026",
+    "upstream_commit": "4eaee87548250b2682affda7d05d947c05554bae",
+    "lean_formalized_main_result": true,
+    "words": 3859,
+    "compiles": true
+  },
+  "seymour": {
+    "title": "A proof of Seymour’s second-neighborhood conjecture",
+    "upstream_dir": "preprints/A-proof-of-Seymours-second-neighborhood-conjecture-September-23-2026",
+    "upstream_commit": "4eaee87548250b2682affda7d05d947c05554bae",
+    "lean_formalized_main_result": true,
+    "words": 7001,
+    "compiles": true
+  },
+  "foulkes": {
+    "title": "Quadratic stabilization of the canonical Foulkes–Howe map",
+    "upstream_dir": "preprints/Quadratic-Stabilization-of-the-Canonical-Foulkes-Howe-Map-September-25-2026",
+    "upstream_commit": "4eaee87548250b2682affda7d05d947c05554bae",
+    "lean_formalized_main_result": true,
+    "words": 2981,
+    "compiles": true
+  },
+  "kahnkalai": {
+    "title": "The second Kahn–Kalai conjecture",
+    "upstream_dir": "preprints/The-second-Kahn-Kalai-conjecture-September-24-2026",
+    "upstream_commit": "4eaee87548250b2682affda7d05d947c05554bae",
+    "lean_formalized_main_result": true,
+    "words": 4953,
+    "compiles": true
+  },
+  "projbody": {
+    "title": "A product counterexample to the simplex maximum for projection-body volume",
+    "upstream_dir": "preprints/A-product-counterexample-to-the-simplex-maximum-for-projection-body-volume-September-24-2026",
+    "upstream_commit": "4eaee87548250b2682affda7d05d947c05554bae",
+    "lean_formalized_main_result": true,
+    "words": 2779,
+    "compiles": true
+  },
+  "thompson": {
+    "title": "Thompson's group F is nonamenable",
+    "upstream_dir": "preprints/Thompsons-group-F-is-nonamenable-September-23-2026",
+    "upstream_commit": "4eaee87548250b2682affda7d05d947c05554bae",
+    "lean_formalized_main_result": true,
+    "words": 5078,
+    "compiles": true
+  }
+}

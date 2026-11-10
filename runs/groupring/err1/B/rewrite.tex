@@ -1,0 +1,566 @@
+\documentclass[11pt]{article}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,mathtools}
+\usepackage{enumitem}
+\usepackage{microtype}
+\usepackage{xcolor}
+\PassOptionsToPackage{hyphens}{url}
+\usepackage{hyperref}
+\usepackage{bookmark}
+\hypersetup{colorlinks=true,linkcolor=blue!45!black,citecolor=blue!45!black,
+  urlcolor=blue!45!black,pdfauthor={OpenAI},
+  pdftitle={A Counterexample to the Group-Ring Determinant Conjecture}}
+\IfFileExists{glyphtounicode-cmex.tex}{\input{glyphtounicode-cmex.tex}}{}
+\pdfgentounicode=1
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+\numberwithin{equation}{section}
+\newcommand{\F}{\mathbb F}
+\newcommand{\Z}{\mathbb Z}
+\newcommand{\Q}{\mathbb Q}
+\newcommand{\R}{\mathbb R}
+\newcommand{\C}{\mathbb C}
+\newcommand{\Mat}{\operatorname{M}}
+\newcommand{\diag}{\operatorname{diag}}
+\newcommand{\mul}{\operatorname{mul}}
+\newcommand{\N}{\mathcal N}
+\newcommand{\unverified}[1]{\par\smallskip\noindent\fbox{\parbox{0.95\linewidth}{\textbf{Unverified step.} #1}}\par\smallskip}
+\setlength{\emergencystretch}{2em}
+\title{A Counterexample to the Group-Ring Determinant Conjecture}
+\author{Rewritten for readability from the OpenAI manuscript of the same title}
+\date{September 23, 2026}
+
+\begin{document}
+\maketitle
+\begin{abstract}
+Assuming one cited existence theorem (a failure of direct finiteness for a group algebra in characteristic two), we construct a finitely generated group $G_D$ and a square matrix over $\Z[G_D]$ that is invertible over $\Q[G_D]$ and has Fuglede--Kadison determinant strictly between zero and one. The logarithmic integral defining the determinant is finite. This disproves the unrestricted group-ring Determinant Conjecture.
+\end{abstract}
+
+\section{Main result and overview}
+\label{sec:introduction}
+
+\subsection{Conventions}
+
+Throughout, $G$ is a discrete group with identity $1$.
+
+\emph{Group rings.} For a commutative ring $\Bbbk$, the group ring $\Bbbk[G]$ consists of the finite formal sums $c=\sum_{g\in G}c_g\,g$ with $c_g\in\Bbbk$, with the usual convolution product. We write $[1]c:=c_1$ for the identity coefficient. $\Mat_{m\times r}(\cdot)$ denotes $m\times r$ matrices and $\Mat_n=\Mat_{n\times n}$. Matrix products are always taken in the written order; group rings are not commutative.
+
+\emph{Involution.} For $\Bbbk\subseteq\C$ closed under conjugation, $c^*=\sum_g\overline{c_g}\,g^{-1}$, and for a matrix $E$ over $\Bbbk[G]$, $(E^*)_{\nu\nu'}=(E_{\nu'\nu})^*$. Then $(EF)^*=F^*E^*$. An \emph{orthogonal projection} is a matrix with $P=P^*=P^2$.
+
+\emph{Regular representation.} On $\ell^2(G)$, with orthonormal basis $(\delta_h)_{h\in G}$, let
+\[
+ (\lambda(g)\xi)(h)=\xi(g^{-1}h),\qquad\text{so }\lambda(g)\delta_h=\delta_{gh}.
+\]
+Each $\lambda(g)$ is unitary and $\lambda(g)^*=\lambda(g^{-1})$. Extend linearly to $\lambda(c)=\sum_gc_g\lambda(g)$ for $c\in\C[G]$. For $E\in\Mat_n(\C[G])$ let $T_E$ be the bounded operator on $\ell^2(G)^n$ given by $(T_E\xi)_\nu=\sum_{\nu'}\lambda(E_{\nu\nu'})\xi_{\nu'}$. The map $E\mapsto T_E$ is a unital $*$-homomorphism: $T_{EF}=T_ET_F$ and $T_{E^*}=T_E^*$. In particular, if $E$ is invertible in $\Mat_n(\Q[G])$ then $T_E$ has the bounded inverse $T_{E^{-1}}$.
+
+\emph{Trace.} Let $\varepsilon_\nu\in\ell^2(G)^n$ be the vector with $\delta_1$ in component $\nu$ and $0$ elsewhere. For a bounded operator $T$ on $\ell^2(G)^n$ put
+\[
+ \tau_n(T)=\sum_{\nu=1}^n\langle T\varepsilon_\nu,\varepsilon_\nu\rangle ,
+\]
+the \emph{unnormalized} trace, with $\tau_n(I_n)=n$. Since $\langle\lambda(c)\delta_1,\delta_1\rangle=\sum_gc_g\langle\delta_g,\delta_1\rangle=c_1$,
+\begin{equation}\label{eq:trace-coeff}
+ \tau_n(E):=\tau_n(T_E)=\sum_{\nu=1}^n[1]E_{\nu\nu}\qquad(E\in\Mat_n(\C[G])).
+\end{equation}
+
+\emph{Spectral measure and the conjecture.} For $A\in\Mat_n(\Z[G])$, the probability spectral measure of the positive operator $T_A^*T_A$ is
+\[
+ \mu_A(\Omega)=\frac1n\sum_{\nu=1}^n
+ \langle \mathbf1_\Omega(T_A^*T_A)\varepsilon_\nu,\varepsilon_\nu\rangle
+ \quad(\Omega\subseteq[0,\infty)\text{ Borel}).
+\]
+The square-matrix instance of the Determinant Conjecture asserts that, for all $G$, $n$ and $A$,
+\begin{equation}\label{eq:conjecture}
+ \int_{(0,\infty)}\log t\,d\mu_A(t)\ge0.
+\end{equation}
+The zero atom is omitted, and in general the integral may be $-\infty$. The usual conjecture also permits rectangular matrices \cite[Conjecture 13.2]{Luck2002}; a square counterexample already contradicts it.
+
+\emph{Determinant.} Write $\N(G)$ for the group von Neumann algebra (used only as a label). If $T_A$ has a bounded inverse, the spectrum of $T_A^*T_A$ lies in the compact interval $[\|T_A^{-1}\|^{-2},\|T_A\|^2]\subset(0,\infty)$. So $\log(T_A^*T_A)$ is a bounded operator, and by the spectral theorem $\tau_n(\varphi(T_A^*T_A))=n\int\varphi\,d\mu_A$ for every continuous $\varphi$ on that interval. The determinant convention is
+\begin{equation}\label{eq:normalization}
+ \log\det_{\N(G)}(T_A)
+ =\frac12\tau_n\bigl(\log(T_A^*T_A)\bigr)
+ =\frac n2\int_{(0,\infty)}\log t\,d\mu_A(t).
+\end{equation}
+For trivial $G$ this is $\log|\det A|$.
+
+\emph{Comparison with the row-vector convention.} The inversion unitary $\delta_g\mapsto\delta_{g^{-1}}$ conjugates $\lambda(h)$ to right translation by $h^{-1}$. It therefore identifies $T_A$ with right multiplication by $A^*$ on row vectors. It fixes the vectors $\varepsilon_\nu$, and so preserves the spectral measures above.
+
+\subsection{The main result}
+
+\begin{theorem}\label{thm:main}
+There are a finitely generated discrete group $G_D$, an integer
+$n\ge1$, and $A\in\Mat_n(\Z[G_D])$ invertible over $\Q[G_D]$ such
+that
+\[
+ 0<\det_{\N(G_D)}(T_A)<1.
+\]
+The integral in Equation~\eqref{eq:conjecture} is finite and strictly
+negative. Thus the unrestricted group-ring Determinant Conjecture
+has a negative resolution.
+\end{theorem}
+
+The proof gives explicit values. With $d$, $\theta$, $q$ as in Section~\ref{sec:assembly}: $n=2d+1$, $\det_{\N(G_D)}(T_A)=q^{-\theta}$, and the integral equals $-2\theta\log q/(2d+1)$.
+
+\subsection{The one external input}
+
+A unital ring is \emph{directly finite} if $ab=1$ implies $ba=1$. The proof of Theorem~\ref{thm:main} uses exactly one result that is not proved here.
+
+\begin{theorem}[{\cite[Theorem 1.1]{CharacteristicTwo}}]
+\label{thm:input}
+There exist a finite field $K_2$ of characteristic two, a finitely
+generated group $H_2$, and finite sums $a_2,b_2\in K_2[H_2]$ with
+$a_2b_2=1$ and $b_2a_2\ne1$.
+\end{theorem}
+
+\unverified{This theorem is quoted from the companion manuscript \cite{CharacteristicTwo} and is not justified in this document or in the source; the companion could not be checked. The statement asserts a counterexample to Kaplansky's direct finiteness conjecture for group algebras, and (through the sofic determinant bound cited in Section~\ref{sec:assembly}) it implies the existence of a non-sofic group. As far as we know, both are long-standing open problems. Every result below, including Theorem~\ref{thm:main}, is conditional on this statement.}
+
+Only the existence statement is used, not any explicit instance. The field is finite but is not asserted to be $\F_2$. No torsion-freeness is assumed; the source notes that the companion construction uses torsion. Characteristic two is essential (Section~\ref{sec:lifting} works modulo powers of $2$). Everything after this input is proved below.
+
+\subsection{Proof at a glance}
+
+\textbf{Key idea.} Suppose $P$ is a rational orthogonal projection of size $m$ whose reduction modulo $2$ factors through $r$ columns, although its real trace $\tau_m(P)$ is larger than $r$. For a suitable power $q$ of two, the diagonal matrix $B=\diag(qI_r,\,-q^{-1}P-(I_m-P))$ has $\log\det=(r-\tau_m(P))\log q<0$. $B$ is not integral, but multiplying it on both sides by unipotent block shears, built from a factorization of $P$ modulo $q$, produces an integral matrix $A$. Shears do not change the determinant.
+
+\textbf{Steps and dependencies.}
+\begin{enumerate}[label=(\arabic*),leftmargin=2.2em,itemsep=2pt]
+\item \emph{Binary defect} (Lemma~\ref{lem:binary}, from Theorem~\ref{thm:input}). Writing $K_2$ as $\F_2^d$ turns $a_2,b_2$ into $X,Y\in\Mat_d(\F_2[H_2])$ with $XY=I_d$ and a nonzero idempotent $C=I_d-YX$ satisfying $XC=0$, $CY=0$.
+\item \emph{Trace gap} (Proposition~\ref{prop:separation}, from (1)). In $G_D=(\bigoplus_{h\in H_2}C_3)\rtimes H_2$, commuting averaging projections give a rational projection $p$ with $[1]p=\theta>0$ that isolates one coefficient of $C$. Then $P=\diag(I_d,p)$ has trace $d+\theta$, while $\bar P$ factors through $d$ columns.
+\item \emph{Lifting} (Lemma~\ref{lem:lift}). A factorization of $\bar P$ modulo $2$ lifts to one of $P$ modulo $q=2^k$, by a finite geometric series.
+\item \emph{Integral matrix} (Lemma~\ref{lem:integral}, from (3)). If $q\equiv1\pmod D$, where $D$ is an odd denominator of $P$, then $A=L_1BR_1$ is integral with an explicit rational inverse.
+\item \emph{Shear invariance} (Lemmas~\ref{lem:logderivative} and~\ref{lem:shears}). Lemma~\ref{lem:logderivative} is the formula $\frac{d}{dx}\tau(\log M^*M)=2\operatorname{Re}\tau(M'M^{-1})$. Lemma~\ref{lem:shears} applies it to $M(x)=L_xBR_x$, where the right side vanishes.
+\item \emph{Determinant formula} (Proposition~\ref{prop:criterion}, from (4) and (5)): $\log\det_{\N(G)}(T_A)=(r-\tau_m(P))\log q$.
+\item \emph{Assembly} (Section~\ref{sec:assembly}): (2) and (6) with $r=d$, $m=d+1$ give $\det=q^{-\theta}$.
+\end{enumerate}
+Steps (3)--(6) hold for an arbitrary group $G$ and are independent of (1)--(2).
+
+One index mismatch in the source's proof of Proposition~\ref{prop:separation} is flagged in a box there.
+
+\subsection{Context and notation}
+
+\emph{Context recorded by the source (not used in the proof).} Determinant bounds are part of the theory of $L^2$-invariants \cite{Luck2002}. They are known for large classes of groups, including amenable groups \cite[Theorem 1.21, with its erratum]{Schick2001} and sofic groups \cite[Theorem 5]{ElekSzabo2005}. Kammeyer's counterexample \cite[Theorem 2 and Section 2]{Kammeyer2026} concerns \emph{approximation} of determinants by finite quotients and does not violate the lower bound one. The commuting projections of step (2) are related to \cite[Section 3]{DicksSchick2002} and \cite[Section 2]{LehnerNeuhauserWoess2008}. The derivative formula of step (5) is \cite[Lemma 2]{FK1952}, also present in \cite[Lemma 1 and Proposition 2(d)]{deLaHarpeSkandalis1984}. Both are proved here in the form needed.
+
+\emph{Notation changes relative to the source,} made to avoid clashes. The regular representation is $\lambda$ (source: $L_g$, clashing with the shears $L_x$). The unit vectors are $\varepsilon_\nu$ (source: $e_i$, clashing with $e=P_q$). In Lemma~\ref{lem:logderivative} the bounds are $\beta_-<\beta_+$, and we write $\Phi$, $\eta$ (source: $\delta<c$, $W$, $\rho$). In Lemma~\ref{lem:shears} the shear blocks are $\Lambda,\Gamma$ (source: $S,T$). Generic matrices in trace identities are $E,F$ (source: $C,D$). Results are numbered as in the source.
+
+\section{From the scalar defect to a projection}
+\label{sec:projection}
+
+This section produces the trace gap. All group-ring sums are finite.
+
+\begin{lemma}\label{lem:binary}
+Let $K_2$ be a finite field of characteristic two and $H_2$ a group.
+For $d=[K_2:\F_2]$, there is an injective unital ring homomorphism
+\[
+ \rho:K_2[H_2]\longrightarrow\Mat_d(\F_2[H_2]).
+\]
+For $a_2,b_2\in K_2[H_2]$ with $a_2b_2=1\ne b_2a_2$, their images $X=\rho(a_2)$, $Y=\rho(b_2)$ satisfy
+$XY=I_d$ and $C:=I_d-YX\ne0$, with
+\begin{equation}\label{eq:defect}
+ C^2=C,\qquad XC=0,\qquad CY=0.
+\end{equation}
+\end{lemma}
+
+\emph{Use:} it supplies the matrices $X,Y,C$ for Proposition~\ref{prop:separation}.
+
+\begin{proof}
+\emph{Step 1 (the field as matrices).} Fix an $\F_2$-basis of $K_2$. For $\alpha\in K_2$ let $\mul(\alpha)\in\Mat_d(\F_2)$ be the matrix of the $\F_2$-linear map $y\mapsto\alpha y$. Then $\mul$ is additive, $\mul(\alpha\alpha')=\mul(\alpha)\mul(\alpha')$ and $\mul(1)=I_d$. It is injective, because the map $y\mapsto\alpha y$ sends $1$ to $\alpha$.
+
+\emph{Step 2 (definition of $\rho$).} A matrix over $\F_2[H_2]$ is the same thing as a finite sum of group elements with coefficients in $\Mat_d(\F_2)$. Define
+\[
+ \rho\Bigl(\sum_h\alpha_h\,h\Bigr)=\sum_h\mul(\alpha_h)\,h .
+\]
+It is additive and $\rho(1)=I_d$. It is multiplicative, since coefficient matrices commute with the group symbols:
+\[
+ \rho\Bigl(\sum_g\alpha_gg\cdot\sum_h\alpha'_hh\Bigr)
+ =\sum_{g,h}\mul(\alpha_g\alpha'_h)\,gh
+ =\sum_{g,h}\mul(\alpha_g)\mul(\alpha'_h)\,gh
+ =\rho\Bigl(\sum_g\alpha_gg\Bigr)\rho\Bigl(\sum_h\alpha'_hh\Bigr).
+\]
+It is injective: if $\rho(c)=\rho(c')$, comparing the matrix coefficient at each $h$ gives $\mul(c_h)=\mul(c'_h)$, hence $c_h=c'_h$ by Step 1.
+
+\emph{Step 3.} $XY=\rho(a_2b_2)=\rho(1)=I_d$. Also $YX=\rho(b_2a_2)\ne\rho(1)=I_d$ by injectivity, so $C\ne0$.
+
+\emph{Step 4 (the identities).} Using $XY=I_d$: $(YX)^2=Y(XY)X=YX$, hence $C^2=I_d-2YX+(YX)^2=I_d-YX=C$. Next $XC=X-(XY)X=0$ and $CY=Y-Y(XY)=0$.
+\end{proof}
+
+\paragraph{The group $G_D$.} Let $N=\bigoplus_{h\in H_2}C_3$ be the group of finitely supported functions $H_2\to C_3$. Fix a generator of $C_3$ and let $z_h\in N$ be that generator placed at coordinate $h$. The elements $z_h$ commute, and a product $\prod_hz_h^{\omega_h}$ over \emph{distinct} labels with $\omega_h\in\{0,1,2\}$ is trivial only if all $\omega_h=0$. $H_2$ acts on $N$ by left translation of labels, and $G_D=N\rtimes H_2$. Thus $N$ and $H_2$ are subgroups of $G_D$ and
+\begin{equation}\label{eq:conj}
+ g\,z_h\,g^{-1}=z_{gh}\qquad(g,h\in H_2).
+\end{equation}
+In particular $\F_2[H_2]\subseteq\F_2[G_D]$, and the subring $\Q[N]\subseteq\Q[G_D]$ is commutative.
+
+Since $3$ is odd, there is a ring homomorphism $\Z[1/3]\to\F_2$. Applying it to coefficients gives a ring homomorphism $\Z[1/3][G_D]\to\F_2[G_D]$, written $c\mapsto\bar c$ and applied entrywise to matrices.
+
+\begin{proposition}\label{prop:separation}
+Let $X,Y\in\Mat_d(\F_2[H_2])$, $d\ge1$, satisfy
+$XY=I_d\ne YX$. In the group
+$G_D=(\bigoplus_{h\in H_2}C_3)\rtimes H_2$ there is an orthogonal
+projection $P\in\Mat_{d+1}(\Z[1/3][G_D])$ and a finite set
+$S\subseteq H_2\setminus\{1\}$ such that
+\[
+ \tau_{d+1}(P)=d+\theta,\qquad
+ \theta=\frac13\left(\frac23\right)^{|S|}>0,
+ \qquad \bar P=uv,
+\]
+where $u$ has size $(d+1)\times d$ and $v$ has size $d\times(d+1)$
+over $\F_2[G_D]$. The integer $D=3^{1+|S|}$ clears all coefficients
+of $P$, that is, $DP\in\Mat_{d+1}(\Z[G_D])$.
+\end{proposition}
+
+\emph{Use:} this is the projection fed into Proposition~\ref{prop:criterion} in Section~\ref{sec:assembly}.
+
+\emph{Plan.} Pick one nonzero coefficient of $C=I_d-YX$. Build a rational projection $p\in\Q[N]$ that kills every other group element in that entry when it is sandwiched ($psp=0$), yet has positive trace. The pair $(X,Y)$ factors $I_d$ through $d$ columns, and the defect $C$ lets the same $d$ columns also carry $\bar p$.
+
+\begin{proof}
+Put $C=I_d-YX$. By Step 4 of the proof of Lemma~\ref{lem:binary}, which uses only $XY=I_d$, Equation~\eqref{eq:defect} holds, and $C\ne0$ by hypothesis.
+
+\emph{Step 1 (choose a coefficient).} Since $C\ne0$, there are an entry $C_{ij}\in\F_2[H_2]$ and $h_0\in H_2$ whose coefficient in $C_{ij}$ is nonzero, hence equal to $1$. Multiplying on the left by $h_0^{-1}$ moves $h_0$ to the identity, so
+\begin{equation}\label{eq:support}
+ h_0^{-1}C_{ij}=1+\sum_{s\in S}s
+\end{equation}
+for a finite set $S\subseteq H_2\setminus\{1\}$, possibly empty.
+
+\emph{Step 2 (coordinate projections).} For $h\in H_2$ put $p_h=\tfrac13(1+z_h+z_h^2)\in\Q[N]$. Since $z_h^3=1$, we get $(1+z_h+z_h^2)^2=3(1+z_h+z_h^2)$, so $p_h^2=p_h$. Since $z_h^*=z_h^{-1}=z_h^2$, we get $p_h^*=p_h$. All $p_h$ commute, as $\Q[N]$ is commutative. By \eqref{eq:conj}, $g\,p_h\,g^{-1}=p_{gh}$ for $g\in H_2$. Compare \cite[Lemmas 3.1 and 3.4]{DicksSchick2002}.
+
+\emph{Step 3 (the projection $p$).} Define
+\[
+ p=p_1\prod_{s\in S}(1-p_s).
+\]
+Each factor is a self-adjoint idempotent and the factors commute, so $p=p^*=p^2$. Since $3p_1$ and each $3(1-p_s)=2-z_s-z_s^2$ are integral, $3^{1+|S|}p\in\Z[G_D]$.
+
+\emph{Step 4 (separation).} Fix $s\in S$. Conjugation by $s$ is a ring automorphism, so by Step 2
+\[
+ sps^{-1}=p_s\prod_{t\in S}(1-p_{st}).
+\]
+This product contains the factor $p_s$, while $p$ contains the factor $1-p_s$ (because $s\in S$). All factors lie in the commutative ring $\Q[N]$ and $(1-p_s)p_s=0$, so $p\,(sps^{-1})=0$. Hence
+\begin{equation}\label{eq:separation}
+ psp=p\,(sps^{-1})\,s=0\qquad(s\in S).
+\end{equation}
+The argument does not care whether the labels $st$ meet $\{1\}\cup S$. Inverse pairs or finite-order elements in $S$ cause no change.
+
+\emph{Step 5 (trace of $p$).} The labels in $\{1\}\cup S$ are pairwise distinct. Expand $p=\tfrac13(1+z_1+z_1^2)\prod_{s\in S}\tfrac13(2-z_s-z_s^2)$ into monomials $\prod_hz_h^{\omega_h}$. Such a monomial is the identity only when every $\omega_h=0$, i.e.\ when the identity term is chosen in each factor. Therefore
+\begin{equation}\label{eq:theta}
+ \tau_1(p)=[1]p=\frac13\prod_{s\in S}\frac23=\theta>0.
+\end{equation}
+For empty $S$ this reads $p=p_1$ and $\theta=1/3$.
+
+\emph{Step 6 (reduce modulo two).} Reduction is a ring homomorphism fixing group elements, so $\bar p^2=\bar p$ and $\bar ps\bar p=0$ for $s\in S$ by \eqref{eq:separation}. With \eqref{eq:support},
+\begin{equation}\label{eq:sandwich}
+ \bar p\, h_0^{-1} C_{ij}\,\bar p=\bar p^2+\sum_{s\in S}\bar ps\bar p=\bar p.
+\end{equation}
+
+\emph{Step 7 (the factorization).} Following the source: let $f$ be the row of length $d$ with entry $\bar p h_0^{-1}$ at position $j$ and zero elsewhere, and let $w$ be the column of length $d$ with entry $\bar p$ at position $i$ and zero elsewhere. The source then asserts
+\begin{equation}\label{eq:fCw}
+ fCw=\bar p .
+\end{equation}
+\unverified{With the positions as stated, $fCw=\sum_{\nu,\nu'}f_\nu C_{\nu\nu'}w_{\nu'}=\bar p\,h_0^{-1}C_{ji}\,\bar p$, which involves the entry $C_{ji}$ and not the entry $C_{ij}$ chosen in Step~1. So \eqref{eq:sandwich} does not give \eqref{eq:fCw} unless $i=j$. If the two positions are interchanged ($\bar ph_0^{-1}$ at position $i$ of $f$, and $\bar p$ at position $j$ of $w$), then $fCw=\bar p\,h_0^{-1}C_{ij}\,\bar p=\bar p$ by \eqref{eq:sandwich}. Everything below uses only the sizes of $f,w$ and the identity \eqref{eq:fCw}.}
+Define
+\[
+ P=\diag(I_d,p),\qquad
+ u=\begin{pmatrix}X\\fC\end{pmatrix},\qquad
+ v=\begin{pmatrix}Y&Cw\end{pmatrix},
+\]
+of sizes $(d+1)\times(d+1)$, $(d+1)\times d$ and $d\times(d+1)$. Multiplying blockwise and using $XY=I_d$, $XC=0$, $CY=0$, $C^2=C$ from \eqref{eq:defect}, and then \eqref{eq:fCw},
+\[
+ uv=\begin{pmatrix}XY&XCw\\fCY&fC^2w\end{pmatrix}
+   =\begin{pmatrix}I_d&0\\0&fCw\end{pmatrix}
+   =\diag(I_d,\bar p)=\bar P.
+\]
+
+\emph{Step 8 (properties of $P$).} By Step 3, $P=P^*=P^2$ and $DP$ is integral for $D=3^{1+|S|}$. By \eqref{eq:trace-coeff} and \eqref{eq:theta}, $\tau_{d+1}(P)=d+[1]p=d+\theta$. The extra trace $\theta$ belongs to the rational projection $P$, not to its reduction $\bar P$.
+\end{proof}
+
+\section{Lifting the factorization and preserving integrality}
+\label{sec:lifting}
+
+From here until Section~\ref{sec:assembly}, $G$ is an arbitrary group, $m,r\ge1$, and $D$ is an odd positive integer.
+
+\emph{Reductions.} Let $q=2^k$, $k\ge1$. Since $D$ is a unit modulo $q$, there is a unique ring homomorphism $\Z[1/D]\to\Z/q\Z$, and it restricts to the usual reduction on $\Z$. Applied to coefficients and entries, it gives product-preserving maps on matrices over $\Z[1/D][G]$, written $E\mapsto E_q$. For $q=2$ we write $\bar E$. Reducing $E_q$ further modulo $2$ gives $\bar E$. A matrix $P$ with $DP$ integral has entries in $\Z[1/D][G]$, so $P_q$ and $\bar P$ are defined.
+
+\begin{lemma}\label{lem:lift}
+Let $G$ be a group, $m,r\ge1$, $D$ an odd positive integer, and
+$P\in\Mat_m(\Q[G])$ satisfy $P^2=P$ and
+$DP\in\Mat_m(\Z[G])$. Suppose $\bar P=uv$ over $\F_2[G]$, where $u$ and $v$
+have respective sizes $m\times r$ and $r\times m$. For $q=2^k$,
+$k\ge1$, the reduction $e=P_q$ has a factorization
+$e=u_qv_q$ of the same sizes over $(\Z/q\Z)[G]$.
+\end{lemma}
+
+\emph{Use:} integral lifts of $u_q,v_q$ are the off-diagonal blocks of $A$ in Lemma~\ref{lem:integral}. Only $P^2=P$ is needed here, not $P=P^*$.
+
+\emph{Plan.} Lift $u,v$ arbitrarily. Their product, compressed by $e$, differs from $e$ by something even, hence nilpotent modulo $2^k$, and a finite geometric series corrects it.
+
+\begin{proof}
+Set $\mathcal R=(\Z/q\Z)[G]$.
+
+\emph{Step 1.} $e^2=e$, because reduction preserves products and $P^2=P$.
+
+\emph{Step 2.} Choose matrices $u_0,v_0$ over $\mathcal R$ whose reductions modulo $2$ are $u,v$ (lift each coefficient through $\Z/q\Z\to\Z/2\Z$). Put
+\[
+ Z=eu_0v_0e,\qquad W=e-Z.
+\]
+Then $eZ=Z=Ze$ and $eW=W=We$ by Step 1. So $Z,W$ lie in the corner ring $e\Mat_m(\mathcal R)e$, whose identity is $e$.
+
+\emph{Step 3 ($W$ is even).} Modulo $2$, $Z$ reduces to $\bar Puv\bar P=\bar P^3=\bar P$, which is also the reduction of $e$. So every coefficient of $W$ is an even element of $\Z/q\Z$.
+
+\emph{Step 4 ($W^k=0$).} Each coefficient of $W^k$ is a sum of products of $k$ coefficients of $W$. Each such product is divisible by $2^k=q$, hence is $0$ in $\Z/q\Z$.
+
+\emph{Step 5 (corner inverse).} Let $Q=e+W+\cdots+W^{k-1}$ (so $Q=e$ when $k=1$). Then $Qe=Q$ and $QW=W+\cdots+W^k=Q-e$ by Step 4. Since $Z=e-W$,
+\[
+ QZ=Qe-QW=Q-(Q-e)=e .
+\]
+$Q$ inverts $Z$ in the corner ring only, not in $\Mat_m(\mathcal R)$.
+
+\emph{Step 6.} Set $u_q=Qeu_0$ (size $m\times r$) and $v_q=v_0e$ (size $r\times m$). Then $u_qv_q=Q(eu_0v_0e)=QZ=e$. Only finite sums and products were used, so all supports are finite.
+\end{proof}
+
+\paragraph{Choice of $q$ and shape of $A$.} Choose $q=2^k>1$ with $q\equiv1\pmod D$: take $k$ to be the multiplicative order of $2$ modulo the odd integer $D$, or any $k\ge1$ if $D=1$. For an orthogonal projection $P\in\Mat_m(\Q[G])$ define
+\begin{equation}\label{eq:JB}
+ J=-q^{-1}P-(I_m-P),\qquad B=\diag(qI_r,J).
+\end{equation}
+$B$ expands $r$ coordinates by $q$ and contracts the range of $P$ by $q^{-1}$. The signs do not affect $B^*B$ and are chosen so that the integrality argument below works. If a block matrix has upper-left block $qI_r$ and off-diagonal blocks $V$ (upper) and $U$ (lower), eliminating them subtracts $U(qI_r)^{-1}V=UV/q$ from the lower-right block. So for the Schur complement to be $J$, the lower-right block must be $UV/q+J=q^{-1}\bigl(UV-P-q(I_m-P)\bigr)$. This is the matrix $A$ below.
+
+\begin{lemma}\label{lem:integral}
+Suppose $P=P^*=P^2\in\Mat_m(\Q[G])$, an odd $D>0$ clears its
+denominators, and $\bar P=uv$ factors through $r\ge1$ columns.
+Let $q=2^k>1$ satisfy $q\equiv1\pmod D$. Choose arbitrary
+integral lifts $U\in\Mat_{m\times r}(\Z[G])$, $V\in\Mat_{r\times m}(\Z[G])$ of the factors $u_q,v_q$ supplied by Lemma~\ref{lem:lift}.
+Then
+\begin{equation}\label{eq:integral-matrix}
+ A=\begin{pmatrix}
+ qI_r&V\\
+ U&q^{-1}\bigl(UV-P-q(I_m-P)\bigr)
+ \end{pmatrix}
+ \in\Mat_{r+m}(\Z[G])
+\end{equation}
+has an inverse in $\Mat_{r+m}(\Q[G])$. Moreover, with $J,B$ as in \eqref{eq:JB} and, for $x\in[0,1]$,
+\[
+ L_x=\begin{pmatrix}I_r&0\\xU/q&I_m\end{pmatrix},\qquad
+ R_x=\begin{pmatrix}I_r&xV/q\\0&I_m\end{pmatrix},
+\]
+one has
+\begin{equation}\label{eq:path}
+ M(x):=L_xBR_x=
+ \begin{pmatrix}qI_r&xV\\xU&x^2UV/q+J\end{pmatrix},\qquad A=M(1).
+\end{equation}
+\end{lemma}
+
+\emph{Use:} Proposition~\ref{prop:criterion} computes the determinant of $A$ along the path $M(x)$.
+
+\begin{proof}
+\emph{Step 1 (an integral matrix reducing to $e$).} Write $P+q(I_m-P)=qI_m-(q-1)P$. Since $D\mid q-1$ and $DP$ is integral, $(q-1)P$ is integral, hence so is $qI_m-(q-1)P$. Its reduction modulo $q$ is $0\cdot I_m-(-1)P_q=e$.
+
+\emph{Step 2 (integrality of $A$).} $UV$ is integral and reduces modulo $q$ to $u_qv_q=e$ by Lemma~\ref{lem:lift}. Hence $UV-P-q(I_m-P)=UV-\bigl(qI_m-(q-1)P\bigr)$ is an integral matrix reducing to $0$ modulo $q$, so every coefficient is divisible by $q$. The lower-right block of $A$ is therefore integral. The other three blocks are integral by construction.
+
+\emph{Step 3 (the block equals $UV/q+J$).} $q^{-1}\bigl(UV-P-q(I_m-P)\bigr)=UV/q-q^{-1}P-(I_m-P)=UV/q+J$.
+
+\emph{Step 4 ($J$ and $B$ are invertible).} Since $P^2=P$, we have $P(I_m-P)=0$ and $(I_m-P)^2=I_m-P$. Hence
+\[
+ J\cdot\bigl(-qP-(I_m-P)\bigr)=P+(I_m-P)=I_m,
+\]
+and likewise in the other order. So $J^{-1}=-qP-(I_m-P)$ and $B^{-1}=\diag(q^{-1}I_r,J^{-1})$, both rational.
+
+\emph{Step 5 (the product).} Keeping the order of factors,
+\[
+ BR_x=\begin{pmatrix}qI_r&xV\\0&J\end{pmatrix},\qquad
+ L_x(BR_x)=\begin{pmatrix}qI_r&xV\\ (xU/q)(qI_r)&(xU/q)(xV)+J\end{pmatrix},
+\]
+which is \eqref{eq:path}. By Step 3, $M(1)=A$.
+
+\emph{Step 6 (inverse).} $L_x^{-1}$ and $R_x^{-1}$ are obtained by negating the off-diagonal block. So $A^{-1}=R_1^{-1}B^{-1}L_1^{-1}\in\Mat_{r+m}(\Q[G])$. For every real $x$, $M(x)$ and $M(x)^{-1}=R_x^{-1}B^{-1}L_x^{-1}$ are matrices over $\R[G]$ whose coefficients are polynomials in $x$. No relation such as $PU=U$, $VP=V$ or $V=U^*$ was used.
+\end{proof}
+
+The path $M(x)$ is integral at its endpoint $x=1$, where $M(1)=A$; for other $x$ it need not be integral. The next section shows that $\tau(\log M(x)^*M(x))$ does not depend on $x$.
+
+\section{The trace calculation}
+\label{sec:analysis}
+
+Let $\mathcal A_n$ be the operator-norm closure of $\{T_E:E\in\Mat_n(\C[G])\}$, a unital $C^*$-algebra. We identify $E$ with $T_E$. ``Invertible'' means invertible in $\mathcal A_n$. An element of $\mathcal A_n$ is an $n\times n$ matrix with entries in $\mathcal A_1$, because the entries of an operator matrix are bounded in norm by the operator and conversely. We use three facts about $\tau_n$.
+\begin{enumerate}[label=(T\arabic*),leftmargin=2.6em,itemsep=2pt]
+\item $\tau_n$ is linear on $\mathcal A_n$, $|\tau_n(T)|\le n\|T\|$ (Cauchy--Schwarz, $\|\varepsilon_\nu\|=1$), and $\tau_n(T^*)=\overline{\tau_n(T)}$.
+\item $\tau_n(EF)=\tau_n(FE)$ for $E,F\in\mathcal A_n$. For group-ring matrices, \eqref{eq:trace-coeff} gives
+$\tau_n(EF)=\sum_{\nu,\nu',g}(E_{\nu\nu'})_g(F_{\nu'\nu})_{g^{-1}}$, which is symmetric under $(E,\nu,\nu',g)\leftrightarrow(F,\nu',\nu,g^{-1})$. The general case follows by density and (T1). Consequently $\tau_n(VTV^{-1})=\tau_n(T)$ for invertible $V$.
+\item If $T\in\mathcal A_{r+m}$ has diagonal blocks $T_{11}$ ($r\times r$) and $T_{22}$ ($m\times m$), then $\tau_{r+m}(T)=\tau_r(T_{11})+\tau_m(T_{22})$, directly from the definition.
+\end{enumerate}
+
+\begin{lemma}\label{lem:logderivative}
+For a continuously differentiable path
+$M:[0,1]\to\mathcal A_n$ of invertible elements,
+\[
+ \frac{d}{dx}\tau_n\bigl(\log(M(x)^*M(x))\bigr)
+ =2\operatorname{Re}\tau_n\bigl(M'(x)M(x)^{-1}\bigr).
+\]
+\end{lemma}
+
+\emph{Use:} Lemma~\ref{lem:shears}. This is the tracial logarithmic derivative of \cite[Lemma 2]{FK1952}, written with the unnormalized trace.
+
+\emph{Plan.} Expand $\log N$, $N=M^*M$, as a power series in $\Phi=I-N/\beta_+$. Differentiate term by term, and use cyclicity of the trace to collapse the derivative of each power.
+
+\begin{proof}
+Put $N=M^*M$. Then $N$ is continuously differentiable with $N'=M'^*M+M^*M'$.
+
+\emph{Step 1 (uniform bounds).} Inversion is continuous on invertible elements, so $\|M(x)\|$ and $\|M(x)^{-1}\|$ are bounded on $[0,1]$. Choose $\beta_+>\sup_x\|M(x)\|^2$ and $\beta_-=(\sup_x\|M(x)^{-1}\|)^{-2}$. Since $\langle N\xi,\xi\rangle=\|M\xi\|^2$ lies between $\|M^{-1}\|^{-2}\|\xi\|^2$ and $\|M\|^2\|\xi\|^2$, we get $\beta_-I\le N(x)\le\beta_+I$ for all $x$, and $0<\beta_-<\beta_+$.
+
+\emph{Step 2 (series).} Let $\Phi=I-N/\beta_+$. Then $0\le\Phi\le\eta I$ with $\eta=1-\beta_-/\beta_+<1$, so $\|\Phi\|\le\eta$. For $t\in[\beta_-,\beta_+]$ we have $\log t=\log\beta_+-\sum_{\ell\ge1}(1-t/\beta_+)^\ell/\ell$, uniformly. Continuous functional calculus therefore gives the norm-convergent series
+\[
+ \log N=(\log \beta_+)I-\sum_{\ell\ge1}\frac{\Phi^\ell}{\ell},
+\]
+uniformly in $x$.
+
+\emph{Step 3 (termwise differentiation).} $\Phi'=-N'/\beta_+$ and $(\Phi^\ell)'=\sum_{a=0}^{\ell-1}\Phi^a\Phi'\Phi^{\ell-1-a}$, so
+\[
+ \left\|\frac{d}{dx}\frac{\Phi^\ell}{\ell}\right\|
+ \le\sup_{y\in[0,1]}\|\Phi'(y)\|\,\eta^{\ell-1}.
+\]
+The derivative series converges uniformly. Hence $\log N$ is continuously differentiable and may be differentiated term by term. $\tau_n$ is linear and continuous (T1), so it commutes with $d/dx$ and with the sum.
+
+\emph{Step 4 (cyclicity).} By (T2), each of the $\ell$ terms of $(\Phi^\ell)'$ has trace $\tau_n(\Phi^{\ell-1}\Phi')$. This does not require $N$ and $N'$ to commute. Therefore
+\[
+ \frac{d}{dx}\tau_n(\log N)
+ =-\sum_{\ell\ge1}\tau_n(\Phi^{\ell-1}\Phi')
+ =\frac1{\beta_+}\sum_{\ell\ge1}\tau_n(\Phi^{\ell-1}N')
+ =\frac1{\beta_+}\tau_n\bigl((I-\Phi)^{-1}N'\bigr)
+ =\tau_n(N^{-1}N'),
+\]
+using the Neumann series and $I-\Phi=N/\beta_+$.
+
+\emph{Step 5 (split $N'$).} Since $N^{-1}=M^{-1}(M^*)^{-1}$, we have $N^{-1}M^*=M^{-1}$ and $MN^{-1}=(M^*)^{-1}$. By (T2) and (T1),
+\[
+ \tau_n(N^{-1}M^*M')=\tau_n(M^{-1}M')=\tau_n(M'M^{-1}),
+\]
+\[
+ \tau_n(N^{-1}M'^*M)=\tau_n(MN^{-1}M'^*)=\tau_n\bigl((M'M^{-1})^*\bigr)=\overline{\tau_n(M'M^{-1})}.
+\]
+Adding gives $2\operatorname{Re}\tau_n(M'M^{-1})$.
+\end{proof}
+
+\begin{lemma}\label{lem:shears}
+Let $r,m\ge1$ and let $B\in\mathcal A_{r+m}$ be invertible.
+Let $\Lambda,\Gamma$ have respective sizes $m\times r$ and $r\times m$ over
+$\mathcal A_1$. For $x\in[0,1]$, let
+\[
+ L_x=\begin{pmatrix}I_r&0\\x\Lambda&I_m\end{pmatrix},\qquad
+ R_x=\begin{pmatrix}I_r&x\Gamma\\0&I_m\end{pmatrix}.
+\]
+Then $\tau_{r+m}\bigl(\log((L_xBR_x)^*(L_xBR_x))\bigr)$ is constant in $x$.
+\end{lemma}
+
+\emph{Use:} Proposition~\ref{prop:criterion}, with $\Lambda=U/q$, $\Gamma=V/q$.
+
+\begin{proof}
+Write $M=M(x)=L_xBR_x$. It is a polynomial in $x$, hence continuously differentiable. It is invertible with $M^{-1}=R_x^{-1}B^{-1}L_x^{-1}$, where $L_x^{-1},R_x^{-1}$ are obtained by negating the off-diagonal block. The product rule gives $M'=L_x'BR_x+L_xBR_x'$, so
+\[
+ M'M^{-1}=L_x'L_x^{-1}
+ +(L_xB)(R_x'R_x^{-1})(L_xB)^{-1}.
+\]
+Direct multiplication gives
+\[
+ L_x'L_x^{-1}=\begin{pmatrix}0&0\\\Lambda&0\end{pmatrix}\begin{pmatrix}I_r&0\\-x\Lambda&I_m\end{pmatrix}=\begin{pmatrix}0&0\\\Lambda&0\end{pmatrix},
+ \qquad
+ R_x'R_x^{-1}=\begin{pmatrix}0&\Gamma\\0&0\end{pmatrix}.
+\]
+Both have zero diagonal blocks, so both have trace zero by (T3). By (T2), the conjugate $(L_xB)(R_x'R_x^{-1})(L_xB)^{-1}$ also has trace zero. Thus $\tau_{r+m}(M'M^{-1})=0$, and Lemma~\ref{lem:logderivative} gives derivative zero.
+\end{proof}
+
+\begin{proposition}\label{prop:criterion}
+Let $G$ be a discrete group, $m,r\ge1$, and let
+$P=P^*=P^2\in\Mat_m(\Q[G])$. Suppose an odd $D>0$ clears its
+denominators and $\bar P=uv$ with
+$u\in\Mat_{m\times r}(\F_2[G])$ and
+$v\in\Mat_{r\times m}(\F_2[G])$. For every $q=2^k>1$ congruent to one
+modulo $D$, the matrix $A$ of Lemma~\ref{lem:integral} satisfies
+\begin{align}
+ \tau_{r+m}(\log(T_A^*T_A))
+   &=2(r-\tau_m(P))\log q,\label{eq:criterion-trace}\\
+ \log\det_{\N(G)}(T_A)&=(r-\tau_m(P))\log q.
+ \label{eq:criterion-det}
+\end{align}
+It is integral and rationally invertible, and its positive-square
+spectral measure has support in a compact subinterval of $(0,\infty)$, with
+\begin{equation}\label{eq:criterion-integral}
+ \int_{(0,\infty)}\log t\,d\mu_A(t)
+ =\frac{2(r-\tau_m(P))\log q}{r+m}.
+\end{equation}
+\end{proposition}
+
+\begin{proof}
+\emph{Step 1.} Integrality of $A$ and $A^{-1}\in\Mat_{r+m}(\Q[G])$ are Lemma~\ref{lem:integral}.
+
+\emph{Step 2 (reduce to $x=0$).} By \eqref{eq:path}, $A=M(1)$ with $M(x)=L_xBR_x$. Here $B=\diag(qI_r,J)$ is invertible (Step 4 of Lemma~\ref{lem:integral}) and the shear blocks are $\Lambda=U/q$, $\Gamma=V/q$. Lemma~\ref{lem:shears} gives
+$\tau_{r+m}(\log(A^*A))=\tau_{r+m}(\log(B^*B))$.
+
+\emph{Step 3 (compute at $B$).} Since $P^*=P$, $J^*=J$. Since $P(I_m-P)=0$, $J^2=q^{-2}P+(I_m-P)$. So
+\[
+ B^*B=\diag\bigl(q^2I_r,\;q^{-2}P+(I_m-P)\bigr).
+\]
+$P$ and $I_m-P$ are complementary orthogonal projections. So for every polynomial $\varphi$, and hence for every continuous function $\varphi$ on the spectrum, $\varphi(q^{-2}P+(I_m-P))=\varphi(q^{-2})P+\varphi(1)(I_m-P)$. With $\varphi=\log$ this is $-2\log q\cdot P$. Therefore
+\[
+ \log(B^*B)=2\log q\,\diag(I_r,-P),
+ \qquad
+ \tau_{r+m}(\log(B^*B))=2\log q\,\bigl(r-\tau_m(P)\bigr),
+\]
+by (T3). With Step 2 this is \eqref{eq:criterion-trace}. Half of it is \eqref{eq:criterion-det}, by \eqref{eq:normalization}.
+
+\emph{Step 4 (spectral support and the integral).} $T_A$ has the bounded inverse $T_{A^{-1}}$, so
+$\|T_A^{-1}\|^{-2}I\le T_A^*T_A\le\|T_A\|^2I$. Thus $\mu_A$ is supported in a compact subinterval of $(0,\infty)$. Equation~\eqref{eq:normalization} with $n=r+m$ turns \eqref{eq:criterion-trace} into \eqref{eq:criterion-integral}.
+\end{proof}
+
+\section{Assembly and exact determinant}
+\label{sec:assembly}
+
+\begin{proof}[Proof of Theorem~\ref{thm:main}]
+\emph{Step 1.} Take $K_2,H_2,a_2,b_2$ from Theorem~\ref{thm:input} and let $d=[K_2:\F_2]\ge1$. Lemma~\ref{lem:binary} gives $X,Y\in\Mat_d(\F_2[H_2])$ with $XY=I_d\ne YX$.
+
+\emph{Step 2.} Proposition~\ref{prop:separation} gives the group
+$G_D=(\bigoplus_{H_2}C_3)\rtimes H_2$, a finite set $S$, and an orthogonal projection $P$
+of size $d+1$ with $\bar P=uv$ factoring through $d$ columns,
+\[
+ \tau_{d+1}(P)=d+\theta,\qquad\theta=\frac13\left(\frac23\right)^{|S|}>0,
+ \qquad D=3^{1+|S|}\text{ odd},\quad DP\text{ integral}.
+\]
+
+\emph{Step 3.} Choose $k\ge1$ with $q=2^k\equiv1\pmod D$.
+Proposition~\ref{prop:criterion}, with $G=G_D$, $r=d$ and $m=d+1$,
+produces $A\in\Mat_{2d+1}(\Z[G_D])$, invertible over $\Q[G_D]$, with
+\[
+ \log\det_{\N(G_D)}(T_A)=\bigl(d-(d+\theta)\bigr)\log q=-\theta\log q.
+\]
+Since $q>1$ and $\theta>0$,
+\begin{equation}\label{eq:final-det}
+ 0<\det_{\N(G_D)}(T_A)=q^{-\theta}<1.
+\end{equation}
+
+\emph{Step 4.} With $n=2d+1$, Equation~\eqref{eq:criterion-integral} reads
+\begin{equation}\label{eq:final-integral}
+ \int_{(0,\infty)}\log t\,d\mu_A(t)
+ =-\frac{2\theta\log q}{2d+1}<0.
+\end{equation}
+It is finite by the spectral bounds in Proposition~\ref{prop:criterion}.
+
+\emph{Step 5.} $G_D$ is finitely generated: a finite generating set of $H_2$ together with $z_1$ generates $G_D$, since $z_h=hz_1h^{-1}$ by \eqref{eq:conj}.
+\end{proof}
+
+\paragraph{Remarks from the source.} The group $G_D$ differs from the companion's group $H_2$ and contains the cyclic coordinates of order three. The example has a finite negative logarithmic determinant and no spectral mass at zero. It is a failure of the lower bound, not of determinant class. The source adds that the sofic determinant bound \cite[Theorem 5]{ElekSzabo2005}, applied to the positive integral matrix $A^*A$, shows that $G_D$ is not sofic. This is an external consequence and is not used in constructing $A$.
+
+\section{Verification checklist}
+
+\begin{enumerate}[leftmargin=2em,itemsep=3pt]
+\item \textbf{The external input.} Theorem~\ref{thm:input} is taken from \cite{CharacteristicTwo} and is not proved here. The whole result is conditional on it. It enters only in Step~1 of Section~\ref{sec:assembly}.
+\item \textbf{The flagged index mismatch.} In Step~7 of the proof of Proposition~\ref{prop:separation}, the positions of the nonzero entries of $f$ and $w$ as given in the source select $C_{ji}$ instead of $C_{ij}$. See the box there. Check that with the positions interchanged $fCw=\bar p$, and that nothing else depends on them.
+\item \textbf{Separation and trace of $p$.} $psp=0$ for $s\in S$ (Step~4 of Proposition~\ref{prop:separation}; it needs only $s\in S$ and commutativity of $\Q[N]$), and $[1]p=\theta$ (Step~5; it needs the labels $\{1\}\cup S$ to be distinct).
+\item \textbf{The block product $uv=\bar P$.} It uses $XC=0$, $CY=0$, $C^2=C$ in the non-commutative order written (Step~7 of Proposition~\ref{prop:separation}, with Lemma~\ref{lem:binary}).
+\item \textbf{Lifting.} $W$ is even, $W^k=0$, and $QZ=e$ in the corner ring (Steps~3--5 of Lemma~\ref{lem:lift}).
+\item \textbf{Integrality of $A$.} It needs both $q\equiv1\pmod D$ (so that $(q-1)P$ is integral) and $UV\equiv P\pmod q$ (Steps~1--2 of Lemma~\ref{lem:integral}).
+\item \textbf{The path.} $L_xBR_x$ equals the matrix in \eqref{eq:path} and $M(1)=A$ (Steps~3 and~5 of Lemma~\ref{lem:integral}).
+\item \textbf{Shear invariance.} Termwise differentiation and the cyclicity step in Lemma~\ref{lem:logderivative} (Steps~3--4), and the zero diagonal blocks of $L_x'L_x^{-1}$, $R_x'R_x^{-1}$ in Lemma~\ref{lem:shears}.
+\item \textbf{The value and its sign.} $\log(B^*B)=2\log q\,\diag(I_r,-P)$ (Step~3 of Proposition~\ref{prop:criterion}), giving $(r-\tau_m(P))\log q=-\theta\log q<0$ for $r=d$, $\tau_m(P)=d+\theta$.
+\end{enumerate}
+
+\begingroup
+\raggedright
+\bibliographystyle{plain}
+\bibliography{references}
+\endgroup
+\end{document}

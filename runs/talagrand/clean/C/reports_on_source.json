@@ -1,0 +1,233 @@
+[
+ {
+  "main_result": "Theorem 1.1 (Talagrand's discrete-convexity conjecture): with k = 2^75, for every N, every p in (0,1) and every family D in 2^[N], if mu_p(D) >= 1 - 1/k then the exceptional family E_k(D) (sets not contained in any union of k members of D, repeats allowed) is p-small. Here p-small means there is a cover G of E_k(D) with sum over I in G of p^|I| at most 1/2. The paper also states a positive-selector corollary (via Markov) and a two-union corollary with density loss p/C, C = 50*512^4, which depends on cited results.",
+  "proof_strategy": "The argument has three layers. (1) Proposition 3.1 (Section 3): for q with mu_q(F) >= 1/2, E_32(F) is (q/2^70)-small. It uses biased Fourier weights b(U), w(U)=b(U)^2, with a Parseval bound sum q^|U| w(U) <= 1, and a signed 32-row product identity giving sum over nonempty U subset of S of w(U)^16 >= 2^-32 for every exceptional S. (2) Lemma 2.1 (Section 2): a probabilistic covering lemma. Sets with huge weight are covered directly; the remaining weight bins are covered by sampled unions of pairs, plus residual tuple-unions, with expected cost controlled by a recursion on weighted tuple sums W_t. (3) Section 4: a coupling of L = 2^70 rows, each with law mu_p, whose union has law mu_q with q = Lp (Case 1), or whose union is the full ground set (Case 2). Union bound gives all rows in D with probability at least 31/32; then E_32(F) = E_{32L}(D) and Proposition 3.1 yields density q/L = p. I checked each displayed inequality in Sections 2–4 and found them correct as written; the weakest links are the citation-dependent steps in the corollaries.",
+  "hardest_part": "The two-union corollary (Corollary 1.3 and its proof). It chains several external results (Li Corollary 3.1, Park Theorem 3.4, OpenAIThreshold26 Theorem 1.1) whose hypotheses are never stated, and the factor r = p/2 is not explained. I could not confirm that E_2(D) meets the hypotheses of those results from mu_p(D) > 1/2. In the self-contained parts, the most intricate bookkeeping was the recursion W_{t+1} <= T(1+rm)^r W_t in Lemma 2.1 and the signed identity in Proposition 3.1; I checked both and found no error, but they are the places where a slip would be easiest to miss.",
+  "issues": [
+   {
+    "where": "Corollary 1.3 (two unions) proof",
+    "quote": "this family has a fractional cover of cost at most $1/2$ at $r=p/2$",
+    "kind": "unjustified_step",
+    "severity": 2,
+    "what_i_needed": "The exact statements of Li Cor. 3.1 and Park Thm 3.4, including their hypotheses, and a check that E_2(D) with mu_p(D) > 1/2 satisfies them. Also an explanation of where the density r = p/2 comes from."
+   },
+   {
+    "where": "Introduction, before Corollary 1.3",
+    "quote": "Combining Li's result with the companion constant-factor rounding theorem",
+    "kind": "ambiguous_statement",
+    "severity": 2,
+    "what_i_needed": "The proof then cites an 'expectation-threshold theorem' (OpenAIThreshold26, Thm 1.1). The paper should state that cited result precisely (fractional cost 1/2 at density r implies integral cost 1/2 at density r/(25*512^4)) and say whether the two names refer to the same result."
+   },
+   {
+    "where": "Corollary 1.3 proof, first case split",
+    "quote": "Otherwise it is a nonempty proper increasing family",
+    "kind": "ambiguous_statement",
+    "severity": 1,
+    "what_i_needed": "What 'proper' means here (not all of 2^[N]? not the full power set?) and why the cited formulation requires it. The increasing property is verified correctly, but the cited theorem's notion of 'proper' is not defined."
+   },
+   {
+    "where": "Proof of Proposition 3.1, roadmap paragraph after eq. (biased weights)",
+    "quote": "fewer than $2^{12h}$ terms contribute at most $2^{-4h}$ to the sum of sixteenth powers",
+    "kind": "ambiguous_statement",
+    "severity": 1,
+    "what_i_needed": "Clarify that 2^-4h is the total bin contribution (2^{12h} terms each at most 2^{-16h}), not a per-term bound. The later display (bin-power-sum) does this correctly, but the roadmap wording is misleading."
+   },
+   {
+    "where": "Proof of Proposition 3.1, 'Constructing the cover'",
+    "quote": "|\\mathcal H_{r,h}|\\rho^r\\le2^{h+1}",
+    "kind": "unjustified_step",
+    "severity": 1,
+    "what_i_needed": "The text derives |H| q^r < 2^{h+1} and then states the bound for rho^r. The missing step is rho^r = q^r L^{-r} <= q^r, which holds because L >= 1. It should be written out."
+   },
+   {
+    "where": "Proof of Lemma 2.1, 'Residual generators' (cover verification)",
+    "quote": "contains at least \\(m\\) distinct regular edges",
+    "kind": "unjustified_step",
+    "severity": 1,
+    "what_i_needed": "The step that every edge e contained in S is regular, since a C_0 member inside e would be a C_0 member inside S, and so S containing no C_0 generator forces all its edges to be regular. The text gives this as an unexplained 'Indeed'."
+   },
+   {
+    "where": "Lemma 2.1 proof, bound on residual cost",
+    "quote": "e^{-\\pi m^2}\\le2^{-\\pi m^2}",
+    "kind": "unjustified_step",
+    "severity": 1,
+    "what_i_needed": "The inequality e^{-x} <= 2^{-x} for x >= 0, which follows from log2(e) > 1. It is true but not stated."
+   },
+   {
+    "where": "Lemma 2.1 proof, final arithmetic for the residual bound",
+    "quote": "4h+13rh+1\\le18h^2",
+    "kind": "heavy_computation",
+    "severity": 1,
+    "what_i_needed": "The intermediate steps: 1+rm <= (h+1)2^{12h} <= 2^{13h} (using h+1 <= 2^h), then 4h+1 <= 5h^2 for h >= 1, then 18 <= 2^{2h} for h >= 3, which give 18h^2 <= 18*2^{2h} <= 2^{4h}. I verified these, but the text skips them."
+   },
+   {
+    "where": "Section 3, signed identity (two-row comparison)",
+    "quote": "With two rows, this is precisely Li's signed kernel after multiplying",
+    "kind": "unjustified_step",
+    "severity": 1,
+    "what_i_needed": "The explicit identification with Li's kernel, or a statement that it is only context. The 32-row identity (signed-identity display) is derived directly in the text, so the reader cannot check the claimed match from what is given, and the claim is not needed for the proof."
+   },
+   {
+    "where": "Section 1, positive selectors, and Section 2 Lemma 2.1 parameters",
+    "quote": "For a nonempty family $T\\subseteq[0,\\infty)^N$, define",
+    "kind": "undefined_notation",
+    "severity": 1,
+    "what_i_needed": "The letter T is used in two unrelated senses: a family of nonnegative vectors in the positive-selector paragraph, and the threshold T = 2^{4h} in Lemma 2.1 (also written 'T=2^{4h}'). Rename one of them to avoid confusion."
+   }
+  ]
+ },
+ {
+  "main_result": "For k=2^75 and any family D of subsets of [N] with Bernoulli-p measure at least 1-1/k, the family E_k(D) of sets not contained in any union of k members of D is p-small: it has a cover G with sum over G of p^{|I|} at most 1/2. The proof reduces to a fixed-density statement (Proposition 3.1: if mu_q(F) >= 1/2 then E_32(F) is (q/2^70)-small) and then recovers density p by a row-coupling. Two corollaries are also stated: a two-union version with constant density loss (Corollary 1.2), and a consequence for positive selectors, where {S: phi(S) >= k^2 M} is p-small. The core chain (Lemma 2.1, the signed 32-row identity, the bin/cover construction, and both cases of the coupling) I checked line by line and found consistent. The corollary and the related-work comparisons depend on external results I could not check.",
+  "proof_strategy": "Parseval applied to the biased Fourier coefficients gives a global bound sum_U q^{|U|} w(U) <= 1 on the squared weights w(U)=b(U)^2. A signed 32-row array of column masses, built so that the all-zero column has zero mass, gives the identity sum_{U subset S} (-1)^{|U|} b(U)^{32} = 0 for each S in E_32(F), and hence sum_{nonempty U subset S} w(U)^16 >= 2^{-32}. Weights are split into a large-weight class G_0 (cost at most 2^-6) and dyadic bins H_{r,h}, each covered by Lemma 2.1 (random pair sampling with a residual-tuple step, cost at most 3*2^-h). A set that contains no generator has 16th-power weight sum below 2^-32, which contradicts the identity, so the union of covers covers E_32(F) at density q/2^70. Density is restored by a coupling: in Case 1 (Lp<1) each of L rows is a Bernoulli-p set and their union is Bernoulli-Lp, so E_32(F)=E_k(D); in Case 2 (Lp>=1) a mandatory-row coupling makes some L rows in D cover [N], forcing E_k(D) empty. The corollary's fractional-to-integral chain and the positive-selector deduction rely on cited external results whose hypotheses I could not check; that part is unclear to me.",
+  "hardest_part": "The transfer in Corollary 1.2 from the hypothesis mu_p(D)>1/2 to Li's fractional cover at density r=p/2, and then to an integral cover through the companion threshold theorem. Each step depends on external statements (Li Cor. 3.1 / Thm 1.9, Park Thm 3.4 / Cor. 3.5, OpenAIThreshold26 Thm 1.1) whose hypotheses are not restated, so I cannot verify that the corollary's hypotheses match them. In the self-contained part, the most error-prone step was the 32-row signed expansion, which I reconstructed with the sign and per-row factorization checked by hand, but the write-up skips the intermediate lines.",
+  "issues": [
+   {
+    "where": "Corollary 1.2 (two unions), proof, second-to-last sentence",
+    "quote": "this family has a fractional cover of cost at most $1/2$ at $r=p/2$",
+    "kind": "unjustified_step",
+    "severity": 2,
+    "what_i_needed": "The exact hypotheses of Li's fractional theorem, and an explanation of how mu_p(D)>1/2 for E_2(D) yields a fractional cover at parameter r=p/2. The introduction only states Li's result for measures with containment probabilities bounded by p^{|I|}, which I cannot match to this application."
+   },
+   {
+    "where": "Introduction, fractional relaxation definition and Corollary 1.2 proof",
+    "quote": "p^{|I|}a_I\\le\\frac12",
+    "kind": "undefined_notation",
+    "severity": 2,
+    "what_i_needed": "The fractional cost is defined only at density p (sum of p^{|I|} a_I). The corollary uses 'fractional cover ... at r=p/2' and the companion theorem uses density r/(25*512^4). A definition of fractional cost at a general density r is needed."
+   },
+   {
+    "where": "Corollary 1.2 proof, integral step",
+    "quote": "gives an integral cover of cost at most $1/2$ at",
+    "kind": "unjustified_step",
+    "severity": 2,
+    "what_i_needed": "The hypotheses of OpenAIThreshold26 Thm 1.1 (monotonicity, form of the fractional input, any side conditions) and a check that the fractional cover produced above satisfies them. The arithmetic 50*512^4 = 2 * 25 * 512^4 is consistent, but the logical transfer is not shown."
+   },
+   {
+    "where": "Introduction, Li citation vs. Corollary 1.2 proof",
+    "quote": "\\cite[Theorem~1.9]{Li26}",
+    "kind": "ambiguous_statement",
+    "severity": 1,
+    "what_i_needed": "The same Li result is cited as Theorem 1.9 in the introduction, Corollary 3.1 in the corollary proof, and Park's formulation is cited as Theorem 3.4 there but Corollary 3.5 in the introduction. The reader cannot tell which statement is being invoked."
+   },
+   {
+    "where": "Section 3 (Proposition 3.1), signed identity derivation, expansion step",
+    "quote": "Thus the sum factors over rows. In each row the factor is precisely",
+    "kind": "heavy_computation",
+    "severity": 1,
+    "what_i_needed": "The expansion of the product over columns with the subtracted term, showing the sign (-1)^{|U|}, the split (1-q)^{32|U|} = prod_j (1-q)^{|U|}, and that columns in S\\U keep their Bernoulli masses. I could redo this, but the intermediate lines are skipped."
+   },
+   {
+    "where": "Proof strategy and Section 2 introduction; Section 3 signed identity",
+    "quote": "With two rows, this is precisely Li's signed kernel after multiplying",
+    "kind": "unjustified_step",
+    "severity": 1,
+    "what_i_needed": "A statement of Li's two-row kernel and a check that it coincides with R(y)=P(y)-(1-q)^2(-1)^{y_1+y_2} after the Bernoulli-mass multiplication. The 32-row identity is derived in full, so this comparison is context only, but I could not verify the claim of identity."
+   },
+   {
+    "where": "Lemma 2.1 proof, residual generators, final numeric inequality",
+    "quote": "4h+13rh+1\\le18h^2",
+    "kind": "heavy_computation",
+    "severity": 1,
+    "what_i_needed": "The step needs r<=h to bound 13rh by 13h^2 and 4h+1<=5h^2; then 18h^2 <= 18*2^{2h} <= 2^{4h}. I reconstructed these, but the lemma does not spell them out."
+   },
+   {
+    "where": "Section 3 (Proposition 3.1), bins",
+    "quote": "every occupied bin has $h\\ge64r$",
+    "kind": "ambiguous_statement",
+    "severity": 1,
+    "what_i_needed": "The range of the integer h is not restricted. Parseval only gives w(U) <= q^{-|U|}, which can exceed 1, so h can be negative. The conclusion h>=64r holds because bin members have w(U) below 2^{-64r}, but the text should say so when defining H_{r,h}."
+   },
+   {
+    "where": "Positive selectors paragraph",
+    "quote": "beyond the small probability already supplied by Markov's inequality",
+    "kind": "ambiguous_statement",
+    "severity": 1,
+    "what_i_needed": "What is being compared. Markov's inequality gives a measure bound on the event phi>=kM, while the theorem gives a covering statement. The sentence does not say what 'explicit containment witnesses beyond probability' means or what it adds."
+   },
+   {
+    "where": "Positive selectors paragraph",
+    "quote": "recovering the positive-selector conclusion proved by Park and Pham",
+    "kind": "ambiguous_statement",
+    "severity": 1,
+    "what_i_needed": "The statement of Park and Pham's theorem, so the claim that the present result recovers it can be checked. The manuscript does not give the precise form of their conclusion."
+   },
+   {
+    "where": "Corollary 1.2 and its placement",
+    "quote": "Combining Li's result with the companion constant-factor rounding theorem",
+    "kind": "lost_thread",
+    "severity": 1,
+    "what_i_needed": "Why the two-union corollary is included at all. It is not used in the proof of Theorem 1.3 or of Proposition 3.1, and the text does not say how it relates to the main result."
+   }
+  ]
+ },
+ {
+  "main_result": "Set k=2^75. If an arbitrary family D on [N] has product measure mu_p(D) >= 1-1/k, then E_k(D) (sets not contained in any union of k members of D, repeats allowed) has a cover G with sum over I in G of p^|I| <= 1/2. Section 1 adds a positive-selector consequence via Markov's inequality, and a Corollary (not fully self-contained) gives an E_2 cover at density p/C when mu_p(D) > 1/2, using cited results of Li, Park and an OpenAI threshold paper.",
+  "proof_strategy": "The main proof has three layers. (1) Lemma 2.1 is a self-contained probabilistic covering lemma: it removes high-weighted-degree sets, samples random pair unions, and bounds residual tuples by a product of extension weights; I checked the exponent bookkeeping and it closes for h >= 64. (2) Proposition 3.1 expands the indicator of F in the biased Fourier basis, giving sum_U q^|U| w(U) <= 1 by Parseval, and uses a 32-row signed array with column mass P - (1-q)^32(-1)^{sum y} to show each exceptional set carries sum of w(U)^16 >= 2^-32; the dyadic bins of w then feed Lemma 2.1, and I verified the resulting cost bound 1/64 + 6/(2^64-1) < 1/2. (3) Section 4 couples L=2^70 product rows through a sparse union (case Lp<1) or a mandatory-row construction (case Lp>=1) so that the union of rows has law mu_q with q=Lp and E_32(F)=E_k(D). The Corollary and the Section 1 Markov argument depend on cited results whose hypotheses I could not match.",
+  "hardest_part": "The Corollary's transfer from mu_p(D) > 1/2 to Li's fractional result at density r = p/2, together with the cited rounding theorem, which is not stated in enough detail for me to check. For the main theorem I re-derived the signed identity in Proposition 3.1 and the residual-tuple bound in Lemma 2.1 line by line and found no gap, but I relied on the exact Fourier normalization and the ordering of the pair-sampling independence, which I checked by hand rather than by computer.",
+  "issues": [
+   {
+    "where": "Corollary cor:two-union, proof",
+    "quote": "this family has a fractional cover of cost at most $1/2$ at $r=p/2$.",
+    "kind": "unjustified_step",
+    "severity": 2,
+    "what_i_needed": "State Li's Corollary 3.1 hypotheses precisely and show how mu_p(D) > 1/2 (a measure at parameter p) implies the hypothesis needed at density r = p/2. Explain where the factor 1/2 in r = p/2 comes from."
+   },
+   {
+    "where": "Corollary cor:two-union, proof",
+    "quote": "The companion expectation-threshold theorem",
+    "kind": "ambiguous_statement",
+    "severity": 2,
+    "what_i_needed": "The introduction calls the same cited result a 'companion constant-factor rounding theorem', while the proof calls it an 'expectation-threshold theorem'. State its exact hypotheses and conclusion, and confirm that the constant 25*512^4 is what it gives. The arithmetic r/(25*512^4) = p/(50*512^4) is consistent."
+   },
+   {
+    "where": "Corollary cor:two-union vs. Introduction (Park result)",
+    "quote": "Park obtains an integral",
+    "kind": "lost_thread",
+    "severity": 1,
+    "what_i_needed": "Under the same hypothesis mu_p(D) > 1/2, the Corollary gives density p/C, which removes Park's max{1, log log(1/p)} factor. The text does not say whether this is new relative to Park or what Li's result contributes beyond it. A sentence on this would help the reader."
+   },
+   {
+    "where": "Section 3 (Proposition prop:half-density), strategy paragraph",
+    "quote": "In a bin where $w(U)\\le2^{-h}$, fewer than $2^{12h}$ terms contribute",
+    "kind": "ambiguous_statement",
+    "severity": 1,
+    "what_i_needed": "The sentence conflates a bin's total with a single term. Each term in a bin with w <= 2^-h has w^16 <= 2^-16h, and fewer than 2^12h such terms give a total of at most 2^-4h. Say which quantity is meant."
+   },
+   {
+    "where": "Section 1, Positive selectors paragraph",
+    "quote": "Nonnegativity of the coordinates makes $\\phi$ monotone and subadditive",
+    "kind": "unjustified_step",
+    "severity": 1,
+    "what_i_needed": "Subadditivity under unions, phi(S) <= sum_j phi(D_j) for S contained in the union of D_1..D_k, is used but not written out. It follows from sup_t of a sum being at most the sum of the sups over t, but the text should say so. The application of the main theorem to the family {D: phi(D) < kM} should also be named explicitly."
+   },
+   {
+    "where": "Section 2 (Lemma lem:covering), residual cost bound",
+    "quote": "$$1+rm\\le(h+1)2^{12h}\\le2^{13h},$$",
+    "kind": "heavy_computation",
+    "severity": 1,
+    "what_i_needed": "The step from log2 T + r log2(1+rm) + 1 to 4h + 13rh + 1 needs r*log2(1+rm) <= 13rh, which follows from 1+rm <= 2^{13h}. This is one line but is not written. The later bound 18h^2 <= 18*2^{2h} <= 2^{4h} needs h >= 3, which holds since h >= 64."
+   },
+   {
+    "where": "Section 2 (Lemma lem:covering), statement and Corollary proof",
+    "quote": "gives an integral cover of cost at most $1/2$ at",
+    "kind": "ambiguous_statement",
+    "severity": 1,
+    "what_i_needed": "The symbol r is an integer set size in Lemma 2.1 but a density (r = p/2) in the Corollary proof. Use different letters."
+   },
+   {
+    "where": "Section 1, definition of E_k (eq. exceptional-definition)",
+    "quote": "S\\nsubseteq D_1\\cup\\cdots\\cup D_k",
+    "kind": "ambiguous_statement",
+    "severity": 1,
+    "what_i_needed": "The definition is written as 'S not contained in D_1 cup ... cup D_k for all tuples'. It should be stated explicitly as the negation of 'there exists a k-tuple with S in its union', since the quantifier scope is easy to misread."
+   },
+   {
+    "where": "Section 2 (Lemma lem:covering), sampled pairs",
+    "quote": "Distinct ordered pairs remain independent sampling indices even when their unions coincide.",
+    "kind": "unjustified_step",
+    "severity": 1,
+    "what_i_needed": "The expectation bound counts unions with multiplicity, so independence of sampling indices is not actually needed for linearity of expectation. Confirm that the only probabilistic input is the product probability (1-pi)^{m^2} for each tuple."
+   }
+  ]
+ }
+]

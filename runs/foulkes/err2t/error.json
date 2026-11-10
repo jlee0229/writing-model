@@ -1,0 +1,17 @@
+{
+ "where": "Section 4, proof of Proposition 3, Step 1 (a split binary form)",
+ "kind": "Sign error in a root choice (factorization identity false)",
+ "explanation": "Since prod_{j=0}^{r-1}(X - alpha zeta^j Y) = X^r - alpha^r Y^r, choosing alpha with alpha^r = c gives X^r - cY^r, not X^r + cY^r. Already for r = 1, X + cY is not X - cY. So the displayed factorization is false, and the conclusion drawn from it, that (x^r + c t^r)Q is a product of b vectors for every c, is not justified as written. That claim is what turns hypothesis (diagonal) into a vanishing polynomial in c and yields (binary), the base identity for the whole induction step.",
+ "correct_version": "For c != 0, choose alpha in C with alpha^r = -c and zeta = e^{2 pi i/r}. Then X^r + cY^r = prod_{j=0}^{r-1}(X - alpha zeta^j Y).",
+ "edits": [
+  {
+   "find": "with $\\alpha^r=-c$",
+   "replace": "with $\\alpha^r=c$"
+  }
+ ],
+ "validation": {
+  "verdict": "real_error",
+  "subtlety": 3,
+  "reason": "With ζ = e^{2πi/r}, the product ∏_{j=0}^{r-1}(X − αζ^j Y) equals X^r − α^r Y^r for every r. After the edit (α^r = c) the displayed factorization therefore reads X^r + cY^r = X^r − cY^r, which is false for c ≠ 0 (already at r = 1: X + cY ≠ X − cY). The downstream claim that X^r + cY^r splits over ℂ is still true, so the theorem is unaffected, but the stated identity justifying it is a genuine sign error that a verifier checking this step would reject."
+ }
+}

@@ -1,0 +1,21 @@
+{
+ "where": "Proposition 4 (simplex value), proof, volume of Q+[0,w]",
+ "kind": "homogeneity misapplied / non-unit vector treated as unit (dropped factor ||w||)",
+ "explanation": "Each fiber of Q parallel to w gains length ||w|| = sqrt(d) when [0,w] is added, not length 1. The edited text says the gain is 1, so Fubini gives |Q| + vol_{d-1}(proj_{w^perp} Q). This is then equated with 1 + h_{Pi Q}(w), but h_{Pi Q} is 1-homogeneous: h_{Pi Q}(w) = ||w|| vol_{d-1}(proj_{w^perp} Q) = sqrt(d) * sqrt(d) = d, while vol_{d-1}(proj_{w^perp} Q) = sqrt(d). Both the fiber-length claim and the equality |Q| + vol(proj) = 1 + h_{Pi Q}(w) are false. As written, the argument produces 1 + sqrt(d), not d + 1. This computation is what gives |Pi T_d| and c_d, which the theorem uses.",
+ "correct_version": "adding [0,w] increases its length by ||w||, so |Q+[0,w]| = |Q| + ||w|| vol_{d-1}(proj_{w^perp}Q) = 1 + h_{Pi Q}(w).",
+ "edits": [
+  {
+   "find": "adding \\([0,w]\\) increases its length by \\(\\|w\\|\\).",
+   "replace": "adding \\([0,w]\\) increases its length by \\(1\\)."
+  },
+  {
+   "find": "=|Q|+\\|w\\|\\vol_{d-1}(\\proj_{w^\\perp}Q)",
+   "replace": "=|Q|+\\vol_{d-1}(\\proj_{w^\\perp}Q)"
+  }
+ ],
+ "validation": {
+  "verdict": "real_error",
+  "subtlety": 3,
+  "reason": "The segment [0,w] with w=e_1+...+e_d has length ||w||=sqrt(d), so each fiber of Q parallel to w grows by sqrt(d), not by 1. The edited Fubini step therefore gives |Q|+vol_{d-1}(proj_{w^perp}Q) = 1+sqrt(d). The text then equates this with 1+h_{Pi Q}(w), but h_{Pi Q} is extended 1-homogeneously, so h_{Pi Q}(w)=||w||·vol_{d-1}(proj_{w^perp}Q)=d, while the projection volume alone is sqrt(d). Both the fiber-length claim and the displayed equality are false (the figure's d=2 case has area 3, not 1+sqrt(2)). The final value d+1 is still stated correctly, but the derivation that is supposed to prove it no longer does."
+ }
+}

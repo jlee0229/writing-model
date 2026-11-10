@@ -1,0 +1,23 @@
+{
+ "slug": "projbody",
+ "variant": "err1",
+ "arm": "B",
+ "source_words": 2779,
+ "repaired": true,
+ "compiles": true,
+ "rewrite_words": 6378,
+ "length_ratio": 2.3,
+ "unverified_marks": 1,
+ "audit1": {
+  "statements": 0,
+  "introduced": 1,
+  "source_doubts": 1,
+  "unverified_marks": 1
+ },
+ "final_audit": {
+  "statements": 0,
+  "introduced": 0,
+  "source_doubts": 1,
+  "unverified_marks": 1
+ }
+}

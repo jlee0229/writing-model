@@ -1,0 +1,18 @@
+[
+ {
+  "find": "and every function $f\\ge0$ of $W$ that depends\nonly on $W\\setminus A_b$,",
+  "replace": "and every function $f\\ge0$ of $W$,"
+ },
+ {
+  "find": "The indicator depends only on $W\\cap A_b$ and $f(W)$ only on\n$W\\setminus A_b$; under the product measure $\\mu_\\rho$ these are\nindependent, so the last expectation equals",
+  "replace": "The source is drawn independently of $W$, so under the product measure\n$\\mu_\\rho$ the indicator is independent of $f(W)$, and the last\nexpectation equals"
+ },
+ {
+  "find": "says that selecting $b$ distorts the law of $W$ outside $A_b$ by at most",
+  "replace": "says that selecting $b$ distorts the law of $W$ by at most"
+ },
+ {
+  "find": "independent of any function of\n $W\\setminus A_b$.",
+  "replace": "independent of $f(W)$, as the source is drawn independently of $W$."
+ }
+]

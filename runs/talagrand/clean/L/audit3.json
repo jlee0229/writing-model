@@ -1,0 +1,19 @@
+{
+ "statements": [],
+ "introduced": [
+  {
+   "where": "Section 5.2, item (I2) in 'The cited inputs, in the form the proof uses them'",
+   "quote": "The hypothesis $\\mu_p(\\mathcal D)>1/2$ is not used here; it enters only through (I1).",
+   "problem": "Minor inaccuracy about the dependency structure. The rewrite's own step (2) of the corollary proof uses the hypothesis a second time: $\\mu_p(\\mathcal D)>0$ gives $\\mathcal D\\ne\\varnothing$, hence $\\varnothing\\notin E_2(\\mathcal D)$, which is the properness that (I2) is stated to need. Only the full strength '>1/2' enters solely through (I1). The proof itself is unaffected.",
+   "severity": 1
+  }
+ ],
+ "source_doubts": [],
+ "unverified_marks": [
+  {
+   "where": "Section 5.2, box after the proof of Corollary 5.1 (two unions), covering steps (3) and (5)",
+   "concern": "Steps (3) and (5) rest on external results (Li Cor. 3.1 in the form of Park Thm. 3.4, and the companion OpenAI Thm. 1.1) that the source cites by number without restating. The rewrite says it could not check that their hypotheses hold for E_2(D), why the density is p/2, or the constant 25*512^4.",
+   "warranted": false
+  }
+ ]
+}

@@ -1,0 +1,247 @@
+[
+ {
+  "main_result": "The manuscript claims Thompson's group F is not amenable (Theorem 1.1, \"thm:main\"). It is presented as resolving Geoghegan's conjecture. It also states two corollaries, on uniformly bounded non-unitarizable representations and on Bernoulli percolation on Cayley graphs of F, both derived from unpublished companion papers by the same authors.",
+  "proof_strategy": "Assume F is amenable, so Følner sets A exist for a fixed finite set S of transports (Section 2.3, Lemma dyad:transport). Build a recursive Hilbert-ball-valued coloring of basic dyadic partitions, p(T) = f(mean of p(T_{I_j})), with f a fixed-point-free Lipschitz self-map of the unit ball with uniform displacement delta (Lemma displacement, proved explicitly in Appendix A). Covariance of normalized restrictions under transports (eq. dyad:covariance) makes scalar correlations of separated parent/child colors agree with one common value alpha up to eta = max_{h in S} |hA Δ A|/|A| (eq. avg:correlation). Averaging the identity X_{I_i} = f(z_i) over A and expanding squared norms gives E||z_i - m||^2 <= 4/D + 4(1-1/D) eta, and then delta^2 <= L^2(4/D + 4(1-1/D) eta). For D > 4L^2/delta^2 and small eta this is a contradiction with Følner sets. I checked the algebra of each variance and mixed-term bound, the covariance identity, admissibility of hg for g in A, and the appendix's speed, tangent, nonvanishing and displacement estimates; I did not find a step I could refute. The corollaries are not verifiable from the text.",
+  "hardest_part": "The argument is short, and every step I checked holds. That makes the claim unusually strong: a few pages would settle a long-standing open problem. I could not rule out a subtle error in the global logic (for example, in how the single level n, chosen per A, interacts with the fixed S and the parent/child interval family), and I cannot independently confirm novelty or the cited literature. The appendix's Lipschitz bookkeeping for G (Proposition aux:map) was the least fully checked piece: I verified its constants, but the 'product estimates' step is stated rather than shown.",
+  "issues": [
+   {
+    "where": "Appendix A, proof of Lemma aux:tube (separation and injectivity)",
+    "quote": "Since $|\\operatorname{sinc}(q)|<1$ for $q\\ne0$, distinct angular",
+    "kind": "unjustified_step",
+    "severity": 2,
+    "what_i_needed": "A complete injectivity argument. The text says distinct angular parameters give noncollinear unit vectors, but injectivity needs the case where a(t)v(t)=a(s)v(s) with a of either sign and with the t>1 branch handled. The later separation argument then invokes 'finite limits contradict injectivity', which depends on this unproved claim."
+   },
+   {
+    "where": "Appendix A, proof of Proposition aux:map (Lipschitz estimate for G)",
+    "quote": "The product estimates give one finite Lipschitz bound for all these pairs.",
+    "kind": "unjustified_step",
+    "severity": 2,
+    "what_i_needed": "Explicit Lipschitz bounds for each factor beta(r(x))q(t(x))v(t(x)) and chi(r(x))(R_{t(x)}-Id)e(x), using Lip(t) <= 16 on U, Lipschitz bounds on v and R_t, and the bound ||R_t - Id|| <= 2. The text asserts that the product of these bounds is finite and uniform without showing it."
+   },
+   {
+    "where": "Section 3.2 (Cayley graphs / percolation) versus Section 2.3 (transports)",
+    "quote": "For a finite symmetric generating set \\(S\\subset F\\setminus\\{\\id\\}\\), let",
+    "kind": "undefined_notation",
+    "severity": 2,
+    "what_i_needed": "The symbol S is already fixed in Section 2.3 as the finite set of transports used in Proposition avg:boundary. Here it is reused for a generating set. The reuse is confusing and should be renamed, or its scope stated."
+   },
+   {
+    "where": "Corollary cor:nonunitarizable (proof)",
+    "quote": "so the conclusion follows from the companion unitarizability theorem",
+    "kind": "unjustified_step",
+    "severity": 2,
+    "what_i_needed": "The statement and hypotheses of the cited companion theorem (OpenAIUnitarizability2026, Theorem 1.1). Nonamenability and countability are stated, but the text does not show that they are the only hypotheses, nor that the cited result gives the stated uniform 1+epsilon bound."
+   },
+   {
+    "where": "Corollary cor:percolation (statement and proof)",
+    "quote": "there are almost surely infinitely many infinite open clusters simultaneously for every",
+    "kind": "unjustified_step",
+    "severity": 2,
+    "what_i_needed": "The companion percolation theorem's precise hypotheses and conclusions. The corollary asserts norm bounds on T_{p_c}, a strict inequality p_c < p_{2->2}, and a uniform interval [p_1,p_2] with simultaneous infinitely many clusters, none of which is derived here."
+   },
+   {
+    "where": "Appendix A, Lemma aux:tube (infimum of speed)",
+    "quote": "Equality in the claimed lower speed bound holds for $t\\le1$.",
+    "kind": "unjustified_step",
+    "severity": 1,
+    "what_i_needed": "The infimum c = 1/8 requires checking the middle piece t in (2,3), where ||gamma'||^2 = (3-t)^2/64 + a(t)^2/3. The text does not show that this stays above 1/64 there. I checked it myself: it is at least 1/48, so the claim holds, but the text omits this."
+   },
+   {
+    "where": "Section 2.3, Lemma dyad:transport (proof)",
+    "quote": "Within each corresponding pair of gaps, equalize the numbers of cells by successively bisecting",
+    "kind": "heavy_computation",
+    "severity": 1,
+    "what_i_needed": "Confirmation that after equalizing, the matched cells have power-of-two length ratios, so each cell-by-cell affine map has a power-of-two slope. The text states this, but the justification is compressed."
+   },
+   {
+    "where": "Introduction, paragraph on the construction",
+    "quote": "Put an affine copy of this family inside each parent, calling the copies descendants.",
+    "kind": "ambiguous_statement",
+    "severity": 1,
+    "what_i_needed": "A precise definition: the descendants are I_i·I_j = s_{I_i}(I_j), for the same ordered family I_1<...<I_D inside each parent. The introduction does not say this, and the reader must infer it from Section 2."
+   },
+   {
+    "where": "Proof of Theorem thm:main",
+    "quote": "The fixed finite set $S$ and the uniform positive lower bound in",
+    "kind": "ambiguous_statement",
+    "severity": 1,
+    "what_i_needed": "An explicit choice of epsilon in the Følner criterion (take epsilon equal to the positive lower bound in Proposition avg:boundary, so that the strict inequality gives the contradiction). The text leaves this implicit."
+   },
+   {
+    "where": "Section 2.3, Proposition avg:boundary (main chain)",
+    "quote": "Choose a single $n$ for which $(n,g)$ is admissible for all",
+    "kind": "lost_thread",
+    "severity": 1,
+    "what_i_needed": "Since X^{(n)} depends on n, the text should state explicitly that the same n is used for all pairwise correlation identities and for the identity X_{I_i}=f(z_i). I checked that it is, but a sentence making this explicit would help a reader."
+   }
+  ]
+ },
+ {
+  "main_result": "Claims that Thompson's group F is not amenable (Theorem 1.1). The argument: take a fixed-point-free Lipschitz self-map f of the Hilbert ball with ||f(x)-x|| >= delta. Build recursive colorings of dyadic partitions, one for each group element, so that at a sufficiently fine level the colors of nested and separated intervals satisfy scalar-correlation identities. Averaging over a finite A, the correlation defects are bounded by the Folner defect eta(A) = max_{h in S} |hA Delta A|/|A| for a fixed finite S. Then Proposition 3.2 gives eta(A) >= c0 > 0 for every finite nonempty A, contradicting the Folner criterion. Corollaries 4.1 and 4.2 are consequences via cited companion results.",
+  "proof_strategy": "Section 2 proves dyadic bookkeeping: normalized restrictions, the covariance identity (hg T)_{I'} = (gT)_I for an affine transport h, and that finitely many group elements are admissible at a common fine level. Section 2.2 defines colors p(T) recursively via f and a parent family I_1<...<I_D with D > 4L^2/delta^2. Proposition 3.2 compares averaged correlations of separated intervals to a common value alpha (error eta, via finite-translation cancellation over hA cap A). It then bounds E_A||z_i - m||^2 by 4/D + 4(1-1/D)eta using expansion and sign bounds on diagonal, nested and separated pairs. Combining with ||m - f(m)||^2 <= (L^2/D) sum ||z_i - m||^2 and ||m-f(m)|| >= delta gives the uniform bound. The appendix constructs f explicitly on L^2([0,1];R^2) via a tube about a curve gamma with unit speed bounded below, orthogonal rotations R_t, and G(x)=x+beta q v + chi(R_t-I)e, with f = -G/||G||. I checked the algebra of the variance and mixed-term estimates, the covariance identity, the tube and injectivity estimates, and the nonvanishing and Lipschitz bounds for G; I found no definite error. Remaining uncertainty is in terse steps and in the cited companion results.",
+  "hardest_part": "The hardest part to certify is the combined bookkeeping in Section 3: admissibility at a single level n that depends on A, the covariance identity used to equate X_I(g) with X_{I_1}(h_{I,J}g), and the resulting uniform defect eta. Each piece checks out on its own, but the argument settles a long-open problem with a short proof, so I would not trust my reading as a full verification. The appendix Lipschitz estimates for G (a long product-rule argument stated only as \"one finite Lipschitz bound\") are the other place I could not fully redo the constants quickly.",
+  "issues": [
+   {
+    "where": "Lemma lem:displacement / Appendix, Lemma aux:tube (injectivity of gamma)",
+    "quote": "This proves injectivity.",
+    "kind": "unjustified_step",
+    "severity": 2,
+    "what_i_needed": "An explicit case split for gamma(t)=gamma(s), t<s: since |<v(s),v(t)>| = |sinc(theta(t)-theta(s))| < 1 unless theta(t)=theta(s), v(t)=v(s) and then a(t)=a(s) forces t=s by strict monotonicity on each branch; the case t<=1<s and the sign case v(t)=-v(s) (impossible since sinc > -1) need to be stated."
+   },
+   {
+    "where": "Section 3.2 (Comparing correlations) / Proposition avg:boundary",
+    "quote": "differ from one common value by at most \\(\\eta\\).",
+    "kind": "ambiguous_statement",
+    "severity": 2,
+    "what_i_needed": "The common value alpha = E_A phi_{I_1,I_2} depends on the level n, which depends on A. The text should say the common value is alpha(A), not a universal constant, and should confirm that the same n is used for all pairs and for alpha."
+   },
+   {
+    "where": "Section 4 (Consequences), Corollary cor:percolation setup",
+    "quote": "For a finite symmetric generating set \\(S\\subset F\\setminus\\{\\id\\}\\)",
+    "kind": "undefined_notation",
+    "severity": 2,
+    "what_i_needed": "The symbol S is already the finite transport set in Section 2.3 and Proposition avg:boundary (with SA = union of hA). Reusing S for a generating set creates a clash; a different symbol should be used or the reuse explicitly flagged."
+   },
+   {
+    "where": "Section 2.4 (Affine transport), Lemma dyad:transport proof",
+    "quote": "Within each corresponding pair of gaps, equalize the numbers of cells by successively bisecting cells on the side with fewer cells.",
+    "kind": "unjustified_step",
+    "severity": 1,
+    "what_i_needed": "A short check that the cell-by-cell increasing affine map between matched gap partitions is a single homeomorphism of [0,1] in F: gaps are matched per pair, the endpoints match, each cell slope is a power of two, and breakpoints stay dyadic after bisection."
+   },
+   {
+    "where": "Appendix, Lemma aux:tube (differentiability and Lipschitz derivative)",
+    "quote": "Consequently $\\gamma'$ is bounded and Lipschitz.",
+    "kind": "unjustified_step",
+    "severity": 1,
+    "what_i_needed": "Continuity of gamma' at the junctions t=1,2,3 (a', theta' continuous) and bounded piecewise derivatives, stated explicitly; also the L^2 justification for the derivative formula (dominated convergence in w), which the text asserts only as 'justifies differentiation in H'."
+   },
+   {
+    "where": "Appendix, Lemma aux:tube (differentiability)",
+    "quote": "which justifies differentiation in $H$.",
+    "kind": "unjustified_step",
+    "severity": 1,
+    "what_i_needed": "An explicit dominated-convergence argument for difference quotients of t -> v(t) in L^2([0,1];R^2), or a reference to one."
+   },
+   {
+    "where": "Appendix, Proof of Proposition aux:map (global Lipschitz bound for G on U)",
+    "quote": "The product estimates give one finite Lipschitz bound for all these pairs.",
+    "kind": "heavy_computation",
+    "severity": 2,
+    "what_i_needed": "The explicit product-rule estimates for beta(r) q(t) v(t) and chi(r)(R_t - I)e: Lipschitz constants of beta, chi, q, v, R_t and e(x) in terms of rho, L_u, M, and the bound (1+16M) from aux:parameter, written out so the constant can be checked."
+   },
+   {
+    "where": "Section 3.2, variance estimate (avg:parent-bound), (avg:child-bound)",
+    "quote": "Each of the $D$ diagonal terms is at most one.",
+    "kind": "unjustified_step",
+    "severity": 1,
+    "what_i_needed": "Clarify that the off-diagonal bound (alpha+eta) applies per ordered pair regardless of sign of alpha+eta, so the (1-1/D)(alpha+eta) step needs no sign assumption; the text claims this only after the fact."
+   },
+   {
+    "where": "Section 2.3 (Covariance), display (dyad:covariance)",
+    "quote": "The relevant covariance is exact.",
+    "kind": "ambiguous_statement",
+    "severity": 1,
+    "what_i_needed": "The hypothesis 'h carries I affinely onto I'' should be made explicit as h(I)=I' with h|_I affine, and it should be noted that cells of (hg T)_{I'} are exactly h of the cells of (gT)_I, so that exact equality of partitions, not just of colors, follows."
+   },
+   {
+    "where": "Section 4, Corollary cor:nonunitarizable proof",
+    "quote": "so the conclusion follows from the companion unitarizability theorem",
+    "kind": "lost_thread",
+    "severity": 1,
+    "what_i_needed": "The corollary rests entirely on unpublished companion results of the same authors; the reader cannot check its hypotheses from this manuscript, so the statement should be marked as conditional on those results."
+   }
+  ]
+ },
+ {
+  "main_result": "The manuscript claims Thompson's group F is not amenable. Its argument: for each finite A in F, some transport h in a fixed finite set S satisfies |hA Δ A|/|A| >= (δ²/L² - 4/D)/(4(1-1/D)) > 0, which contradicts Følner's condition for S. The appendix gives a Hilbert-space Lipschitz map f: B -> B with ||f(x)-x|| >= 1/2. Corollaries on uniformly bounded non-unitarizable representations and on Bernoulli percolation are deduced from the nonamenability via cited companion results.",
+  "proof_strategy": "The author builds a recursive coloring p of dyadic partitions with values in the unit ball, via p(T) = f(average of p(T_{I_j})) when T respects the parent intervals I_j. Group elements g are colored by X_I(g) = p((gT^(n))_I), so transports h in S give X_I(g) = X_{I_1}(hg), and every separated pair of colored intervals has average inner product within η of one common α. Using X_{I_i} = f(z_i) and the Lipschitz displacement bound on the mean m, the author bounds E||z_i - m||² by 4/D + 4(1-1/D)η, so the displacement δ² is at most L²(4/D + 4η) on average over A. Choosing D large contradicts small η, giving the Følner violation. I checked the arithmetic of the variance and mixed-term estimates, the covariance identity, and the appendix nonvanishing and normalization estimates; I could not find an algebraic error in them.",
+  "hardest_part": "Proposition avg:boundary: whether a single level n, a single α, and the transports in S simultaneously make every separated correlation within η of α, uniformly over all pairs (parents and descendants). I checked the covariance and admissibility chain, but the argument is short for a conjecture open since 1979, and I cannot rule out a subtle failure in the cross-pair bookkeeping. I also could not identify which specific property of F the argument uses beyond dyadic transport, which makes it hard to test the argument against amenable groups.",
+  "issues": [
+   {
+    "where": "Section 1, Proof strategy paragraph",
+    "quote": "The proof turns approximate translation invariance of finite averages of",
+    "kind": "lost_thread",
+    "severity": 2,
+    "what_i_needed": "An explanation of which property of F (beyond existence of dyadic transports and restriction covariance) the argument uses, and why it fails for a general group with an equivariant coloring. Without this I cannot judge whether the argument is specific enough to be correct."
+   },
+   {
+    "where": "Section 2.3, Comparing correlations (eq. avg:correlation)",
+    "quote": "=\\varphi_{I_1,I_2}(h_{I,J}g)",
+    "kind": "unjustified_step",
+    "severity": 2,
+    "what_i_needed": "An explicit verification that admissibility of both g and h_{I,J}g at the single level n gives X_I(g)=X_{I_1}(h g) and X_J(g)=X_{I_2}(hg) via (dyad:covariance), together with the statement that n is chosen for A ∪ SA independently of the pair (I,J). I could check it, but only by reconstructing it."
+   },
+   {
+    "where": "Section 2.3 (Lemma transport use) and Section 3 (Cor. percolation)",
+    "quote": "For a finite symmetric generating set \\(S\\subset F\\setminus\\{\\id\\}\\)",
+    "kind": "undefined_notation",
+    "severity": 2,
+    "what_i_needed": "S is already fixed in Section 2.3 as the finite set of transports used in Proposition avg:boundary. Its reuse here for a generating set is a clash; the two S must be renamed or the reuse justified."
+   },
+   {
+    "where": "Section 2.3, Proof of Proposition avg:boundary (overall claim)",
+    "quote": "We prove that Thompson's group \\(F\\) is nonamenable.",
+    "kind": "suspected_error",
+    "severity": 2,
+    "what_i_needed": "I found no algebraic error in the chain I checked, but a short argument resolving Geoghegan's 1979 conjecture is extraordinary. A referee would need an independent sanity check, e.g. the argument applied to a known amenable group with the same equivariance structure, showing where it breaks."
+   },
+   {
+    "where": "Appendix A, Lemma aux:tube (lower speed bound)",
+    "quote": "For $t\\le2$ the first term is $1/64$; for $t\\ge2$ we have",
+    "kind": "unjustified_step",
+    "severity": 1,
+    "what_i_needed": "The lower bound ||γ'(t)|| >= 1/8 on (2,3) and [3,∞) requires noting that a'(t) >= 0 there and that a²/3 >= 1/48; the text states only a(t) >= 1/4 and θ' = 1 and does not conclude the bound."
+   },
+   {
+    "where": "Appendix A, Lemma aux:tube (injectivity)",
+    "quote": "is strictly increasing on $(1,\\infty)$ and $a$ is positive there",
+    "kind": "ambiguous_statement",
+    "severity": 1,
+    "what_i_needed": "For parameters t,s >= 3 the coefficient a is constant equal to 5/16, so injectivity there must come from distinctness of v(t), v(s) (via sinc). The sentence does not say this; the reader must supply it."
+   },
+   {
+    "where": "Section 2.3, Lemma dyad:eventual (proof)",
+    "quote": "Choose $n$ large enough to resolve all breakpoints",
+    "kind": "unjustified_step",
+    "severity": 1,
+    "what_i_needed": "An explicit threshold n >= q + N (with b dyadic of denominator 2^N) so that each b is a multiple of 2^{q-n}; the proof leaves the constraint implicit."
+   },
+   {
+    "where": "Appendix A, Proof of Proposition aux:map (global Lipschitz of G)",
+    "quote": "The product estimates give one finite Lipschitz bound for all these pairs.",
+    "kind": "heavy_computation",
+    "severity": 2,
+    "what_i_needed": "The explicit Lipschitz constants for β(r(x))q(t(x))v(t(x)) and χ(r)(R_t - Id)e, using the bounds |q|<=7/16, Lip(q)<=1/8, ||R_t - Id||<=2, Lip(R_t) and 1+16M. Only the outline is given; I could not reconstruct the constant."
+   },
+   {
+    "where": "Section 1, Proof of Prop. (Følner criterion remark)",
+    "quote": "bounds the sum of these ratios and hence",
+    "kind": "ambiguous_statement",
+    "severity": 1,
+    "what_i_needed": "A precise statement of Moore's Theorem 1.2 (sum versus individual ratios and the direction of the implication). As written, it is unclear whether the cited result gives the individual bounds directly or only after a change of tolerance."
+   },
+   {
+    "where": "Section 3, Corollary cor:percolation",
+    "quote": "there are deterministic \\(p_c<p_1<p_2<1\\), depending on \\(S\\), such that",
+    "kind": "ambiguous_statement",
+    "severity": 1,
+    "what_i_needed": "The quantifiers: whether p_1,p_2 are chosen once for all p in [p_1,p_2] and whether the almost-sure statement is for the coupled family. Also the proof is a one-line citation, so the strength of the claimed p_c < p_{2->2} <= p_u depends entirely on the companion paper."
+   },
+   {
+    "where": "Section 2.3, Proof of Proposition avg:boundary (notation)",
+    "quote": "Define $G:B\\to H$ to equal the identity outside $U$.",
+    "kind": "undefined_notation",
+    "severity": 1,
+    "what_i_needed": "G is also the group in the Følner definition and the graph G_S in Section 3; reusing G for the appendix map is confusing and should be renamed."
+   },
+   {
+    "where": "Section 2.3, Proof of Proposition avg:boundary, comparing correlations",
+    "quote": "Choose a single $n$ for which $(n,g)$ is admissible for all",
+    "kind": "ambiguous_statement",
+    "severity": 1,
+    "what_i_needed": "A clear statement that α, the averages E_A, and X^(n) all depend on the chosen level n (suppressed by the notation), and that the level is fixed before any inequality is applied."
+   }
+  ]
+ }
+]

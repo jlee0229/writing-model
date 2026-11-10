@@ -1,0 +1,19 @@
+{
+ "statements": [],
+ "introduced": [],
+ "source_doubts": [
+  {
+   "where": "Lemma 2.2 (Subset deficit), Step 1 of the proof (strong connectivity); in the SOURCE, the first paragraph of the proof of Lemma 2.2",
+   "quote": "If $D$ were not strongly connected, take a strongly connected component with no incoming arc from another component. All first and second out-neighborhoods of its vertices lie in that component.",
+   "problem": "The inference is false as written. A component with no incoming arc (a source component of the condensation) may still have outgoing arcs, so the out-neighbourhoods of its vertices need not stay inside it, and its induced subgraph need not be a counterexample. The argument needs a component with no outgoing arc to another component: such a component exists because the condensation is acyclic, it is a proper subset when D is not strongly connected, and N_1^+ and N_2^+ of its vertices are unchanged in the induced subgraph, which contradicts minimum order. The rewrite reproduces the source's sentences verbatim and boxes exactly this objection with the correct repair. The lemma's conclusion is unaffected once the repair is made.",
+   "already_marked_unverified": true
+  }
+ ],
+ "unverified_marks": [
+  {
+   "where": "Lemma 2.2 (Subset deficit), proof, Step 1 — boxed note after the source's strong-connectivity argument",
+   "concern": "The source picks a strongly connected component with no incoming arc and then claims all first and second out-neighbourhoods of its vertices lie in that component. The mark says this is false (example: {a} when the only arc is a→b) and that the argument is correct with 'no outgoing arc to another component' instead.",
+   "warranted": true
+  }
+ ]
+}

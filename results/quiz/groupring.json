@@ -1,0 +1,235 @@
+{
+ "slug": "groupring",
+ "questions": [
+  {
+   "id": 1,
+   "type": "gist",
+   "question": "State precisely what the main theorem asserts: what kind of group, what kind of matrix, what invertibility, and what is concluded about its Fuglede–Kadison determinant and the logarithmic spectral integral?",
+   "answer": "There is a finitely generated discrete group G_D and a square matrix A over the integral group ring Z[G_D] that has an inverse over Q[G_D], such that 0 < det_{N(G_D)}(T_A) < 1. The integral of log t against the positive-square spectral measure is finite and strictly negative, so A is a counterexample to the group-ring Determinant Conjecture.",
+   "must_include": [
+    "G_D is finitely generated and A is a square matrix with entries in Z[G_D] that is invertible over Q[G_D]",
+    "the determinant lies strictly between 0 and 1 (equivalently, the log integral is finite and strictly negative)"
+   ],
+   "key_confirmed": true,
+   "closed_book_novice": 0.0,
+   "closed_book_weak": 0.0,
+   "closed_book_mid": 0.0,
+   "usable": true
+  },
+  {
+   "id": 2,
+   "type": "gist",
+   "question": "The determinant is computed by a general criterion that does not depend on the specific group. What are its inputs (the projection and the factorization, with their sizes and integrality conditions), and what formula does it give for log det(T_A)?",
+   "answer": "Input: an orthogonal projection P = P* = P^2 in M_m(Q[G]) whose denominators are cleared by an odd integer D, and whose reduction mod 2 factors as P̄ = uv through r columns over F_2[G]. For any q = 2^k > 1 with q ≡ 1 mod D, this gives an integral, rationally invertible matrix A of size r+m with log det(T_A) = (r − τ_m(P)) log q. This is negative exactly when the real trace of P is larger than r.",
+   "must_include": [
+    "P is a rational orthogonal projection with odd denominators, and its mod-2 reduction factors through r columns",
+    "q = 2^k ≡ 1 mod D",
+    "log det = (r − τ_m(P)) log q, which is negative when τ_m(P) > r"
+   ],
+   "key_confirmed": true,
+   "closed_book_novice": 0.0,
+   "closed_book_weak": 0.0,
+   "closed_book_mid": 0.0,
+   "usable": true
+  },
+  {
+   "id": 3,
+   "type": "gist",
+   "question": "In the final assembly, what values do r, m, τ_m(P) and the matrix size n take in terms of d = [K_2:F_2] and the finite set S, and what is the exact determinant of the resulting matrix?",
+   "answer": "Here r = d, m = d+1 and τ(P) = d + θ with θ = (1/3)(2/3)^{|S|}, so n = 2d+1. The determinant is exactly q^{−θ}, where q = 2^k ≡ 1 mod D and D = 3^{1+|S|}.",
+   "must_include": [
+    "r = d, m = d+1, n = 2d+1",
+    "τ(P) = d + θ with θ = (1/3)(2/3)^{|S|}",
+    "det = q^{−θ}"
+   ],
+   "key_confirmed": true,
+   "closed_book_novice": 0.0,
+   "closed_book_weak": 0.0,
+   "closed_book_mid": 0.0,
+   "usable": true
+  },
+  {
+   "id": 4,
+   "type": "step",
+   "question": "The projection p = p_1 ∏_{s∈S}(1 − p_s) is built from the averaging idempotents p_h = (1+z_h+z_h^2)/3. Why does psp = 0 hold for every s ∈ S?",
+   "answer": "Conjugation moves coordinates, s p_h s^{-1} = p_{sh}, so s p s^{-1} contains the factor p_s, while p contains the factor 1 − p_s. All these coordinate idempotents commute, so p·(s p s^{-1}) contains p_s(1−p_s) = 0, and therefore psp = p(sps^{-1})s = 0.",
+   "must_include": [
+    "s p s^{-1} contains the factor p_{s·1} = p_s",
+    "p contains 1 − p_s, and the factors commute, so p_s(1 − p_s) = 0 kills the product"
+   ],
+   "key_confirmed": true,
+   "closed_book_novice": 0.0,
+   "closed_book_weak": 0.0,
+   "closed_book_mid": 0.0,
+   "usable": true
+  },
+  {
+   "id": 5,
+   "type": "step",
+   "question": "Why is the identity coefficient of p = p_1 ∏_{s∈S}(1 − p_s) equal to (1/3)(2/3)^{|S|}? What fact about the coordinates is needed?",
+   "answer": "The labels {1} ∪ S are distinct, because S is a set that excludes 1. The factors therefore live in distinct direct summands of ⊕C_3, and the identity coefficient of a product of elements from independent summands is the product of their identity coefficients. Each factor contributes [1]p_1 = 1/3 and [1](1 − p_s) = 2/3.",
+   "must_include": [
+    "the coordinates {1} ∪ S are distinct (1 ∉ S), so the factors lie in independent direct summands",
+    "identity coefficients multiply: 1/3 from p_1 and 2/3 from each 1 − p_s"
+   ],
+   "key_confirmed": true,
+   "closed_book_novice": 0.0,
+   "closed_book_weak": 0.0,
+   "closed_book_mid": 1.0,
+   "usable": true
+  },
+  {
+   "id": 6,
+   "type": "step",
+   "question": "With P = diag(I_d, p), u = (X ; fC) and v = (Y  Cw), why does uv equal the reduction P̄ = diag(I_d, p̄)? Justify each block.",
+   "answer": "The top-left block is XY = I_d. The off-diagonal blocks are XCw = 0 because XC = 0, and fCY = 0 because CY = 0. The bottom-right block is fC^2w = fCw = p̄ h_0^{-1} C_ij p̄, and expanding h_0^{-1}C_ij = 1 + Σ s gives p̄^2 + Σ p̄ s p̄ = p̄, since p̄ s p̄ = 0 is the mod-2 reduction of psp = 0.",
+   "must_include": [
+    "off-diagonal blocks vanish because XC = 0 and CY = 0",
+    "C^2 = C and fCw = p̄h_0^{-1}C_ij p̄",
+    "this equals p̄ because the identity term gives p̄^2 = p̄ and the s-terms vanish since p̄ s p̄ = 0"
+   ],
+   "key_confirmed": true,
+   "closed_book_novice": 0.0,
+   "closed_book_weak": 0.0,
+   "closed_book_mid": 0.0,
+   "usable": true
+  },
+  {
+   "id": 7,
+   "type": "step",
+   "question": "When the mod-2 factorization is lifted to a factorization of e = P mod q (q = 2^k) using arbitrary lifts u_0, v_0, the element W = e − e u_0 v_0 e satisfies W^k = 0. Why?",
+   "answer": "Modulo 2, e u_0 v_0 e reduces to P̄ uv P̄ = P̄^3 = P̄ by idempotence, so W ≡ 0 mod 2, meaning every coefficient of W is even. Every coefficient of a product of k such matrices is divisible by 2^k = q, so W^k = 0 over Z/qZ.",
+   "must_include": [
+    "Z = eu_0v_0e ≡ P̄uvP̄ = P̄ mod 2, so W has only even coefficients",
+    "a product of k even-coefficient matrices is divisible by 2^k = q, hence zero"
+   ],
+   "key_confirmed": true,
+   "closed_book_novice": 0.0,
+   "closed_book_weak": 0.0,
+   "closed_book_mid": 1.0,
+   "usable": true
+  },
+  {
+   "id": 8,
+   "type": "step",
+   "question": "Why is the lower-right block q^{-1}(UV − P − q(I_m − P)) of the integral matrix A actually integral?",
+   "answer": "P + q(I−P) = qI + (1−q)P is integral, because D divides q−1 and DP is integral. Its reduction mod q is P_q, since qI vanishes and 1−q ≡ 1. UV also reduces to P_q because U, V lift a mod-q factorization of P_q. So UV − P − q(I−P) is an integer matrix divisible by q.",
+   "must_include": [
+    "qI + (1−q)P is integral because D | q−1",
+    "both UV and qI + (1−q)P reduce to P_q mod q, so their difference is divisible by q"
+   ],
+   "key_confirmed": true,
+   "closed_book_novice": 0.0,
+   "closed_book_weak": 0.0,
+   "closed_book_mid": 0.0,
+   "usable": true
+  },
+  {
+   "id": 9,
+   "type": "step",
+   "question": "In the tracial log-derivative formula, the derivative of τ(log N) is computed from the series log N = (log c)I − Σ W^j/j with W = I − N/c. Without assuming that N and N' commute, how does one get τ(N^{-1}N')?",
+   "answer": "The derivative of W^j is the sum of j terms W^a W' W^{j−1−a}, and by cyclicity of the trace each of these has trace τ(W^{j−1}W'). The j cancels the 1/j, and W' = −N'/c, so the result is (1/c) Σ_j τ(W^{j−1}N'). Since Σ_j W^{j−1} = (I−W)^{-1} = c N^{-1}, this equals τ(N^{-1}N').",
+   "must_include": [
+    "cyclicity makes all j terms in d(W^j) have the same trace τ(W^{j−1}W'), so commutativity is not needed",
+    "the Neumann series Σ W^{j−1} = (I−W)^{-1} = cN^{-1}"
+   ],
+   "key_confirmed": true,
+   "closed_book_novice": 0.0,
+   "closed_book_weak": 0.0,
+   "closed_book_mid": 0.5,
+   "usable": true
+  },
+  {
+   "id": 10,
+   "type": "step",
+   "question": "Along the path M(x) = L_x B R_x of block shears, why does τ(log(M*M)) have zero derivative?",
+   "answer": "By the product rule and the shears' inverses, M'M^{-1} = L_x'L_x^{-1} + (L_xB)(R_x'R_x^{-1})(L_xB)^{-1}. Both L_x'L_x^{-1} and R_x'R_x^{-1} have only off-diagonal blocks, so their traces are zero, and cyclicity makes the trace of the conjugated term zero too. The log-derivative formula, d/dx τ(log M*M) = 2 Re τ(M'M^{-1}), then gives 0.",
+   "must_include": [
+    "L'L^{-1} and R'R^{-1} have zero diagonal blocks, so their traces are zero",
+    "the conjugated term has zero trace by cyclicity",
+    "this is plugged into d/dx τ(log M*M) = 2 Re τ(M'M^{-1})"
+   ],
+   "key_confirmed": true,
+   "closed_book_novice": 0.0,
+   "closed_book_weak": 0.0,
+   "closed_book_mid": 0.0,
+   "usable": true
+  },
+  {
+   "id": 11,
+   "type": "step",
+   "question": "At the endpoint x = 0, how is τ(log(B*B)) computed for B = diag(qI_r, −q^{-1}P − (I_m − P)), and which properties of P are used?",
+   "answer": "Because P = P* = P^2, P(I−P) = 0, so J*J = q^{-2}P + (I−P): this is q^{-2} on the range of P and 1 on its complement. Functional calculus then gives log(B*B) = 2 log q · diag(I_r, −P), whose trace is 2(r − τ_m(P)) log q.",
+   "must_include": [
+    "P is self-adjoint and idempotent, so B*B = diag(q^2 I, q^{-2}P + I − P)",
+    "log(B*B) = 2 log q · diag(I_r, −P), with trace 2(r − τ(P)) log q"
+   ],
+   "key_confirmed": true,
+   "closed_book_novice": 0.0,
+   "closed_book_weak": 0.5,
+   "closed_book_mid": 1.0,
+   "usable": true
+  },
+  {
+   "id": 12,
+   "type": "transfer",
+   "question": "Suppose the chosen coefficient has a support set S with exactly one element. Compute θ, the denominator-clearing integer D, the smallest admissible q, and the exact determinant of the resulting matrix.",
+   "answer": "θ = (1/3)(2/3) = 2/9 and D = 3^2 = 9. The multiplicative order of 2 mod 9 is 6, so the smallest admissible q is 2^6 = 64. The determinant is 64^{−2/9} = 2^{−4/3}.",
+   "must_include": [
+    "θ = 2/9 and D = 9",
+    "q = 64 (order of 2 mod 9 is 6)",
+    "det = 64^{−2/9} = 2^{−4/3}"
+   ],
+   "key_confirmed": true,
+   "closed_book_novice": 0.0,
+   "closed_book_weak": 0.0,
+   "closed_book_mid": 0.0,
+   "usable": true
+  },
+  {
+   "id": 13,
+   "type": "transfer",
+   "question": "Suppose the order-3 cyclic coordinates are replaced by order-2 ones, with p_h = (1 + z_h)/2, and everything else is kept. At what point does the argument break, and why?",
+   "answer": "p is still a projection with a positive trace, but its coefficients now have denominators that are powers of 2, not odd numbers. So p, and hence P, cannot be reduced modulo 2 (or modulo q = 2^k), and no q = 2^k is ≡ 1 mod D. The mod-2 factorization step and the integral lifting both fail.",
+   "must_include": [
+    "the denominators become powers of 2, so D is not odd",
+    "reduction mod 2 / mod q is undefined (and q ≡ 1 mod D is impossible), so the factorization and integrality steps fail"
+   ],
+   "key_confirmed": true,
+   "closed_book_novice": 0.0,
+   "closed_book_weak": 0.0,
+   "closed_book_mid": 0.5,
+   "usable": true
+  },
+  {
+   "id": 14,
+   "type": "transfer",
+   "question": "Suppose the complementary factors are dropped and one uses p = p_1 alone (with S nonempty), keeping the same P, u, v. Which step fails, and what does the trace become?",
+   "answer": "The trace would be d + 1/3, but p̄ s p̄ is generally nonzero, because s p_1 s^{-1} = p_s and p_1 p_s ≠ 0. So fCw = p̄ + Σ p̄ s p̄ ≠ p̄, the bottom-right block of uv is not p̄, and uv ≠ P̄. The binary factorization through d columns is lost.",
+   "must_include": [
+    "psp = 0 fails (p_1 and p_s = sp_1s^{-1} do not annihilate each other)",
+    "consequently fCw ≠ p̄, so uv ≠ P̄ and the factorization fails (trace would be d + 1/3)"
+   ],
+   "key_confirmed": true,
+   "closed_book_novice": 0.0,
+   "closed_book_weak": 0.0,
+   "closed_book_mid": 0.0,
+   "usable": true
+  },
+  {
+   "id": 15,
+   "type": "transfer",
+   "question": "Apply the integral-matrix construction to the trivial group with m = r = 1, P = (1), u = v = 1, D = 1, q = 2 and lifts U = V = 1. Write down A and check its determinant against the trace formula.",
+   "answer": "The lower-right block is (UV − P − q(I−P))/q = (1 − 1 − 0)/2 = 0, so A = [[2, 1], [1, 0]]. Its determinant is −1, with absolute value 1, which matches q^{r − τ(P)} = 2^{1−1} = 1.",
+   "must_include": [
+    "A = [[2,1],[1,0]]",
+    "|det A| = 1 = q^{r − τ(P)} = 2^0"
+   ],
+   "key_confirmed": true,
+   "closed_book_novice": 0.0,
+   "closed_book_weak": 0.5,
+   "closed_book_mid": 0.5,
+   "usable": true
+  }
+ ]
+}

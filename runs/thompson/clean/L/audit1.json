@@ -1,0 +1,30 @@
+{
+ "statements": [],
+ "introduced": [],
+ "source_doubts": [
+  {
+   "where": "Corollary cor:nonunitarizable (Section 3.1), proof",
+   "quote": "The conclusion is then quoted from the companion unitarizability theorem \\cite[Theorem~1.1]{OpenAIUnitarizability2026}.",
+   "problem": "The whole deduction rests on a companion theorem whose statement appears in neither text. For the step to hold, that theorem must give, for every countable nonamenable group, a uniformly bounded non-unitarizable representation with bound 1+epsilon. That is the Dixmier unitarizability problem, which was open in the published literature as far as I know. The corollary therefore cannot be checked from the source and is conditional on the companion paper. The source has the same gap; the rewrite kept it and flagged it.",
+   "already_marked_unverified": true
+  },
+  {
+   "where": "Corollary cor:percolation (Section 3.2), proof",
+   "quote": "Apply the companion percolation result \\cite[Corollary~1.2]{OpenAIPercolation2026} to \\(F\\), which is nonamenable by \\cref{thm:main}.",
+   "problem": "Every assertion of the corollary is imported from an unstated companion result: finiteness of the L2 operator norm at p_c, p_c < p_{2->2} <= p_u, infinitely many infinite clusters on (p_c, p_u), and the simultaneous statement on [p_1, p_2]. For arbitrary nonamenable Cayley graphs, p_c < p_u is the Benjamini–Schramm conjecture, open in general as far as I know. Nothing is derived in the source, so the step is unjustified from the text. The source has the same gap; the rewrite kept it and flagged it.",
+   "already_marked_unverified": true
+  }
+ ],
+ "unverified_marks": [
+  {
+   "where": "Proof of Corollary cor:nonunitarizable (Section 3.1)",
+   "concern": "The companion Theorem 1.1 is cited but not stated, and the rewriter could not consult it. The deduction needs it to hold for every countable nonamenable group with the 1+epsilon bound, which is the open Dixmier problem in the known literature.",
+   "warranted": true
+  },
+  {
+   "where": "Proof of Corollary cor:percolation (Section 3.2)",
+   "concern": "The companion Corollary 1.2 is cited but not stated. All conclusions (the bound at p_c, p_c < p_{2->2} <= p_u, non-uniqueness on (p_c, p_u), the simultaneous interval [p_1, p_2]) come from it, and p_c < p_u for general nonamenable Cayley graphs was an open conjecture.",
+   "warranted": true
+  }
+ ]
+}

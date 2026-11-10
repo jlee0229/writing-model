@@ -1,0 +1,247 @@
+[
+ {
+  "main_result": "For every finite-dimensional complex vector space V, every a>=2 and every b>=a(a-1), the canonical map mu_{a,b,V}: Sym^b(Sym^a V) -> Sym^a(Sym^b V), induced by multiplication of invariant tensors, is surjective. Since complete reducibility holds over C, this gives a GL(V)-equivariant embedding Sym^a(Sym^b V) into Sym^b(Sym^a V) in the same range. The bound does not depend on dim V.",
+  "proof_strategy": "The argument dualizes surjectivity to a statement about symmetric a-linear forms T on Sym^b V whose diagonal vanishes on products of b vectors, and then proves T=0 by induction on a. Step 1 uses the split binary form X^r+cY^r (r=a-1) to get T(x^rQ,...,x^rQ,t^rQ)=0 for products Q of m=b-r vectors. Step 2 applies the lowering operators D_{y_k,t} (which lower t-degree and raise y_k-degree) to turn t^r into t^b, and a Fischer-adjoint positivity lemma (p>q implies injectivity) peels them off to get T(x^rQ,...,x^rQ,t^b)=0. Step 3 applies the induction hypothesis for a-1 to the r remaining slots, using m>=r^2. Step 4 uses D_{x,v_i}^r with one shared variable x to remove the common power x^r, again using the degree inequality, so that T vanishes on pure powers; polarization then gives T=0. I checked the degree bookkeeping, the Fischer commutator identity ED-DE=N_U-N_Y, the coefficient extraction in Step 1, and the Step 4 inequality b-r+1>=r^2+1 (equivalent to b>=r(r+1)), and found them consistent. Parts that depend on the cited literature (Brion, Ikenmeyer, the CIM kernels, Problem 7.19) I could not verify.",
+  "hardest_part": "The most delicate part is Step 4's bookkeeping: the r^2 lowering operators all raise the same x-block, and one must check at each application that the v_i-degree (at least m+1) exceeds the current x-degree (at most r^2-1). I checked this and it holds exactly under b>=r(r+1), but it depends on tracking which earlier operators hit the same block. The Fischer-inner-product lemma is short and I verified it, but the reader must recognize that the composition is injective only as a composite of degree-checked steps. The literature claims in the introduction are the part I could not check at all.",
+  "issues": [
+   {
+    "where": "Corollary (sec:comparison)",
+    "quote": "In particular, this gives the sixth symmetric-power comparison for $b\\ge30$.",
+    "kind": "ambiguous_statement",
+    "severity": 2,
+    "what_i_needed": "'Sixth symmetric-power comparison' is not defined. The only reading that matches is a=6 (since 6*5=30), but the text does not say so. As written, b>=30 does not follow from the theorem for other values of a, so the 'in particular' needs to be stated as the a=6 case."
+   },
+   {
+    "where": "Proof of Lemma (sec:differential), after eq:norm",
+    "quote": "Consequently, for a polynomial $h$ of the indicated bidegree,",
+    "kind": "unjustified_step",
+    "severity": 1,
+    "what_i_needed": "The identity (eq:norm) needs N_U h = p h and N_Y h = q h, which hold because h is bihomogeneous of bidegree (p,q). This should be written out; I could only supply it myself."
+   },
+   {
+    "where": "Proof of Lemma (sec:differential)",
+    "quote": "Thus, for $D=\\D{Y}{U}$ and $E=\\D{U}{Y}$, one has $D^*=E$.",
+    "kind": "undefined_notation",
+    "severity": 1,
+    "what_i_needed": "The letter E is already used in Section 2 for Sym^b V (E=\\Sym^b V, and P_a is used for (Sym V)^{\\otimes a} in the introduction while P also denotes a product in Section 2). Reusing E here is confusing; a different letter should be used."
+   },
+   {
+    "where": "Step 2 of Proposition (sec:vanishing)",
+    "quote": "makes every operator injective, and hence $H_x=0$.",
+    "kind": "unjustified_step",
+    "severity": 1,
+    "what_i_needed": "Spell out the peeling argument: the composite applied to H_x is zero by the k=m case of (first-composition) and the binary identity. Then, from the last operator back to the first, each stage is zero because the operator is injective on bidegree (b-i+1, r), with p-q=m-i+1>=1. The text only asserts this in one sentence."
+   },
+   {
+    "where": "Section 2, paragraph after the criterion",
+    "quote": "Here $T(P,\\ldots,P)$ is a homogeneous degree-$a$ polynomial on $\\Sym^b V$, tested on products of $b$ vectors, viewed as linear forms on $V^*$.",
+    "kind": "ambiguous_statement",
+    "severity": 1,
+    "what_i_needed": "It is unclear what 'viewed as linear forms on V^*' means here, and which 'two descriptions' the next sentence ('The pairing just proved connects these two descriptions') refers to. This paragraph does not add to the proof and should either be made precise or removed."
+   },
+   {
+    "where": "Section 2, proof of the annihilator criterion",
+    "quote": "Every symmetric $a$-linear form arises this way: its linearization on $E^{\\otimes a}$ restricts to a functional on $R_b$",
+    "kind": "ambiguous_statement",
+    "severity": 1,
+    "what_i_needed": "Clarify that R_b=(E^{\\otimes a})^{S_a} is the invariant subspace, so a symmetric form on E gives a functional on R_b, and that T_lambda(w)=lambda(Av(w)) reproduces T by symmetry. The word 'linearization' is used loosely, and the averaging of simple tensors is defined only for the symmetric-power quotient in the introduction."
+   },
+   {
+    "where": "Section 3, introduction to the lemma",
+    "quote": "The criterion below is the positive-weight injectivity in the usual",
+    "kind": "unjustified_step",
+    "severity": 1,
+    "what_i_needed": "The claimed link to sl_2 weight strings in Fulton--Harris is not used in the proof. I verified the direct Fischer-adjoint argument (D^*=E, ED-DE=N_U-N_Y), which is self-contained. The reader needs to know which claim the proof actually depends on."
+   },
+   {
+    "where": "Introduction, comparison with Ikenmeyer",
+    "quote": "For fixed $a$ and $B\\ge a$, injectivity at $(a,B)$ propagates to every $(a,b)$ with $b\\ge B$",
+    "kind": "ambiguous_statement",
+    "severity": 1,
+    "what_i_needed": "This is about the opposite canonical direction and a dimension hypothesis (dim V >= b). The text should say explicitly how it differs from the present statement, which has no dimension hypothesis. I could not check the cited result."
+   },
+   {
+    "where": "Introduction, paragraph on the canonical kernels",
+    "quote": "Indeed, the canonical map has nonzero kernels at the diagonal pairs",
+    "kind": "unjustified_step",
+    "severity": 1,
+    "what_i_needed": "The external claim 'in suitable dimensions' is not specified (which dimensions, and which kernel). I cannot verify it from the text, so it is an external dependency the reader must accept on trust."
+   },
+   {
+    "where": "Introduction, paragraph on Landsberg's Problem 7.19",
+    "quote": "It also answers positively the request for a polynomial bound",
+    "kind": "ambiguous_statement",
+    "severity": 1,
+    "what_i_needed": "The translation (d=b, n=a, w=dim V) is asserted but the exact form of Problem 7.19 is not given. The theorem is stated for every finite-dimensional V, so 'including when w=n' needs the problem's exact hypotheses to be checked."
+   },
+   {
+    "where": "Remark (after Corollary)",
+    "quote": "this proves the same bound in every finite dimension, without a stable-dimension reduction.",
+    "kind": "ambiguous_statement",
+    "severity": 1,
+    "what_i_needed": "The remark says 'every finite dimension', while the theorem is already dimension-free. Clarify whether the remark is making a stronger claim than the theorem (e.g., about infinite-dimensional V) or only restating it."
+   }
+  ]
+ },
+ {
+  "main_result": "For every finite-dimensional complex V, every a>=2 and every b>=a(a-1), the canonical map mu_{a,b,V}: Sym^b(Sym^a V) -> Sym^a(Sym^b V) is surjective (equivalently A_b = R_b). Consequence: a GL(V)-equivariant embedding Sym^a(Sym^b V) into Sym^b(Sym^a V) exists in that range, by complete reducibility. The bound does not depend on dim V.",
+  "proof_strategy": "The image of mu is the span of P^{⊗a} over products P of b vectors, so surjectivity reduces to: a symmetric a-linear form T on Sym^b V vanishing on the diagonal at all products is zero (Section 2, which I checked). Proposition 3.1 is proved by induction on a. Step 1 factors X^r + cY^r over C, which gives T(x^rQ,...,x^rQ,t^rQ)=0 for a product Q of m=b-r vectors. Step 2 applies r... specifically m derivatives D_{y_k}{t} to H_x = T(x^rQ,...,x^rQ,t^b), and the differential lemma (Fischer inner product, ED-DE = N_U - N_Y, which I verified) lets each step be inverted, giving H_x=0. Step 3 applies the induction hypothesis (a-1=r, with m >= r^2 >= r(r-1)) to the r-linear form Q_i -> T(x^rQ_1,...,x^rQ_r,t^b). Step 4 differentiates in x to remove the common x^r factor, with r^2 injective operators whose degree inequalities I checked, and concludes that T vanishes on pure powers, hence T=0. I could reconstruct every step of the proof and found no definite error; the gaps I list are about clarity and cited claims.",
+  "hardest_part": "The least certain part is the claim that a polynomial identity in Step 2 (and the chained operator compositions in Steps 2 and 4) is inverted correctly at each stage, because the degree bookkeeping and the fact that intermediate polynomials are bihomogeneous must be tracked across several operators. I rechecked this and it holds. I could not independently verify the external claims used only for context: Problem 7.19 of Landsberg, the (5,5)/(6,6) kernel examples in CIM, and the 'sixth comparison' statement.",
+  "issues": [
+   {
+    "where": "Section 4, Step 1 (binary factorization)",
+    "quote": "Substitution in $\\Sym V$ therefore shows, without requiring $x$ and $t$ to be independent, that",
+    "kind": "unjustified_step",
+    "severity": 1,
+    "what_i_needed": "State explicitly that the substitution X->x, Y->t defines an algebra homomorphism from C[X,Y] to Sym V, and that the factor X - alpha zeta^j Y maps to the vector x - alpha zeta^j t, so the product of b vectors is obtained. As written this is asserted, not justified."
+   },
+   {
+    "where": "Section 2, discussion after the criterion",
+    "quote": "Here $T(P,\\ldots,P)$ is a homogeneous degree-$a$ polynomial on $\\Sym^b V$, tested on products of $b$ vectors, viewed as linear forms on $V^*$.",
+    "kind": "ambiguous_statement",
+    "severity": 1,
+    "what_i_needed": "A precise statement of what the polynomial is and on what space. T(P,...,P) is a degree-a function of P in Sym^b V; the phrase 'viewed as linear forms on V^*' is unclear and does not match the later use, where products are evaluated on pure powers."
+   },
+   {
+    "where": "Section 1, eq. for P_a and Section 2 (P as product), Section 3 (E in Lemma proof)",
+    "quote": "Fix integers $a,b\\ge1$ and put $E=\\Sym^b V$.",
+    "kind": "undefined_notation",
+    "severity": 1,
+    "what_i_needed": "The letter E is used for Sym^b V in Section 2 and for the operator D_U{Y} in the proof of the lemma; P is used both for (Sym V)^{⊗a} in the introduction and for a product of b vectors. A reader needs these clashes resolved or renamed."
+   },
+   {
+    "where": "Section 3, proof of Lemma (Fischer product)",
+    "quote": "Differentiation by a coordinate is adjoint to multiplication by that coordinate.",
+    "kind": "unjustified_step",
+    "severity": 1,
+    "what_i_needed": "A one-line check that the Fischer product gives <X^alpha, X^beta> = alpha! delta and that d/dX_k has adjoint X_k, so that D^* = E. I verified this and the commutator ED - DE = N_U - N_Y, but the manuscript only states them."
+   },
+   {
+    "where": "Section 4, Step 2 (after the composition formula)",
+    "quote": "Here $y_i$ already has degree $r$ in $H_x$, but no earlier operator has increased its degree.",
+    "kind": "unjustified_step",
+    "severity": 1,
+    "what_i_needed": "Why H_x has degree exactly r in each y_i (because Q = y_1...y_m is linear in each y_i and x^rQ occurs r times). The claim is correct but not stated with its reason. The statement that injectivity lets one pass back through all m operators in reverse is also left implicit."
+   },
+   {
+    "where": "Section 4, Step 4 (source/destination degree count)",
+    "quote": "Before any one is applied, its degree is therefore at most $r^2-1$.",
+    "kind": "unjustified_step",
+    "severity": 1,
+    "what_i_needed": "The count that before the j-th of the r^2 operators the x-degree is j-1 and the source degree is b-(j-1)... I checked it: the source degree is at least m+1 and the x-degree at most r^2-1, so the condition m+1 > r^2-1 holds because m >= r^2. The text gives the numbers but not the comparison step."
+   },
+   {
+    "where": "Section 4, Step 4 (second composition)",
+    "quote": "The last equality follows from \\eqref{eq:inductive-vanishing} for every",
+    "kind": "unjustified_step",
+    "severity": 1,
+    "what_i_needed": "Why the derivative of T(v_1^b,...,v_r^b,t^b) in slot i gives only the slot-i factor x^r v_i^m, using multilinearity and D_x(v^j)=j v^{j-1}x (directional derivative of the power). I verified this, but the manuscript does not write out the coefficient b!/(b-r)! per slot."
+   },
+   {
+    "where": "Introduction, paragraph on Problem 7.19",
+    "quote": "it answers positively the request for a polynomial bound in",
+    "kind": "ambiguous_statement",
+    "severity": 2,
+    "what_i_needed": "The precise statement of Landsberg's Problem 7.19 and the translation d=b, n=a, w=dim V, so a reader can check that a bound independent of w 'answers' the request. The phrase 'polynomial bound' is not explained, since the bound here is quadratic."
+   },
+   {
+    "where": "Corollary (comparison) statement",
+    "quote": "In particular, this gives the sixth symmetric-power comparison for $b\\ge30$.",
+    "kind": "undefined_notation",
+    "severity": 2,
+    "what_i_needed": "A definition of the 'sixth symmetric-power comparison'. Setting a=6 gives a(a-1)=30, but the term is never defined in the text."
+   },
+   {
+    "where": "Introduction, diagonal-pairs remark",
+    "quote": "the canonical map has nonzero kernels at the diagonal pairs",
+    "kind": "ambiguous_statement",
+    "severity": 1,
+    "what_i_needed": "Clarify which map is meant at (a,b)=(5,5) and (6,6) (an endomorphism of Sym^5(Sym^5 V), so kernel nonzero means non-surjective) and the dimensions in which it occurs. I cannot verify this external claim from the text."
+   },
+   {
+    "where": "Introduction, proof-mechanism paragraph",
+    "quote": "The first sequence frees the last slot from the common product; induction lets the product",
+    "kind": "lost_thread",
+    "severity": 1,
+    "what_i_needed": "A plain description of how the two 'differential sequences' correspond to Steps 2 and 4 of Proposition 3.1 (which slots, which operators, which degree). The mechanism paragraph is vague and I could only match it to the proof after working it out myself."
+   }
+  ]
+ },
+ {
+  "main_result": "For integers a>=2 and b>=a(a-1) and any finite-dimensional complex V, the canonical map Sym^b(Sym^a V) -> Sym^a(Sym^b V) is surjective (uniformly in dim V). Corollary: for the same range there is a GL(V)-equivariant embedding Sym^a(Sym^b V) -> Sym^b(Sym^a V), obtained by complete reducibility from the surjection.",
+  "proof_strategy": "Surjectivity is dualized: a functional on R_b = Sym^a(Sym^b V) corresponds to a symmetric a-linear form T on Sym^b V, and it suffices to show that T vanishing on the diagonal at all products of b vectors forces T=0. This is proved by induction on a. A binary factorization X^r + cY^r = prod(X - alpha zeta^j Y) with r=a-1 gives, from the linear coefficient in c, the vanishing T(x^rQ,...,x^rQ,t^rQ)=0. Lemma (sl2-type): D=sum Y_k d/dU_k is injective on bidegree (p,q) when p>q, via the identity ||Dh||^2-||Eh||^2=(p-q)||h||^2 with ED-DE=N_U-N_Y. Step 2 differentiates t-slot against y_1..y_m to strip Q from the last slot; Step 3 applies induction to the remaining r slots; Step 4 differentiates pure powers v_i^b into a shared variable x to remove the common power x^r and conclude T vanishes on pure powers. The bound b>=a(a-1) enters only as m=b-r>=r^2. I checked the commutator identity, the inner-product argument, the coefficient bookkeeping and the degree inequalities in Steps 2 and 4, and they hold.",
+  "hardest_part": "The composition bookkeeping in Step 2 and Step 4: confirming that each intermediate polynomial has exactly the stated bidegree when Lemma is applied (which slot is the U-variable, which the Y-variable, and that no earlier operator touched the Y-variable), and the factor b!/(b-k)! and (b!/m!)^r constants. I verified these by hand, but the text leaves them terse, and the Fischer-inner-product adjointness D*=E is asserted rather than shown in detail.",
+  "issues": [
+   {
+    "where": "Section 3, proof of Lemma (lem:shift)",
+    "quote": "For $D=\\D{Y}{U}$ and $E=\\D{U}{Y}$, one has $D^*=E$.",
+    "kind": "undefined_notation",
+    "severity": 1,
+    "what_i_needed": "E is already used in Section 2 for Sym^b V (\"put E=\\Sym^b V\"). Rename the operator here, for example D' or D^dagger, to avoid a clash."
+   },
+   {
+    "where": "Section 1 (History and significance), paragraph after Theorem 1",
+    "quote": "It also answers positively the request for a polynomial bound",
+    "kind": "unjustified_step",
+    "severity": 2,
+    "what_i_needed": "The statement of Problem 7.19 in the cited source, so the reader can check that d>=n(n-1) with w=n matches the requested bound. Without it this is a literature claim I cannot verify."
+   },
+   {
+    "where": "Section 1, paragraph on diagonal case a=b",
+    "quote": "the canonical map has nonzero kernels at the diagonal pairs",
+    "kind": "unjustified_step",
+    "severity": 1,
+    "what_i_needed": "A statement of what the cited result says for (5,5) and (6,6), including the dimensions. This is used to show that a canonical endomorphism can fail to be invertible, so the reader needs the exact claim."
+   },
+   {
+    "where": "Corollary cor:comparison",
+    "quote": "In particular, this gives the sixth symmetric-power comparison for $b\\ge30$.",
+    "kind": "ambiguous_statement",
+    "severity": 1,
+    "what_i_needed": "What 'the sixth symmetric-power comparison' means. Presumably it is the case a=6 (a(a-1)=30), but the text never defines it."
+   },
+   {
+    "where": "Section 3 (proof of Lemma), and Section 1 'proof mechanism'",
+    "quote": "this accumulation leads to the quadratic sufficient bound.",
+    "kind": "lost_thread",
+    "severity": 1,
+    "what_i_needed": "An explicit explanation of where a(a-1) comes from. I had to reconstruct it: Step 3 needs m>=r(r-1), Step 4 needs m+1>r^2-1, and together with m=b-r this gives b>=r(r+1)=a(a-1). The text should say so."
+   },
+   {
+    "where": "Section 2, after the polarization identity",
+    "quote": "every monomial missing an index cancels, and the only degree-$k$ monomial containing all $k$ indices has coefficient $k!$.",
+    "kind": "unjustified_step",
+    "severity": 1,
+    "what_i_needed": "A line of justification: for a monomial with support S, the coefficient is a multinomial times the sum over J containing S of (-1)^{k-|J|}, which vanishes unless S is the full index set. Stated as an assertion only."
+   },
+   {
+    "where": "Section 2, paragraph after the criterion",
+    "quote": "Here $T(P,\\ldots,P)$ is a homogeneous degree-$a$ polynomial on $\\Sym^b V$, tested on products of $b$ vectors, viewed as linear forms on $V^*$.",
+    "kind": "ambiguous_statement",
+    "severity": 1,
+    "what_i_needed": "A clear statement of which variables the polynomial lives in and how 'linear forms on V^*' enters. The sentence before it, 'products of a linear forms in coordinate degree b', and the phrase 'reversed roles of the two parameters in the equation interpretation' are not defined anywhere in the text."
+   },
+   {
+    "where": "Section 1, final paragraph of the Remark",
+    "quote": "without a stable-dimension reduction",
+    "kind": "undefined_notation",
+    "severity": 1,
+    "what_i_needed": "A definition or reference for 'stable-dimension reduction'. The term is never defined and the reader cannot check what is being avoided."
+   },
+   {
+    "where": "Section 1 (History and significance)",
+    "quote": "The least stabilization degree is one more than its highest nonzero degree, or zero if $R=A$.",
+    "kind": "ambiguous_statement",
+    "severity": 1,
+    "what_i_needed": "The definition of stabilization degree, i.e. the least b0 such that mu is surjective for all b>=b0, stated before this claim. The claim is correct under that definition, but the text does not state it."
+   },
+   {
+    "where": "Section 3, Lemma statement and proof",
+    "quote": "Give the polynomial ring the positive definite Fischer, or apolar, Hermitian inner product",
+    "kind": "unjustified_step",
+    "severity": 1,
+    "what_i_needed": "A short justification that D*=E for the Fischer product, that is, adjointness of differentiation and multiplication for the Hermitian Fischer product, and that N_U-N_Y is self-adjoint. Only the commutator is shown."
+   }
+  ]
+ }
+]

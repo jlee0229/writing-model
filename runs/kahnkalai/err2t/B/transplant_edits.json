@@ -1,0 +1,22 @@
+[
+ {
+  "find": "In particular, \\emph{for every fixed $W$ the source has law $\\nu$}. The\ntarget need not.",
+  "replace": "In particular, for every fixed $W$ the source has law $\\nu$. Since\nstep~2 samples from the posterior given $Y$, \\emph{the target, like the\nsource, has law $\\nu$ for every fixed $W$}, that is,\n$\\sum_{c\\in B}K_W(c,b)=\\nu_b$."
+ },
+ {
+  "find": "$t_{vb}(W)\\le\\sum_cK^v_W(c,b)$. If $K^v_W(c,b)>0$ and\n$J\\subseteq T_b$, then $J\\subseteq T_b\\subseteq A_v(c)$ by\nFact~A(a). Hence, using $\\sum_bK^v_W(c,b)=\\nu_v(c)$ from\n\\eqref{eq:kernel} and the $\\alpha_j$-spread of $\\nu_v$,",
+  "replace": "$t_{vb}(W)\\le\\sum_cK^v_W(c,b)$. If $J\\subseteq T_b$, then\n$J\\subseteq T_b\\subseteq A_v(b)$ by Fact~A(a). Hence, using\n$\\sum_cK^v_W(c,b)=\\nu_v(b)$ from Section~\\ref{sec:resampling} and the\n$\\alpha_j$-spread of $\\nu_v$,"
+ },
+ {
+  "find": " \\le\\sum_{c:\\,J\\subseteq A_v(c)}\\ \\sum_{b}K^v_W(c,b)\n =\\sum_{c:\\,J\\subseteq A_v(c)}\\nu_v(c)\\le\\alpha_j^{|J|}.",
+  "replace": " \\le\\sum_{b:\\,J\\subseteq A_v(b)}\\ \\sum_{c}K^v_W(c,b)\n =\\sum_{b:\\,J\\subseteq A_v(b)}\\nu_v(b)\\le\\alpha_j^{|J|}."
+ },
+ {
+  "find": "In words, the fragment lies inside the \\emph{source} label, and the\nsource has law $\\nu_v$ at every fixed $W$.",
+  "replace": "In words, the fragment lies inside the \\emph{target} label, and the\ntarget has law $\\nu_v$ at every fixed $W$."
+ },
+ {
+  "find": "the source, whose law is $\\nu_v$ at every fixed $W$.",
+  "replace": "the target, whose law is $\\nu_v$ at every fixed $W$."
+ }
+]

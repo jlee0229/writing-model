@@ -1,0 +1,19 @@
+{
+ "statements": [],
+ "introduced": [],
+ "source_doubts": [
+  {
+   "where": "Proof of Proposition (recurrences), Part B, Step B1 (source: 'Transitions from one', second paragraph)",
+   "quote": "Choose a clause initially satisfied for \\(q\\); nesting makes it satisfied for \\(q'\\) as well. This same clause is fixed for all flips being counted.",
+   "problem": "Nesting is applied in the wrong direction. For q<q' the gates at index q' test the weaker child predicate P_{l-1,Q-q'} >= P_{l-1,Q-q} for zero, so a clause holding at q' holds at q, not conversely; a clause satisfied at q can fail at q'. The source then uses 'the clause holds for q'' to get P_{l-1,g'}=0 at the gate, which is unjustified as written. The gap is repairable: choose a clause satisfied at index q' (one exists because P_{l,q'}(x)=1); it then holds at q as well, and the rest of the argument gives J_{l,1} <= M^2 J'_0 + r S'_1 unchanged. The rewrite reproduces the sentence, flags it, and continues with a clause that holds at both indices.",
+   "already_marked_unverified": true
+  }
+ ],
+ "unverified_marks": [
+  {
+   "where": "Proof of Proposition (recurrences), Part B, Step B1",
+   "concern": "The source picks a clause satisfied at the smaller index q and claims nesting makes it satisfied at the larger index q'. The mark says the implication only runs from q' to q, and that the argument goes through if the clause is instead chosen satisfied at q'.",
+   "warranted": true
+  }
+ ]
+}

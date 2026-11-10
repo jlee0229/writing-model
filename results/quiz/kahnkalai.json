@@ -1,0 +1,242 @@
+{
+ "slug": "kahnkalai",
+ "questions": [
+  {
+   "id": 1,
+   "type": "gist",
+   "question": "State exactly what the main theorem proves. Give the range of n and H it covers and the upper bound on the containment threshold, including how the logarithmic factor depends on H.",
+   "answer": "For every n ≥ 2 and every finite simple graph H with h = e(H) ≥ 1 edges and at most n vertices (H may depend on n), p_c(n,H) ≤ min{1, 2048e^{50} p_E(n,H)(1+log_2 h)}. Here p_E uses expected ordinary-copy count at least 1/2 for every subgraph. As a consequence, p_c ≤ 6144e^{50} p_E log_2 n.",
+   "must_include": [
+    "bound p_c ≤ min{1, C·p_E(n,H)(1+log_2 h)} with an explicit universal constant (2048e^{50})",
+    "logarithm is of the number of edges h of H, not of n (with the log_2 n corollary)",
+    "holds for all n ≥ 2 and all H with ≥1 edge and ≤ n vertices"
+   ],
+   "key_confirmed": true,
+   "closed_book_novice": 0.0,
+   "closed_book_weak": 0.0,
+   "closed_book_mid": 0.0,
+   "usable": true
+  },
+  {
+   "id": 2,
+   "type": "gist",
+   "question": "The argument covers a whole chain of conditional extensions while paying the logarithmic sampling cost only once. What mechanism makes this possible, and what property of the tree controls the dependence that this mechanism creates?",
+   "answer": "In each round, one product random set W ~ μ_ρ drives the Bayesian (planted-source, posterior-target) resampling at every node of the tree at once. This halves the capacity of every level in that round, so about log_2 ℓ_k + 1 successful rounds suffice. Reusing W creates dependence between levels. That dependence is controlled because labels are disjoint along each path: the potential below a child depends only on W outside that child's label, so the local change-of-measure bound applies to it.",
+   "must_include": [
+    "a single random set W is used simultaneously at all nodes, halving all capacities each round",
+    "disjointness of labels along paths makes the descendant potential depend only on W outside the incoming label, so the change-of-measure bound applies",
+    "only O(log ℓ_k) successful rounds are needed"
+   ],
+   "key_confirmed": true,
+   "closed_book_novice": 0.0,
+   "closed_book_weak": 0.0,
+   "closed_book_mid": 0.0,
+   "usable": true
+  },
+  {
+   "id": 3,
+   "type": "gist",
+   "question": "Describe the overall structure of the proof of the main theorem. What object is built from H, which three properties must it have, and how does the final density 2048e^{50}p_E(1+log_2 h) come out of the general path-covering result for trees?",
+   "answer": "From H one builds a nested chain ∅ = H_0 ⊂ … ⊂ H_k = H by repeatedly maximizing σ^{-|S|}P(S_0 ⊆ 𝐈). This gives a probability tree of copies whose arc labels are the added edges. The tree is disjoint along paths, each level is σ-spread with σ = 128q, and the label sizes grow by a factor of at least 16 with ℓ_k ≤ e(H). The covering result for such trees gives density r = 16e^{50}σ(1+log_2 ℓ_k) ≤ 16·128·e^{50}q(1+log_2 h), with success probability at least 2/3 ≥ 1/2.",
+   "must_include": [
+    "construct a disjoint probability tree of nested subgraph copies (labels = added edges) via the maximization",
+    "levels σ-spread with σ = 128 p_E, sizes growing by factor ≥16, ℓ_k ≤ e(H)",
+    "plug into the tree covering bound r = 16e^{50}σ(1+log_2 ℓ_k), giving 2048e^{50}, with probability ≥ 2/3"
+   ],
+   "key_confirmed": true,
+   "closed_book_novice": 0.0,
+   "closed_book_weak": 0.0,
+   "closed_book_mid": 0.0,
+   "usable": true
+  },
+  {
+   "id": 4,
+   "type": "step",
+   "question": "In the planted-source / posterior-target transition with W ~ μ_ρ, why is the probability that the normalizer Z(Y) falls below e^{-10m} at most e^{-10m}?",
+   "answer": "After averaging over the source, the planted union Y = W ∪ A_c has density Z with respect to μ_ρ. So P(Z(Y) < t) = E_{Y~μ_ρ}[Z(Y)·1{Z(Y) < t}] ≤ t, and taking t = e^{-10m} gives the bound.",
+   "must_include": [
+    "the law of Y = W ∪ A_c has density Z relative to μ_ρ",
+    "so P(Z<t) = E_{μ_ρ}[Z·1{Z<t}] ≤ t"
+   ],
+   "key_confirmed": true,
+   "closed_book_novice": 0.0,
+   "closed_book_weak": 0.0,
+   "closed_book_mid": 0.0,
+   "usable": true
+  },
+  {
+   "id": 5,
+   "type": "step",
+   "question": "In the pruning step, a node v with outgoing level s is bad when the non-failure target mass on its retained (good) children is below 1−ε_s. Why does every bad node have potential D_v(W) > 1, and how is this used?",
+   "answer": "Use backward induction from the leaves. Assume every bad child b has D_b > 1, and recall that potentials are nonnegative. Then the numerator of D_v is at least d_v + Σ_{b bad} t_{vb} = 1 − Σ_{b good} t_{vb} > ε_s, because the masses sum to one and the goodness condition fails. Dividing by ε_s gives D_v > 1. Hence P(root bad) ≤ E D_root by Markov's inequality.",
+   "must_include": [
+    "backward induction using D_b > 1 for bad children and nonnegativity",
+    "d_v + Σ_bad t_vb = 1 − Σ_good t_vb > ε_s, using that local masses sum to one",
+    "yields P(root bad) ≤ E D_root (Markov)"
+   ],
+   "key_confirmed": true,
+   "closed_book_novice": 0.0,
+   "closed_book_weak": 0.0,
+   "closed_book_mid": 0.0,
+   "usable": true
+  },
+  {
+   "id": 6,
+   "type": "step",
+   "question": "Why is the potential D_b(W) at a child b a function only of W outside the label A_v(b) on the arc into b? Answer this for the fixed input tree, before any pruning.",
+   "answer": "Every arc in the subtree below b lies on a full path that passes through the arc into b. By disjointness along paths, every such label is disjoint from A_v(b). The transition at each node only inspects W on the union of that node's child labels. D_b is built recursively from these quantities at nodes in the subtree, so it uses only W outside A_v(b).",
+   "must_include": [
+    "labels in the subtree below b lie on paths through the arc into b, so by path-disjointness they avoid A_v(b)",
+    "each node's transition only inspects W on the union of its own child labels",
+    "D_b is built recursively from these subtree quantities"
+   ],
+   "key_confirmed": true,
+   "closed_book_novice": 0.0,
+   "closed_book_weak": 0.0,
+   "closed_book_mid": 0.0,
+   "usable": true
+  },
+  {
+   "id": 7,
+   "type": "step",
+   "question": "In the recursive bound E D_v ≤ e^{-8m_s} + e^{12m_s} Σ_b ν_v(b) E D_b, where do the two exponents −8m_s and 12m_s come from, and what justifies applying the change-of-measure bound to the term involving D_b?",
+   "answer": "The local failure probability satisfies E d_v ≤ e^{-9m_s}, and dividing by ε_s = e^{-m_s} gives e^{-8m_s}. Next, t_{vb} ≤ P(target = b, Z ≥ e^{-10m_s} | W). The distortion bound with f = D_b then gives E[t_{vb}D_b] ≤ e^{11m_s}ν_v(b)E D_b, and dividing by ε_s gives e^{12m_s}. Taking f = D_b is legitimate because D_b depends only on W outside the label of the arc into b.",
+   "must_include": [
+    "e^{-9m} local failure bound times ε_s^{-1} = e^{m_s} gives e^{-8m_s}",
+    "distortion bound e^{11m}ν_b E f with f = D_b, times e^{m_s}, gives e^{12m_s}",
+    "valid because D_b depends only on W outside A_v(b)"
+   ],
+   "key_confirmed": true,
+   "closed_book_novice": 0.0,
+   "closed_book_weak": 0.0,
+   "closed_book_mid": 0.0,
+   "usable": true
+  },
+  {
+   "id": 8,
+   "type": "step",
+   "question": "Why is Σ_{j=1}^k exp(12Σ_{h<j} m_h − 8m_j) less than 1/4, which bounds the probability that the root is bad?",
+   "answer": "Because m_{h+1} ≥ 16m_h, we have Σ_{h<j} m_h ≤ m_j(1/16 + 1/16^2 + …) = m_j/15. So each exponent is at most (12/15 − 8)m_j ≤ −7m_j. The m_j are distinct positive integers, so the sum is at most Σ_{m≥1} e^{-7m} = 1/(e^7−1) < 1/4.",
+   "must_include": [
+    "geometric growth by factor 16 gives Σ_{h<j} m_h ≤ m_j/15",
+    "exponent ≤ −7m_j",
+    "m_j distinct positive integers, so sum ≤ Σ_{m≥1} e^{-7m} < 1/4"
+   ],
+   "key_confirmed": true,
+   "closed_book_novice": 0.0,
+   "closed_book_weak": 0.0,
+   "closed_book_mid": 0.0,
+   "usable": true
+  },
+  {
+   "id": 9,
+   "type": "step",
+   "question": "In the single-round reduction, each retained node gets a new law on fragments A_v(b)∖W, obtained from the transition conditioned on non-failure with a retained target. How is its spread bound α_j/(1−e^{-m_j}) proved, and why does the argument go through the source rather than the target?",
+   "answer": "Every transition satisfies T ⊆ A_v(c) for the source c. So P(J ⊆ T | E_v, W) ≤ P_{c~ν_v}(J ⊆ A_v(c)) / P(E_v | W) ≤ α_j^{|J|}/γ_v, where γ_v ≥ 1−ε_j because the node is good. Since 1/(1−ε) ≤ (1/(1−ε))^{|J|}, this gives the claimed spread. The argument must use the source because, at a fixed W, only the source is guaranteed to have law ν_v; the target's law may differ from ν_v.",
+   "must_include": [
+    "fragment T ⊆ A_c (source label), and the source has law ν_v even at fixed W while the target's law need not",
+    "dividing by the conditioning probability γ_v ≥ 1−ε_j (goodness)",
+    "1/(1−ε) ≤ (1/(1−ε))^{|J|}"
+   ],
+   "key_confirmed": true,
+   "closed_book_novice": 0.0,
+   "closed_book_weak": 0.0,
+   "closed_book_mid": 0.5,
+   "usable": true
+  },
+  {
+   "id": 10,
+   "type": "step",
+   "question": "In building the nested chain of subgraphs, why must every maximizer S ⊆ I of σ^{-|S|}P(S_0 ⊆ 𝐈) have fewer than |I|/17 edges?",
+   "answer": "Let r = |S| > 0. The copy ratio gives P(S_0 ⊆ 𝐈) = M(I,S)/M(S), with M(I,S) ≤ C(h_I, r). The expectation constraint at q gives M(S) ≥ 1/(2q^r). Hence the value is at most 2C(h_I, r)(q/σ)^r = 2C(h_I, r)128^{-r}. For r ≥ h_I/17 this is at most 2(17e/128)^r < 1, which is the value of the empty set, so such an S cannot be a maximizer.",
+   "must_include": [
+    "P(S_0 ⊆ 𝐈) = M(I,S)/M(S) with M(I,S) ≤ binom(h_I,r) and M(S)q^r ≥ 1/2",
+    "bound 2·binom(h_I,r)·128^{-r} ≤ 2(17e/128)^r < 1 when r ≥ h_I/17",
+    "the empty set has value 1, so it beats any such S"
+   ],
+   "key_confirmed": true,
+   "closed_book_novice": 0.0,
+   "closed_book_weak": 0.0,
+   "closed_book_mid": 0.0,
+   "usable": true
+  },
+  {
+   "id": 11,
+   "type": "step",
+   "question": "At a tree node given by a copy S_0 of H_{i−1}, children are the copies of H_i containing S_0, chosen uniformly. Why does the added label A satisfy P(J ⊆ A) ≤ σ^{|J|} for J disjoint from S_0?",
+   "answer": "P(J ⊆ A) = P(S_0 ∪ J ⊆ 𝐈)/P(S_0 ⊆ 𝐈) for a uniform copy 𝐈 of H_i. If the numerator is positive, S_0 ∪ J is a copy of an edge subset U ⊆ H_i with |S_0|+|J| edges. By permutation symmetry, the containment probability depends only on the isomorphism class. Since H_{i−1} maximizes σ^{-|S|}P(S_0 ⊆ 𝐈) over subsets of H_i, we get σ^{-(|S_0|+|J|)}P(S_0∪J ⊆ 𝐈) ≤ σ^{-|S_0|}P(S_0 ⊆ 𝐈), and rearranging gives the bound.",
+   "must_include": [
+    "write P(J ⊆ A) as the ratio P(S_0∪J ⊆ 𝐈)/P(S_0 ⊆ 𝐈)",
+    "S_0 ∪ J is a copy of a subset U of H_i, so the maximality of H_{i−1} compares U with H_{i−1}",
+    "rearranging gives σ^{|J|}"
+   ],
+   "key_confirmed": true,
+   "closed_book_novice": 0.0,
+   "closed_book_weak": 0.0,
+   "closed_book_mid": 0.0,
+   "usable": true
+  },
+  {
+   "id": 12,
+   "type": "transfer",
+   "question": "Run the planted-source / posterior-target transition on X = {x,y} with two labels A_1 = {x}, A_2 = {y} of weight 1/2 each, a fixed W = {y}, and source c = 1. What is the target distribution, and what fragment T results for each target?",
+   "answer": "Y = W ∪ A_1 = {x,y} contains both labels, and both have the same posterior weight (1/2)ρ^{-1}, so the target is uniform on {1,2}. Target 1 gives T = {x}∖{y} = {x}. Target 2 gives T = {y}∖{y} = ∅. Both outcomes satisfy T ⊆ A_c ∩ A_b and A_b ⊆ W ∪ T.",
+   "must_include": [
+    "Y = {x,y} contains both labels, so the target is uniform (1/2 each)",
+    "target {x} gives T = {x}; target {y} gives T = ∅"
+   ],
+   "key_confirmed": true,
+   "closed_book_novice": 0.0,
+   "closed_book_weak": 0.0,
+   "closed_book_mid": 1.0,
+   "usable": true
+  },
+  {
+   "id": 13,
+   "type": "transfer",
+   "question": "Take H = K_4 (6 edges) and n ≥ 4. What tree does the nested-subgraph construction produce: how many levels, what child law, and what label sizes?",
+   "answer": "Every nonempty S has |S| ≥ 1 ≥ 6/17, so its value is below 1 and the maximizer is the empty set. The chain is just ∅ ⊂ K_4, so k = 1. The root's children are all C(n,4) copies of K_4 on [n], chosen uniformly, and each label is the copy's 6-edge set, so ℓ_1 = 6 = e(H).",
+   "must_include": [
+    "the maximizer is empty because |S| < 6/17 forces S = ∅, so there is a single level (k = 1)",
+    "root children are all copies of K_4 on [n] with the uniform law",
+    "label size ℓ_1 = 6"
+   ],
+   "key_confirmed": true,
+   "closed_book_novice": 0.0,
+   "closed_book_weak": 0.0,
+   "closed_book_mid": 0.0,
+   "usable": true
+  },
+  {
+   "id": 14,
+   "type": "transfer",
+   "question": "Suppose the input tree in the path-covering result were not required to have disjoint labels along paths; overlapping labels within a path are allowed. At which step does the proof break, and why?",
+   "answer": "The proof breaks where the expected potential is bounded by applying the change-of-measure (distortion) bound with f = D_b. Without path-disjointness, labels below b can meet A_v(b), so D_b can depend on W inside A_v(b). Then the event A_b∖A_c ⊆ W is no longer independent of f, the factorization fails, and the recursion for E D_v and the 1/4 bound on the root being bad are lost.",
+   "must_include": [
+    "D_b may depend on W inside the incoming label A_v(b)",
+    "so the change-of-measure bound (which needs f independent of W ∩ A_b) cannot be applied to f = D_b",
+    "the expected-potential recursion / bound on P(root bad) fails"
+   ],
+   "key_confirmed": true,
+   "closed_book_novice": 0.0,
+   "closed_book_weak": 0.0,
+   "closed_book_mid": 1.0,
+   "usable": true
+  },
+  {
+   "id": 15,
+   "type": "transfer",
+   "question": "Suppose the capacities in the single-round reduction were only required to satisfy m_{j+1} ≥ 2m_j instead of m_{j+1} ≥ 16m_j. Where would the argument fail?",
+   "answer": "The argument fails at the bound on the root's expected potential. With ratio 2, the only available estimate is Σ_{h<j} m_h < m_j, so the exponent 12Σ_{h<j} m_h − 8m_j can be as large as about +4m_j. Then Σ_j exp(12Σ_{h<j} m_h − 8m_j) is no longer below 1/4, and the success probability of at least 3/4 per round is not established. The local estimates and the preservation of the growth ratio under halving are unaffected.",
+   "must_include": [
+    "failure occurs in bounding E D_root = Σ_j exp(12Σ_{h<j}m_h − 8m_j) by 1/4",
+    "with ratio 2, Σ_{h<j} m_h can be close to m_j, so the exponent can be positive (~ +4m_j)"
+   ],
+   "key_confirmed": true,
+   "closed_book_novice": 0.0,
+   "closed_book_weak": 0.0,
+   "closed_book_mid": 1.0,
+   "usable": true
+  }
+ ]
+}

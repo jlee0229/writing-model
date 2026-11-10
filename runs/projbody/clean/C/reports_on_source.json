@@ -1,0 +1,200 @@
+[
+ {
+  "main_result": "Let T_10 = conv(0,e_1,...,e_10) in R^10 and K = T_10 x T_10 in R^20. With R_d(K) = |Pi K|/|K|^{d-1} and c_d = (d+1)d^d/d!, the paper claims R_20(K)/c_20 = 121*C(20,10)/(21*2^20) = 22355476/22020096 > 1, so K violates the proposed simplex bound |Pi K| <= c_d |K|^{d-1} (Brannen's conjecture) in dimension 20. The mechanism is the product identity R_{r+s}(A x B) = R_r(A) R_s(B) for polytopes. A secondary corollary gives, for some lambda>1 and all large n, a product of simplices K_n in R^n with R_n(K_n)/R_n(T_n) >= lambda^n. I checked the arithmetic: 121*184756 = 22355476, 21*1048576 = 22020096, the difference 335380 is correct, the closed form for c_10 = 17187500/567 is correct, and A = 2^22*5^8/(567*11^9) is about 1.2254 > 1. The formula for the product test and the bound c_n < (n+1)e^n < (n+1)(11/4)^n also check out.",
+  "proof_strategy": "Lemma (facets) writes the projection body of a polytope as a zonotope: h_{Pi P}(u) = (1/2) sum_F s_F |<nu_F,u>|, obtained from a double-counting argument on the projection of the polytope. Proposition (product) uses that facets of A x B are of the form F x B or A x G, so the area-normal vectors separate into the two factors and the support functions add. Lemma (affine) shows Pi(LP) = |det L| L^{-t} Pi P for polytopes via the transformation of facet areas, then extends to general convex bodies by approximation with inscribed polytopes. Proposition (simplex) computes |Pi T_d| as the volume of a translate of (cube + segment)/(d-1)!, using a Fubini fiber argument and h_{Pi Q}(w) = d for the cube, which gives R_d(T_d) = c_d. The theorem is then exact arithmetic on c_10^2/c_20. The corollary bounds c_n by (n+1)(11/4)^n, writes each n as 10k + d_r, and uses the product T_10^k x T_{d_r}, so the ratio grows like (A/lambda^10)^k.",
+  "hardest_part": "The least-verified part is the general-convex-body approximation in Lemma (affine): the sandwich P_m subset P subset P_m + eps B, the claim that the increasing sequence can be chosen, and the passage to the limit that yields covariance for arbitrary bodies. The main theorem only uses polytopes, so this step is not needed for the counterexample itself. Also, the measure-zero argument in the facet formula is stated more than it is proved. I did verify the closed-form arithmetic, the simplex volume computation, and the product identity by hand.",
+  "issues": [
+   {
+    "where": "Lemma 2 (lem:facets), proof",
+    "quote": "Integrating this multiplicity gives",
+    "kind": "unjustified_step",
+    "severity": 2,
+    "what_i_needed": "The explicit double-counting: each facet F contributes |<nu_F,u>| times s_F to the Jacobian integral, the generic multiplicity is 2, so 2 vol(proj P) = sum_F s_F |<nu_F,u>|, which gives the factor 1/2. The text does not write this equation, so the 1/2 that the paper says it wants to fix is asserted rather than derived."
+   },
+   {
+    "where": "Lemma (affine), general-body paragraph",
+    "quote": "Passing to the limit in the polytope identity proves covariance and,",
+    "kind": "unjustified_step",
+    "severity": 1,
+    "what_i_needed": "An explicit statement that Pi(LP_m) -> Pi(LP) and |Pi P_m| -> |Pi P| follow from the sandwich inequalities (with lambda_m -> 1), together with the convergence of support functions. The limit step is asserted, not written."
+   },
+   {
+    "where": "Lemma (affine), general-body paragraph",
+    "quote": "so their union closure is a convex body with support function \\(F\\), namely",
+    "kind": "ambiguous_statement",
+    "severity": 1,
+    "what_i_needed": "Clarification of whether Pi P is being defined here (as a body with support function F) or whether it was already defined by the intro formula h(u)=vol(proj). If the latter, the existence argument is redundant; if the former, the intro definition should be read as the defining property. The paper does not say which."
+   },
+   {
+    "where": "Lemma (affine), general-body paragraph",
+    "quote": "Put \\(\\lambda_m=1+\\varepsilon_m/a\\)",
+    "kind": "undefined_notation",
+    "severity": 1,
+    "what_i_needed": "The same letters are used with other meanings: R is the radius in 'choose R>0 with P subset RB' but R_d is the functional; lambda is the exponential constant in the Corollary but also lambda_m here; a is the ball radius and also an index. A short note on the local meanings would prevent confusion."
+   },
+   {
+    "where": "Proposition (simplex), proof",
+    "quote": "its area-normal vector is therefore \\(w/(d-1)!\\)",
+    "kind": "unjustified_step",
+    "severity": 1,
+    "what_i_needed": "The explicit relation: projection volume = area times |<nu,e_d>| = area/sqrt(d), so area = sqrt(d)/(d-1)! and s_F nu_F = w/(d-1)!. The text gives the Jacobian but skips the one-line computation that turns it into the area-normal vector."
+   },
+   {
+    "where": "Lemma (affine), prism argument",
+    "quote": "Its image has volume \\(|\\det L|s_F\\) and height",
+    "kind": "unjustified_step",
+    "severity": 1,
+    "what_i_needed": "Why the height of the image prism over LF is 1/||L^{-t} nu_F||: the normal to LF is L^{-t}nu/||L^{-t}nu|| and <L nu, L^{-t} nu> = 1. The paper states the height without this inner-product computation."
+   },
+   {
+    "where": "Lemma (facets), proof",
+    "quote": "Apart from a set of \\((d-1)\\)-dimensional measure zero",
+    "kind": "unjustified_step",
+    "severity": 1,
+    "what_i_needed": "A fuller argument that the excluded projections (of boundary, lower-dimensional faces, and facets parallel to u) form a null set, and that a generic line meets P in an interval whose endpoints lie in facet interiors. The text gives the outline but not the measure estimate."
+   },
+   {
+    "where": "Proposition (product), proof",
+    "quote": "The area factors are products because the two coordinate",
+    "kind": "unjustified_step",
+    "severity": 1,
+    "what_i_needed": "The fact that the (d-1)-dimensional volume of F x B (in R^r x R^s, orthogonal factors) equals s_F times |B|, i.e. the product formula for Hausdorff measures of orthogonal products. This is standard but is used without statement."
+   },
+   {
+    "where": "Introduction, Henk paragraph",
+    "quote": "Henk gives the lower bound",
+    "kind": "ambiguous_statement",
+    "severity": 1,
+    "what_i_needed": "Which constant 'optimal upper constant' refers to (the same R_d normalization, restricted to centrally symmetric bodies?) and how it is compared with the exponential excess lambda^n c_n. Since c_n itself grows like e^n, the paper never states the absolute growth rate of the constructed bodies, so the comparison is unclear."
+   },
+   {
+    "where": "Introduction, paragraph on Feng, Hu, Liu, and Xu",
+    "quote": "Their result already gives a negative answer to the unrestricted-dimensional simplex-maximum",
+    "kind": "ambiguous_statement",
+    "severity": 1,
+    "what_i_needed": "A precise statement of how the present counterexample differs from the Feng et al. counterexamples in d >= 9, and whether the claim 'a direct Cartesian-product construction' is a novelty claim. As written the phrase 'unrestricted-dimensional' is unclear."
+   },
+   {
+    "where": "Corollary (exponential excess), proof, tail estimate",
+    "quote": "since the successive ratios in the tail are strictly less than \\(1/3\\)",
+    "kind": "unjustified_step",
+    "severity": 1,
+    "what_i_needed": "The explicit comparison: term j=3+i of the tail is (1/6)/(4*5*...*(3+i)) <= (1/6)4^{-i} <= (1/6)3^{-i}, which justifies the bound by (1/6) sum 3^{-i}. The ratio 1/(j+1) <= 1/4 for j >= 3 is the needed fact and is only gestured at."
+   }
+  ]
+ },
+ {
+  "main_result": "Let T_d be the standard d-simplex, with |T_d|=1/d!, and let R_d(K)=|ΠK|/|K|^{d-1}. The manuscript claims R_d(T_d)=c_d=(d+1)d^d/d!, and that K=T_10×T_10 in R^20 satisfies R_20(K)/c_20 = 121·C(20,10)/(21·2^20) = 22355476/22020096 > 1, so K violates the proposed simplex upper bound |ΠK| ≤ c_d|K|^{d-1} in dimension 20. A second result (Corollary) gives λ>1 and N such that for n≥N some product of simplices K_n⊂R^n has R_n(K_n)/R_n(T_n) ≥ λ^n. I checked the main algebra independently: c_2=6 matches a direct zonotope area computation; the simplex projection body volume (d+1)/((d-1)!)^d, the product identity, the closed form for R_20/c_20 with the integer certificate 335380, c_10=17187500/567, and A=1638400000000/1336956340797 > 1 all check out.",
+  "proof_strategy": "The proof has three layers. Lemma 1 writes the projection body of a polytope as a zonotope, Π P = sum over facets of centered segments [-s_F ν_F/2, s_F ν_F/2], via the Cauchy projection formula with multiplicity two. Proposition 2 splits the facets of A×B into F×B and A×G, which gives Π(A×B) = (|B|ΠA)×(|A|ΠB) and hence the multiplicativity R_{r+s}(A×B)=R_r(A)R_s(B). Lemma 3 gives affine covariance of Π (and invariance of R_d) first for polytopes, then extends to convex bodies by polytope approximation. Proposition 4 computes the simplex: its facet normals give Π T_d as a translate of ([0,1]^d+[0,w])/(d-1)!, and a Fubini/extrusion argument gives |[0,1]^d+[0,w]|=d+1. The main theorem is then arithmetic on c_10^2/c_20 using the product identity, and the corollary uses bounds c_n<(n+1)β^n with β=11/4 and a residue-class argument in k.",
+  "hardest_part": "The least-verified part is the convex-body approximation in Lemma 3 (affine covariance). The sandwich estimates and the uniform convergence of support functions are plausible, but the existence and nesting of the inscribed polytopes P_m and the passage of the covariance identity to the limit are only sketched. The facet-formula measure-zero argument in Lemma 1 is also terse. The numerical claims in the main theorem and corollary I could redo, and they are correct; the final corollary's threshold argument is logically sound once the displayed lower bound holds.",
+  "issues": [
+   {
+    "where": "Section 3 (Proposition: simplex), proof, facet of T_d",
+    "quote": "Dropping its last coordinate projects it onto the standard",
+    "kind": "unjustified_step",
+    "severity": 1,
+    "what_i_needed": "The explicit relation s_F = √d · vol_{d-1}(projection), which with the projected simplex volume 1/(d-1)! gives s_F = √d/(d-1)! and hence area-normal vector w/(d-1)!. The Jacobian 1/√d is stated but the conversion to the facet area is not written."
+   },
+   {
+    "where": "Section 3 (Proposition: simplex), proof, extrusion volume",
+    "quote": "Every nonempty fiber of \\(Q\\) parallel to \\(w\\) is an interval, and",
+    "kind": "ambiguous_statement",
+    "severity": 1,
+    "what_i_needed": "A precise statement that the fiber of Q+[0,w] over each point of proj Q has length chord(Q)+||w||, with the convention for points of proj Q where the chord is empty, and then Fubini over proj Q. As written, the claim is about fibers of Q only and the length increase is asserted rather than derived."
+   },
+   {
+    "where": "Section 2 (Lemma: facets), proof",
+    "quote": "Apart from a set of \\((d-1)\\)-dimensional measure zero, a point in the",
+    "kind": "unjustified_step",
+    "severity": 1,
+    "what_i_needed": "A clearer argument that a generic line parallel to u meets the boundary of P in exactly two points lying in facet interiors, and that the exceptional lines form a null set. The exceptional-set bookkeeping is compressed into one sentence."
+   },
+   {
+    "where": "Section 2 (Lemma: affine), polytope case",
+    "quote": "Its image has volume \\(|\\det L|s_F\\) and height",
+    "kind": "unjustified_step",
+    "severity": 1,
+    "what_i_needed": "Verification that the orthogonal height of the image prism over LF equals 1/||L^{-t}ν_F||, i.e. the component of Lν_F along the normal L^{-t}ν_F/||L^{-t}ν_F|| equals ||ν_F||^2/||L^{-t}ν_F||. Only the final formula is stated."
+   },
+   {
+    "where": "Section 2 (Lemma: affine), convex-body extension",
+    "quote": "take increasing inscribed polytopes \\(P_m\\) containing a fixed ball",
+    "kind": "unjustified_step",
+    "severity": 2,
+    "what_i_needed": "An explicit construction (the 'cumulative finite nets' are only named) showing the P_m can be chosen nested, contain aB, and satisfy P_m ⊂ P ⊂ P_m+ε_m B with ε_m→0. The inclusion P+ε B ⊂ (1+ε/a)P_m, which uses aB ⊂ P_m, should be stated."
+   },
+   {
+    "where": "Section 2 (Lemma: affine), limit passage",
+    "quote": "Passing to the limit in the polytope identity proves covariance and,",
+    "kind": "unjustified_step",
+    "severity": 2,
+    "what_i_needed": "A statement that Π(LP_m) → Π(LP) in the sense of support functions or volumes, with the limit identified as |det L|L^{-t}ΠP. The sandwich for LP_m is asserted but the convergence of the transformed body's volume and the identification of the limit are not shown."
+   },
+   {
+    "where": "Section 1 (Introduction), literature paragraph",
+    "quote": "Their result already gives a",
+    "kind": "lost_thread",
+    "severity": 1,
+    "what_i_needed": "A clearer statement of what is new relative to Feng–Hu–Liu–Xu, who already give counterexamples in every d≥9. Since the dimension-20 counterexample is not new in dimension, the paper should explain its contribution (an exact, elementary witness) before calling the construction 'direct'."
+   },
+   {
+    "where": "Section 1 (Introduction), product test paragraph",
+    "quote": "Thus any universal upper constant in dimension \\(r+s\\) must be at least",
+    "kind": "ambiguous_statement",
+    "severity": 1,
+    "what_i_needed": "The relation between the displayed ratio R_{r+s}(T_r×T_s)/c_{r+s} and the claimed lower bound c_r c_s. Since R_{r+s}(T_r×T_s)=c_r c_s, the ratio is c_rc_s/c_{r+s}; the text should state that the universal constant must be at least c_rc_s, not just that the ratio is at least something."
+   },
+   {
+    "where": "Section 2 (Lemma: facets) and Section 3 (Proposition: simplex)",
+    "quote": "The coordinate facets have area-normal vectors",
+    "kind": "undefined_notation",
+    "severity": 1,
+    "what_i_needed": "A definition of 'area-normal vector' as s_F ν_F (area times outward unit normal) in Lemma 1 before its use in Proposition 2 and the simplex computation. The term appears in the proofs without a definition in the statements."
+   },
+   {
+    "where": "Section 3 (Proposition: simplex), final display",
+    "quote": "=\\frac{(d+1)d^d}{d!}.",
+    "kind": "heavy_computation",
+    "severity": 1,
+    "what_i_needed": "The intermediate algebra: (d!)^{d-1}/((d-1)!)^d = d^d/(d!)·... i.e. using (d-1)! = d!/d, ((d-1)!)^d = (d!)^d/d^d, so (d+1)(d!)^{d-1}/((d-1)!)^d = (d+1)d^d/d!. This step is skipped in the text."
+   },
+   {
+    "where": "Section 4 (Corollary proof), exponential series bound",
+    "quote": "since the successive ratios in the tail are strictly less than \\(1/3\\).",
+    "kind": "ambiguous_statement",
+    "severity": 1,
+    "what_i_needed": "A termwise comparison 1/(j)! ≤ (1/6)3^{-(j-3)} for j≥3, which holds with equality at j=3, so the strict inequality must come from later terms. The text gives only the ratio claim, and the strictness needs to be attributed correctly."
+   },
+   {
+    "where": "Section 4 (Corollary proof), final estimate",
+    "quote": "Combining these estimates with the formula for \\(R_n(K_n)\\) gives",
+    "kind": "heavy_computation",
+    "severity": 1,
+    "what_i_needed": "The skipped steps: substitute c_{10}=Aβ^{10}, use β^{10k}=β^{n-d_r}, and cancel to get c_{d_r}β^{-d_r}λ^{-d_r}(A/λ^{10})^k/(n+1). I verified the resulting bound, but the cancellation is not written out."
+   },
+   {
+    "where": "Section 4 (Corollary proof), threshold",
+    "quote": "A threshold can therefore be chosen in",
+    "kind": "unjustified_step",
+    "severity": 1,
+    "what_i_needed": "A brief statement that for each r the lower bound is a positive constant times (A/λ^{10})^k/(10k+d_r+1), which tends to infinity in k, so for each residue class there is a threshold beyond which the ratio is at least λ^n, and that the maximum of these thresholds works for all n≥N."
+   }
+  ]
+ },
+ {
+  "main_result": "Theorem 1: for T_10 = conv(0,e_1,...,e_10) in R^10 and K = T_10 x T_10 in R^20, R_20(K)/c_20 = 121*binom(20,10)/(21*2^20) = 22355476/22020096 > 1, where R_d(K) = |Pi K|/|K|^{d-1} and c_d = (d+1)d^d/d!. So K violates the proposed simplex bound |Pi K| <= c_d |K|^{d-1} in dimension 20. Supporting results: (i) a product identity R_{r+s}(A x B) = R_r(A) R_s(B) for full-dimensional polytopes; (ii) R_d(T_d) = c_d and all full-dimensional simplices share this value; (iii) Corollary: with fixed lambda > 1, some product of simplices K_n in R^n satisfies R_n(K_n)/R_n(T_n) >= lambda^n for all large n. I checked the arithmetic: c_10 = 17187500/567, the ratio identity, binom(20,10)=184756, 121*184756 = 22355476, 21*2^20 = 22020096, the difference 335380, the general product-test formula, and the constant A = c_10/(11/4)^10 = 1638400000000/1336956340797 > 1 (after cancelling a factor 11 from 11^10 and the numerator). I also checked c_d = (d+1)d^{d-1}/(d-1)! for the simplex, the d=2 case (|Pi T_2| = 3, R_2 = 6), and the bound c_n < (n+1)e^n < (n+1)(11/4)^n. I found no false statement; the issues below are gaps in justification, bookkeeping and notation.",
+  "proof_strategy": "The proof has three layers. Lemma 2 (facet formula) gives h_{Pi P}(u) = (1/2) sum_F s_F |<nu_F,u>|, so Pi P is a zonotope built from the facet area-normal vectors. Proposition 3 (product) uses this: the facets of A x B are F x B and A x G, so Pi(A x B) = (|B| Pi A) x (|A| Pi B), and the normalized volume ratio multiplies. Proposition 5 (simplex) computes the facet area-normal vectors of T_d, identifies Pi T_d with a dilate of the zonotope [0,1]^d + [0,w], and uses a Fubini/fiber argument (|Q+[0,w]| = 1 + h_{Pi Q}(w) = d+1) to obtain |Pi T_d| = (d+1)/((d-1)!)^d and then R_d(T_d) = c_d. The main theorem is then exact arithmetic on R_10(T_10)^2 / c_20. The corollary takes products T_10^k x T_{d_r}, bounds c_n by (n+1)(11/4)^n, and shows the ratio to lambda^n tends to infinity in k for lambda < A^{1/10}. The affine covariance lemma for general convex bodies (approximation by polytopes) is not needed for the main counterexample, which uses only polytopes.",
+  "hardest_part": "The least trustworthy part for me is the generic-line/measure-zero argument in the proof of the facet formula (Lemma 2), and the prism/height step in the affine covariance proof, both of which are only sketched. I verified the final formulas by recomputing them, and the main counterexample depends only on the facet formula for simplices, the product identity, and exact arithmetic, all of which I could check. The approximation argument for general convex bodies is the part I checked least closely, though the main result does not depend on it.",
+  "issues": [
+   {
+    "where": "Lemma 3 (affine covariance), proof, area formula paragraph",
+    "quote": "Its image has volume \\(|\\det L|s_F\\) and height \\(1/\\|L^{-t}\\nu_F\\|\\) over \\(LF\\)",
+    "kind": "unjustified_step",
+    "severity": 2,
+    "what_i_needed": "The perpendicular height of the image prism over LF: the displacement L nu has normal component <L nu, L^{-t}nu / ||L^{-t}nu||> = 1/||L^{-t}nu||. This computation is needed to justify s_{LF} = |det L| ||L^{-t}nu|| s_F. Also, the outward-normal claim for det L < 0 should be stated, since it is what makes the sign work.",
+    "}": "",
+    "": ""
+   }
+  ]
+ }
+]

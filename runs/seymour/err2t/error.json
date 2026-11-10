@@ -1,0 +1,17 @@
+{
+ "where": "Proof of Lemma 3.1 (Pruning), choice of the maximum matching and the argument that α and β are maximum in their subgraphs",
+ "kind": "Extremal tie-break reversed, so the exchange argument no longer gives a contradiction",
+ "explanation": "Among maximum matchings, the proof now chooses one with the MOST original–original edges. The argument that α is a maximum matching of the R–Z_R subgraph needs a different case to be impossible: when the augmenting path starts at a vertex on an original–original edge, removing that edge and augmenting keeps the size and reduces k. With the 'most' choice, reducing k does not contradict anything, so the claim that 'both conclusions contradict the choice of M' fails. So α (and likewise β) need not be maximum. Then rank L can be larger than ℓ, the R_α columns need not span im L, and the lifts u^r ∈ ker L and the final bound k + ℓ + t ≤ |Z| + |H| are unsupported.",
+ "correct_version": "Choose a maximum matching $\\mathcal M$ with the fewest edges between original members.",
+ "edits": [
+  {
+   "find": "the fewest edges between original members",
+   "replace": "the most edges between original members"
+  }
+ ],
+ "validation": {
+  "verdict": "real_error",
+  "subtlety": 3,
+  "reason": "The edit makes M a maximum matching with the MOST original–original edges (k maximal). The next paragraph proves α and β are maximum in their subgraphs by an exchange: if the augmenting path starts at a member on an original–original edge, remove that edge and augment, which \"preserves the total size and reduces k\", and then claims \"both conclusions contradict the choice of M\". Reducing k contradicts only a choice minimising k; under the edited choice it contradicts nothing. So the maximality of α and β is no longer established. Without it, rank L ≤ ℓ and the basis property of the R_α columns fail, the lifts u^r ∈ ker L are unsupported, and the bound k+ℓ+t ≤ |Z|+|H| does not follow. The slip is a natural min/max swap, not nonsense, and is caught by checking the exchange argument against the stated choice of M."
+ }
+}

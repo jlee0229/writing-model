@@ -1,0 +1,13 @@
+{
+ "statements": [],
+ "introduced": [
+  {
+   "where": "Section 1.3, Context (reported from the source), second paragraph",
+   "quote": "So the failure itself is an imported fact, not a result of the present paper.",
+   "problem": "This misdescribes what the source proves. The source's Theorem 1 is exactly the failure of the proposed bound in dimension twenty, proved self-containedly; the rewrite itself says two sentences later that the theorem is \"proved below without using any cited result\". The source only says the cited Feng–Hu–Liu–Xu result \"already gives a negative answer\", i.e. the failure is not new. It does not say the failure is imported or not a result of the paper. No proof step depends on this sentence, so the mathematics is unaffected.",
+   "severity": 1
+  }
+ ],
+ "source_doubts": [],
+ "unverified_marks": []
+}

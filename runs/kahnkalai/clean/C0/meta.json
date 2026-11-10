@@ -1,0 +1,23 @@
+{
+ "slug": "kahnkalai",
+ "variant": "clean",
+ "arm": "C0",
+ "source_words": 4953,
+ "repaired": false,
+ "compiles": true,
+ "rewrite_words": 5299,
+ "length_ratio": 1.07,
+ "unverified_marks": 0,
+ "audit1": {
+  "statements": 0,
+  "introduced": 0,
+  "source_doubts": 0,
+  "unverified_marks": 0
+ },
+ "final_audit": {
+  "statements": 0,
+  "introduced": 0,
+  "source_doubts": 0,
+  "unverified_marks": 0
+ }
+}

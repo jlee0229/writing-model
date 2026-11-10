@@ -1,0 +1,184 @@
+[
+ {
+  "main_result": "For k = 2^75, if a family D has Bernoulli(p) measure at least 1 - 1/k, then the exceptional family E_k(D) (sets not contained in a union of k members of D) has a cover at the same density p with total cost at most 1/2. The argument is for arbitrary N and p, with no monotonicity assumed. Section 5 adds a separate two-union corollary (density loss p/C) that depends on three cited papers and is not used for the main theorem.",
+  "proof_strategy": "Proposition 3 (the density-p/2^70, 32-union statement) is proved by a Fourier/signed-measure argument. Parseval with biased Fourier basis gives the global bound (W1) on weights w(U)=b(U)^2, and an explicit signed sum over 32×N arrays that vanishes off covers of S gives the local bound (W2): sum over nonempty U⊆S of w(U)^16 ≥ 2^-32 for every S in E_32(F). Heavy sets (w(U) ≥ 2^{-64|U|}) become generators with total cost ≤ 2^-6. The remaining sets are binned by size r and dyadic weight scale 2^-h, with h ≥ 64r forced; a covering lemma (a random sampling construction with diagonal pairs and m-tuples of edges) covers each bin's dense sets, and a geometric sum shows that a set avoiding all generators violates (W2). The main theorem then uses L = 2^70 random rows with exact law μ_p: disjoint rows with union μ_{Lp} when Lp < 1 (Case 1), and a mandatory-row coupling that covers [N] when Lp ≥ 1 (Case 2, where E_k is empty). I checked the algebra in the covering lemma, the signed identity, the bin bookkeeping and both couplings and found them consistent. The corollary (Section 5) is a chain of fractional-to-integral rounding steps that rest on cited results I could not check.",
+  "hardest_part": "The least-verifiable part is Section 5 (Corollary 5.1): its inputs (I1) and (I2) are quoted from external papers and their hypotheses are not reproduced. I could check only the elementary steps (1), (2), (4) and the arithmetic in (5). For the main theorem, the most error-prone step I rechecked was the covering lemma's expected-cost bookkeeping (Steps 5a–5c, the W_t recursion and the 4h+13rh+1 ≤ 2^{4h} inequality); I redid these and they hold, but they are dense and I relied on my own recomputation.",
+  "issues": [
+   {
+    "where": "Section 5 (Two unions), Corollary cor:two-union, step (5), and inputs (I2)",
+    "quote": "has an integral cover of cost at most $1/2$ at density $\\sigma/(25\\cdot512^4)$",
+    "kind": "unjustified_step",
+    "severity": 2,
+    "what_i_needed": "The statement of the cited rounding theorem [OpenAIThreshold26, Thm 1.1] in full, with its hypotheses, to check that a universal constant-factor loss from a fractional cover (with coefficients in [0,1]) to an integral cover is legitimate. The manuscript itself says this statement is not reproduced."
+   },
+   {
+    "where": "Section 5, statement of (I2)",
+    "quote": "a family as in (I1) that has a fractional cover of cost at most $1/2$ at density $\\sigma$",
+    "kind": "ambiguous_statement",
+    "severity": 2,
+    "what_i_needed": "Whether 'a family as in (I1)' means the family E_2(D) (so the cover is of E_2(D) itself) or the original family D, and whether the hypothesis mu_p(D)>1/2 is required. As written, I cannot tell which family the integral cover is for or which density parameter is fixed in the rounding step."
+   },
+   {
+    "where": "Section 5, paragraph 'Which citation is which' and the sentence after Corollary cor:two-union",
+    "quote": "Corollary~\\ref{cor:two-union} has the same hypothesis and replaces this density by $p/C$.",
+    "kind": "suspected_error",
+    "severity": 2,
+    "what_i_needed": "A justification for why a constant-factor rounding step can remove the max{1, log log(1/p)} loss in Park's Corollary 3.5. Standard fractional-to-integral rounding typically loses a logarithmic factor, so a claimed improvement by removing the loglog factor under the same hypothesis needs an explicit argument, which the manuscript does not give."
+   },
+   {
+    "where": "Section 5, step (3) of the proof of Corollary cor:two-union",
+    "quote": "By (I1), $E_2(\\mathcal D)$ has a fractional cover $(a_I)$ of cost at most $1/2$ at density $\\sigma=p/2$.",
+    "kind": "unjustified_step",
+    "severity": 2,
+    "what_i_needed": "The statement of [Li26, Cor 3.1] and [Park26, Thm 3.4], including the precise hypotheses (probability measure, containment probabilities bounded by p^{|I|}, nonempty proper increasing family) and why density p/2 comes out. The manuscript's own box says these hypotheses were not checked. I could not verify that mu_p(D)>1/2 suffices."
+   },
+   {
+    "where": "Lemma (covering), Step 2, the inequality (regular edges)",
+    "quote": "Since every subset of an edge has size at most $r$, the definition of $\\mathcal C_0$ gives",
+    "kind": "unjustified_step",
+    "severity": 1,
+    "what_i_needed": "The sentence omits the actual reason: if I is contained in a regular edge e, then I cannot be in C_0 (otherwise e would contain a member of C_0), so d(I) ≤ T. The stated justification does not mention regularity, though the conclusion follows from it."
+   },
+   {
+    "where": "Section 1.1 'The main theorem' (Talagrand formulation)",
+    "quote": "a fixed number of members of a sufficiently likely family should cover every set outside a $p$-small exceptional family",
+    "kind": "ambiguous_statement",
+    "severity": 1,
+    "what_i_needed": "The precise form of Talagrand's conjecture: which family 'covers' (members of the family vs. unions), whether the number of members is universal, and whether the conclusion is p-smallness of E_k or something stronger. The theorem's form is clear; the informal paraphrase of the conjecture is not."
+   },
+   {
+    "where": "Abstract",
+    "quote": "the statements, constants and proof strategy are those of the original manuscript",
+    "kind": "ambiguous_statement",
+    "severity": 1,
+    "what_i_needed": "I could not compare against the original manuscript, which is not provided. The claim of equivalence to it cannot be checked from the text given; the reader is relying on the rewrite being faithful."
+   }
+  ]
+ },
+ {
+  "main_result": "Theorem (thm:main): with k = 2^75, for every N≥1, p∈(0,1) and every family D⊆2^[N], if μ_p(D) ≥ 1−1/k then E_k(D) is p-small, i.e. the sets not coverable by k members of D admit a cover G with Σ_{I∈G} p^{|I|} ≤ 1/2. The argument is for arbitrary D, with no monotonicity assumed and the same p on both sides. Section 4 gives consequences (a positive-selector claim and a two-union corollary), which the manuscript says are not used in the main proof.",
+  "proof_strategy": "Proposition (prop:half-density) handles density q/2^70 with 32 unions. It sets w(U) = b(U)^2, where b(U) is a biased Fourier-type coefficient of 1_F. Parseval gives the global bound (W1). A signed sum over 32×N arrays, whose sign-cancellation is via the vanishing of the modified mass at the zero column, gives the local lower bound (W2) on every exceptional set. Heavy sets (w ≥ 2^{-64|U|}) become generators at cost ≤ 1/64. The remaining sets are binned dyadically by size r and weight scale 2^{-h}, and Lemma (lem:covering) covers each bin. Sets that avoid all generators have too little weight to satisfy (W2). Theorem follows by a coupling: in Case 1 (Lp<1) L=2^70 rows, each of law μ_p, have disjoint union of law μ_{Lp}; in Case 2 (Lp≥1) the rows always cover [N], giving E_k(D)=∅. Lemma (lem:covering) is a random-sampling covering argument, which I checked step by step. Section 4's corollary depends on cited inputs that I could not check.",
+  "hardest_part": "The random-sampling covering lemma (Steps 3–5, especially the recursion W_{t+1} ≤ T(1+rm)^r W_t and the exponent bookkeeping 4h+13rh+1 ≤ 2^{4h}) and the signed expansion (2c) of Σ. I rechecked both by hand and they hold as written. I would still trust the bookkeeping less than a specialist would. The Section 4 corollary is the part I could not verify at all, since it rests on cited statements (I1) and (I2) that the manuscript does not reproduce.",
+  "issues": [
+   {
+    "where": "Section 4.2 (sec:two-union), Corollary cor:two-union and the unverified box",
+    "quote": "I could not check that their hypotheses are met by $E_2(\\mathcal D)$ under $\\mu_p(\\mathcal D)>1/2$",
+    "kind": "unjustified_step",
+    "severity": 3,
+    "what_i_needed": "The precise statements of Li Cor. 3.1, Park Thm 3.4 and OpenAIThreshold26 Thm 1.1, and a check that their hypotheses (nonempty, proper, increasing, measure >1/2) hold, the origin of density σ=p/2, and the constant 25·512^4. Without these, steps (3) and (5) of the corollary proof cannot be verified."
+   },
+   {
+    "where": "Section 4.2, paragraph 'Which citation is which'",
+    "quote": "Corollary~\\ref{cor:two-union} has the same hypothesis and replaces this",
+    "kind": "suspected_error",
+    "severity": 2,
+    "what_i_needed": "An explanation of why a constant-factor rounding theorem (I2) would remove the log log(1/p) loss in Park's Cor. 3.5 under the same hypothesis μ_p(D)>1/2. Such an improvement over a published result needs a clear argument, and the manuscript gives none."
+   },
+   {
+    "where": "Section 4.2, the unverified box after the corollary proof",
+    "quote": "A natural guess, not confirmed, is that the factor $2$ arises when a statement",
+    "kind": "unjustified_step",
+    "severity": 2,
+    "what_i_needed": "The actual dualisation argument converting containment probabilities ≤ p^{|I|} into a fractional cover of cost 1/2 at density p/2. The author's own guess does not reconstruct the step."
+   },
+   {
+    "where": "Section 2.2 (sec:weights) opening paragraph",
+    "quote": "This section proves the theorem with a fixed loss $L=2^{70}$ in the",
+    "kind": "ambiguous_statement",
+    "severity": 1,
+    "what_i_needed": "This section proves Proposition prop:half-density, not Theorem thm:main. The text should say so, since the proposition alone does not prove the theorem."
+   },
+   {
+    "where": "Section 1.1 'Key idea', (W1)",
+    "quote": "This is Parseval's identity.",
+    "kind": "unjustified_step",
+    "severity": 1,
+    "what_i_needed": "The sentence understates the step. (W1) also needs the identity q^{|U|}w(U) = (1−q)^{|U|} f̂(U)^2, the bound (1−q)^{|U|} ≤ 1, and μ_q(F) ≤ 1. These are only derived later in Step 1b–1c, and the reader is not told this here."
+   },
+   {
+    "where": "Lemma lem:covering, Step 5b",
+    "quote": "and $\\exp(-x)\\le2^{-x}$ for $x\\ge0$ because",
+    "kind": "unjustified_step",
+    "severity": 1,
+    "what_i_needed": "A one-line explanation: exp(−x) = 2^{−x/ln 2}, and x/ln 2 ≥ x since ln 2 < 1. The text gives only the fragment 'because ln2<1'."
+   },
+   {
+    "where": "Section 4.1 (sec:selectors), proof step (2)",
+    "quote": "and suppose $0<M<\\infty$.",
+    "kind": "ambiguous_statement",
+    "severity": 1,
+    "what_i_needed": "Whether φ(S) is finite for every S. Finiteness of M only gives φ<∞ μ_p-a.s., and it holds everywhere because μ_p has full support on 2^[N]. The subadditivity and Markov steps are stated as if φ were real-valued everywhere."
+   },
+   {
+    "where": "Section 4.2, first paragraph",
+    "quote": "(Corollary~1.2 of the original manuscript)",
+    "kind": "ambiguous_statement",
+    "severity": 1,
+    "what_i_needed": "The numbering refers to a different document than this one, so a reader cannot locate the result. The corollary should be labelled by its position here, with the original reference given separately."
+   },
+   {
+    "where": "Abstract and provenance remarks",
+    "quote": "the statements, constants and proof strategy are those of the original manuscript.",
+    "kind": "ambiguous_statement",
+    "severity": 1,
+    "what_i_needed": "A referee cannot check fidelity to the original. The claim that the rewrite preserves the original's statements and constants should be backed by a diff or be removed. Notation was renamed in several places, which makes the match harder to confirm."
+   },
+   {
+    "where": "Lemma lem:covering, Step 5 and Verification checklist item 2",
+    "quote": "which uses $r\\le h$ and $h\\ge3$",
+    "kind": "unjustified_step",
+    "severity": 1,
+    "what_i_needed": "The checklist omits h ≤ 2^h, which is used in 18h^2 ≤ 18·2^{2h}. The main text includes it, but the checklist does not say so."
+   }
+  ]
+ },
+ {
+  "main_result": "Theorem 2.1 (Thm 1.1 in the text, \\ref{thm:main}): with k = 2^75, for every N, every p in (0,1) and every family D in 2^[N], if mu_p(D) >= 1 - 1/k then the exceptional family E_k(D) (sets not covered by k members of D, repeats allowed) is p-small: it has a cover G with sum_{I in G} p^{|I|} <= 1/2. Secondary, unused results: a selector-process corollary (Section 3.1, which I checked and found correct given the theorem), and a two-union corollary with density loss p/C (Section 3.2), which rests on two external theorems I could not check.",
+  "proof_strategy": "Proposition (loss L=2^70, 32 unions): take density-q weights w(U)=b(U)^2 from the signed Fourier coefficients of f=1_F. Parseval gives sum_U q^|U| w(U) <= 1 (W1). A signed sum over 32-row arrays, which vanishes whenever the rows cover S, gives sum_{U subset S, U nonempty} w(U)^16 >= 2^-32 on every exceptional set (W2). Sets with w >= 2^{-64|U|} are used directly as generators, costing at most 1/64. The remaining sets are binned by size r and dyadic weight 2^{-h} with h >= 64r, and each bin is covered by a random-sampling covering lemma (Lemma 2.2), whose expected cost is at most 3*2^{-h}. A set avoiding all generators has (W2)-sum below 2^-32, so it is not exceptional. Theorem: couple 2^70 rows, each marginally mu_p, so that their union has law mu_{Lp} when Lp<1 (rows union of L members of D, giving 32L unions). When Lp>=1 a different coupling makes the rows cover [N], so E_k(D) is empty.",
+  "hardest_part": "The two external inputs (I1) Li Cor 3.1 / Park Thm 3.4 and (I2) the constant-factor rounding theorem, used in the two-union corollary. I could not check their hypotheses or the constant 25*512^4, and the manuscript itself flags this. For the main theorem I reconstructed the covering lemma's probabilistic counting (Steps 1-6, including the 4h+13rh+1 <= 2^{4h} arithmetic), the signed identity (2c), the Fourier normalisation (1b) and the bin bookkeeping; these all check out to me, though the covering lemma's Step 5a and 5c are dense and I had to redo them.",
+  "issues": [
+   {
+    "where": "Section 3.2 (Two unions), proof of Corollary cor:two-union, step (3) relying on (I1)",
+    "quote": "then $E_2(\\mathcal D)$ has a fractional cover of cost at most $1/2$ at density $\\sigma=p/2$.",
+    "kind": "unjustified_step",
+    "severity": 3,
+    "what_i_needed": "The exact statement of Li Cor 3.1 and Park Thm 3.4 (hypotheses, meaning of 'proper increasing', and the origin of density p/2). Without these I cannot verify step (3), and the corollary's whole conclusion depends on it."
+   },
+   {
+    "where": "Section 3.2, statement of (I2) and proof step (5)",
+    "quote": "has an integral cover of cost at most $1/2$ at density",
+    "kind": "unjustified_step",
+    "severity": 2,
+    "what_i_needed": "The statement of the companion rounding theorem with its constant 25*512^4. It would turn a fractional cover into an integral one with only a constant-factor density loss, which is a strong claim. The manuscript gives no justification, so I cannot check the arithmetic chain sigma/(25*512^4) = p/(50*512^4) beyond the arithmetic itself."
+   },
+   {
+    "where": "Section 3.2, paragraph 'Which citation is which'",
+    "quote": "In the manuscript's account, the difference lies in using the constant-factor rounding theorem (I2) for the rounding step.",
+    "kind": "ambiguous_statement",
+    "severity": 2,
+    "what_i_needed": "An explanation of why replacing Park's p/(C log log(1/p)) by p/C under the same hypothesis mu_p(D)>1/2 is consistent with the literature. The text gives only the attribution, not the mechanism that removes the loglog factor."
+   },
+   {
+    "where": "Section 3.2, opening of the corollary's exposition",
+    "quote": "(Corollary~1.2 of the original manuscript)",
+    "kind": "ambiguous_statement",
+    "severity": 1,
+    "what_i_needed": "The numbering refers to a document that is not shown. The reader should be told that cor:two-union is a restatement and that the numbering is not that of this text."
+   },
+   {
+    "where": "Abstract",
+    "quote": "the statements, constants and proof strategy are those of the original manuscript.",
+    "kind": "ambiguous_statement",
+    "severity": 1,
+    "what_i_needed": "A comparison with the original, which I cannot make. My check covers only the text as given, so I cannot confirm the claimed fidelity."
+   },
+   {
+    "where": "Section 3.1 (Selector processes), proof step (1)",
+    "quote": "(1) Let $\\mathcal D=\\{D:\\phi(D)<kM\\}$.",
+    "kind": "undefined_notation",
+    "severity": 1,
+    "what_i_needed": "A note that this local D shadows the family D of Theorem 1.1 and is a different object. The argument is correct, but the reuse of the symbol is easy to misread."
+   }
+  ]
+ }
+]

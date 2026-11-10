@@ -1,0 +1,18 @@
+[
+ {
+  "find": "For every $W$ the source has law $\\nu$; the target in general does not.",
+  "replace": "For every $W$ the source has law $\\nu$, and so, like the source, does the target."
+ },
+ {
+  "find": "$T\\subseteq A_v(c)$ for the source $c$, and\n$c$ has law $\\nu_v$ whatever $W$ is.",
+  "replace": "$T\\subseteq A_v(b)$ for the target $b$, and\n$b$ has law $\\nu_v$ whatever $W$ is."
+ },
+ {
+  "find": "\\le\\frac{\\PP_{c\\sim\\nu_v}(J\\subseteq A_v(c))}{1-\\epsilon_j}",
+  "replace": "\\le\\frac{\\PP_{b\\sim\\nu_v}(J\\subseteq A_v(b))}{1-\\epsilon_j}"
+ },
+ {
+  "find": "it rests on $T\\subseteq A_v(c)$ and on the source having law",
+  "replace": "it rests on $T\\subseteq A_v(b)$ and on the target having law"
+ }
+]

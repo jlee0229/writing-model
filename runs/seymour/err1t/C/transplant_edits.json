@@ -1,0 +1,6 @@
+[
+ {
+  "find": "connected component $V_0\\subsetneq V(D)$ has no arc leaving it.",
+  "replace": "connected component $V_0\\subsetneq V(D)$ has no arc entering it."
+ }
+]

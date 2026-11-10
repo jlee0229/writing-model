@@ -1,0 +1,238 @@
+{
+ "slug": "thompson",
+ "questions": [
+  {
+   "id": 1,
+   "type": "gist",
+   "question": "State precisely the quantitative statement about finite subsets of F that is proved and then contradicts the Følner criterion. Say what is fixed, in what order the quantifiers come, and what the lower bound depends on.",
+   "answer": "A finite set S ⊂ F is fixed first, made of transports of separated interval pairs to a reference pair. Then for every nonempty finite A ⊂ F, max_{h∈S} |hA△A|/|A| ≥ (δ²/L² − 4/D)/(4(1−1/D)) > 0. The bound depends only on δ, L and D, with D > 4L²/δ², and not on A. Only the auxiliary dyadic level n is allowed to depend on A.",
+   "must_include": [
+    "S is fixed before A (independent of A)",
+    "for every nonempty finite A, max over h in S of |hA△A|/|A| is at least a positive constant",
+    "the constant depends only on δ, L, D (not on A or n)"
+   ],
+   "key_confirmed": true,
+   "closed_book_novice": 0.0,
+   "closed_book_weak": 0.0,
+   "closed_book_mid": 0.0,
+   "usable": true
+  },
+  {
+   "id": 2,
+   "type": "gist",
+   "question": "What is the core mechanism of the nonamenability proof? Explain how small Følner ratios would lead to a contradiction with the map f.",
+   "answer": "Basic partitions get colors in the unit ball by recursion: f is applied to the average of the colors of the normalized restrictions to D parent intervals. If the Følner ratios for the transports were small, every averaged correlation of colors of separated intervals would be close to one common value α. Then the descendant means z_i would be close on average to the parent mean m. But m is the average of the f(z_i), so m would be an approximate fixed point of f on average. That contradicts the displacement bound ‖f(x)−x‖ ≥ δ.",
+   "must_include": [
+    "recursive B-valued coloring of partitions via f of the average of restriction colors",
+    "near-invariance makes averaged correlations of separated intervals all close to one value, so z_i ≈ m on average",
+    "then m ≈ f(m) on average, contradicting the uniform displacement δ"
+   ],
+   "key_confirmed": true,
+   "closed_book_novice": 0.0,
+   "closed_book_weak": 0.0,
+   "closed_book_mid": 0.5,
+   "usable": true
+  },
+  {
+   "id": 3,
+   "type": "gist",
+   "question": "In the explicit Hilbert-space construction of the fixed-point-free Lipschitz self-map of the ball, what auxiliary map G is built? Which properties of G are used, and how is f obtained from G so that the displacement is at least 1/2?",
+   "answer": "G : B → H is a globally Lipschitz map built by modifying the identity inside a tube around a curve. It satisfies ‖G(x)‖ ≥ ρ/4 everywhere and G(x) = x whenever ‖x‖ ≥ 1/2. Set f = −G/‖G‖. This f is Lipschitz because G stays away from 0. If ‖x‖ < 1/2 then ‖f(x)−x‖ ≥ 1−‖x‖ > 1/2. Otherwise f(x) = −x/‖x‖, so the displacement is 1+‖x‖.",
+   "must_include": [
+    "G Lipschitz and bounded away from zero (‖G‖ ≥ ρ/4)",
+    "G equals the identity for ‖x‖ ≥ 1/2",
+    "f = −G/‖G‖, with the two cases ‖x‖<1/2 and ‖x‖≥1/2 giving displacement ≥1/2"
+   ],
+   "key_confirmed": true,
+   "closed_book_novice": 0.0,
+   "closed_book_weak": 0.0,
+   "closed_book_mid": 0.0,
+   "usable": true
+  },
+  {
+   "id": 4,
+   "type": "step",
+   "question": "For g in the finite set A at the chosen level n, the color of the parent restriction (gT^{(n)})_{I_i} equals f(z_i(g)), where z_i is the average of the descendant colors X_{I_i·I_j}(g). What exactly justifies this identity?",
+   "answer": "Admissibility means gT^{(n)} respects both I_i and every I_i·I_j. So the normalized restriction (gT^{(n)})_{I_i} respects every I_j, and the recursion uses its first (nonzero) case. The composition rule (T_I)_J = T_{I·J}, which comes from s_{I·J} = s_I∘s_J, identifies each ((gT^{(n)})_{I_i})_{I_j} with (gT^{(n)})_{I_i·I_j}. Its color is X_{I_i·I_j}(g).",
+   "must_include": [
+    "admissibility (respecting I_i and all I_i·I_j) puts the restricted partition in the first case of the recursion",
+    "restriction composes: (T_{I_i})_{I_j} = T_{I_i·I_j}"
+   ],
+   "key_confirmed": true,
+   "closed_book_novice": 0.0,
+   "closed_book_weak": 0.0,
+   "closed_book_mid": 0.0,
+   "usable": true
+  },
+  {
+   "id": 5,
+   "type": "step",
+   "question": "The common dyadic level n is chosen so that (n,g) is admissible for every g in A ∪ SA, not only for g in A. Why is admissibility at the translates hg (h∈S) needed?",
+   "answer": "The identity φ_{I,J}(g) = φ_{I_1,I_2}(h_{I,J}g) comes from the covariance of normalized restrictions. That covariance needs (hg)T^{(n)} to be basic and to respect I_1 and I_2. If it did not, X at hg would be the default value 0 and the identity would fail. Once the identity holds, the finite-translation inequality applies to the single bounded function φ_{I_1,I_2}.",
+   "must_include": [
+    "covariance identity X_I(g)=X_{I_1}(hg), X_J(g)=X_{I_2}(hg) requires the partition at hg to be basic and respect I_1,I_2",
+    "otherwise the color at hg is defined to be 0 and the comparison fails"
+   ],
+   "key_confirmed": true,
+   "closed_book_novice": 0.0,
+   "closed_book_weak": 0.0,
+   "closed_book_mid": 0.0,
+   "usable": true
+  },
+  {
+   "id": 6,
+   "type": "step",
+   "question": "In the mixed term ⟨z_i, m⟩, some of the D² pairs ⟨X_{I_i·I_j}, X_{I_k}⟩ are not compared to the common correlation α. Which pairs are these? Why can they not be handled by a group transport, and how are they bounded instead?",
+   "answer": "These are the D pairs with k = i, where a descendant of I_i is paired with I_i itself. The intervals are nested, so no homeomorphism in F can carry the pair onto the separated reference pair (I_1, I_2). Each such term is simply bounded below by −1 using the unit-ball bound. The D(D−1) terms with k ≠ i are separated pairs and are within η of α.",
+   "must_include": [
+    "the k = i terms (descendant with its own parent), D of the D² terms",
+    "nested pairs cannot be transported to a separated pair",
+    "bounded by −1 via the unit ball, contributing a 1/D fraction"
+   ],
+   "key_confirmed": true,
+   "closed_book_novice": 0.0,
+   "closed_book_weak": 0.0,
+   "closed_book_mid": 0.0,
+   "usable": true
+  },
+  {
+   "id": 7,
+   "type": "step",
+   "question": "For each g, the proof bounds δ² ≤ ‖m − f(m)‖² by (L²/D)Σ_i‖z_i − m‖². Why can m − f(m) be written as an average of the vectors f(z_i) − f(m)?",
+   "answer": "m is the average of the parent colors X_{I_i}. By the recursive identity, each X_{I_i} equals f(z_i), so m = (1/D)Σ f(z_i) and m − f(m) = (1/D)Σ(f(z_i) − f(m)). Convexity of the squared norm (Jensen) and the Lipschitz bound then give the stated inequality.",
+   "must_include": [
+    "m = (1/D) Σ f(z_i) because each parent color equals f(z_i)",
+    "then Jensen/convexity of ‖·‖² and the Lipschitz constant L"
+   ],
+   "key_confirmed": true,
+   "closed_book_novice": 0.0,
+   "closed_book_weak": 0.5,
+   "closed_book_mid": 0.5,
+   "usable": true
+  },
+  {
+   "id": 8,
+   "type": "step",
+   "question": "The bound E_A‖z_i − m‖² ≤ 4/D + 4(1−1/D)η is stated to need no sign assumption on the common averaged correlation α. Why does α drop out?",
+   "answer": "Expand ‖z_i−m‖² = ‖z_i‖² + ‖m‖² − 2⟨z_i,m⟩. The parent–parent, sibling–sibling and descendant–other-parent off-diagonal pairs are all compared to the same α, and each block carries weight (1−1/D). So the α-coefficients are (1−1/D)+(1−1/D)−2(1−1/D) = 0. What remains is 1/D+1/D+2/D = 4/D from the diagonal and nested terms, plus 4(1−1/D)η.",
+   "must_include": [
+    "all three kinds of separated pairs are compared to the same single α (via one reference pair)",
+    "coefficients of α: (1−1/D)+(1−1/D)−2(1−1/D)=0"
+   ],
+   "key_confirmed": true,
+   "closed_book_novice": 0.0,
+   "closed_book_weak": 0.0,
+   "closed_book_mid": 0.0,
+   "usable": true
+  },
+  {
+   "id": 9,
+   "type": "step",
+   "question": "Why does a basic dyadic partition whose mesh is smaller than the length of a basic interval I necessarily respect I?",
+   "answer": "Two basic dyadic intervals whose interiors intersect are nested. A cell whose interior meets the interior of I is shorter than I, so it must be contained in I. The cells covering I are exactly these cells, so I is a union of cells.",
+   "must_include": [
+    "basic dyadic intervals with intersecting interiors are nested",
+    "a shorter cell meeting I's interior is therefore contained in I"
+   ],
+   "key_confirmed": true,
+   "closed_book_novice": 0.0,
+   "closed_book_weak": 0.0,
+   "closed_book_mid": 0.0,
+   "usable": true
+  },
+  {
+   "id": 10,
+   "type": "step",
+   "question": "In the tube construction, take a point x with residual size r = ‖e‖ ≤ ρ/4. The proof concludes ‖G(x)‖ ≥ 1/8. Why is the rotated residual R_t e orthogonal to v(t), and how does this give the bound?",
+   "answer": "The nearest-point condition gives e ⊥ u(t). R_t is orthogonal and sends u(t) to v(t), so it sends u(t)^⊥ into v(t)^⊥, which gives R_t e ⊥ v(t). In this regime β = χ = 1, so G(x) = (a(t)+q(t))v(t) + R_t e = b(t)v(t) + R_t e, an orthogonal sum. Since |b(t)| ≥ 1/8, we get ‖G(x)‖ ≥ 1/8.",
+   "must_include": [
+    "e ⊥ u(t) from the nearest-point (first-order) condition, and R_t orthogonal with R_t u = v, so R_t e ⊥ v",
+    "G(x) = b(t)v(t) + R_t e with |b| ≥ 1/8, an orthogonal decomposition"
+   ],
+   "key_confirmed": true,
+   "closed_book_novice": 0.0,
+   "closed_book_weak": 0.0,
+   "closed_book_mid": 0.0,
+   "usable": true
+  },
+  {
+   "id": 11,
+   "type": "step",
+   "question": "The operators R_t = Id + A + A²/(1+κ) with κ = ⟨u(t),v(t)⟩ need κ ≥ 0. Why does κ ≥ 0 hold along the curve, and what would go wrong without it?",
+   "answer": "Write γ' = a'v + aθ' w·Jv. The term w·Jv is pointwise orthogonal to v, so ⟨γ',v⟩ = a'. Then κ = a'/‖γ'‖ ≥ 0 because a is nondecreasing. If κ could approach −1 (u nearly equal to −v), the factor 1/(1+κ) would blow up, and Lipschitz control in operator norm would be lost. The formula breaks down entirely at κ = −1.",
+   "must_include": [
+    "κ = a'(t)/‖γ'(t)‖ since Jv ⊥ v pointwise",
+    "a is nondecreasing so κ ≥ 0",
+    "keeps 1+κ ≥ 1, avoiding the singularity at u = −v (Lipschitz bound)"
+   ],
+   "key_confirmed": true,
+   "closed_book_novice": 0.0,
+   "closed_book_weak": 0.0,
+   "closed_book_mid": 0.0,
+   "usable": true
+  },
+  {
+   "id": 12,
+   "type": "transfer",
+   "question": "Take D = 2 with parents I_1 = [1/8, 1/4] and I_2 = [3/8, 1/2] (so r = 3). Compute the colors of the uniform partitions T^{(4)} and T^{(7)}.",
+   "answer": "Restricting T^{(4)} to a parent of length 1/8 gives T^{(1)}. T^{(1)} does not respect [1/8,1/4], so its color is 0, and p(T^{(4)}) = f(0). Restricting T^{(7)} gives T^{(4)}, so p(T^{(7)}) = f(p(T^{(4)})) = f(f(0)). In general p(T^{(n)}) = f^{⌊n/3⌋}(0).",
+   "must_include": [
+    "p(T^{(4)}) = f(0)",
+    "p(T^{(7)}) = f(f(0))",
+    "reason: restriction lowers the level by 3, and levels below 3 get color 0"
+   ],
+   "key_confirmed": true,
+   "closed_book_novice": 0.0,
+   "closed_book_weak": 0.0,
+   "closed_book_mid": 0.0,
+   "usable": true
+  },
+  {
+   "id": 13,
+   "type": "transfer",
+   "question": "Suppose the finite set S contained transports only for separated pairs of parents (I_i, I_k), and none for pairs involving descendants I_i·I_j. Which parts of the variance estimate would fail, and why?",
+   "answer": "The parent bound on E‖m‖² would still hold. The sibling bound on E‖z_i‖² and the lower bound on the mixed term E⟨z_i,m⟩ would fail. Those terms involve correlations between descendants, or between a descendant and another parent, and these would no longer be tied to α. Without them, α does not cancel and no 4/D + O(η) bound on E‖z_i−m‖² follows.",
+   "must_include": [
+    "the parent bound for ‖m‖² survives",
+    "the sibling ‖z_i‖² and mixed ⟨z_i,m⟩ estimates lose their comparison to α",
+    "so α no longer cancels and the variance bound fails"
+   ],
+   "key_confirmed": true,
+   "closed_book_novice": 0.0,
+   "closed_book_weak": 0.0,
+   "closed_book_mid": 0.5,
+   "usable": true
+  },
+  {
+   "id": 14,
+   "type": "transfer",
+   "question": "Suppose the parent intervals were not required to be internal, e.g. I_1 = [0, 2^{-r}] were allowed, with the reference pair still (I_1, I_2). Which step breaks, and why?",
+   "answer": "The transport step breaks. Every element of F fixes 0 and 1, so no h ∈ F can carry an internal interval affinely onto I_1, which contains 0. For example, the pair (I_2, I_3) cannot be moved onto (I_1, I_2). So the separated-pair correlations cannot all be compared with one common value α.",
+   "must_include": [
+    "the transport of separated pairs onto the reference pair fails",
+    "because elements of F fix the endpoints 0 and 1"
+   ],
+   "key_confirmed": true,
+   "closed_book_novice": 0.0,
+   "closed_book_weak": 0.0,
+   "closed_book_mid": 0.5,
+   "usable": true
+  },
+  {
+   "id": 15,
+   "type": "transfer",
+   "question": "Try to run the explicit construction of the fixed-point-free map in a finite-dimensional Euclidean space. At which property of the curve must it fail, and what feature of L²([0,1];R²) is used there?",
+   "answer": "It fails at the uniform separation property σ(d) > 0, i.e. that points of the curve whose parameters differ by at least d stay a fixed distance apart, along the bounded tail t → +∞. In finite dimensions the bounded tail has a convergent subsequence, so separation fails (as Brouwer requires). In L², the vectors v(t) for widely separated parameters are nearly orthogonal (inner product sinc(θ(t)−θ(s)) → 0), which keeps the tail points separated.",
+   "must_include": [
+    "the uniform separation σ(d)>0 for the bounded tail (and hence the fixed-radius tube) fails",
+    "finite dimensions: the bounded tail has a convergent subsequence (compactness)",
+    "L² provides infinitely many almost-orthogonal directions v(t) (sinc→0)"
+   ],
+   "key_confirmed": true,
+   "closed_book_novice": 0.0,
+   "closed_book_weak": 0.0,
+   "closed_book_mid": 0.0,
+   "usable": true
+  }
+ ]
+}

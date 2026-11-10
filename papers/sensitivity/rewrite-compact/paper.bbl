@@ -1,0 +1,85 @@
+\newcommand{\etalchar}[1]{$^{#1}$}
+\begin{thebibliography}{ABDK{\etalchar{+}}21}
+
+\bibitem[ABDK{\etalchar{+}}21]{AaronsonEtAl2021}
+Scott Aaronson, Shalev Ben-David, Robin Kothari, Shravas Rao, and Avishay Tal.
+\newblock Degree vs. approximate degree and quantum implications of {Huang}'s
+  sensitivity theorem.
+\newblock In {\em Proceedings of the 53rd Annual ACM SIGACT Symposium on Theory
+  of Computing}, STOC '21, pages 1330--1342. ACM, 2021.
+\newblock
+  \href{https://doi.org/10.1145/3406325.3451047}{doi:10.1145/3406325.3451047}.
+
+\bibitem[AP14]{AmbainisPrusis2014}
+Andris Ambainis and Kri{\v{s}}j{\=a}nis Pr{\=u}sis.
+\newblock A tight lower bound on certificate complexity in terms of block
+  sensitivity and sensitivity.
+\newblock Technical Report TR14-027, Electronic Colloquium on Computational
+  Complexity, July 2014.
+\newblock Revision 1, July 31, 2014;
+  \href{https://eccc.weizmann.ac.il/report/2014/027/revision/1/download}{revised
+  report}.
+
+\bibitem[AS11]{AmbainisSun2011}
+Andris Ambainis and Xiaoming Sun.
+\newblock New separation between {$s(f)$} and {$bs(f)$}.
+\newblock Technical Report TR11-116, Electronic Colloquium on Computational
+  Complexity, 2011.
+\newblock \href{https://arxiv.org/abs/1108.3494v1}{arXiv:1108.3494v1}.
+
+\bibitem[Hua19]{Huang2019}
+Hao Huang.
+\newblock Induced subgraphs of hypercubes and a proof of the {Sensitivity
+  Conjecture}.
+\newblock {\em Annals of Mathematics}, 190(3):949--955, 2019.
+\newblock
+  \href{https://doi.org/10.4007/annals.2019.190.3.6}{doi:10.4007/annals.2019.190.3.6}.
+
+\bibitem[Mei26]{Meiburg2026}
+Alexander Meiburg.
+\newblock {Block Sensitivity can exceed Spectral Sensitivity Squared}, 2026.
+\newblock \href{https://arxiv.org/html/2608.00851v1}{arXiv:2608.00851v1}, 1
+  August 2026.
+
+\bibitem[Nis89]{Nisan1989}
+Noam Nisan.
+\newblock {CREW PRAMs} and decision trees.
+\newblock In {\em Proceedings of the Twenty-First Annual ACM Symposium on
+  Theory of Computing}, STOC '89, pages 327--335. ACM, 1989.
+\newblock \href{https://doi.org/10.1145/73007.73038}{doi:10.1145/73007.73038}.
+
+\bibitem[NS94]{NisanSzegedy1994}
+Noam Nisan and Mario Szegedy.
+\newblock On the degree of {Boolean} functions as real polynomials.
+\newblock {\em Computational Complexity}, 4(4):301--313, 1994.
+\newblock \href{https://doi.org/10.1007/BF01263419}{doi:10.1007/BF01263419}.
+
+\bibitem[Rub95]{Rubinstein1995}
+David Rubinstein.
+\newblock Sensitivity vs.\ block sensitivity of {Boolean} functions.
+\newblock {\em Combinatorica}, 15(2):297--299, 1995.
+\newblock \href{https://doi.org/10.1007/BF01200762}{doi:10.1007/BF01200762}.
+
+\bibitem[Tal13]{Tal2013}
+Avishay Tal.
+\newblock Properties and applications of {Boolean} function composition.
+\newblock In {\em Proceedings of the 2013 ACM Conference on Innovations in
+  Theoretical Computer Science}, ITCS '13, pages 441--454. ACM, 2013.
+\newblock
+  \href{https://doi.org/10.1145/2422436.2422485}{doi:10.1145/2422436.2422485}.
+
+\bibitem[Vir11]{Virza2011}
+Madars Virza.
+\newblock Sensitivity versus block sensitivity of {Boolean} functions.
+\newblock {\em Information Processing Letters}, 111(9):433--435, 2011.
+\newblock
+  \href{https://doi.org/10.1016/j.ipl.2011.02.001}{doi:10.1016/j.ipl.2011.02.001}.
+
+\bibitem[Wel22]{Wellens2022}
+Jake Wellens.
+\newblock Relationships between the number of inputs and other complexity
+  measures of {Boolean} functions.
+\newblock {\em Discrete Analysis}, 2022.
+\newblock Paper No. 20, 21 pp.; arXiv:2005.00566v2.
+
+\end{thebibliography}

@@ -1,0 +1,19 @@
+{
+ "statements": [],
+ "introduced": [],
+ "source_doubts": [
+  {
+   "where": "Lemma 2.1 (Local resampling), inequality (2.5)/\\eqref{eq:distortion} and the last part of its proof (source: 'For \\eqref{eq:distortion}, again bound the reciprocal denominator...'; rewrite: statement of Lemma 2.1 and Step 6)",
+   "quote": "Moreover, for each fixed target $b$ and every nonnegative function $f$ of $W$,",
+   "problem": "The source states the change-of-measure bound for every nonnegative f(W). Its proof factorises E[1{A_b\\A_c ⊆ W} f(W)] = ρ^{|A_b\\A_c|} E f(W), justified by 'The event A_b\\A_c ⊆ W is averaged over a source drawn independently of W, so it is independent of f(W)'. That event is a function of W, so the factorisation holds only when f does not depend on W∩(A_b\\A_c), for example when f depends only on W\\A_b. The general statement is false. The rewrite's counterexample checks out: X={x}, A_1=∅, A_2={x}, ν_2=a=e^{-70}, ρ=e^{-20}, m=1, b=2, f=1{x∈W} gives left side a/Z ≈ a against right side e^{-9}a. The gap does not affect the main theorem: the only application (Reduction lemma, f=D_b) has f depending only on W outside A_v(b), by disjointness along paths. The rewrite keeps the source statement, flags it, and proves the restricted form.",
+   "already_marked_unverified": true
+  }
+ ],
+ "unverified_marks": [
+  {
+   "where": "Immediately after the statement of Lemma 2.1 (Local resampling), concerning inequality \\eqref{eq:distortion}; echoed in the abstract, the counterexample remark, Step 6 of the proof and checklist item 1",
+   "concern": "Inequality (distortion) is asserted for every nonnegative f(W), but the source's proof needs the event {A_b\\A_c ⊆ W} to be independent of f(W). That holds only when f depends on W outside A_b; the rewrite gives a counterexample for general f and notes that only the restricted case is used later.",
+   "warranted": true
+  }
+ ]
+}

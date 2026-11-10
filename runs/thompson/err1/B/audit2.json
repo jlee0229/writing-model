@@ -1,0 +1,41 @@
+{
+ "statements": [],
+ "introduced": [],
+ "source_doubts": [
+  {
+   "where": "Lemma 2.2 (dyad:transport), proof; rewrite Step 3 of the proof of Lemma dyad:transport",
+   "quote": "Summing over the three gaps, equalize the total numbers of cells by successively bisecting cells on the side with fewer cells. Each bisection increases the number by one. The source and target partitions now have the same number of cells, with the two selected intervals in matching positions.",
+   "problem": "Read literally, the source equalizes only the total number of gap cells. That does not put I, J and I', J' at the same positions in the left-to-right cell lists (gap counts (2,1,1) against (1,1,2) are a counterexample), so the cell-by-cell affine map need not send I to I' and J to J'. The repair is immediate: equalize the cell counts gap by gap, which is possible because each of the three gaps has positive length. The lemma itself is true and standard. The rewrite flags this and uses the gap-by-gap version in its Step 4.",
+   "already_marked_unverified": true
+  },
+  {
+   "where": "Corollary 3.1 (cor:nonunitarizable), proof",
+   "quote": "so the conclusion follows from the companion unitarizability theorem \\cite[Theorem~1.1]{OpenAIUnitarizability2026}",
+   "problem": "The whole proof is a citation to a companion paper whose statement and hypotheses are not reproduced. As used, it would give non-unitarizable uniformly bounded representations with bound 1+epsilon for every countable nonamenable group, i.e. a positive answer to Dixmier's problem, which is not an established result in the literature I know. It cannot be checked from the manuscript. It is not used for Theorem 1.1.",
+   "already_marked_unverified": true
+  },
+  {
+   "where": "Corollary 3.2 (cor:percolation), proof",
+   "quote": "Apply the companion percolation result \\cite[Corollary~1.2]{OpenAIPercolation2026} to \\(F\\), which is nonamenable by Theorem~\\ref{thm:main}.",
+   "problem": "The whole proof is a citation to a companion paper whose statement and hypotheses are not reproduced. As used, it would give p_c < p_{2->2} <= p_u and non-uniqueness for every Cayley graph of a nonamenable group, which is the Benjamini–Schramm p_c < p_u conjecture in full generality and is not an established result in the literature I know. It cannot be checked from the manuscript. It is not used for Theorem 1.1.",
+   "already_marked_unverified": true
+  }
+ ],
+ "unverified_marks": [
+  {
+   "where": "Proof of Lemma dyad:transport (source Lemma 2.2), Step 3",
+   "concern": "Equalizing only the total number of gap cells does not place the selected intervals in matching positions; the bisections must be done gap by gap.",
+   "warranted": true
+  },
+  {
+   "where": "Proof of Corollary cor:nonunitarizable (source Corollary 3.1)",
+   "concern": "The conclusion rests entirely on a cited companion theorem whose statement is not reproduced and which, as used, would settle Dixmier's unitarizability problem for all countable nonamenable groups.",
+   "warranted": true
+  },
+  {
+   "where": "Proof of Corollary cor:percolation (source Corollary 3.2)",
+   "concern": "The conclusion rests entirely on a cited companion result whose statement is not reproduced and which, as used, would give p_c < p_{2->2} <= p_u for every Cayley graph of a nonamenable group.",
+   "warranted": true
+  }
+ ]
+}

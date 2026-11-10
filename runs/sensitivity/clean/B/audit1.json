@@ -1,0 +1,13 @@
+{
+ "statements": [],
+ "introduced": [
+  {
+   "where": "Section 2 (Proof at a glance), paragraph 'Why sensitivity stays small', remark after the displayed bound on S_{\\ell,0}",
+   "quote": "The coefficient of \\(S_{\\ell-1,1}\\) is \\(1\\), not \\(3\\); a coefficient \\(3\\) would lose \\(3^2>2\\) per level and destroy the gain.",
+   "problem": "Added heuristic not in the source, and quantitatively inaccurate. With a hypothetical coefficient 3, the normalised pair a_l = S_{l,0}/M^l, b_l = S_{l,1}/M^{l+1} satisfies roughly a_l <= 3 b_{l-1}, b_l <= a_{l-1}, so sensitivity grows by about sqrt(3) per level and s^2 loses about 3 per level, not 3^2 = 9. The figure 9 is only what the paper's cruder max-normalisation u_l would give. The qualitative conclusion still holds (3 > k/M^2 = 2 + M^{-2}), and no proof depends on this remark.",
+   "severity": 1
+  }
+ ],
+ "source_doubts": [],
+ "unverified_marks": []
+}

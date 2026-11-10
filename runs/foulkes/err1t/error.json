@@ -1,0 +1,21 @@
+{
+ "where": "Section 3, proof of Lemma 2 (differential injectivity, lem:shift)",
+ "kind": "Wrong inner product: adjointness claimed where it fails",
+ "explanation": "The proof needs the Fischer (apolar) inner product, where ||X^alpha||^2 = alpha!. Only with that weighting is differentiation by a coordinate adjoint to multiplication by it. With orthonormal monomials (||X^alpha||^2 = 1) we get <x_k X^alpha, X^{alpha+e_k}> = 1, while <X^alpha, d_k X^{alpha+e_k}> = alpha_k + 1. So the claim that differentiation is adjoint to multiplication is false, D^* is not E, and equation (norm) does not follow. Concrete check with n = 1 and h = U^p (q = 0): Dh = p U^{p-1} Y, so ||Dh||^2 = p^2 and Eh = 0. But (p-q)||h||^2 = p, so the identity fails for p >= 2. The injectivity argument in the lemma, which every differential step in Section 4 uses, no longer follows. The lemma itself stays true; its proof is what breaks.",
+ "correct_version": "Use the positive definite Fischer (apolar) Hermitian inner product, in which distinct monomials are orthogonal and ||X^alpha||^2 = alpha! := prod_k alpha_k!. With these weights differentiation by a coordinate is adjoint to multiplication by it, so D^* = E and (norm) holds.",
+ "edits": [
+  {
+   "find": "distinct monomials are orthogonal and",
+   "replace": "the monomials are orthonormal,"
+  },
+  {
+   "find": "\\|X^\\alpha\\|^2=\\alpha!:=\\prod_k\\alpha_k!;",
+   "replace": "\\|X^\\alpha\\|^2=1;"
+  }
+ ],
+ "validation": {
+  "verdict": "real_error",
+  "subtlety": 3,
+  "reason": "The edit replaces the Fischer normalisation ||X^alpha||^2 = alpha! with orthonormal monomials, but the proof of the differential lemma still asserts that differentiation by a coordinate is adjoint to multiplication by it. That is false for the orthonormal product: <x_k X^alpha, X^{alpha+e_k}> = 1, whereas <X^alpha, d_k X^{alpha+e_k}> = alpha_k + 1. So D^* = E fails and the norm identity ||Dh||^2 - ||Eh||^2 = (p-q)||h||^2 does not follow. A one-variable check with h = U^p, q = 0 gives ||Dh||^2 = p^2 and Eh = 0, against a right side of p, so the identity is false for p >= 2. The lemma remains true, but its proof as written is invalid, and every injectivity step in Section 4 rests on it. The text also still calls this the \"Fischer, or apolar\" product, which no longer matches the stated norm. It reads as a natural slip rather than nonsense; a reader who checks the adjointness claim against the stated norm will catch it."
+ }
+}

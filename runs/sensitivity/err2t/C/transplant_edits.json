@@ -1,0 +1,10 @@
+[
+ {
+  "find": "makes every predicate at that level equal to one",
+  "replace": "makes the weakest predicate \\(P_{\\ell,1}\\) at that level equal to one"
+ },
+ {
+  "find": "Thus every \\(P_{\\ell,q}\\) equals one.",
+  "replace": "Thus \\(P_{\\ell,1}\\) equals one."
+ }
+]

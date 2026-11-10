@@ -1,0 +1,232 @@
+{
+ "slug": "projbody",
+ "questions": [
+  {
+   "id": 1,
+   "type": "gist",
+   "question": "State precisely the main counterexample theorem: which body is it, in which dimension, what exact quantity is computed, and which conjectured inequality does it violate?",
+   "answer": "K = T_10 × T_10 ⊂ R^20 is the product of two copies of the standard 10-simplex conv(0,e_1,…,e_10). Its normalized projection-body volume satisfies R_20(K)/c_20 = 121·C(20,10)/(21·2^20) = 22,355,476/22,020,096 > 1, where c_20 is the simplex value. So K violates the conjectured simplex bound |ΠK| ≤ c_d|K|^{d-1} (Brannen's conjecture) for d = 20.",
+   "must_include": [
+    "K is the product of two standard 10-simplices in R^20",
+    "R_20(K)/c_20 = 121·C(20,10)/(21·2^20) > 1",
+    "this violates the simplex upper bound |ΠK| ≤ c_d|K|^{d-1} (simplices maximize R_d)"
+   ],
+   "key_confirmed": true,
+   "closed_book_novice": 0.0,
+   "closed_book_weak": 0.5,
+   "closed_book_mid": 0.5,
+   "usable": true
+  },
+  {
+   "id": 2,
+   "type": "gist",
+   "question": "What structural identity is the key to the counterexample, and how does it reduce the whole problem to a numerical comparison?",
+   "answer": "For full-dimensional polytopes A ⊂ R^r and B ⊂ R^s with r,s ≥ 2, the functional is multiplicative: R_{r+s}(A×B) = R_r(A)R_s(B), because Π(A×B) = (|B|ΠA)×(|A|ΠB). So R_20(T_10×T_10) = c_10^2, and the counterexample comes down to checking c_10^2 > c_20, using the explicit simplex value c_d = (d+1)d^d/d!.",
+   "must_include": [
+    "multiplicativity R_{r+s}(A×B)=R_r(A)R_s(B) (from Π(A×B)=(|B|ΠA)×(|A|ΠB))",
+    "reduces to comparing c_10^2 with c_20 using the closed form of c_d"
+   ],
+   "key_confirmed": true,
+   "closed_book_novice": 0.0,
+   "closed_book_weak": 0.5,
+   "closed_book_mid": 0.5,
+   "usable": true
+  },
+  {
+   "id": 3,
+   "type": "gist",
+   "question": "What does the exponential-excess result assert, and how is its proof organised (which bodies are used, and which two estimates are compared)?",
+   "answer": "There are λ > 1 and N such that every n ≥ N has a product of simplices K_n ⊂ R^n with R_n(K_n) ≥ λ^n R_n(T_n). Write n = 10k + d_r with d_r ∈ {10,…,19} and k ≥ 1, and take K_n = T_10^k × T_{d_r}, so R_n(K_n) = c_10^k c_{d_r}. Then use c_n < (n+1)β^n with β = 11/4 > e, together with c_10/β^10 > 1. Exponential growth in k then beats the linear factor n+1, and taking the maximum of the thresholds over the ten residue classes gives N.",
+   "must_include": [
+    "for all large n some product of simplices beats c_n by a factor λ^n with fixed λ>1",
+    "K_n = T_10^k × T_{d_r} so R_n = c_10^k c_{d_r}",
+    "compare with upper bound c_n < (n+1)β^n, β=11/4, using c_10 > β^10"
+   ],
+   "key_confirmed": true,
+   "closed_book_novice": 0.0,
+   "closed_book_weak": 0.0,
+   "closed_book_mid": 0.0,
+   "usable": true
+  },
+  {
+   "id": 4,
+   "type": "step",
+   "question": "In the formula for the support function of the projection body of a polytope as a sum over facets of s_F|⟨ν_F,u⟩|, where does the factor 1/2 come from?",
+   "answer": "Each facet projects onto u^⊥ with Jacobian |⟨ν_F,u⟩|. Apart from a null set, every point of the projection of P is covered by exactly two facet projections, namely the entry and exit points of the line through it parallel to u. So summing s_F|⟨ν_F,u⟩| over all facets counts the projection volume twice.",
+   "must_include": [
+    "projected facet area is s_F|⟨ν_F,u⟩|",
+    "almost every point of the projection is covered exactly twice (entry and exit facets of the line parallel to u)"
+   ],
+   "key_confirmed": true,
+   "closed_book_novice": 0.0,
+   "closed_book_weak": 0.0,
+   "closed_book_mid": 1.0,
+   "usable": true
+  },
+  {
+   "id": 5,
+   "type": "step",
+   "question": "When the facets of A×B are identified, why can there be no facet of the product whose two factors are both proper faces of A and B?",
+   "answer": "The face exposed by (u,v) is the product of the faces exposed by u and by v, and dimensions add. If u and v are both nonzero, each exposes a proper face of a full-dimensional factor, so each has codimension at least 1, and the product face has codimension at least 2. So a facet must be F×B or A×G.",
+   "must_include": [
+    "exposed face of (u,v) is product of faces exposed by u and v, dimensions add",
+    "both u,v nonzero gives codimension ≥2, so one factor must be the whole body"
+   ],
+   "key_confirmed": true,
+   "closed_book_novice": 0.0,
+   "closed_book_weak": 1.0,
+   "closed_book_mid": 1.0,
+   "usable": true
+  },
+  {
+   "id": 6,
+   "type": "step",
+   "question": "After the identity Π(A×B) = (|B|ΠA)×(|A|ΠB) is established, how do the powers of |A| and |B| work out to give R_{r+s}(A×B) = R_r(A)R_s(B)?",
+   "answer": "|B|ΠA is r-dimensional, so dilating ΠA by |B| multiplies its volume by |B|^r. Likewise |A|ΠB gives a factor |A|^s. So |Π(A×B)| = |B|^r|A|^s|ΠA||ΠB|. Dividing by (|A||B|)^{r+s-1} leaves |A|^{-(r-1)} and |B|^{-(s-1)}, which are exactly the normalizations of R_r(A) and R_s(B).",
+   "must_include": [
+    "dilation factor |B| on an r-dimensional body contributes |B|^r (and |A|^s similarly)",
+    "dividing by (|A||B|)^{r+s-1} leaves |A|^{-(r-1)}|B|^{-(s-1)}"
+   ],
+   "key_confirmed": true,
+   "closed_book_novice": 0.0,
+   "closed_book_weak": 0.5,
+   "closed_book_mid": 1.0,
+   "usable": true
+  },
+  {
+   "id": 7,
+   "type": "step",
+   "question": "In proving that R_d is invariant under an invertible linear map L for polytopes, why does the volume of the projection body scale exactly like |LP|^{d-1}?",
+   "answer": "Each area-normal vector s_Fν_F is mapped to |det L| L^{-t}(s_Fν_F), so the zonotope ΠP is mapped by the linear map |det L|L^{-t}. The absolute determinant of that map is |det L|^d·|det L|^{-1} = |det L|^{d-1}. This is the same as the scaling of |LP|^{d-1} = |det L|^{d-1}|P|^{d-1}.",
+   "must_include": [
+    "area-normals (hence ΠP, a sum of segments) transform by |det L|L^{-t}",
+    "its determinant is |det L|^{d-1}, matching |LP|^{d-1}"
+   ],
+   "key_confirmed": true,
+   "closed_book_novice": 0.0,
+   "closed_book_weak": 0.5,
+   "closed_book_mid": 1.0,
+   "usable": true
+  },
+  {
+   "id": 8,
+   "type": "step",
+   "question": "In computing the projection body of T_d, why is the area-normal vector of the facet opposite the origin equal to w/(d−1)! with w = e_1+…+e_d?",
+   "answer": "Its unit normal is w/√d. Dropping the last coordinate projects the facet onto the standard (d−1)-simplex, which has volume 1/(d−1)!, and this projection has Jacobian 1/√d. So the facet area is √d/(d−1)!, and multiplying by the unit normal gives w/(d−1)!.",
+   "must_include": [
+    "unit normal w/√d",
+    "area = √d/(d−1)! because the projection to the standard (d−1)-simplex (volume 1/(d−1)!) has Jacobian 1/√d"
+   ],
+   "key_confirmed": true,
+   "closed_book_novice": 0.0,
+   "closed_book_weak": 0.5,
+   "closed_book_mid": 1.0,
+   "usable": true
+  },
+  {
+   "id": 9,
+   "type": "step",
+   "question": "Why is |[0,1]^d + [0,w]| equal to d+1, where w = e_1+…+e_d? Name the two ingredients.",
+   "answer": "Fibers: each line parallel to w meets the convex cube Q in an interval, adding [0,w] lengthens it by ‖w‖, and the projection onto w^⊥ is unchanged. By Fubini, the volume is |Q| + ‖w‖·vol_{d-1}(proj_{w^⊥}Q) = 1 + h_{ΠQ}(w). The facet formula, applied to the cube's 2d unit facets with normals ±e_i, gives h_{ΠQ}(w) = ½·2·Σ|w_i| = d.",
+   "must_include": [
+    "fiber/Fubini argument: each fiber parallel to w grows by ‖w‖, giving 1 + ‖w‖ vol(proj_{w⊥}Q) = 1 + h_{ΠQ}(w)",
+    "h_{ΠQ}(w) = d from the facet formula (two unit facets per coordinate direction)"
+   ],
+   "key_confirmed": true,
+   "closed_book_novice": 0.0,
+   "closed_book_weak": 0.5,
+   "closed_book_mid": 1.0,
+   "usable": true
+  },
+  {
+   "id": 10,
+   "type": "step",
+   "question": "In extending the projection-body results from polytopes to general convex bodies, the projection-area function F of P is approximated by those f_m of inscribed polytopes P_m with P ⊂ λ_m P_m. Why is 0 ≤ F(u) − f_m(u) ≤ (λ_m^{d−1}−1)κ_{d−1}R^{d−1}?",
+   "answer": "Since P_m ⊂ P ⊂ λ_mP_m, the projections are nested in the same way. Volume monotonicity and (d−1)-dimensional scaling then give f_m ≤ F ≤ λ_m^{d−1}f_m, so F − f_m ≤ (λ_m^{d−1}−1)f_m. Finally, f_m ≤ κ_{d−1}R^{d−1}, because P_m ⊂ P ⊂ RB_2^d projects into a (d−1)-ball of radius R.",
+   "must_include": [
+    "P_m ⊂ P ⊂ λ_mP_m gives f_m ≤ F ≤ λ_m^{d−1}f_m",
+    "f_m bounded by κ_{d−1}R^{d−1} since projections lie in a radius-R ball"
+   ],
+   "key_confirmed": true,
+   "closed_book_novice": 0.0,
+   "closed_book_weak": 1.0,
+   "closed_book_mid": 1.0,
+   "usable": true
+  },
+  {
+   "id": 11,
+   "type": "step",
+   "question": "In the exponential-excess argument, which upper bound on the simplex constants c_n is used, and why does it hold?",
+   "answer": "The bound is c_n < (n+1)e^n < (n+1)β^n with β = 11/4. Since c_n = (n+1)·n^n/n!, and n^n/n! is one positive term of the series e^n = Σ_j n^j/j!, it is strictly smaller than the whole sum. Separately, e < 11/4, because the tail Σ_{j≥3} 1/j! is bounded by a geometric series with ratio 1/3.",
+   "must_include": [
+    "c_n < (n+1)e^n (and hence < (n+1)(11/4)^n)",
+    "because n^n/n! is a single term of the exponential series for e^n"
+   ],
+   "key_confirmed": true,
+   "closed_book_novice": 0.0,
+   "closed_book_weak": 0.5,
+   "closed_book_mid": 0.0,
+   "usable": true
+  },
+  {
+   "id": 12,
+   "type": "transfer",
+   "question": "Apply the paper's description of the simplex projection body to d = 2: what planar set is ΠT_2 (up to translation), what is its area, and what is R_2(T_2)?",
+   "answer": "Up to translation, ΠT_2 is [0,1]^2 + [0,(1,1)] (here (d−1)! = 1). This is a hexagon of area 3: the unit square plus two parallelograms of area 1. Since |T_2| = 1/2, R_2(T_2) = 3/(1/2) = 6, which equals c_2 = 3·4/2.",
+   "must_include": [
+    "ΠT_2 is a translate of the hexagon [0,1]^2+[0,(1,1)] with area 3",
+    "R_2(T_2) = 6"
+   ],
+   "key_confirmed": true,
+   "closed_book_novice": 0.0,
+   "closed_book_weak": 1.0,
+   "closed_book_mid": 1.0,
+   "usable": true
+  },
+  {
+   "id": 13,
+   "type": "transfer",
+   "question": "Use the product identity to decide whether T_2 × T_2 ⊂ R^4 violates the simplex bound in dimension 4. Give R_4(T_2×T_2) and c_4.",
+   "answer": "R_4(T_2×T_2) = c_2^2 = 36, while c_4 = 5·4^4/4! = 160/3 ≈ 53.3. The ratio is 27/40 < 1, so this product does not violate the bound.",
+   "must_include": [
+    "R_4(T_2×T_2) = 36",
+    "c_4 = 160/3, so ratio 27/40 < 1 — no violation"
+   ],
+   "key_confirmed": true,
+   "closed_book_novice": 0.0,
+   "closed_book_weak": 0.5,
+   "closed_book_mid": 0.5,
+   "usable": true
+  },
+  {
+   "id": 14,
+   "type": "transfer",
+   "question": "Suppose that in the exponential-excess argument the repeated blocks were 2-dimensional simplices T_2 instead of T_10, with the same β = 11/4. At what point does the argument fail?",
+   "answer": "The crucial constant would be c_2/β^2 = 6/(121/16) = 96/121 < 1. So there is no λ > 1 with λ < (c_2/β^2)^{1/2}, and (A/λ^2)^k no longer grows. The comparison fails, and it genuinely fails since c_2 = 6 < e^2.",
+   "must_include": [
+    "the analogue of A becomes c_2/β^2 = 96/121 < 1",
+    "so no λ>1 can be chosen / the geometric growth in k disappears"
+   ],
+   "key_confirmed": true,
+   "closed_book_novice": 0.0,
+   "closed_book_weak": 0.5,
+   "closed_book_mid": 0.5,
+   "usable": true
+  },
+  {
+   "id": 15,
+   "type": "transfer",
+   "question": "Use the facet formula for projection bodies of polytopes to compute Π[0,1]^d and R_d([0,1]^d). Compare with c_3 when d = 3.",
+   "answer": "Each coordinate direction has two unit facets with normals ±e_i, which together give the segment [−e_i, e_i]. So Π[0,1]^d = [−1,1]^d, with volume 2^d, and since the cube has volume 1, R_d = 2^d. This is consistent with the product identity. For d = 3, R_3 = 8 < c_3 = 18.",
+   "must_include": [
+    "Π[0,1]^d = [−1,1]^d",
+    "R_d = 2^d (so 8 < 18 for d=3)"
+   ],
+   "key_confirmed": true,
+   "closed_book_novice": 0.0,
+   "closed_book_weak": 1.0,
+   "closed_book_mid": 0.5,
+   "usable": true
+  }
+ ]
+}

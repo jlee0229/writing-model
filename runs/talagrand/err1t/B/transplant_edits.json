@@ -1,0 +1,30 @@
+[
+ {
+  "find": "of \\emph{distinct} regular",
+  "replace": "of regular"
+ },
+ {
+  "find": "an unsampled tuple of distinct regular edges",
+  "replace": "an unsampled tuple of regular edges"
+ },
+ {
+  "find": "e_1,\\ldots,e_n\\ \\text{distinct}",
+  "replace": "e_1,\\ldots,e_n\\ \\text{not necessarily distinct}"
+ },
+ {
+  "find": "$(e_1,\\ldots,e_n)$ of distinct regular edges",
+  "replace": "$(e_1,\\ldots,e_n)$ of regular edges"
+ },
+ {
+  "find": "(dropping the requirement that $e$ differ from\n$e_1,\\ldots,e_n$ only adds nonnegative terms)",
+  "replace": "(repeated edges are allowed)"
+ },
+ {
+  "find": "Fix a tuple $(e_1,\\ldots,e_m)$ of distinct regular edges. Because the\nedges are distinct, the $m^2$ ordered pairs $(e_i,e_j)$ are",
+  "replace": "Fix a tuple $(e_1,\\ldots,e_m)$ of regular edges. The $m^2$ ordered pairs $(e_i,e_j)$, one for each pair of positions $(i,j)$, are"
+ },
+ {
+  "find": "distinct edges are distinct (so independence applies)",
+  "replace": "regular edges are distinct (so independence applies)"
+ }
+]

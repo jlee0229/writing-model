@@ -1,0 +1,19 @@
+{
+ "statements": [],
+ "introduced": [],
+ "source_doubts": [
+  {
+   "where": "Theorem thm:input (cited from the characteristic-two companion)",
+   "quote": "There exist a finite field $K_2$ of characteristic two, a finitely generated group $H_2$, and finite sums $a_2,b_2\\in K_2[H_2]$ with $a_2b_2=1$ and $b_2a_2\\ne1$.",
+   "problem": "The whole counterexample rests on this external claim, which would refute Kaplansky's direct-finiteness conjecture (an open problem). The source neither proves it nor gives an explicit checkable instance, so the main theorem is established only conditionally on it.",
+   "already_marked_unverified": true
+  }
+ ],
+ "unverified_marks": [
+  {
+   "where": "Box right after Theorem thm:input in Section 1",
+   "concern": "The cited input is not proved or checked; it would contradict Kaplansky's direct-finiteness conjecture, so the text proves only the implication 'Theorem thm:input implies Theorem thm:main'.",
+   "warranted": true
+  }
+ ]
+}
