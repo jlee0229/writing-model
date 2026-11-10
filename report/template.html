@@ -1,0 +1,315 @@
+<title>Legible Proofs</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=STIX+Two+Text:ital,wght@0,500;0,600;1,500&display=swap">
+<style>
+/* Layout: one reading column for prose; tables and the PDF reader break out to a wider measure. */
+:root {
+  --bg: #f5f6f8; --surface: #ffffff; --ink: #1a2230; --muted: #5a6575; --rule: #d8dde5;
+  --accent: #1d5ea6; --up: #17754a; --down: #b03a28; --wash: #eaf1f9;
+  --display: "STIX Two Text", "Iowan Old Style", Georgia, serif;
+  --body: Inter, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #11151b; --surface: #19202a; --ink: #e5e9ef; --muted: #98a3b3; --rule: #2b3442;
+    --accent: #7fb4ee; --up: #5cc491; --down: #ef8b79; --wash: #1c2634; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #11151b; --surface: #19202a; --ink: #e5e9ef; --muted: #98a3b3; --rule: #2b3442;
+  --accent: #7fb4ee; --up: #5cc491; --down: #ef8b79; --wash: #1c2634; color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body { background: var(--bg); color: var(--ink); font: 400 16px/1.6 var(--body); }
+.wrap { padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); padding-block: 2.5rem 4rem; }
+.col { max-width: 44rem; margin-inline: auto; }
+.wide { max-width: 72rem; margin-inline: auto; }
+section { margin-top: 3.25rem; }
+h1, h2, h3 { font-family: var(--display); font-weight: 600; line-height: 1.2; text-wrap: balance; margin: 0; }
+h1 { font-size: clamp(2rem, 5vw, 2.9rem); letter-spacing: -0.01em; }
+h2 { font-size: 1.6rem; margin-bottom: 0.9rem; }
+h3 { font-size: 1.15rem; margin: 1.8rem 0 0.5rem; }
+p { margin: 0 0 0.9rem; }
+a { color: var(--accent); text-underline-offset: 2px; }
+.dek { font-size: 1.15rem; color: var(--muted); margin: 0.8rem 0 1rem; max-width: 40rem; }
+.meta { font-size: 0.82rem; color: var(--muted); letter-spacing: 0.02em; display: flex; flex-wrap: wrap; gap: 0.3rem 1.1rem; }
+.findings { list-style: none; padding: 0; margin: 1.2rem 0 0; display: grid; gap: 1rem; }
+.findings li { border-top: 1px solid var(--rule); padding-top: 0.9rem; }
+.findings b.label { font-family: var(--display); font-style: italic; font-weight: 500; margin-right: 0.4em; }
+.note { color: var(--muted); font-size: 0.9rem; }
+.tablebox { overflow-x: auto; background: var(--surface); border: 1px solid var(--rule); border-radius: 6px; margin: 0.8rem 0 0.6rem; }
+table { border-collapse: collapse; width: 100%; font-size: 0.9rem; font-variant-numeric: tabular-nums; }
+th, td { padding: 0.55rem 0.8rem; text-align: left; vertical-align: top; border-bottom: 1px solid var(--rule); }
+tbody tr:last-child th, tbody tr:last-child td { border-bottom: 0; }
+thead th { font-weight: 600; font-size: 0.78rem; letter-spacing: 0.04em; text-transform: uppercase; color: var(--muted); white-space: nowrap; }
+tbody th { font-weight: 500; min-width: 11rem; }
+.sub { display: block; font-weight: 400; font-size: 0.78rem; color: var(--muted); }
+.delta { display: block; font-size: 0.78rem; white-space: nowrap; }
+.delta.up { color: var(--up); } .delta.down { color: var(--down); } .delta.flat { color: var(--muted); }
+.ci { opacity: 0.85; }
+.key { font-size: 0.82rem; color: var(--muted); margin: 0.2rem 0 0; }
+.key .up { color: var(--up); } .key .down { color: var(--down); }
+/* PDF reader */
+.reader { background: var(--surface); border: 1px solid var(--rule); border-radius: 6px; padding: 1rem; margin-top: 1rem; }
+.controls { display: flex; flex-wrap: wrap; gap: 0.6rem 1rem; align-items: end; }
+.controls label { display: grid; gap: 0.2rem; font-size: 0.78rem; letter-spacing: 0.04em; text-transform: uppercase; color: var(--muted); min-width: 0; }
+select, button { font: 500 0.92rem var(--body); color: var(--ink); background: var(--bg); border: 1px solid var(--rule); border-radius: 5px; padding: 0.45rem 0.7rem; max-width: 100%; }
+button { cursor: pointer; }
+button:hover, select:hover { border-color: var(--accent); }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+#paper { min-width: 0; width: min(100%, 34rem); }
+.lengths { font-size: 0.85rem; color: var(--muted); margin: 0.7rem 0 0; }
+.panes { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 26rem), 1fr)); gap: 1rem; margin-top: 1rem; }
+.pane { min-width: 0; display: grid; gap: 0.5rem; align-content: start; }
+.panehead { display: flex; flex-wrap: wrap; gap: 0.5rem; align-items: center; justify-content: space-between; }
+.pages { height: min(78vh, 56rem); overflow-y: auto; background: var(--bg); border: 1px solid var(--rule); border-radius: 5px; padding: 0.5rem; display: grid; gap: 0.5rem; align-content: start; }
+.pages canvas, .pages .ph { width: 100%; height: auto; display: block; background: #fff; border-radius: 2px; }
+.pages .ph { aspect-ratio: 8.5 / 11; }
+.status { font-size: 0.85rem; color: var(--muted); padding: 0.5rem; }
+.downloads { display: flex; flex-wrap: wrap; gap: 0.6rem; margin-top: 0.8rem; }
+code { font-family: var(--mono); font-size: 0.88em; background: var(--wash); padding: 0.05em 0.3em; border-radius: 3px; }
+ol.steps, ul.plain { padding-left: 1.2rem; margin: 0 0 0.9rem; }
+ol.steps li, ul.plain li { margin-bottom: 0.45rem; }
+footer { margin-top: 3.5rem; padding-top: 1rem; border-top: 1px solid var(--rule); font-size: 0.82rem; color: var(--muted); }
+@media (prefers-reduced-motion: no-preference) { button, select { transition: border-color 120ms; } }
+</style>
+
+<div class="wrap">
+<header class="col">
+  <h1>Legible Proofs</h1>
+  <p class="dek">Eight AI-written research manuscripts from OpenAI's October 2026 release, rewritten so each step can be checked, then tested on reader models.</p>
+  <div class="meta"><span>Overnight proof of concept, 10 Nov 2026</span><span>8 papers × 4 rewrite variants</span><span>{{CALLS}} model calls, about ${{COST}} at list prices</span><span>No human readers yet</span></div>
+</header>
+
+<section class="col" aria-labelledby="h-say">
+  <h2 id="h-say">What the tests say</h2>
+  <p>Every rewrite compiled and passed two independent fidelity audits. A reader model that can only follow what is written understood the rewrites better: {{N_O}} of comprehension questions right from the originals, {{N_B}} from a one-shot rewrite, {{N_L}} from the longest variant, {{N_C}} from a rewrite held to about the original's length. Other results were flat, and one runs against the plan.</p>
+  <ul class="findings">
+    <li><b class="label">Finding 1.</b>The gain is in step-level understanding. On "why does this step hold" questions the weakest reader went from 51% to 73–79%. Three judge models preferred every rewrite to every original, in both presentation orders.</li>
+    <li><b class="label">Finding 2.</b>Readers that can reconstruct missing steps did not benefit. Haiku 5.5 at low effort scored 88% on the originals and 86–90% on the rewrites. Under a 1,500-word reading budget the gains mostly vanish: the weakest reader gained nothing, and the one reliable gain was 5 points for Haiku 5.5 on the plain compact variant.</li>
+    <li><b class="label">Finding 3.</b>Better exposition did not make an unflagged error easier to catch. With the same planted error in both versions, detection was 81% vs 88% for Haiku 5.5 and 69% vs 58% for Sonnet 5.5. Neither difference is reliable.</li>
+    <li><b class="label">Finding 4.</b>The rewriter itself was the effective checker. Given a manuscript with one planted error and told nothing, it flagged the error in 8 of 8 cases, and raised no false flag about internal mathematics on the eight clean papers.</li>
+    <li><b class="label">Finding 5.</b>Locating hard spots with weak readers helped only by adding words. Without a length cap it beat one-shot by 7 points at 27% more text and twice the cost. Under a length cap it made no measurable difference.</li>
+  </ul>
+</section>
+
+<section class="wide" aria-labelledby="h-read">
+  <div class="col"><h2 id="h-read">Read the papers</h2>
+  <p>Pick a manuscript and compare versions side by side. "Compact + reports" is the variant I would take into a human study: it keeps the comprehension gain at about 1.15 times the original's length.</p></div>
+  <div class="reader">
+    <div class="controls">
+      <label for="paper">Manuscript<select id="paper"></select></label>
+    </div>
+    <p class="lengths" id="lengths"></p>
+    <div class="panes">
+      <div class="pane">
+        <div class="panehead"><label for="ver-a" class="note">Left</label><select id="ver-a"></select><button id="save-a" hidden>Save this PDF</button></div>
+        <div class="pages" id="pages-a" tabindex="0" aria-label="Left document pages"><p class="status">Loading the PDF…</p></div>
+      </div>
+      <div class="pane">
+        <div class="panehead"><label for="ver-b" class="note">Right</label><select id="ver-b"></select><button id="save-b" hidden>Save this PDF</button></div>
+        <div class="pages" id="pages-b" tabindex="0" aria-label="Right document pages"><p class="status">Loading the PDF…</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="wide" aria-labelledby="h-comp">
+  <div class="col"><h2 id="h-comp">Comprehension</h2>
+  <p>Fifteen short-answer questions per paper, written from the original only, so the test cannot favour a rewrite's wording. A grader that never sees the document marks each answer. Questions a reader could answer without the paper were dropped for that reader. Each cell is the mean over eight papers; the small line is the paired difference from the original with a 95% interval.</p></div>
+  <div class="tablebox"><table>
+    <thead><tr><th scope="col">Reader</th><th scope="col">Original</th><th scope="col">One-shot</th><th scope="col">Located</th><th scope="col">Compact</th><th scope="col">Compact + reports</th></tr></thead>
+    <tbody>
+{{QUIZ_ROWS}}
+    </tbody></table></div>
+  <p class="key col">Difference in percentage points [95% interval over papers]. <span class="up">Green</span>: interval above zero. <span class="down">Red</span>: below zero. Grey: includes zero.</p>
+</section>
+
+<section class="wide" aria-labelledby="h-err">
+  <div class="col"><h2 id="h-err">Planted errors</h2>
+  <p>Two errors per paper were planted in the original and validated as real by a separate model. In the first test the same error sits unflagged in the rewrite, and the reader is asked whether the proofs contain an error.</p></div>
+  <div class="tablebox"><table>
+    <thead><tr><th scope="col">Reader</th><th scope="col">Names the error: original</th><th scope="col">One-shot</th><th scope="col">Compact + reports</th><th scope="col">False alarms on clean papers (orig / one-shot / compact)</th></tr></thead>
+    <tbody>
+{{ERROR_ROWS}}
+    </tbody></table></div>
+  <div class="col">
+  <h3>When the error goes through the rewriter blind</h3>
+  <p>One corrupted original per paper was rewritten by the one-shot pipeline, which was told the source was believed correct. All eight rewrites carry an "Unverified step" box at the planted error, usually with the corrected statement. Readers of those rewrites were then asked whether the original's proof had an error.</p>
+  </div>
+  <div class="tablebox"><table>
+    <thead><tr><th scope="col">Reader</th><th scope="col">Names the error reading the corrupted original</th><th scope="col">Names it reading the flagged rewrite</th></tr></thead>
+    <tbody>
+{{PIPELINE_ROWS}}
+    </tbody></table></div>
+  <p class="col note">The flags help the weakest reader and are under-read by the others: a box that says "as written this is false; with the corrected statement every step checks" was often taken as a resolved slip. One label for both "cannot check this" and "the source is wrong here" is a design flaw to fix.</p>
+</section>
+
+<section class="wide" aria-labelledby="h-pair">
+  <div class="col"><h2 id="h-pair">Blind pairwise preference</h2>
+  <p>Judges choose the writeup they would hand a non-specialist with one hour to understand and verify the result. Counts are for the first-named writeup.</p></div>
+  <div class="tablebox"><table>
+    <thead><tr><th scope="col">Comparison</th><th scope="col">Preferred</th><th scope="col">Orientation</th><th scope="col">Checkability</th><th scope="col">Notation</th><th scope="col">Economy</th><th scope="col">First-shown wins</th></tr></thead>
+    <tbody>
+{{PAIR_ROWS}}
+    </tbody></table></div>
+  <p class="col note">Unanimity against the original means this measure cannot tell a good rewrite from a merely longer one. Between rewrites the judges favour length and whichever writeup is shown second, so preference is the weakest evidence here.</p>
+</section>
+
+<section class="wide" aria-labelledby="h-docs">
+  <div class="col"><h2 id="h-docs">The eight manuscripts</h2>
+  <p>All have a Lean-checked main result in the release. The audit column counts problems the first audit found in each variant; every one was repaired before evaluation, and a second model's audit of the final one-shot and compact + reports rewrites found none.</p></div>
+  <div class="tablebox"><table>
+    <thead><tr><th scope="col">Manuscript</th><th scope="col">Words</th><th scope="col">One-shot</th><th scope="col">Located</th><th scope="col">Compact</th><th scope="col">Compact + reports</th><th scope="col">First-audit problems (4 variants)</th><th scope="col">Flags on clean one-shot</th></tr></thead>
+    <tbody>
+{{DOC_ROWS}}
+    </tbody></table></div>
+  <p class="col note">The flags on clean papers are dependency notes. The group-ring paper's main theorem rests on a companion manuscript's counterexample to Kaplansky's direct-finiteness conjecture, and two corollaries of the Thompson-group paper are proved only by citing other manuscripts.</p>
+</section>
+
+<section class="col" aria-labelledby="h-push">
+  <h2 id="h-push">Where this pushes back on the plan</h2>
+  <ul class="plain">
+    <li><strong>Weaker reader models are not weak in the way the plan needs.</strong> Haiku 5.5 reconstructs what the text omits, so its score barely moves when the text improves. A model with reasoning off responds to the text but catches 0% of planted errors. No single reader gave a signal that tracks both comprehension and error-catching.</li>
+    <li><strong>Self-reported difficulty is not a score.</strong> Weak readers always list about ten stuck points, nearly all minor. The count went from 13.1 to 11.3 after a rewrite and never approaches zero. It is useful as edit suggestions only.</li>
+    <li><strong>Multiple-choice tests fail.</strong> Readers scored 95–100% without the paper. Short free-response questions with a closed-book check fixed that.</li>
+    <li><strong>Models can now find the errors.</strong> The premise that models cannot locate their own mistakes dates from 2023 models. Here the rewriter found every planted error unprompted.</li>
+    <li><strong>Legible is not the same as checkable.</strong> Sonnet's detection of unflagged errors dropped on the longer rewrites. It is not statistically established, but it matches human studies in which fluent explanations raise confidence without raising accuracy. The human study should test for it.</li>
+  </ul>
+</section>
+
+<section class="col" aria-labelledby="h-method">
+  <h2 id="h-method">How it was done</h2>
+  <ol class="steps">
+    <li><strong>Rewrite.</strong> Claude Fable 5.2 rewrites the flattened LaTeX against a fixed spec: state the result and a "proof at a glance" first, give every proof as justified steps, keep all statements and the proof strategy, and box any step it cannot verify.</li>
+    <li><strong>Locate (two variants).</strong> Three Haiku 5.5 readers report where they got stuck. Their reports go to the rewriter, and in the "located" variant they re-read the draft for a second round.</li>
+    <li><strong>Audit.</strong> A fresh Fable context compares every statement with the source and checks added material; problems are repaired and re-audited. Opus 5.5 audits the result again.</li>
+    <li><strong>Evaluate.</strong> Quiz written by Opus from the original; errors planted by Opus and validated by Fable; answers graded blind by Sonnet and Opus. Readers were never used as graders of their own answers.</li>
+  </ol>
+  <h3>Limits</h3>
+  <ul class="plain">
+    <li>Every reader, judge, grader and auditor is a Claude model, as is the rewriter. Same-family preference may inflate the pairwise result.</li>
+    <li>Eight short, accessible papers. Intervals are wide and the release's 100-page manuscripts are a different problem.</li>
+    <li>Fidelity rests on two model audits. No person and no Lean check has confirmed the rewrites.</li>
+    <li>Planted errors are synthetic. Moving one into a rewrite means writing a flawed justification, which may change how detectable it is.</li>
+  </ul>
+</section>
+
+<section class="col" aria-labelledby="h-next">
+  <h2 id="h-next">What I would do next</h2>
+  <ol class="steps">
+    <li>Run a small human pilot before any training: compact + reports against the original, fixed time, step questions and one unflagged planted error. It also shows whether any reader model predicts human scores.</li>
+    <li>Give flags types ("source error, corrected here" and "depends on an unchecked external result") and put a trust summary on page one.</li>
+    <li>Check each rewrite's theorem against the Lean statement, and mine the Lean proof for steps the paper skips.</li>
+    <li>Replace self-reported stuck points with step-justification probes, and spend the length budget where the weakest reader fails.</li>
+  </ol>
+  <h3>Take the work with you</h3>
+  <p class="note">The GitHub repository could not be created from this session. The archive below holds the code, prompts, every rewrite's source and all result data; the response cache lets the scripts replay every model call without spending tokens.</p>
+  <div class="downloads">
+    <button id="save-zip" hidden>Save code and results (.zip, 3.6 MB)</button>
+    <button id="save-cache" hidden>Save response cache (.zip, 5.8 MB)</button>
+  </div>
+  <p class="note" id="dl-note">Saving files is available when this page is opened in Claude.</p>
+</section>
+
+<footer class="col">Manuscripts from <a href="https://github.com/openai/math">openai/math</a> (Apache-2.0). Rewrites are modified versions of those works and have not been checked by a mathematician.</footer>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js"></script>
+<script>
+const PAPERS = {{PAPERS_JSON}};
+const VERSIONS = [["original", "Original"], ["oneshot", "One-shot"], ["located", "Located"], ["compact", "Compact + reports"]];
+const RATIO_KEY = { oneshot: "B", located: "L", compact: "C" };
+const $ = (id) => document.getElementById(id);
+const blobs = new Map();          // url -> Promise<ArrayBuffer>
+const tokens = { a: 0, b: 0 };    // cancels stale renders when the selection changes
+
+function pdfUrl(slug, ver) { return `papers/${slug}/${ver}.pdf`; }
+function fetchPdf(url) {
+  if (!blobs.has(url)) blobs.set(url, fetch(url).then((r) => { if (!r.ok) throw new Error(r.status); return r.arrayBuffer(); }));
+  return blobs.get(url);
+}
+
+async function show(pane) {
+  const slug = $("paper").value, ver = $("ver-" + pane).value, box = $("pages-" + pane);
+  const mine = ++tokens[pane];
+  box.innerHTML = '<p class="status">Loading the PDF…</p>';
+  try {
+    if (!window.pdfjsLib) throw new Error("viewer library did not load");
+    const buf = await fetchPdf(pdfUrl(slug, ver));
+    const pdf = await pdfjsLib.getDocument({ data: buf.slice(0) }).promise;
+    if (mine !== tokens[pane]) return;
+    box.innerHTML = "";
+    const io = new IntersectionObserver((entries) => {
+      for (const e of entries) if (e.isIntersecting) { io.unobserve(e.target); render(pdf, +e.target.dataset.page, e.target, pane, mine); }
+    }, { root: box, rootMargin: "600px 0px" });
+    for (let n = 1; n <= pdf.numPages; n++) {
+      const ph = document.createElement("div");
+      ph.className = "ph"; ph.dataset.page = n;
+      box.appendChild(ph); io.observe(ph);
+    }
+    box.scrollTop = 0;
+  } catch (err) {
+    if (mine === tokens[pane]) box.innerHTML = '<p class="status">This PDF could not be shown here. The LaTeX source and PDF are in the saved archive under papers/' + slug + '/.</p>';
+  }
+}
+
+async function render(pdf, n, ph, pane, mine) {
+  const page = await pdf.getPage(n);
+  if (mine !== tokens[pane]) return;
+  const base = page.getViewport({ scale: 1 });
+  const width = ph.clientWidth || 600;
+  const scale = (width / base.width) * Math.min(window.devicePixelRatio || 1, 2);
+  const vp = page.getViewport({ scale });
+  const canvas = document.createElement("canvas");
+  canvas.width = Math.round(vp.width); canvas.height = Math.round(vp.height);
+  await page.render({ canvasContext: canvas.getContext("2d"), viewport: vp }).promise;
+  if (mine === tokens[pane]) ph.replaceWith(canvas);
+}
+
+function describe() {
+  const p = PAPERS.find((x) => x.slug === $("paper").value);
+  $("lengths").textContent = `Original ${p.words.toLocaleString()} words. One-shot ${p.ratio.B}×, located ${p.ratio.L}×, compact + reports ${p.ratio.C}× that length.`;
+}
+
+function init() {
+  for (const p of PAPERS) $("paper").add(new Option(p.title, p.slug));
+  $("paper").value = "foulkes";
+  for (const pane of ["a", "b"]) {
+    for (const [v, label] of VERSIONS) $("ver-" + pane).add(new Option(label, v));
+    $("ver-" + pane).addEventListener("change", () => show(pane));
+  }
+  $("ver-a").value = "original"; $("ver-b").value = "compact";
+  $("paper").addEventListener("change", () => { describe(); show("a"); show("b"); });
+  describe(); show("a"); show("b");
+}
+init();
+
+// Saving files needs the viewer's download capability; hide the buttons where it is absent.
+(async () => {
+  let dl = null;
+  try { dl = window.claude && window.claude.use ? await window.claude.use("downloads") : null; } catch (e) { dl = null; }
+  if (!dl) return;
+  $("dl-note").hidden = true;
+  const save = async (btn, url, filename) => {
+    const label = btn.textContent;
+    btn.disabled = true; btn.textContent = "Preparing…";
+    try {
+      const r = await fetch(url); if (!r.ok) throw new Error(r.status);
+      await dl.save({ filename, data: await r.blob() });
+      btn.textContent = "Saved";
+    } catch (err) {
+      btn.textContent = err && err.code === "declined" ? label : "Could not save";
+    }
+    setTimeout(() => { btn.disabled = false; btn.textContent = label; }, 1800);
+  };
+  for (const pane of ["a", "b"]) {
+    const btn = $("save-" + pane); btn.hidden = false;
+    btn.addEventListener("click", () => { const s = $("paper").value, v = $("ver-" + pane).value; save(btn, pdfUrl(s, v), `${s}-${v}.pdf`); });
+  }
+  $("save-zip").hidden = false; $("save-zip").addEventListener("click", () => save($("save-zip"), "legible-proofs-code-results.zip", "legible-proofs-code-results.zip"));
+  $("save-cache").hidden = false; $("save-cache").addEventListener("click", () => save($("save-cache"), "cache.zip", "legible-proofs-cache.zip"));
+})();
+</script>

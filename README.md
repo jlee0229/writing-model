@@ -34,7 +34,7 @@ Separately: when a manuscript with one planted error was sent through the one-sh
 Reading of these numbers:
 
 1. **The papers can be improved, and the gain is where you would expect it.** A reader that can only follow what is written answers many more step-justification questions from the rewrite. Judges prefer every rewrite.
-2. **The gain disappears for readers who can reconstruct steps themselves**, and it disappears under a fixed reading budget. Rewrites do not get a reader further in 1,500 words; the long ones get them slightly less far.
+2. **The gain disappears for readers who can reconstruct steps themselves**, and it mostly disappears under a fixed reading budget. In 1,500 words the weakest reader gets no further with any rewrite (slightly less far with the longest), and the only reliable gain is +5 points [+2, +8] for Haiku 5.5 on the plain compact variant.
 3. **Readability did not make unflagged errors easier to catch.** The trust benefit came from the rewriter acting as a checker, not from readers spotting mistakes.
 4. **"Locate, then rewrite" helped only by adding words.** With no length cap, the located variant beat one-shot by +7 points [+2, +12] at 27% more text and twice the cost. Under a length cap, reader reports made no measurable difference (−0 [−7, +7]; judges split 50–56%).
 5. **Length is the real constraint for the human study.** The compact variant keeps the whole comprehension gain of the one-shot at 1.15× instead of 1.7×. Use it.
