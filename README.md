@@ -1,4 +1,4 @@
-# legible-proofs
+# writing-model
 
 Rewriting correct-but-opaque AI-generated research mathematics into writeups a mathematician can follow and check, and measuring whether the rewrite is actually better.
 
@@ -58,7 +58,7 @@ Each rewrite opens with the result and a "Proof at a glance", gives every proof 
 
 ## Method
 
-### Rewrite pipeline (`legible/pipeline.py`, prompts in `prompts/`)
+### Rewrite pipeline (`writing_model/pipeline.py`, prompts in `prompts/`)
 
 ```
 one-shot   source ─ rewrite ─▶ draft ─ audit ─ (repair, re-audit ≤3×) ─▶ final
@@ -72,7 +72,7 @@ compact    one-shot with a hard length cap (± the readers' reports)
 - The rewriter is told the source is believed correct and never sees any evaluation material. It must keep every statement and the proof strategy, and must mark any step it cannot justify with a visible `\unverified{…}` box instead of silently repairing it.
 - The audit compares every statement against the source, checks added material step by step, and separates problems the rewrite introduced from doubts about the source itself.
 
-### Evaluation (`legible/evalkit.py`, analysis in `legible/analyze.py`)
+### Evaluation (`writing_model/evalkit.py`, analysis in `writing_model/analyze.py`)
 
 | test | how | who |
 |---|---|---|
@@ -142,18 +142,18 @@ What looks open: a rewriter for AI-written research proofs evaluated on reader b
 
 ## Reproduce
 
-Requires Python 3.11+, a LaTeX toolchain with `latexmk`, and the Claude Code CLI (`claude`) logged in. All model calls go through `legible/llm.py`, which shells out to `claude -p` and caches every response. Run `unzip cache.zip` first and re-running replays the recorded responses instead of spending tokens.
+Requires Python 3.11+, a LaTeX toolchain with `latexmk`, and the Claude Code CLI (`claude`) logged in. All model calls go through `writing_model/llm.py`, which shells out to `claude -p` and caches every response. Run `unzip cache.zip` first and re-running replays the recorded responses instead of spending tokens.
 
 ```bash
 python scripts/vendor_papers.py /path/to/clone/of/openai-math
-python -m legible.pipeline --papers foulkes --variants clean --arms B,L,C,C0
-python -m legible.evalkit quiz-write --papers foulkes
-python -m legible.evalkit quiz-run --papers foulkes --arms O,B,L,C,C0 --readers novice,weak
-python -m legible.evalkit plant --papers foulkes
-python -m legible.evalkit transplant --papers foulkes --variants err1,err2 --arms B,C
-python -m legible.evalkit err-run --papers foulkes --variants clean,err1,err2,err1t,err2t --arms O,B,C
-python -m legible.evalkit pairwise --papers foulkes --pairs O:B,O:C,B:C
-python -m legible.analyze
+python -m writing_model.pipeline --papers foulkes --variants clean --arms B,L,C,C0
+python -m writing_model.evalkit quiz-write --papers foulkes
+python -m writing_model.evalkit quiz-run --papers foulkes --arms O,B,L,C,C0 --readers novice,weak
+python -m writing_model.evalkit plant --papers foulkes
+python -m writing_model.evalkit transplant --papers foulkes --variants err1,err2 --arms B,C
+python -m writing_model.evalkit err-run --papers foulkes --variants clean,err1,err2,err1t,err2t --arms O,B,C
+python -m writing_model.evalkit pairwise --papers foulkes --pairs O:B,O:C,B:C
+python -m writing_model.analyze
 ```
 
 Arm codes: `O` original, `B` one-shot, `L` located, `C0` compact, `C` compact + reports.

@@ -10,8 +10,8 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT))
-from legible.llm import call, pmap  # noqa: E402
-from legible.pipeline import AUDIT_SCHEMA, prompt  # noqa: E402
+from writing_model.llm import call, pmap  # noqa: E402
+from writing_model.pipeline import AUDIT_SCHEMA, prompt  # noqa: E402
 
 arms = sys.argv[1].split(",")
 jobs = [(s, a) for s in json.loads((ROOT / "papers/index.json").read_text()) for a in arms

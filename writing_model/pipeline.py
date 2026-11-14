@@ -12,7 +12,7 @@ The rewriter is told the source is believed correct and never sees any evaluatio
 material. The same code runs on clean sources and on sources with a planted error
 (variants err1, err2, ...): that is what makes the error-detection test honest.
 
-    python -m legible.pipeline --papers sensitivity,foulkes --variants clean --arms B,L
+    python -m writing_model.pipeline --papers sensitivity,foulkes --variants clean --arms B,L
 """
 from __future__ import annotations
 

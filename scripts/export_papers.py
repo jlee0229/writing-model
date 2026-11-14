@@ -11,7 +11,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT))
-from legible import tex  # noqa: E402
+from writing_model import tex  # noqa: E402
 
 NAMES = {"B": "rewrite-oneshot", "L": "rewrite-located", "C": "rewrite-compact", "C0": "rewrite-compact-noreports"}
 

@@ -16,7 +16,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT))
-from legible import tex  # noqa: E402
+from writing_model import tex  # noqa: E402
 
 # slug -> upstream directory under preprints/
 PAPERS = {

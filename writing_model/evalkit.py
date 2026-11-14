@@ -12,11 +12,11 @@ rewrite, L = located rewrite):
             false-alarm rate.
   pairwise  blind preference between two writeups, both presentation orders.
 
-    python -m legible.evalkit quiz-write --papers a,b
-    python -m legible.evalkit quiz-run   --papers a,b
-    python -m legible.evalkit plant      --papers a,b
-    python -m legible.evalkit err-run    --papers a,b --variants clean,err1,err2
-    python -m legible.evalkit pairwise   --papers a,b
+    python -m writing_model.evalkit quiz-write --papers a,b
+    python -m writing_model.evalkit quiz-run   --papers a,b
+    python -m writing_model.evalkit plant      --papers a,b
+    python -m writing_model.evalkit err-run    --papers a,b --variants clean,err1,err2
+    python -m writing_model.evalkit pairwise   --papers a,b
 """
 from __future__ import annotations
 

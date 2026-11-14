@@ -19,9 +19,9 @@ from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
-CACHE_DIR = Path(os.environ.get("LEGIBLE_CACHE", ROOT / "cache"))
+CACHE_DIR = Path(os.environ.get("WRITING_MODEL_CACHE", ROOT / "cache"))
 USAGE_LOG = ROOT / "results" / "usage.jsonl"
-MAX_PARALLEL = int(os.environ.get("LEGIBLE_PARALLEL", "8"))
+MAX_PARALLEL = int(os.environ.get("WRITING_MODEL_PARALLEL", "8"))
 
 # Role -> model alias. Kept in one place so the roles are easy to audit.
 MODELS = {
@@ -36,7 +36,7 @@ NO_THINKING = {"claude-haiku-4-5"}  # models run with extended reasoning disable
 
 _sem = threading.Semaphore(MAX_PARALLEL)
 _log_lock = threading.Lock()
-_EMPTY_CWD = tempfile.mkdtemp(prefix="legible-cli-")
+_EMPTY_CWD = tempfile.mkdtemp(prefix="writing-model-cli-")
 
 
 class LLMError(RuntimeError):
